@@ -1,0 +1,9 @@
+{
+  "name": "personal-skills",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "validate": "node scripts/validate-catalog.mjs"
+  }
+}

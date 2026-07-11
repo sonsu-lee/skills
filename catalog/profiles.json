@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "profiles": {
+    "react": {
+      "description": "React component API and performance guidance",
+      "skills": [
+        "vercel-composition-patterns",
+        "vercel-react-best-practices"
+      ]
+    }
+  },
+  "addons": {
+    "view-transitions": {
+      "description": "React and Next.js View Transition implementation",
+      "skills": [
+        "vercel-react-view-transitions"
+      ]
+    },
+    "design-review": {
+      "description": "Explicit UI, UX and accessibility review",
+      "skills": [
+        "web-design-guidelines"
+      ]
+    },
+    "docs-writing": {
+      "description": "Explicit documentation and prose review",
+      "skills": [
+        "writing-guidelines"
+      ]
+    },
+    "alignment": {
+      "description": "Plan, design and domain-model stress testing",
+      "skills": [
+        "grill-me",
+        "grill-with-docs"
+      ]
+    }
+  },
+  "capabilities": {
+    "discovery": {
+      "description": "Global skill discovery utility",
+      "skills": [
+        "find-skills"
+      ]
+    },
+    "skill-authoring": {
+      "description": "Host-native skill authoring and evaluation",
+      "skills": [
+        "skill-authoring"
+      ]
+    }
+  }
+}

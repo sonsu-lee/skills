@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "skills": [
+    {
+      "id": "vercel-composition-patterns",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/vercel-labs/agent-skills",
+        "skill": "composition-patterns",
+        "path": "skills/composition-patterns",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/vercel-labs/agent-skills/blob/main/skills/composition-patterns/SKILL.md"
+      },
+      "dependencies": []
+    },
+    {
+      "id": "vercel-react-best-practices",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/vercel-labs/agent-skills",
+        "skill": "react-best-practices",
+        "path": "skills/react-best-practices",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/vercel-labs/agent-skills/blob/main/skills/react-best-practices/SKILL.md"
+      },
+      "dependencies": []
+    },
+    {
+      "id": "vercel-react-view-transitions",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/vercel-labs/agent-skills",
+        "skill": "react-view-transitions",
+        "path": "skills/react-view-transitions",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/vercel-labs/agent-skills/blob/main/skills/react-view-transitions/SKILL.md"
+      },
+      "dependencies": []
+    },
+    {
+      "id": "web-design-guidelines",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/vercel-labs/agent-skills",
+        "skill": "web-design-guidelines",
+        "path": "skills/web-design-guidelines",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/vercel-labs/web-interface-guidelines/blob/main/LICENSE"
+      },
+      "runtime": {
+        "network": true,
+        "sources": [
+          "https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md"
+        ]
+      },
+      "dependencies": []
+    },
+    {
+      "id": "writing-guidelines",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/vercel-labs/agent-skills",
+        "skill": "writing-guidelines",
+        "path": "skills/writing-guidelines",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/vercel-labs/writing-guidelines/blob/main/LICENSE"
+      },
+      "runtime": {
+        "network": true,
+        "sources": [
+          "https://raw.githubusercontent.com/vercel-labs/writing-guidelines/main/command.md"
+        ]
+      },
+      "dependencies": []
+    },
+    {
+      "id": "grilling",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/mattpocock/skills",
+        "skill": "grilling",
+        "path": "skills/productivity/grilling",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/mattpocock/skills/blob/main/LICENSE"
+      },
+      "dependencies": []
+    },
+    {
+      "id": "grill-me",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/mattpocock/skills",
+        "skill": "grill-me",
+        "path": "skills/productivity/grill-me",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/mattpocock/skills/blob/main/LICENSE"
+      },
+      "dependencies": [
+        "grilling"
+      ]
+    },
+    {
+      "id": "domain-modeling",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/mattpocock/skills",
+        "skill": "domain-modeling",
+        "path": "skills/engineering/domain-modeling",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/mattpocock/skills/blob/main/LICENSE"
+      },
+      "dependencies": []
+    },
+    {
+      "id": "grill-with-docs",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/mattpocock/skills",
+        "skill": "grill-with-docs",
+        "path": "skills/engineering/grill-with-docs",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/mattpocock/skills/blob/main/LICENSE"
+      },
+      "dependencies": [
+        "grilling",
+        "domain-modeling"
+      ]
+    },
+    {
+      "id": "find-skills",
+      "kind": "skill",
+      "delivery": "shared",
+      "source": {
+        "repository": "https://github.com/vercel-labs/skills",
+        "skill": "find-skills",
+        "path": "skills/find-skills",
+        "ref": "main"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "https://github.com/vercel-labs/skills#license"
+      },
+      "runtime": {
+        "network": true,
+        "commands": [
+          "npx"
+        ]
+      },
+      "dependencies": []
+    },
+    {
+      "id": "skill-authoring",
+      "kind": "capability",
+      "delivery": "host-native",
+      "providers": {
+        "codex": {
+          "type": "builtin",
+          "name": "skill-creator"
+        },
+        "claude-code": {
+          "type": "plugin",
+          "name": "skill-creator@claude-plugins-official",
+          "install": "/plugin install skill-creator@claude-plugins-official"
+        }
+      },
+      "dependencies": []
+    }
+  ]
+}
