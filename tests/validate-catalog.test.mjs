@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 import { validateCatalog } from '../scripts/validate-catalog.mjs';
@@ -145,5 +146,31 @@ test('rejects unsupported profile schema versions', () => {
 
   assert.deepEqual(validateCatalog(catalog), [
     'unsupported profiles schema version: 2',
+  ]);
+});
+
+test('uses installable Vercel skill names', async () => {
+  const skills = JSON.parse(
+    await readFile(new URL('../catalog/skills.json', import.meta.url), 'utf8'),
+  ).skills;
+  const names = Object.fromEntries(
+    skills
+      .filter((skill) => skill.id.startsWith('vercel-'))
+      .map((skill) => [skill.id, skill.source.skill]),
+  );
+
+  assert.deepEqual(names, {
+    'vercel-composition-patterns': 'vercel-composition-patterns',
+    'vercel-react-best-practices': 'vercel-react-best-practices',
+    'vercel-react-view-transitions': 'vercel-react-view-transitions',
+  });
+});
+
+test('rejects unsupported delivery values', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].delivery = 'shraed';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'react-patterns has unsupported delivery: shraed',
   ]);
 });

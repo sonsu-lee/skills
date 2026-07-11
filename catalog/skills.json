@@ -7,7 +7,7 @@
       "delivery": "shared",
       "source": {
         "repository": "https://github.com/vercel-labs/agent-skills",
-        "skill": "composition-patterns",
+        "skill": "vercel-composition-patterns",
         "path": "skills/composition-patterns",
         "ref": "main"
       },
@@ -23,7 +23,7 @@
       "delivery": "shared",
       "source": {
         "repository": "https://github.com/vercel-labs/agent-skills",
-        "skill": "react-best-practices",
+        "skill": "vercel-react-best-practices",
         "path": "skills/react-best-practices",
         "ref": "main"
       },
@@ -39,7 +39,7 @@
       "delivery": "shared",
       "source": {
         "repository": "https://github.com/vercel-labs/agent-skills",
-        "skill": "react-view-transitions",
+        "skill": "vercel-react-view-transitions",
         "path": "skills/react-view-transitions",
         "ref": "main"
       },

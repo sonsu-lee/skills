@@ -2,6 +2,8 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+const DELIVERIES = new Set(['shared', 'host-native']);
+
 export function validateCatalog({ skills, profiles }) {
   const errors = [];
   const ids = new Set();
@@ -17,6 +19,9 @@ export function validateCatalog({ skills, profiles }) {
   for (const skill of skills.skills) {
     if (ids.has(skill.id)) {
       errors.push(`duplicate skill id: ${skill.id}`);
+    }
+    if (!DELIVERIES.has(skill.delivery)) {
+      errors.push(`${skill.id} has unsupported delivery: ${skill.delivery}`);
     }
     if (
       skill.delivery === 'shared' &&
