@@ -68,7 +68,6 @@ npm run skills:install -- \
 SKILLS_REF=7e852c3c8483efe19b60c90c567cf4a03940f24b
 SKILLS_TMP="$(mktemp -d)"
 SKILLS_REPOSITORY="$SKILLS_TMP/repository"
-trap 'rm -rf "$SKILLS_TMP"' EXIT
 
 git init -q "$SKILLS_REPOSITORY"
 git -C "$SKILLS_REPOSITORY" remote add origin \
@@ -94,7 +93,14 @@ node "$SKILLS_REPOSITORY/scripts/install.mjs" \
   --host codex
 ```
 
-새 commit을 사용할 때는 전체 SHA와 변경 내용을 먼저 검토하고 `SKILLS_REF`만 갱신합니다. 종료할 때 임시 디렉터리는 `trap`이 삭제합니다.
+실행을 마쳤거나 설치하지 않기로 했다면 임시 checkout과 shell 변수를 정리합니다.
+
+```bash
+rm -rf -- "$SKILLS_TMP"
+unset SKILLS_REF SKILLS_TMP SKILLS_REPOSITORY
+```
+
+새 commit을 사용할 때는 전체 SHA와 변경 내용을 먼저 검토하고 `SKILLS_REF`만 갱신합니다.
 
 ## 검증
 
