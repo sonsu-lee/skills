@@ -122,19 +122,20 @@ Claude Code
 저장소 성격에 맞는 기본 profile은 하나만 선택한다. 선택 기능은 반복 가능한 `--with`로 합성한다.
 
 ```bash
-node scripts/install.mjs --profile frontend
-node scripts/install.mjs --profile frontend --with review
-node scripts/install.mjs --profile frontend --with review --with skill-authoring
+node scripts/install.mjs --profile react --host codex
+node scripts/install.mjs --profile react --with design-review --host codex
+node scripts/install.mjs --profile react --with alignment --host codex --host claude-code
 ```
 
 규칙은 다음과 같다.
 
-- `--profile`은 최대 하나다.
+- `--profile`은 필수이며 한 번만 사용한다.
 - `--with`는 여러 번 지정할 수 있다.
+- `--host`는 하나 이상 명시하며 여러 번 지정할 수 있다.
 - profile과 add-on에 중복된 항목은 한 번만 설치한다.
 - dependency는 대상보다 먼저 설치한다.
-- profile, add-on과 실제 구성원은 사용자가 설치 대상을 선택할 때 확정한다.
-- 호스트를 자동 감지할지 옵션으로 지정할지는 설치기 상세 설계에서 결정한다.
+- profile, add-on과 실제 구성원은 catalog에서 명시적으로 관리한다.
+- 초기 설치기는 호스트를 자동 감지하지 않는다.
 
 ## 설치 흐름
 
@@ -150,6 +151,27 @@ node scripts/install.mjs --profile frontend --with review --with skill-authoring
 8. 설치, 생략과 실패 결과를 요약한다.
 
 초기 구현은 Node 표준 라이브러리를 사용한다. 긴 abstraction, 범용 plugin framework와 새 runtime dependency를 추가하지 않는다.
+
+### 초기 설치기 상세
+
+초기 설치기는 project scope만 지원한다. `--global`과 `--copy`를 노출하지 않고 `npx skills`의 기본 canonical `.agents/skills` 및 agent별 symlink 동작을 사용한다.
+
+```bash
+npm run skills:install -- --profile react --host codex
+npm run skills:install -- --profile react --with alignment --host codex --host claude-code
+npm run skills:install -- --profile react --host codex --dry-run
+```
+
+- `--profile`은 필수이며 한 번만 사용한다.
+- `--with`는 add-on과 전역 capability 이름을 받는다.
+- `--host`는 필수이며 반복할 수 있다.
+- `--dry-run`은 실행할 명령과 host-native 안내를 출력하고 외부 명령을 호출하지 않는다.
+- 같은 upstream repository와 host 조합의 연속된 스킬은 하나의 `npx skills add` 명령으로 묶는다.
+- `shared`는 모든 요청 host를 `npx skills`의 `--agent`에 전달한다.
+- `host-specific`은 해당 항목이 허용한 host만 전달하고 대상이 없으면 생략한다.
+- `host-native`의 `builtin` provider는 이미 사용 가능하다고 보고하고 설치하지 않는다.
+- shell에서 실행할 수 없는 plugin slash command는 자동 실행하지 않고 수동 명령으로 출력한다.
+- 외부 명령이 실패하면 즉시 중단하고 종료 코드를 오류로 보고한다.
 
 ## 업데이트와 자동화
 

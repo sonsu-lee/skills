@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "skills:install": "node scripts/install.mjs",
     "test": "node --test",
     "validate": "node scripts/validate-catalog.mjs"
   }
