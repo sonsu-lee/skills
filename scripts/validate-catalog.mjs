@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-const DELIVERIES = new Set(['shared', 'host-native']);
+const DELIVERIES = new Set(['shared', 'host-specific', 'host-native']);
 
 export function validateCatalog({ skills, profiles }) {
   const errors = [];
@@ -24,12 +24,18 @@ export function validateCatalog({ skills, profiles }) {
       errors.push(`${skill.id} has unsupported delivery: ${skill.delivery}`);
     }
     if (
-      skill.delivery === 'shared' &&
+      ['shared', 'host-specific'].includes(skill.delivery) &&
       (!skill.source?.repository || !skill.source?.skill)
     ) {
       errors.push(
-        `shared skill ${skill.id} requires source.repository and source.skill`,
+        `${skill.delivery} skill ${skill.id} requires source.repository and source.skill`,
       );
+    }
+    if (
+      skill.delivery === 'host-specific' &&
+      (!Array.isArray(skill.hosts) || skill.hosts.length === 0)
+    ) {
+      errors.push(`host-specific skill ${skill.id} requires hosts`);
     }
     if (
       skill.delivery === 'host-native' &&

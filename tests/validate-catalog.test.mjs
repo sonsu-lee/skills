@@ -174,3 +174,30 @@ test('rejects unsupported delivery values', () => {
     'react-patterns has unsupported delivery: shraed',
   ]);
 });
+
+test('accepts host-specific skills with an explicit host', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills.push({
+    id: 'claude-command',
+    kind: 'command',
+    delivery: 'host-specific',
+    hosts: ['claude-code'],
+    source: {
+      repository: 'https://github.com/example/skills',
+      skill: 'claude-command',
+    },
+    dependencies: [],
+  });
+  catalog.profiles.capabilities.command = { skills: ['claude-command'] };
+
+  assert.deepEqual(validateCatalog(catalog), []);
+});
+
+test('requires hosts for host-specific skills', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].delivery = 'host-specific';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'host-specific skill react-patterns requires hosts',
+  ]);
+});
