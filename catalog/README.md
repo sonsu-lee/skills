@@ -36,3 +36,25 @@
 - global capability: `discovery`, `skill-authoring`
 
 각 항목의 선정 근거와 제한은 [`초기 외부 스킬 구성 결정`](../research/reports/2026-07-12-initial-skill-selection.md)을 참고하세요.
+
+## 설치 구성
+
+`react` profile은 다음 두 스킬을 기본으로 선택합니다.
+
+- `vercel-composition-patterns`
+- `vercel-react-best-practices`
+
+선택 기능은 `--with`로 추가합니다.
+
+| 이름 | 포함 항목 |
+| --- | --- |
+| `view-transitions` | `vercel-react-view-transitions` |
+| `design-review` | `web-design-guidelines` |
+| `docs-writing` | `writing-guidelines` |
+| `alignment` | `grill-me`, `grill-with-docs`와 실제 dependency |
+| `discovery` | `find-skills` |
+| `skill-authoring` | host별 `skill-creator` provider |
+
+dependency는 profile이나 `--with`의 편의상 묶음과 별도로 처리합니다. 예를 들어 `grill-me`는 `grilling`, `grill-with-docs`는 `grilling`과 `domain-modeling`을 먼저 선택합니다.
+
+설치 명령과 commit 고정 원격 실행 절차는 [저장소 README](../README.md)를 참고하세요.
