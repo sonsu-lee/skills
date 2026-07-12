@@ -3,8 +3,13 @@ import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const DELIVERIES = new Set(['shared', 'host-specific', 'host-native']);
+const KINDS = new Set(['skill', 'plugin', 'command', 'tool']);
 
 export function validateCatalog({ skills, profiles }) {
+  if (!profiles || typeof profiles !== 'object' || Array.isArray(profiles)) {
+    return ['profiles must be an object'];
+  }
+
   const errors = [];
   const ids = new Set();
   const skillsById = new Map();
@@ -19,6 +24,9 @@ export function validateCatalog({ skills, profiles }) {
   for (const skill of skills.skills) {
     if (ids.has(skill.id)) {
       errors.push(`duplicate skill id: ${skill.id}`);
+    }
+    if (!KINDS.has(skill.kind)) {
+      errors.push(`${skill.id} has unsupported kind: ${skill.kind}`);
     }
     if (!DELIVERIES.has(skill.delivery)) {
       errors.push(`${skill.id} has unsupported delivery: ${skill.delivery}`);
@@ -82,13 +90,23 @@ export function validateCatalog({ skills, profiles }) {
   }
 
   const groups = [
-    ['profile', profiles.profiles],
-    ['add-on', profiles.addons],
-    ['capability', profiles.capabilities],
+    ['profile', 'profiles.profiles', profiles.profiles],
+    ['add-on', 'profiles.addons', profiles.addons],
+    ['capability', 'profiles.capabilities', profiles.capabilities],
   ];
 
-  for (const [groupType, entries] of groups) {
+  for (const [groupType, groupPath, entries] of groups) {
+    if (!entries || typeof entries !== 'object' || Array.isArray(entries)) {
+      errors.push(`${groupPath} must be an object`);
+      continue;
+    }
+
     for (const [name, entry] of Object.entries(entries)) {
+      if (!Array.isArray(entry?.skills)) {
+        errors.push(`${groupType} ${name} skills must be an array`);
+        continue;
+      }
+
       const members = new Set();
       for (const id of entry.skills) {
         if (members.has(id)) {
@@ -110,8 +128,12 @@ if (
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href
 ) {
   const [skills, profiles] = await Promise.all([
-    readFile('catalog/skills.json', 'utf8').then(JSON.parse),
-    readFile('catalog/profiles.json', 'utf8').then(JSON.parse),
+    readFile(new URL('../catalog/skills.json', import.meta.url), 'utf8').then(
+      JSON.parse,
+    ),
+    readFile(new URL('../catalog/profiles.json', import.meta.url), 'utf8').then(
+      JSON.parse,
+    ),
   ]);
   const errors = validateCatalog({ skills, profiles });
 

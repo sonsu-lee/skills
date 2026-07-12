@@ -22,7 +22,7 @@ function validCatalog() {
         },
         {
           id: 'skill-authoring',
-          kind: 'capability',
+          kind: 'tool',
           delivery: 'host-native',
           providers: {
             codex: { type: 'builtin', name: 'skill-creator' },
@@ -121,11 +121,67 @@ test('rejects duplicate members within a group', () => {
   ]);
 });
 
+test('reports a missing profiles document as a validation error', () => {
+  const catalog = validCatalog();
+  delete catalog.profiles;
+
+  assert.deepEqual(validateCatalog(catalog), ['profiles must be an object']);
+});
+
+test('reports a null profiles document as a validation error', () => {
+  const catalog = validCatalog();
+  catalog.profiles = null;
+
+  assert.deepEqual(validateCatalog(catalog), ['profiles must be an object']);
+});
+
+test('reports missing profile structures as validation errors', () => {
+  const cases = [
+    {
+      remove: (catalog) => delete catalog.profiles.profiles,
+      expected: ['profiles.profiles must be an object'],
+    },
+    {
+      remove: (catalog) => delete catalog.profiles.addons,
+      expected: ['profiles.addons must be an object'],
+    },
+    {
+      remove: (catalog) => delete catalog.profiles.capabilities,
+      expected: ['profiles.capabilities must be an object'],
+    },
+    {
+      remove: (catalog) => delete catalog.profiles.profiles.react.skills,
+      expected: ['profile react skills must be an array'],
+    },
+  ];
+
+  for (const { remove, expected } of cases) {
+    const catalog = validCatalog();
+    remove(catalog);
+
+    assert.deepEqual(validateCatalog(catalog), expected);
+  }
+});
+
 test('the CLI validates the repository catalog', () => {
   const result = spawnSync(process.execPath, ['scripts/validate-catalog.mjs'], {
     cwd: new URL('..', import.meta.url),
     encoding: 'utf8',
   });
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stdout.trim(), 'Catalog is valid.');
+});
+
+test('the CLI resolves catalog files relative to the repository', () => {
+  const result = spawnSync(
+    process.execPath,
+    ['../scripts/validate-catalog.mjs'],
+    {
+      cwd: new URL('../catalog/', import.meta.url),
+      encoding: 'utf8',
+    },
+  );
 
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stdout.trim(), 'Catalog is valid.');
@@ -172,6 +228,15 @@ test('rejects unsupported delivery values', () => {
 
   assert.deepEqual(validateCatalog(catalog), [
     'react-patterns has unsupported delivery: shraed',
+  ]);
+});
+
+test('rejects unsupported kind values', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].kind = 'capability';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'react-patterns has unsupported kind: capability',
   ]);
 });
 
