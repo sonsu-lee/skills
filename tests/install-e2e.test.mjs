@@ -31,7 +31,7 @@ test('runs a symlinked installer from an external project', async (t) => {
   await writeFile(
     npx,
     `#!/usr/bin/env node
-import { appendFileSync } from 'node:fs';
+const { appendFileSync } = require('node:fs');
 appendFileSync(
   process.env.SKILLS_E2E_LOG,
   JSON.stringify({ cwd: process.cwd(), args: process.argv.slice(2) }) + '\\n',
