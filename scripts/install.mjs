@@ -1,7 +1,8 @@
 import { spawnSync } from 'node:child_process';
+import { realpathSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 import { validateCatalog } from './validate-catalog.mjs';
 
@@ -273,10 +274,14 @@ export async function runCli(args) {
   executePlan(plan, { dryRun: options.dryRun });
 }
 
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(resolve(process.argv[1])).href
-) {
+function isMainModule() {
+  if (!process.argv[1]) return false;
+  const modulePath = realpathSync(fileURLToPath(import.meta.url));
+  const entryPath = realpathSync(resolve(process.argv[1]));
+  return modulePath === entryPath;
+}
+
+if (isMainModule()) {
   try {
     await runCli(process.argv.slice(2));
   } catch (error) {
