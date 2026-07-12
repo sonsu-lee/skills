@@ -24,4 +24,15 @@
 
 ## 등록된 스킬
 
-아직 없습니다.
+기계 판독 데이터는 다음 파일에 있습니다.
+
+- [`skills.json`](skills.json): 외부 스킬의 source, delivery, dependency와 provider
+- [`profiles.json`](profiles.json): `react` profile, 선택 add-on과 전역 capability
+
+현재 공개 묶음은 다음과 같습니다.
+
+- profile: `react`
+- add-on: `view-transitions`, `design-review`, `docs-writing`, `alignment`
+- global capability: `discovery`, `skill-authoring`
+
+각 항목의 선정 근거와 제한은 [`초기 외부 스킬 구성 결정`](../research/reports/2026-07-12-initial-skill-selection.md)을 참고하세요.
