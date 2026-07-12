@@ -57,12 +57,71 @@ test('rejects duplicate skill ids', () => {
   ]);
 });
 
+test('rejects a null skill entry', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0] = null;
+  catalog.profiles.profiles.react.skills = [];
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'skill at index 0 must be an object',
+  ]);
+});
+
+test('rejects a missing skill id', () => {
+  const catalog = validCatalog();
+  delete catalog.skills.skills[0].id;
+  catalog.profiles.profiles.react.skills = [];
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'skill at index 0 must have a non-empty string id',
+  ]);
+});
+
+test('rejects a blank skill id', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].id = '  ';
+  catalog.profiles.profiles.react.skills = [];
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'skill at index 0 must have a non-empty string id',
+  ]);
+});
+
+test('rejects a non-string skill id without adding it', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].id = 42;
+  catalog.profiles.profiles.react.skills = [42];
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'skill at index 0 must have a non-empty string id',
+    'profile react references unknown skill: 42',
+  ]);
+});
+
 test('rejects a dependency that is not in the catalog', () => {
   const catalog = validCatalog();
   catalog.skills.skills[0].dependencies = ['missing-skill'];
 
   assert.deepEqual(validateCatalog(catalog), [
     'react-patterns depends on unknown skill: missing-skill',
+  ]);
+});
+
+test('rejects object dependencies', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].dependencies = {};
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'react-patterns dependencies must be an array',
+  ]);
+});
+
+test('rejects string dependencies', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].dependencies = 'missing-skill';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'react-patterns dependencies must be an array',
   ]);
 });
 
@@ -97,6 +156,24 @@ test('requires a source for shared skills', () => {
 test('requires providers for host-native capabilities', () => {
   const catalog = validCatalog();
   delete catalog.skills.skills[1].providers;
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'host-native capability skill-authoring requires providers',
+  ]);
+});
+
+test('rejects string host-native providers', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[1].providers = 'codex';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'host-native capability skill-authoring requires providers',
+  ]);
+});
+
+test('rejects array host-native providers', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[1].providers = [{}];
 
   assert.deepEqual(validateCatalog(catalog), [
     'host-native capability skill-authoring requires providers',

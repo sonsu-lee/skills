@@ -27,7 +27,15 @@ export function validateCatalog({ skills, profiles }) {
     errors.push(`unsupported profiles schema version: ${profiles.schemaVersion}`);
   }
 
-  for (const skill of skills.skills) {
+  for (const [index, skill] of skills.skills.entries()) {
+    if (!skill || typeof skill !== 'object' || Array.isArray(skill)) {
+      errors.push(`skill at index ${index} must be an object`);
+      continue;
+    }
+    if (typeof skill.id !== 'string' || skill.id.trim().length === 0) {
+      errors.push(`skill at index ${index} must have a non-empty string id`);
+      continue;
+    }
     if (ids.has(skill.id)) {
       errors.push(`duplicate skill id: ${skill.id}`);
     }
@@ -53,7 +61,10 @@ export function validateCatalog({ skills, profiles }) {
     }
     if (
       skill.delivery === 'host-native' &&
-      (!skill.providers || Object.keys(skill.providers).length === 0)
+      (!skill.providers ||
+        typeof skill.providers !== 'object' ||
+        Array.isArray(skill.providers) ||
+        Object.keys(skill.providers).length === 0)
     ) {
       errors.push(`host-native capability ${skill.id} requires providers`);
     }
@@ -62,6 +73,22 @@ export function validateCatalog({ skills, profiles }) {
   }
 
   for (const skill of skills.skills) {
+    if (
+      !skill ||
+      typeof skill !== 'object' ||
+      Array.isArray(skill) ||
+      typeof skill.id !== 'string' ||
+      skill.id.trim().length === 0
+    ) {
+      continue;
+    }
+    if (
+      skill.dependencies !== undefined &&
+      !Array.isArray(skill.dependencies)
+    ) {
+      errors.push(`${skill.id} dependencies must be an array`);
+      continue;
+    }
     for (const dependency of skill.dependencies ?? []) {
       if (!ids.has(dependency)) {
         errors.push(`${skill.id} depends on unknown skill: ${dependency}`);
@@ -82,8 +109,11 @@ export function validateCatalog({ skills, profiles }) {
     if (visited.has(id)) return;
 
     visiting.push(id);
-    for (const dependency of skillsById.get(id)?.dependencies ?? []) {
-      if (skillsById.has(dependency)) visit(dependency);
+    const dependencies = skillsById.get(id)?.dependencies;
+    if (Array.isArray(dependencies)) {
+      for (const dependency of dependencies) {
+        if (skillsById.has(dependency)) visit(dependency);
+      }
     }
     visiting.pop();
     visited.add(id);
