@@ -121,6 +121,34 @@ test('rejects duplicate members within a group', () => {
   ]);
 });
 
+test('reports a missing skills document as a validation error', () => {
+  const catalog = validCatalog();
+  delete catalog.skills;
+
+  assert.deepEqual(validateCatalog(catalog), ['skills must be an object']);
+});
+
+test('reports a non-object skills document as a validation error', () => {
+  const catalog = validCatalog();
+  catalog.skills = 'invalid';
+
+  assert.deepEqual(validateCatalog(catalog), ['skills must be an object']);
+});
+
+test('reports a missing skills collection as a validation error', () => {
+  const catalog = validCatalog();
+  delete catalog.skills.skills;
+
+  assert.deepEqual(validateCatalog(catalog), ['skills.skills must be an array']);
+});
+
+test('reports a non-array skills collection as a validation error', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills = {};
+
+  assert.deepEqual(validateCatalog(catalog), ['skills.skills must be an array']);
+});
+
 test('reports a missing profiles document as a validation error', () => {
   const catalog = validCatalog();
   delete catalog.profiles;

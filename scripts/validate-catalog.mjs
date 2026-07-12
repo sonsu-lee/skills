@@ -6,6 +6,12 @@ const DELIVERIES = new Set(['shared', 'host-specific', 'host-native']);
 const KINDS = new Set(['skill', 'plugin', 'command', 'tool']);
 
 export function validateCatalog({ skills, profiles }) {
+  if (!skills || typeof skills !== 'object' || Array.isArray(skills)) {
+    return ['skills must be an object'];
+  }
+  if (!Array.isArray(skills.skills)) {
+    return ['skills.skills must be an array'];
+  }
   if (!profiles || typeof profiles !== 'object' || Array.isArray(profiles)) {
     return ['profiles must be an object'];
   }
