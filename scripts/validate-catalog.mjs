@@ -4,6 +4,11 @@ import { pathToFileURL } from 'node:url';
 
 const DELIVERIES = new Set(['shared', 'host-specific', 'host-native']);
 const KINDS = new Set(['skill', 'plugin', 'command', 'tool']);
+const PROVIDER_TYPES = new Set(['builtin', 'plugin']);
+
+function isNonEmptyString(value) {
+  return typeof value === 'string' && value.trim().length > 0;
+}
 
 export function validateCatalog({ skills, profiles }) {
   if (!skills || typeof skills !== 'object' || Array.isArray(skills)) {
@@ -47,7 +52,8 @@ export function validateCatalog({ skills, profiles }) {
     }
     if (
       ['shared', 'host-specific'].includes(skill.delivery) &&
-      (!skill.source?.repository || !skill.source?.skill)
+      (!isNonEmptyString(skill.source?.repository) ||
+        !isNonEmptyString(skill.source?.skill))
     ) {
       errors.push(
         `${skill.delivery} skill ${skill.id} requires source.repository and source.skill`,
@@ -55,18 +61,50 @@ export function validateCatalog({ skills, profiles }) {
     }
     if (
       skill.delivery === 'host-specific' &&
-      (!Array.isArray(skill.hosts) || skill.hosts.length === 0)
+      (!Array.isArray(skill.hosts) ||
+        skill.hosts.length === 0 ||
+        !skill.hosts.every(isNonEmptyString))
     ) {
       errors.push(`host-specific skill ${skill.id} requires hosts`);
     }
-    if (
-      skill.delivery === 'host-native' &&
-      (!skill.providers ||
+    if (skill.delivery === 'host-native') {
+      if (
+        !skill.providers ||
         typeof skill.providers !== 'object' ||
         Array.isArray(skill.providers) ||
-        Object.keys(skill.providers).length === 0)
-    ) {
-      errors.push(`host-native capability ${skill.id} requires providers`);
+        Object.keys(skill.providers).length === 0
+      ) {
+        errors.push(`host-native capability ${skill.id} requires providers`);
+      } else {
+        for (const [host, provider] of Object.entries(skill.providers)) {
+          if (!isNonEmptyString(host)) {
+            errors.push(
+              `host-native capability ${skill.id} provider host must be a non-empty string`,
+            );
+            continue;
+          }
+          if (
+            !provider ||
+            typeof provider !== 'object' ||
+            Array.isArray(provider)
+          ) {
+            errors.push(
+              `host-native capability ${skill.id} provider ${host} must be an object`,
+            );
+            continue;
+          }
+          if (!PROVIDER_TYPES.has(provider.type)) {
+            errors.push(
+              `host-native capability ${skill.id} provider ${host} has unsupported type: ${provider.type}`,
+            );
+          }
+          if (!isNonEmptyString(provider.name)) {
+            errors.push(
+              `host-native capability ${skill.id} provider ${host} requires a non-empty string name`,
+            );
+          }
+        }
+      }
     }
     ids.add(skill.id);
     skillsById.set(skill.id, skill);

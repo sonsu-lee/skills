@@ -153,6 +153,34 @@ test('requires a source for shared skills', () => {
   ]);
 });
 
+test('rejects non-string source fields', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].source.repository = {};
+  catalog.skills.skills[0].source.skill = [];
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'shared skill react-patterns requires source.repository and source.skill',
+  ]);
+});
+
+test('rejects a blank source repository', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].source.repository = '  ';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'shared skill react-patterns requires source.repository and source.skill',
+  ]);
+});
+
+test('rejects a blank source skill', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].source.skill = '  ';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'shared skill react-patterns requires source.repository and source.skill',
+  ]);
+});
+
 test('requires providers for host-native capabilities', () => {
   const catalog = validCatalog();
   delete catalog.skills.skills[1].providers;
@@ -177,6 +205,44 @@ test('rejects array host-native providers', () => {
 
   assert.deepEqual(validateCatalog(catalog), [
     'host-native capability skill-authoring requires providers',
+  ]);
+});
+
+test('rejects a blank provider host', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[1].providers = {
+    '  ': { type: 'builtin', name: 'skill-creator' },
+  };
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'host-native capability skill-authoring provider host must be a non-empty string',
+  ]);
+});
+
+test('rejects an array provider value', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[1].providers.codex = [];
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'host-native capability skill-authoring provider codex must be an object',
+  ]);
+});
+
+test('rejects an unsupported provider type', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[1].providers.codex.type = 'command';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'host-native capability skill-authoring provider codex has unsupported type: command',
+  ]);
+});
+
+test('rejects a blank provider name', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[1].providers.codex.name = '  ';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'host-native capability skill-authoring provider codex requires a non-empty string name',
   ]);
 });
 
@@ -366,6 +432,16 @@ test('accepts host-specific skills with an explicit host', () => {
 test('requires hosts for host-specific skills', () => {
   const catalog = validCatalog();
   catalog.skills.skills[0].delivery = 'host-specific';
+
+  assert.deepEqual(validateCatalog(catalog), [
+    'host-specific skill react-patterns requires hosts',
+  ]);
+});
+
+test('rejects invalid host-specific host entries', () => {
+  const catalog = validCatalog();
+  catalog.skills.skills[0].delivery = 'host-specific';
+  catalog.skills.skills[0].hosts = ['claude-code', {}, '  '];
 
   assert.deepEqual(validateCatalog(catalog), [
     'host-specific skill react-patterns requires hosts',
