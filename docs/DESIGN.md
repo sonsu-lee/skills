@@ -32,6 +32,13 @@
 
 첫 개인 스킬이 안정되면 이 저장소에 Codex 플러그인 manifest와 개인 marketplace 항목을 추가한다. 외부 스킬은 이 플러그인 안에 포함하지 않는다.
 
+초기 개인 Git workflow는 짧고 독립적인 두 스킬로 나눈다.
+
+- `to-commit`은 변경 확인, 주제별 커밋 분할, staging, 검증과 영어 Conventional Commit 메시지를 담당한다.
+- `to-pr`은 완료된 브랜치의 PR 범위 확인, push와 PR 생성을 담당한다. 제목은 squash 결과를 나타내는 영어 Conventional Commit으로 쓰고, 본문은 문제 또는 목적을 설명하는 영어 한 문장과 필요한 경우 접근 방식 한 문장만 사용한다.
+
+`to-pr` 실행 시 커밋되지 않은 변경이 있으면 `to-commit`을 먼저 적용한다. PR 리뷰, 병합과 branch 정리는 필요해질 때 별도 스킬로 분리한다.
+
 ### 외부 스킬
 
 외부 스킬은 `catalog/`에 설치 정보만 기록한다. 카탈로그는 다음 질문에 답할 수 있어야 한다.
