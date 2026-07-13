@@ -171,6 +171,8 @@ npm run skills:install -- --profile react --host codex --dry-run
 - `host-specific`은 해당 항목이 허용한 host만 전달하고 대상이 없으면 생략한다.
 - `host-native`의 `builtin` provider는 이미 사용 가능하다고 보고하고 설치하지 않는다.
 - shell에서 실행할 수 없는 plugin slash command는 자동 실행하지 않고 수동 명령으로 출력한다.
+- 명시적으로 요청한 `claude-code`의 `.claude/`가 없으면 warning을 출력하고 해당 host를 생략한다.
+- 요청한 host가 모두 생략되면 외부 명령을 실행하지 않고 오류로 종료한다.
 - 외부 명령이 실패하면 즉시 중단하고 종료 코드를 오류로 보고한다.
 
 ## 업데이트와 자동화
