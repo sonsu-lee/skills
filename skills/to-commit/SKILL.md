@@ -1,53 +1,64 @@
 ---
 name: to-commit
-description: Use when creating, splitting, staging, amending, squashing, or rewriting Git commits, or before another workflow runs git commit.
+description: Organizes working-tree changes into coherent, verified commits with English Conventional Commit messages. Use when creating, staging, splitting, amending, squashing, or rewriting Git commits, or before another workflow runs git commit.
 ---
 
-# 커밋으로 정리하기
+# To Commit
 
-## 원칙
+현재 작업 트리의 변경을 리뷰와 추적에 유용한 하나 이상의 커밋으로 정리한다.
 
-현재 변경을 작업 의도가 드러나는 하나 이상의 검증된 커밋으로 정리한다. 커밋은 작업 중 거친 순서가 아니라 리뷰와 추적에 유용한 논리적 흐름을 보여줘야 한다.
+## 입력
 
-## 진행 방법
+- 저장소의 명시적인 커밋 정책과 검증 명령
+- `git status --short`, 관련 diff와 기존 commit history
+- 현재 작업과 사용자가 미리 만들어 둔 변경의 경계
 
-1. `git status --short`와 관련 diff를 확인한다.
-2. 기존 사용자 변경과 현재 작업을 구분한다. 관련 없는 변경은 staging하지 않는다.
-3. 한 문장으로 설명할 수 있는 주제별로 커밋을 나눈다.
-4. 준비 리팩터링, 동작 변경, 독립적인 문서·설정 변경처럼 의도가 다르면 분리한다.
-5. 하나의 동작을 이루는 구현과 테스트는 같은 커밋에 둔다. 파일 종류만으로 나누지 않는다.
-6. 각 단위에 필요한 최소한의 완전한 검증을 실행한다. 시간 압박은 검증 생략의 근거가 아니다.
-7. 명시적인 경로만 staging하고 `git diff --cached`로 최종 범위를 확인한다.
-8. 영어 Conventional Commit 메시지로 커밋한다.
+## 워크플로우
 
-각 커밋은 가능한 한 저장소가 정상 동작하는 상태를 유지해야 한다. 실패하는 테스트만 먼저 커밋하거나 `WIP`, `fix2`, `final update`, `address review` 같은 작업 기록을 남기지 않는다.
+1. 저장소 정책과 현재 branch 상태를 확인한다.
+2. status와 diff를 읽고 관련 없는 변경, generated file과 기존 사용자 변경을 구분한다.
+3. 아래 기준으로 커밋 단위와 순서를 먼저 정한다.
+4. 한 단위에 해당하는 경로만 staging한다.
+5. `git diff --cached`로 실제 커밋 범위를 다시 확인한다.
+6. 해당 단위를 증명하는 가장 좁고 완전한 검증을 실행한다.
+7. 영어 Conventional Commit 메시지로 커밋한다.
+8. 남은 변경에 같은 절차를 반복하고 최종 status와 commit 목록을 확인한다.
 
-## 메시지 형식
+## 커밋 단위
+
+- 한 커밋은 결과를 한 문장으로 설명할 수 있는 하나의 주제만 담는다.
+- 하나의 동작을 이루는 구현과 테스트는 같은 커밋에 둔다.
+- 준비 리팩터링, 동작 변경, 독립적인 문서·설정 변경은 의도가 다르면 나눈다.
+- 파일 종류나 작업 시간순으로 기계적으로 나누지 않는다.
+- history는 `준비 → 동작 변경 → 독립 문서·설정`처럼 논리적 흐름을 보여준다.
+- 각 커밋은 가능한 한 checkout, test와 build가 가능한 상태를 유지한다.
+
+## 메시지
 
 ```text
 <type>[optional scope]: <description>
 ```
 
-- 제목은 영어 한 줄로 작성한다.
+- 제목은 영어 한 줄로 작성하고 마침표로 끝내지 않는다.
 - `feat`, `fix`, `docs`, `refactor`, `test`, `build`, `ci`, `chore`, `perf`, `revert` 중 의미가 맞는 type을 사용한다.
-- scope는 구분에 실제로 도움이 될 때만 쓴다.
+- scope는 구분에 실제로 도움이 될 때만 사용한다.
+- 파일이나 테스트 작업을 나열하지 말고 전달되는 결과를 설명한다.
 - 관련 없는 내용을 `and`로 연결해야 한다면 커밋을 나눈다.
-- 테스트 추가나 파일 수정을 나열하지 말고 커밋이 전달하는 결과를 설명한다.
-- 마침표로 끝내지 않는다.
+- `WIP`, `fix2`, `final update`, `address review` 같은 작업 기록을 남기지 않는다.
 
 ```text
-fix(auth): preserve sessions after token refresh
 refactor(installer): isolate host availability checks
+fix(installer): report unavailable host directories
 docs(installer): explain host directory requirements
 ```
 
-## 확인할 신호
+## 중단 조건
 
-- `git add -A`가 관련 없는 사용자 변경까지 포함한다.
-- 하나의 커밋이 서로 독립적인 문제를 해결한다.
-- 구현과 테스트를 기계적으로 별도 커밋으로 나눈다.
-- 커밋 하나만 checkout하면 테스트나 빌드가 깨진다.
-- 서두른다는 이유로 diff 확인이나 검증을 생략한다.
-- 메시지가 변경 결과가 아니라 작업 과정을 설명한다.
+- 변경의 소유권이나 범위가 불명확하면 staging 전에 사용자에게 확인한다.
+- 검증이 실패하거나 실행할 수 없으면 이유를 보고하고 승인 없이 커밋하지 않는다.
+- 공유된 history의 rewrite나 force-push가 필요하면 영향과 복구 방법을 설명하고 명시적인 승인을 받는다.
+- 관련 없는 사용자 변경을 숨기거나 자동으로 함께 커밋하지 않는다.
 
-이 신호가 있으면 커밋하기 전에 범위와 순서를 다시 정리한다.
+## 결과 보고
+
+생성하거나 수정한 commit hash와 메시지, 실행한 검증, 남은 변경과 blocker를 정확히 보고한다. Push와 PR 생성은 수행하지 않는다.
