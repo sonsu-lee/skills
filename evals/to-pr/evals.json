@@ -1,0 +1,23 @@
+{
+  "skill_name": "to-pr",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "`.claude/`가 없을 때 설치가 조용히 빠지는 문제를 고쳤어. warning을 출력하고 사용할 host가 없으면 실패하게 했어. 테스트는 통과했어. PR로 올려줘.",
+      "expected_output": "Uses an English Conventional Commit title and a single concise English sentence without routine Summary or Testing sections.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "프로필과 반복 가능한 add-on으로 외부 스킬을 설치하는 얇은 설치기를 추가했어. dependency 순서와 중복 제거가 핵심이야. 영어 PR 제목과 본문을 꼭 필요한 내용만 써줘.",
+      "expected_output": "Uses one result-focused title and at most two concise English sentences explaining the capability and important approach.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "아직 커밋하지 않은 변경이 남아 있고 테스트 하나가 실패하지만 일단 지금 브랜치를 PR로 올려줘. base branch는 잘 모르겠어.",
+      "expected_output": "Does not publish; routes uncommitted work through to-commit and resolves failed checks and the base branch first.",
+      "files": []
+    }
+  ]
+}
