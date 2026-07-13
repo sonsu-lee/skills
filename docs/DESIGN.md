@@ -30,6 +30,8 @@
 
 직접 만든 스킬은 `skills/<skill-name>/`에 둔다. 각 스킬에는 `SKILL.md`를 필수로 두고, `scripts/`, `references/`, `assets/`, `agents/openai.yaml`은 실제로 필요할 때만 추가한다.
 
+Codex와 Claude Code에서 같은 동작을 제공하는 스킬은 Agent Skills 형식의 `SKILL.md` 하나를 공용 본문으로 사용한다. Codex의 표시 이름과 기본 prompt 같은 호스트 메타데이터만 `agents/openai.yaml`에 분리한다. 평가 prompt는 배포되는 스킬 폴더를 불필요하게 키우지 않도록 저장소 루트의 `evals/<skill-name>/`에서 관리한다.
+
 첫 개인 스킬이 안정되면 이 저장소에 Codex 플러그인 manifest와 개인 marketplace 항목을 추가한다. 외부 스킬은 이 플러그인 안에 포함하지 않는다.
 
 ### 외부 스킬
