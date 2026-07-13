@@ -1,10 +1,14 @@
 import { spawnSync } from 'node:child_process';
-import { realpathSync } from 'node:fs';
+import { realpathSync, statSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { validateCatalog } from './validate-catalog.mjs';
+
+const HOST_PROJECT_DIRECTORIES = {
+  'claude-code': '.claude',
+};
 
 function readValue(args, index, option) {
   const value = args[index + 1];
@@ -246,6 +250,32 @@ export function executePlan(
   }
 }
 
+function resolveAvailableHosts(requestedHosts, cwd = process.cwd()) {
+  const hosts = [];
+  const missing = [];
+
+  for (const host of new Set(requestedHosts)) {
+    const directory = HOST_PROJECT_DIRECTORIES[host];
+    if (!directory) {
+      hosts.push(host);
+      continue;
+    }
+
+    try {
+      if (statSync(resolve(cwd, directory)).isDirectory()) {
+        hosts.push(host);
+        continue;
+      }
+    } catch {
+      // Report missing or unreadable project directories below.
+    }
+
+    missing.push({ host, directory });
+  }
+
+  return { hosts, missing };
+}
+
 export async function loadCatalog() {
   const [skills, profiles] = await Promise.all([
     readFile(new URL('../catalog/skills.json', import.meta.url), 'utf8').then(
@@ -266,8 +296,18 @@ export async function runCli(args) {
     throw new Error(`catalog validation failed:\n- ${errors.join('\n- ')}`);
   }
 
+  const available = resolveAvailableHosts(options.hosts);
+  for (const { host, directory } of available.missing) {
+    console.warn(
+      `warning ${host}: ${directory}/ directory not found; skipping host`,
+    );
+  }
+  if (available.hosts.length === 0) {
+    throw new Error('no requested hosts are available');
+  }
+
   const selectedIds = resolveSelection(catalog, options);
-  const plan = buildPlan(catalog, selectedIds, options.hosts);
+  const plan = buildPlan(catalog, selectedIds, available.hosts);
   if (options.dryRun) {
     console.log('Dry run; no commands will be executed.');
   }

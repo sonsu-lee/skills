@@ -59,6 +59,8 @@ npm run skills:install -- \
 - `host-specific` 항목은 허용된 host에서만 설치합니다.
 - `host-native` builtin은 이미 사용할 수 있다고 표시합니다.
 - shell에서 실행할 수 없는 plugin 명령은 자동 실행하지 않고 수동 명령으로 출력합니다.
+- `claude-code`를 요청했는데 `.claude/`가 없으면 warning을 출력하고 해당 host를 건너뜁니다.
+- 요청한 host를 모두 건너뛰면 외부 명령을 실행하지 않고 오류로 종료합니다.
 
 ## 다른 저장소에서 고정 버전 실행
 

@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
+import { mkdir, mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
 import {
@@ -8,6 +12,16 @@ import {
   parseArgs,
   resolveSelection,
 } from '../scripts/install.mjs';
+
+const repositoryRoot = fileURLToPath(new URL('..', import.meta.url));
+const installer = join(repositoryRoot, 'scripts', 'install.mjs');
+
+async function createProject(t, { claude = false } = {}) {
+  const project = await mkdtemp(join(tmpdir(), 'skills-install-test-'));
+  t.after(() => rm(project, { recursive: true, force: true }));
+  if (claude) await mkdir(join(project, '.claude'));
+  return project;
+}
 
 function selectionCatalog() {
   return {
@@ -325,11 +339,58 @@ test('executes command steps and reports child process failures', () => {
   );
 });
 
-test('the CLI builds a dry-run from the repository catalog', () => {
+test('warns and skips a requested host with no project directory', async (t) => {
+  const project = await createProject(t);
   const result = spawnSync(
     process.execPath,
     [
-      'scripts/install.mjs',
+      installer,
+      '--profile',
+      'react',
+      '--host',
+      'codex',
+      '--host',
+      'claude-code',
+      '--dry-run',
+    ],
+    { cwd: project, encoding: 'utf8' },
+  );
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(
+    result.stderr,
+    /warning claude-code: \.claude\/ directory not found; skipping host/,
+  );
+  assert.match(result.stdout, /--agent codex --yes/);
+  assert.doesNotMatch(result.stdout, /--agent codex claude-code/);
+});
+
+test('fails before planning when every requested host is unavailable', async (t) => {
+  const project = await createProject(t);
+  const result = spawnSync(
+    process.execPath,
+    [
+      installer,
+      '--profile',
+      'react',
+      '--host',
+      'claude-code',
+      '--dry-run',
+    ],
+    { cwd: project, encoding: 'utf8' },
+  );
+
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /no requested hosts are available/);
+  assert.doesNotMatch(result.stdout, /^\$ npx/m);
+});
+
+test('the CLI builds a dry-run from the repository catalog', async (t) => {
+  const project = await createProject(t, { claude: true });
+  const result = spawnSync(
+    process.execPath,
+    [
+      installer,
       '--profile',
       'react',
       '--with',
@@ -343,7 +404,7 @@ test('the CLI builds a dry-run from the repository catalog', () => {
       '--dry-run',
     ],
     {
-      cwd: new URL('..', import.meta.url),
+      cwd: project,
       encoding: 'utf8',
     },
   );
