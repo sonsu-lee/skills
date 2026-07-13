@@ -2,7 +2,7 @@
 
 상태: 승인된 기본 설계
 
-마지막 수정: 2026-07-12
+마지막 수정: 2026-07-14
 
 ## 목적
 
@@ -30,9 +30,42 @@
 
 직접 만든 스킬은 `skills/<skill-name>/`에 둔다. 각 스킬에는 `SKILL.md`를 필수로 두고, `scripts/`, `references/`, `assets/`, `agents/openai.yaml`은 실제로 필요할 때만 추가한다.
 
-Codex와 Claude Code에서 같은 동작을 제공하는 스킬은 Agent Skills 형식의 `SKILL.md` 하나를 공용 본문으로 사용한다. Codex의 표시 이름과 기본 prompt 같은 호스트 메타데이터만 `agents/openai.yaml`에 분리한다. 평가 prompt는 배포되는 스킬 폴더를 불필요하게 키우지 않도록 저장소 루트의 `evals/<skill-name>/`에서 관리한다.
+Codex와 Claude Code에서 같은 동작을 제공하는 스킬은 Agent Skills 형식의 `SKILL.md` 하나를 portable SSOT로 사용한다. Codex의 표시 이름과 기본 prompt 같은 호스트 메타데이터만 `agents/openai.yaml`에 분리한다. 평가 prompt는 배포되는 스킬 폴더를 불필요하게 키우지 않도록 저장소 루트의 `evals/<skill-name>/`에서 관리한다.
 
-첫 개인 스킬이 안정되면 이 저장소에 Codex 플러그인 manifest와 개인 marketplace 항목을 추가한다. 외부 스킬은 이 플러그인 안에 포함하지 않는다.
+#### 통합 스킬 작성 흐름
+
+`to-skill` 하나를 스킬 생성, 수정과 구조 정규화의 진입점으로 사용한다. 사용자가 `skill-to-codex`와 `skill-to-claude`를 순서대로 호출하도록 요구하지 않는다. 두 독립 adapter 스킬은 제거하고, 작성 원칙과 호스트별 계약을 `to-skill/references/` 아래의 조건부 reference로 합친다.
+
+일반 프로젝트에서 별도 규칙이 없으면 `.agents/skills/<skill-name>/`을 canonical 원본으로 사용한다. Codex는 이 경로를 직접 사용하고 Claude Code에는 같은 원본을 가리키는 상대경로 symlink만 둔다.
+
+```text
+.agents/skills/example-skill/
+├── SKILL.md
+├── references/            # 필요할 때만
+├── scripts/               # 필요할 때만
+└── agents/openai.yaml     # Codex metadata가 필요할 때만
+
+.claude/skills/example-skill -> ../../.agents/skills/example-skill
+```
+
+이 저장소처럼 배포 원본 경로를 명시한 저장소에서는 해당 규칙을 우선한다. 따라서 이 저장소의 개인 스킬은 계속 `skills/<skill-name>/`에서 관리하고, 소비 프로젝트에서 생성하는 스킬만 기본적으로 `.agents/skills`를 사용한다. 배포 저장소의 원본을 다시 `.agents/skills`에 복제하지 않는다.
+
+`to-skill`은 다음 흐름을 담당한다. 아래 호스트 연결 동작은 일반 소비 프로젝트의 기본값이며, 명시적인 배포 원본 경로가 있는 저장소에서는 해당 저장소의 배치와 배포 규칙을 따른다.
+
+- 새 스킬은 canonical 경로에 portable `SKILL.md`, 필요한 resource와 초기 eval을 만든다. 일반 소비 프로젝트에서는 이어서 Claude symlink를 연결한다.
+- 기존 스킬은 canonical 원본만 수정하고 올바른 symlink는 그대로 유지한다.
+- 여러 호스트 경로에 물리적 사본이 있으면 내용을 비교한다. 명시적인 정규화 요청이 있고 내용이 완전히 같을 때만 교체 계획을 보여주고 확인을 받은 뒤 Claude 사본을 symlink로 바꾼다. 내용이 다르면 덮어쓰거나 자동 병합하지 않고 충돌을 보고한다.
+- `.claude/skills/<skill-name>`에만 물리적 사본이 있으면 자동으로 이동하지 않는다. canonical 이동 경로와 변경될 link를 보여주고 확인을 받은 뒤 `.agents/skills/<skill-name>`으로 옮겨 symlink를 만든다.
+
+canonical 원본이 존재하고 `.claude/skills/<skill-name>` 엔트리가 없을 때만 상대경로 link를 만든다. 이미 올바른 symlink이면 아무것도 바꾸지 않는다. 잘못된 link나 실제 디렉터리가 대상 경로를 차지하면 자동으로 삭제하지 않고, 위 정규화 조건을 충족하지 않는 한 중단한다. 대상 Claude Code가 directory symlink를 지원하지 않으면 조용히 copy mode로 바꾸지 않고 호환성 문제를 보고한다.
+
+portable frontmatter에는 기본적으로 `name`과 `description`만 둔다. Codex 전용 값은 같은 원본 폴더의 `agents/openai.yaml`에 둔다. Claude Code 전용 frontmatter나 plugin 기능이 반드시 필요한 경우에는 공통 원본에 섞기 전에 portability를 검토하고, 단일 원본으로 표현할 수 없으면 일반 작성 흐름과 분리된 호스트 전용 배포 작업으로 보고한다. 기본 흐름은 호스트별 파생본을 만들지 않는다.
+
+Plugin packaging은 첫 스킬 작성 후 자동으로 따라오는 단계가 아니다. 사용자가 배포를 명시적으로 요청했을 때만 해당 호스트의 현재 계약으로 최소 구성하며, version, publisher, marketplace와 동기화 자동화를 추측해서 추가하지 않는다. 내장 또는 공식 `skill-creator`는 단일 호스트 전용 스킬과 최신 제품 기능을 위한 fallback으로 유지한다.
+
+`to-skill`은 개인용 experimental workflow다. 구조 검증과 대표 forward smoke check를 통과했더라도 내장 creator보다 우수하다고 간주하지 않으며, 반복 eval과 baseline 비교 전에는 fallback을 대체하지 않는다.
+
+루트 `evals/`는 runtime 계약이 아니라 개발 데이터다. `to-skill`의 작성, 정규화와 호스트 노출 사례는 `evals/to-skill/`에서 함께 관리하고 공통 portable 입력은 `evals/fixtures/`에서 하나로 유지한다. 현재 테스트는 eval schema와 canonical fixture 구조를 검증한다. 반복 실행, baseline 비교와 비용 측정이 실제로 필요해질 때만 별도 evaluator를 추가한다.
 
 ### 외부 스킬
 
@@ -87,6 +120,8 @@ Claude Code
 ```
 
 스킬 frontmatter에는 호스트를 강제로 제한하는 표준 트리거가 없다. 따라서 호스트 격리는 `description` 문구가 아니라 설치 위치와 공식 플러그인 경계로 보장한다.
+
+이 `skill-authoring` provider는 catalog에서 설치할 수 있는 host-native fallback이다. 직접 만든 portable 스킬의 기본 작성 흐름은 통합된 `to-skill`을 사용한다.
 
 ## Catalog 모델
 
@@ -242,11 +277,12 @@ PR을 병합한 뒤 다음 단계의 브랜치와 PR을 시작한다. 여러 단
 - `npx skills`와 호스트 공식 설치 명령을 호출한다.
 - 공용 SSOT, 호스트 격리, dependency 순서와 반복 실행을 검증한다.
 
-### 5. 첫 개인 스킬과 플러그인
+### 5. 개인 스킬 통합 작성 흐름
 
 - 사용자의 지시에 따라 스킬을 하나씩 작성한다.
-- 첫 안정된 스킬이 생길 때 Codex 플러그인 manifest를 추가한다.
-- 필요할 때만 개인 marketplace 설정을 추가한다.
+- `to-skill` 하나에서 portable 작성, 기존 사본 정규화와 호스트 노출을 처리한다.
+- 호스트별 metadata·invocation·packaging 규칙은 조건부 reference로 분리한다.
+- plugin과 개인 marketplace는 배포 요청이 있을 때만 추가한다.
 
 ### 6. 선택적 자동화와 분리
 
@@ -257,16 +293,23 @@ PR을 병합한 뒤 다음 단계의 브랜치와 PR을 시작한다. 여러 단
 
 현재 논의한 외부 프로젝트와 스킬은 조사 후보일 뿐 등록 대상이 아니다. 특히 Matt Pocock의 스킬은 `domain-modeling`, `grill-me`, `grill-with-docs`만 우선 후보로 남기고 나머지는 중복 여부를 확인한 뒤 제외할 수 있다.
 
-`skill-creator`는 공용 스킬 후보가 아니라 호스트별 provider 사례로 취급한다. Ponytail 계열, Vercel 스킬, 명령 파일과 Paperclip은 종류와 배포 방식을 확인한 후 사용자가 하나씩 선택한다.
+외부 `skill-creator`는 공용 스킬 후보가 아니라 host-native fallback provider로 취급한다. 직접 만든 `to-skill`은 개인 portable 작성과 양쪽 호스트 노출을 통일하는 별도 계층이다. Ponytail 계열, Vercel 스킬, 명령 파일과 Paperclip은 종류와 배포 방식을 확인한 후 사용자가 하나씩 선택한다.
 
 ## 성공 기준
 
 - 외부 스킬 소스가 저장소에 복사되어 있지 않다.
 - `skills/`에는 직접 만든 스킬만 들어간다.
 - 외부 항목의 출처, 라이선스, 종류와 설치 방법을 카탈로그에서 확인할 수 있다.
-- 공용 스킬만 `.agents/skills` SSOT와 symlink를 사용한다.
+- 일반 소비 프로젝트의 공용 스킬은 `.agents/skills` SSOT와 Claude symlink를 사용한다.
 - 호스트 전용 스킬은 다른 호스트에 노출되지 않는다.
 - 같은 논리 기능을 호스트별 provider로 연결할 수 있다.
+- 사용자는 `to-skill` 하나로 스킬을 생성, 수정하거나 canonical 구조로 정규화할 수 있다.
+- `skill-to-codex`와 `skill-to-claude`는 독립 스킬이나 공개 trigger로 남지 않고 `to-skill`의 조건부 reference로만 존재한다.
+- 공용 스킬의 Codex와 Claude Code 설치는 호스트별 물리적 사본 없이 같은 portable 원본을 사용한다.
+- 다른 내용을 가진 기존 사본과 잘못된 symlink를 자동으로 덮어쓰거나 삭제하지 않는다.
+- 호스트별 adaptation 세부 규칙은 필요할 때만 읽는 reference로 분리된다.
+- 이 배포 저장소에서는 `skills/<skill-name>`만 원본으로 사용하고 `to-skill`이 `.agents/skills` 복제본이나 `.claude/skills` symlink를 만들지 않는다.
+- 호스트 plugin과 marketplace는 명시적인 배포 요청이 있을 때만 생성된다.
 - profile 하나와 여러 `--with`를 조합할 수 있다.
 - 실제 dependency와 편의상 묶은 add-on이 구분된다.
 - 설치 도구는 기존 CLI와 공식 플러그인 기능을 재사용한다.
