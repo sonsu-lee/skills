@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
-language: ko-KR
+language: en-US
 
 reviews:
   profile: quiet
@@ -19,44 +19,44 @@ reviews:
   path_instructions:
     - path: "**/*"
       instructions: |
-        - 현재 diff와 저장소 정책에서 확인되는 정확성, 안전성, 데이터 손실 또는 동작 회귀만 지적한다.
-        - 근거가 약한 추측, 개인적인 스타일 선호와 선택적인 개선 사항은 blocker로 다루지 않는다.
-        - 각 지적에는 재현 조건이나 근거, 실제 영향과 가장 작은 수정 방향을 포함한다.
+        - Report only correctness, safety, data-loss, or behavioral regression issues supported by the current diff and repository policy.
+        - Do not treat weak speculation, personal style preferences, or optional improvements as blockers.
+        - For each finding, include the evidence or reproduction conditions, the actual impact, and the smallest viable fix.
     - path: "skills/**"
       instructions: |
-        - description이 구체적인 trigger를 설명하고 SKILL.md의 실제 workflow와 일치하는지 확인한다.
-        - portable SKILL.md는 host-neutral하게 유지하고 허용된 host metadata만 별도 파일로 격리한다.
-        - plugin packaging, custom agent와 model routing 산출물을 이 저장소에 추가하지 않는다.
-        - 참조하는 파일이 존재하며, 선택적인 상세 내용은 필요한 경우에만 읽도록 분리했는지 확인한다.
+        - Ensure each description defines specific triggers and matches the workflow implemented in SKILL.md.
+        - Keep portable SKILL.md files host-neutral and isolate only supported host metadata in separate files.
+        - Do not add plugin packaging, custom-agent artifacts, or model-routing artifacts to this repository.
+        - Ensure referenced files exist and optional details are separated so they are loaded only when needed.
     - path: "evals/**"
       instructions: |
-        - trigger, 비-trigger, 안전한 중단 조건과 경계 사례를 검증하는지 확인한다.
-        - expected output은 관찰 가능한 결과를 설명하고 내부 문구나 구현 세부사항에 고정되지 않아야 한다.
+        - Cover trigger, non-trigger, safe-stop, and boundary cases.
+        - Describe observable expected outcomes without coupling them to internal wording or implementation details.
     - path: "catalog/**"
       instructions: |
-        - 외부 source를 복사하지 않고 shared와 host-specific은 source를 선언하는지 확인한다.
-        - host-specific은 hosts, host-native는 providers를 선언하는지 확인한다.
-        - license evidence와 runtime 부작용 선언이 실제 upstream 내용과 일치하는지 확인한다.
-        - dependency와 profile 구성이 누락, 순환 또는 중복 없이 설치 순서로 해석되는지 확인한다.
+        - Do not copy external sources; require source declarations for shared and host-specific entries.
+        - Require hosts for host-specific entries and providers for host-native entries.
+        - Ensure license evidence and runtime side-effect declarations match the upstream source.
+        - Ensure dependencies and profiles resolve to an installation order without missing entries, cycles, or duplicates.
     - path: "scripts/**"
       instructions: |
-        - 입력과 catalog를 검증하기 전에 외부 명령이나 파일 변경을 실행하지 않는지 확인한다.
-        - 실제 외부 명령은 shell 문자열이 아닌 argument 배열로 실행하고 경로를 안전하게 처리해야 한다.
-        - dry-run은 실제 실행과 같은 plan을 출력하되 외부 명령이나 파일 변경을 수행하지 않아야 한다.
-        - dependency 정렬, 중복 제거, host 분기와 실패 보고가 결정적이고 명확한지 확인한다.
+        - Do not run external commands or modify files before validating inputs and the catalog.
+        - Run external commands with argument arrays rather than shell strings, and handle paths safely.
+        - Dry runs must print the same plan as real execution without running external commands or modifying files.
+        - Keep dependency ordering, deduplication, host branching, and failure reporting deterministic and explicit.
     - path: "tests/**"
       instructions: |
-        - 외부 임시 project와 symlink 경로에서 실행되는지 확인한다.
-        - dependency 순서, host 부재와 하위 명령 실패를 실제 동작 기준으로 검증한다.
-        - 구현 세부사항보다 공개된 CLI 결과와 부작용을 검증한다.
+        - Exercise the tool from an external temporary project and through a symlinked path.
+        - Verify dependency order, missing hosts, and child-command failures through observable behavior.
+        - Test public CLI results and side effects rather than implementation details.
     - path: "docs/**"
       instructions: |
-        - 한국어 문장이 간결하고 현재 구현, catalog와 명령 예시에 일치하는지 확인한다.
-        - 폐기된 설계나 아직 구현하지 않은 기능을 현재 동작처럼 설명하지 않는지 확인한다.
+        - Keep English prose concise and consistent with the current implementation, catalog, and command examples.
+        - Do not present retired designs or unimplemented features as current behavior.
     - path: "README.md"
       instructions: |
-        - 한국어 문장이 간결하고 현재 구현, catalog와 명령 예시에 일치하는지 확인한다.
-        - 폐기된 설계나 아직 구현하지 않은 기능을 현재 동작처럼 설명하지 않는지 확인한다.
+        - Keep English prose concise and consistent with the current implementation, catalog, and command examples.
+        - Do not present retired designs or unimplemented features as current behavior.
 
 chat:
   art: false
