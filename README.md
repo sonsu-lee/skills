@@ -1,12 +1,13 @@
 # Personal Skills
 
-직접 만든 스킬을 플러그인으로 배포하고, 외부 스킬의 출처와 설치 구성을 관리하는 개인 저장소입니다.
+직접 만든 portable Agent Skills를 보관하고, 외부 스킬과 호스트 플러그인의 설치 구성을 관리하는 개인 저장소입니다.
 
 ## 구조
 
 - `skills/`: 직접 만든 스킬을 보관합니다.
 - `evals/`: 개인 스킬의 trigger·output 사례와 공용 portable fixture를 관리합니다.
 - `catalog/`: 외부 스킬을 소스 복사 없이 분류하고 설치 방법을 기록합니다.
+- `scripts/`: profile을 해석하고 `npx skills`와 호스트 공식 설치 명령을 호출합니다.
 - `docs/DESIGN.md`: 저장소의 현재 설계와 작업 원칙을 기록합니다.
 
 외부 카탈로그에는 검토한 profile과 add-on만 등록하며 upstream 소스는 포함하지 않습니다.
