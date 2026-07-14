@@ -4,7 +4,9 @@ language: en-US
 
 reviews:
   profile: quiet
-  request_changes_workflow: false
+  request_changes_workflow: true
+  commit_status: true
+  fail_commit_status: true
   in_progress_fortune: false
   collapse_walkthrough: true
   changed_files_summary: false
