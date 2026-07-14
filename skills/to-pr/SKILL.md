@@ -18,11 +18,12 @@ description: Prepares and publishes focused pull requests with English Conventio
 1. 요청을 `문구 작성` 또는 `PR 게시`로 구분한다.
 2. base branch를 저장소 기본값과 branch 관계에서 확인한다. 후보가 여러 개면 사용자에게 확인한다.
 3. base 대비 status, commit 목록과 전체 diff를 읽는다.
-4. 커밋되지 않은 변경이 있으면 **REQUIRED SUB-SKILL:** Use `to-commit` before publishing.
-5. PR 전체를 한 문장으로 설명할 수 있는지 확인한다. 독립적인 주제가 섞였으면 PR을 나눈다.
-6. 아래 형식으로 제목과 본문을 작성한다.
-7. 문구 작성 요청이면 제목과 본문만 반환하고 외부 상태를 변경하지 않는다.
-8. 게시 요청이면 관련 검증과 인증 상태를 확인하고 branch를 push한 뒤 적절한 GitHub workflow로 PR을 생성하거나 갱신한다.
+4. 게시 요청에 커밋되지 않은 변경이 있으면 **REQUIRED SUB-SKILL:** Use `to-commit` before publishing.
+5. `to-commit`을 적용했다면 status, commit 목록과 전체 diff를 다시 읽고, 실패했거나 변경에 영향받는 검증을 재실행한다.
+6. PR 전체를 한 문장으로 설명할 수 있는지 확인한다. 독립적인 주제가 섞였으면 PR을 나눈다.
+7. 아래 형식으로 제목과 본문을 작성한다.
+8. 문구 작성 요청이면 제목과 본문만 반환하고 외부 상태를 변경하지 않는다.
+9. 게시 요청이면 관련 검증이 통과하고 해결되지 않은 blocker가 없는지 확인한다. 이후 인증 상태를 확인하고 branch를 push한 뒤 적절한 GitHub workflow로 PR을 생성하거나 갱신한다.
 
 리뷰 대응, merge와 branch 정리는 수행하지 않는다.
 
@@ -63,7 +64,7 @@ Fixes silent host omissions by warning about missing project directories and fai
 ## 중단 조건
 
 - base 또는 PR 범위가 불명확하면 게시 전에 사용자에게 확인한다.
-- 커밋되지 않은 변경, 실패한 검증 또는 공개하지 않은 blocker가 있으면 게시하지 않는다.
+- 커밋되지 않은 변경, 실패한 검증 또는 해결되지 않은 blocker가 있으면 게시하지 않는다.
 - 관련 없는 여러 주제를 하나의 PR 제목으로 포장하지 않는다.
 - push 권한이나 GitHub 인증이 없으면 문구와 blocker만 보고한다.
 
