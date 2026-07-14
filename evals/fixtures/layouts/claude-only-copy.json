@@ -1,0 +1,9 @@
+{
+  "entries": [
+    {
+      "path": ".claude/skills/change-risk-review",
+      "type": "copy",
+      "source": "evals/fixtures/portable/change-risk-review"
+    }
+  ]
+}
