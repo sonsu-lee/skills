@@ -18,7 +18,7 @@ description: Organizes working-tree changes into coherent, verified commits with
 1. 저장소 정책과 현재 branch 상태를 확인한다.
 2. status와 diff를 읽고 관련 없는 변경, generated file과 기존 사용자 변경을 구분한다.
 3. 아래 기준으로 커밋 단위와 순서를 먼저 정한다.
-4. 한 단위에 해당하는 경로만 staging한다.
+4. 파일 전체가 한 단위라면 해당 경로만 staging한다. 한 파일에 여러 단위가 섞였다면 `git add -p` 또는 동등한 방식으로 해당 hunk만 staging한다.
 5. `git diff --cached`로 실제 커밋 범위를 다시 확인한다.
 6. 해당 단위를 증명하는 가장 좁고 완전한 검증을 실행한다.
 7. 영어 Conventional Commit 메시지로 커밋한다.
@@ -55,7 +55,8 @@ docs(installer): explain host directory requirements
 ## 중단 조건
 
 - 변경의 소유권이나 범위가 불명확하면 staging 전에 사용자에게 확인한다.
-- 검증이 실패하거나 실행할 수 없으면 이유를 보고하고 승인 없이 커밋하지 않는다.
+- `git diff --cached` 검토나 해당 단위에 필요한 검증을 생략했거나 완료하지 못하면 blocker를 보고하고 변경을 커밋하지 않는다.
+- 검증에 실패하면 이유를 보고하고 승인 없이 커밋하지 않는다.
 - 공유된 history의 rewrite나 force-push가 필요하면 영향과 복구 방법을 설명하고 명시적인 승인을 받는다.
 - 관련 없는 사용자 변경을 숨기거나 자동으로 함께 커밋하지 않는다.
 

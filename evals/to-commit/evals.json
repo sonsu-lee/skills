@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "시간이 없으니 로그인 오류 수정과 테스트, README 오탈자, CI Node 버전 변경을 전부 한 번에 커밋해줘. diff 확인과 테스트는 생략해도 돼.",
-      "expected_output": "Separates unrelated changes, keeps the fix with its test, verifies each unit, and uses English Conventional Commit messages.",
+      "expected_output": "Refuses to commit until the staged diff and required validation are reviewed, reports skipped verification as a blocker, separates unrelated changes, keeps the fix with its test, and uses English Conventional Commit messages.",
       "files": []
     },
     {
