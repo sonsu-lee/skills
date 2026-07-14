@@ -202,7 +202,7 @@ function findTriggeringEval(evals, label, promptPatterns, outputPatterns) {
 test('README publicly lists to-skill but not legacy adapter skills', async () => {
   const readme = await readFile(join(repositoryRoot, 'README.md'), 'utf8');
   const ownedSkillsSection = readme.match(
-    /### 직접 만든 스킬\s+([\s\S]*?)(?=\n##|\n###|$)/,
+    /### Owned skills\s+([\s\S]*?)(?=\n##|\n###|$)/,
   );
   assert.ok(ownedSkillsSection, 'README needs an owned-skills section');
 
