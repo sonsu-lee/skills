@@ -6,6 +6,7 @@
     "skills:install": "node scripts/install.mjs",
     "test": "node --test",
     "test:e2e": "node --test tests/install-e2e.test.mjs",
+    "test:plugin": "node tests/codex-plugin-runtime.mjs",
     "validate": "node scripts/validate-catalog.mjs"
   }
 }
