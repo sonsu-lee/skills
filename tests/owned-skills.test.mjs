@@ -250,6 +250,7 @@ test('to-skill owns authoring, revision, normalization, and host preparation', a
   assert.match(frontmatter.description, /Claude Code/i);
   assert.doesNotMatch(markdown, /\bTODO\b/);
   assert.doesNotMatch(markdown, /skill-to-(?:codex|claude)/);
+  assert.doesNotMatch(markdown, /(?:built-in|내장) creator/i);
 
   const evaluation = await readFile(
     join(repositoryRoot, 'evals', 'to-skill', 'evals.json'),
@@ -291,6 +292,14 @@ test('to-skill provides and conditionally routes its three references', async ()
     assert.ok(contents.trim().length > 0);
     assert.doesNotMatch(contents, /\bTODO\b/);
   }
+
+  const claudeReference = await readFile(
+    join(skillRoot, 'references', 'claude-code.md'),
+    'utf8',
+  );
+  assert.doesNotMatch(claudeReference, /(?:built-in|내장) creator/i);
+  assert.match(claudeReference, /(?:installable|설치 가능한)/i);
+  assert.match(claudeReference, /plugin|provider/i);
 
   const metadata = await readFile(
     join(skillRoot, 'agents', 'openai.yaml'),
@@ -531,6 +540,9 @@ test('to-skill evals cover separate Codex and Claude metadata and packaging bran
     assert.match(item.prompt, /명시적으로 요청|explicitly requested/i);
     assert.match(item.expected_output, /explicitly requested/i);
   }
+
+  assert.doesNotMatch(claudePackaging.expected_output, /built-in creator/i);
+  assert.match(claudePackaging.expected_output, /installable|provider/i);
 
   assert.equal(
     new Set(cases.map(({ id }) => id)).size,
