@@ -1,4 +1,4 @@
 interface:
   display_name: "To Skill"
   short_description: "Create and normalize skills across hosts"
-  default_prompt: "Use $to-skill to create, revise, or normalize this Agent Skill for Codex and Claude Code."
+  default_prompt: "Create, revise, or normalize this Agent Skill for Codex and Claude Code."

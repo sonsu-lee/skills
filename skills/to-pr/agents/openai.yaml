@@ -1,4 +1,4 @@
 interface:
   display_name: "To PR"
   short_description: "Prepare focused pull requests"
-  default_prompt: "Use $to-pr to prepare and publish the current branch as a focused pull request."
+  default_prompt: "Prepare and publish the current branch as a focused pull request."
