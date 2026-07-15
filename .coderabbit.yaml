@@ -1,0 +1,64 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+language: en-US
+
+reviews:
+  profile: quiet
+  request_changes_workflow: true
+  commit_status: true
+  fail_commit_status: true
+  in_progress_fortune: false
+  collapse_walkthrough: true
+  changed_files_summary: false
+  sequence_diagrams: false
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+    ignore_title_keywords:
+      - WIP
+      - DO NOT REVIEW
+  path_instructions:
+    - path: "**/*"
+      instructions: |
+        - Report only correctness, safety, data-loss, or behavioral regression issues supported by the current diff and repository policy.
+        - Do not treat weak speculation, personal style preferences, or optional improvements as blockers.
+        - For each finding, include the evidence or reproduction conditions, the actual impact, and the smallest viable fix.
+    - path: "skills/**"
+      instructions: |
+        - Ensure each description defines specific triggers and matches the workflow implemented in SKILL.md.
+        - Keep portable SKILL.md files host-neutral and isolate only supported host metadata in separate files.
+        - Do not add plugin packaging, custom-agent artifacts, or model-routing artifacts to this repository.
+        - Ensure referenced files exist and optional details are separated so they are loaded only when needed.
+    - path: "evals/**"
+      instructions: |
+        - Cover trigger, non-trigger, safe-stop, and boundary cases.
+        - Describe observable expected outcomes without coupling them to internal wording or implementation details.
+    - path: "catalog/**"
+      instructions: |
+        - Do not copy external sources; require source declarations for shared and host-specific entries.
+        - Require hosts for host-specific entries and providers for host-native entries.
+        - Ensure license evidence and runtime side-effect declarations match the upstream source.
+        - Ensure dependencies and profiles resolve to an installation order without missing entries, cycles, or duplicates.
+    - path: "scripts/**"
+      instructions: |
+        - Do not run external commands or modify files before validating inputs and the catalog.
+        - Run external commands with argument arrays rather than shell strings, and handle paths safely.
+        - Dry runs must print the same plan as real execution without running external commands or modifying files.
+        - Keep dependency ordering, deduplication, host branching, and failure reporting deterministic and explicit.
+    - path: "tests/**"
+      instructions: |
+        - Exercise the tool from an external temporary project and through a symlinked path.
+        - Verify dependency order, missing hosts, and child-command failures through observable behavior.
+        - Test public CLI results and side effects rather than implementation details.
+    - path: "docs/**"
+      instructions: |
+        - Keep English prose concise and consistent with the current implementation, catalog, and command examples.
+        - Do not present retired designs or unimplemented features as current behavior.
+    - path: "README.md"
+      instructions: |
+        - Keep English prose concise and consistent with the current implementation, catalog, and command examples.
+        - Do not present retired designs or unimplemented features as current behavior.
+
+chat:
+  art: false
