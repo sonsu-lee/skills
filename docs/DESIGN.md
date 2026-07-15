@@ -313,7 +313,8 @@ PR을 병합한 뒤 다음 단계의 브랜치와 PR을 시작한다. 여러 단
 - 같은 논리 기능을 호스트별 provider로 연결할 수 있다.
 - 사용자는 `to-skill` 하나로 스킬을 생성, 수정하거나 canonical 구조로 정규화할 수 있다.
 - `skill-to-codex`와 `skill-to-claude`는 독립 스킬이나 공개 trigger로 남지 않고 `to-skill`의 조건부 reference로만 존재한다.
-- 공용 스킬의 Codex와 Claude Code 설치는 호스트별 물리적 사본 없이 같은 portable 원본을 사용한다.
+- symlink를 지원하는 환경에서는 Codex와 Claude Code가 호스트별 물리적 사본 없이 같은 portable 원본을 사용한다.
+- symlink를 지원하지 않아 사용자가 명시적으로 copy mode를 선택한 경우에도 `.agents/skills`를 SSOT로 유지한다.
 - 다른 내용을 가진 기존 사본과 잘못된 symlink를 자동으로 덮어쓰거나 삭제하지 않는다.
 - 호스트별 adaptation 세부 규칙은 필요할 때만 읽는 reference로 분리된다.
 - 이 배포 저장소에서는 `skills/<skill-name>`만 원본으로 사용하고 `to-skill`이 `.agents/skills` 복제본이나 `.claude/skills` symlink를 만들지 않는다.
