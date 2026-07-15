@@ -1,19 +1,11 @@
 import assert from 'node:assert/strict';
 import { lstat, readFile, readdir } from 'node:fs/promises';
-import {
-  basename,
-  dirname,
-  isAbsolute,
-  join,
-  normalize,
-  relative,
-  resolve,
-  sep,
-} from 'node:path';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url));
+const { join, relative, resolve, sep } = path;
 
 function parseFrontmatter(markdown, name) {
   const match = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
@@ -47,14 +39,18 @@ async function assertMissing(path, message) {
   await assert.rejects(lstat(path), { code: 'ENOENT' }, message);
 }
 
-function assertProjectRelativePath(path, name) {
-  assert.equal(typeof path, 'string');
-  assert.ok(path.trim().length > 0, `${name} must not be blank`);
-  assert.ok(!isAbsolute(path), `${name} must be project-relative`);
-
-  const normalized = normalize(path);
+function assertProjectRelativePath(value, name) {
+  assert.equal(typeof value, 'string');
+  assert.ok(value.trim().length > 0, `${name} must not be blank`);
   assert.ok(
-    normalized !== '..' && !normalized.startsWith(`..${sep}`),
+    !path.posix.isAbsolute(value) && !path.win32.isAbsolute(value),
+    `${name} must be project-relative`,
+  );
+  assert.ok(!value.includes('\\'), `${name} must be a POSIX path`);
+
+  const normalized = path.posix.normalize(value);
+  assert.ok(
+    normalized !== '..' && !normalized.startsWith('../'),
     `${name} must stay inside the project`,
   );
 }
@@ -69,7 +65,7 @@ async function assertPortableSkillDirectory(source, name) {
   assert.ok(
     sourceFromFixtures !== '..'
       && !sourceFromFixtures.startsWith(`..${sep}`)
-      && !isAbsolute(sourceFromFixtures),
+      && !path.isAbsolute(sourceFromFixtures),
     `${name} source must stay inside evals/fixtures`,
   );
 
@@ -77,7 +73,7 @@ async function assertPortableSkillDirectory(source, name) {
   const contents = await readFile(skillFile, 'utf8');
   const frontmatter = parseFrontmatter(contents, skillFile);
   assert.deepEqual(Object.keys(frontmatter), ['name', 'description']);
-  assert.equal(frontmatter.name, basename(source));
+  assert.equal(frontmatter.name, path.posix.basename(source));
 }
 
 async function assertLayoutManifest(file, contents) {
@@ -108,18 +104,24 @@ async function assertLayoutManifest(file, contents) {
       assert.deepEqual(Object.keys(entry).sort(), ['path', 'target', 'type']);
       assert.equal(typeof entry.target, 'string');
       assert.ok(entry.target.trim().length > 0, `${name}.target must not be blank`);
-      assert.ok(!isAbsolute(entry.target), `${name}.target must be relative`);
-
-      const targetPath = resolve(
-        repositoryRoot,
-        dirname(entry.path),
-        entry.target,
+      assert.ok(
+        !path.posix.isAbsolute(entry.target)
+          && !path.win32.isAbsolute(entry.target),
+        `${name}.target must be relative`,
       );
-      const targetFromProject = relative(repositoryRoot, targetPath);
+      assert.ok(
+        !entry.target.includes('\\'),
+        `${name}.target must be a POSIX path`,
+      );
+
+      const targetFromProject = path.posix.normalize(path.posix.join(
+        path.posix.dirname(entry.path),
+        entry.target,
+      ));
       assert.ok(
         targetFromProject !== '..'
-          && !targetFromProject.startsWith(`..${sep}`)
-          && !isAbsolute(targetFromProject),
+          && !targetFromProject.startsWith('../')
+          && !path.posix.isAbsolute(targetFromProject),
         `${name}.target must stay inside the project`,
       );
     }
@@ -153,7 +155,10 @@ async function assertEvaluationFixture(file) {
 
   const frontmatter = parseFrontmatter(contents, file);
   assert.deepEqual(Object.keys(frontmatter), ['name', 'description']);
-  assert.equal(frontmatter.name, basename(dirname(file)));
+  assert.equal(
+    frontmatter.name,
+    path.posix.basename(path.posix.dirname(file)),
+  );
 }
 
 async function readToSkillEvaluation() {
@@ -250,6 +255,7 @@ test('to-skill owns authoring, revision, normalization, and host preparation', a
   assert.match(frontmatter.description, /Claude Code/i);
   assert.doesNotMatch(markdown, /\bTODO\b/);
   assert.doesNotMatch(markdown, /skill-to-(?:codex|claude)/);
+  assert.doesNotMatch(markdown, /(?:built-in|내장) creator/i);
 
   const evaluation = await readFile(
     join(repositoryRoot, 'evals', 'to-skill', 'evals.json'),
@@ -291,6 +297,14 @@ test('to-skill provides and conditionally routes its three references', async ()
     assert.ok(contents.trim().length > 0);
     assert.doesNotMatch(contents, /\bTODO\b/);
   }
+
+  const claudeReference = await readFile(
+    join(skillRoot, 'references', 'claude-code.md'),
+    'utf8',
+  );
+  assert.doesNotMatch(claudeReference, /(?:built-in|내장) creator/i);
+  assert.match(claudeReference, /(?:installable|설치 가능한)/i);
+  assert.match(claudeReference, /plugin|provider/i);
 
   const metadata = await readFile(
     join(skillRoot, 'agents', 'openai.yaml'),
@@ -396,6 +410,47 @@ test('to-skill layout fixtures model each normalization state', async () => {
     { path: claudePath, type: 'copy', source: portableSource },
   ]);
   assert.ok(!claudeOnly.entries.some(({ path }) => path.startsWith('.agents/')));
+});
+
+test('layout manifests reject Windows absolute entry paths', async () => {
+  await assert.rejects(
+    assertLayoutManifest(
+      'evals/fixtures/layouts/windows-absolute.json',
+      JSON.stringify({
+        entries: [{
+          path: 'C:\\skills\\change-risk-review',
+          type: 'copy',
+          source: 'evals/fixtures/portable/change-risk-review',
+        }],
+      }),
+    ),
+    /project-relative/,
+  );
+});
+
+test('layout manifests reject backslashes in entry paths and targets', async () => {
+  const entries = [
+    {
+      path: '.agents\\skills\\change-risk-review',
+      type: 'copy',
+      source: 'evals/fixtures/portable/change-risk-review',
+    },
+    {
+      path: '.claude/skills/change-risk-review',
+      type: 'symlink',
+      target: '..\\..\\.agents\\skills\\change-risk-review',
+    },
+  ];
+
+  for (const entry of entries) {
+    await assert.rejects(
+      assertLayoutManifest(
+        'evals/fixtures/layouts/backslash.json',
+        JSON.stringify({ entries: [entry] }),
+      ),
+      /POSIX path/,
+    );
+  }
 });
 
 test('to-skill evals cover authoring, revision, and safe normalization', async () => {
@@ -531,6 +586,9 @@ test('to-skill evals cover separate Codex and Claude metadata and packaging bran
     assert.match(item.prompt, /명시적으로 요청|explicitly requested/i);
     assert.match(item.expected_output, /explicitly requested/i);
   }
+
+  assert.doesNotMatch(claudePackaging.expected_output, /built-in creator/i);
+  assert.match(claudePackaging.expected_output, /installable|provider/i);
 
   assert.equal(
     new Set(cases.map(({ id }) => id)).size,

@@ -77,7 +77,7 @@
       "id": 9,
       "prompt": "기존 release-project 스킬을 Claude Code plugin으로 패키징해줘. 배포 패키징을 명시적으로 요청하는 거야.",
       "should_trigger": true,
-      "expected_output": "Uses the current Claude Code plugin contract and built-in creator because plugin packaging was explicitly requested, creates only the minimum package, and reports missing publisher, version, or marketplace values instead of inventing them.",
+      "expected_output": "Uses the current Claude Code plugin contract and installable official plugin/provider because plugin packaging was explicitly requested, creates only the minimum package, and reports missing publisher, version, or marketplace values instead of inventing them.",
       "files": [
         "evals/fixtures/portable/release-project/SKILL.md"
       ]
