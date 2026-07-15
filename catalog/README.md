@@ -1,8 +1,8 @@
-# External Skills Catalog
+# External skills catalog
 
 This catalog records the source, classification, and installation method for third-party skills.
 
-Third-party source code is neither copied nor mirrored here. Installation and updates use upstream repositories, `npx skills`, or official host plugins.
+This catalog does not copy or mirror third-party source code. Use upstream repositories, `npx skills`, or official host plugins to install and update entries.
 
 ## Registration rules
 
@@ -55,6 +55,6 @@ Add optional groups with `--with`:
 | `discovery` | `find-skills` |
 | `skill-authoring` | Per-host `skill-creator` provider |
 
-Dependencies are resolved separately from profile and `--with` convenience groups. For example, `grill-me` selects `grilling`, while `grill-with-docs` selects `grilling` and `domain-modeling` first.
+The installer orders declared dependencies before each selected entry. For example, `grilling` precedes `grill-me`; `grilling` and `domain-modeling` precede `grill-with-docs`.
 
-See the [repository README](../README.md) for installation commands and the commit-pinned remote execution procedure.
+See the [repository README](../README.md) for owned-skill, `sonsu-skills` plugin, profile, and commit-pinned remote installation.
