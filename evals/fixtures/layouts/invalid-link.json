@@ -1,0 +1,14 @@
+{
+  "entries": [
+    {
+      "path": ".agents/skills/change-risk-review",
+      "type": "copy",
+      "source": "evals/fixtures/portable/change-risk-review"
+    },
+    {
+      "path": ".claude/skills/change-risk-review",
+      "type": "symlink",
+      "target": "../../.agents/skills/release-project"
+    }
+  ]
+}

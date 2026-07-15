@@ -1,0 +1,102 @@
+{
+  "skill_name": "to-skill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "일반 소비 프로젝트에서 Codex와 Claude Code가 함께 쓸 change-risk-review 스킬을 새로 만들어줘. diff의 회귀 위험과 검증 누락을 찾는 용도야.",
+      "should_trigger": true,
+      "expected_output": "Creates the portable canonical skill at .agents/skills/change-risk-review, exposes it to Claude Code as .claude/skills/change-risk-review -> ../../.agents/skills/change-risk-review, and keeps the shared SKILL.md frontmatter limited to name and description.",
+      "files": [
+        "evals/fixtures/no-portable-skill/README.md"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "기존 change-risk-review 스킬의 trigger가 너무 넓어. 실제 positive와 near-miss 사례에 맞게 수정하고 두 host 배치를 정리해줘.",
+      "should_trigger": true,
+      "expected_output": "Revises the canonical portable source and its evals, preserves the name-and-description-only frontmatter, and keeps the Claude Code entry as a symlink to that canonical source.",
+      "files": [
+        "evals/fixtures/portable/change-risk-review/SKILL.md"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": ".agents와 .claude에 완전히 동일한 물리 사본이 있어. 같은 두 사본을 하나의 canonical 원본으로 정규화해줘.",
+      "should_trigger": true,
+      "expected_output": "Shows the replacement plan, requests explicit confirmation before changing anything, and only after approval replaces the Claude physical copy with a relative symlink to the canonical source.",
+      "files": [
+        "evals/fixtures/layouts/identical-copies.json"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": ".agents와 .claude 양쪽의 사본 내용이 서로 달라 충돌해. 두 copy를 정규화해줘.",
+      "should_trigger": true,
+      "expected_output": "Stops and reports the conflict; it does not merge either copy, does not overwrite either copy, does not move a backup, and does not choose a winner automatically.",
+      "files": [
+        "evals/fixtures/layouts/conflicting-copies.json"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": ".claude/skills 아래의 잘못된 symlink가 엉뚱한 대상을 가리켜. 올바른 canonical로 정규화해줘.",
+      "should_trigger": true,
+      "expected_output": "Stops and reports the invalid link while leaving it in place; it does not delete the link and does not replace it automatically.",
+      "files": [
+        "evals/fixtures/layouts/invalid-link.json"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "기존 change-risk-review 스킬에 Codex UI metadata와 agents/openai.yaml만 준비해줘.",
+      "should_trigger": true,
+      "expected_output": "Adds only the minimal agents/openai.yaml beside the canonical skill, preserves portable SKILL.md frontmatter, and omits plugin packaging because it was not requested.",
+      "files": [
+        "evals/fixtures/portable/change-risk-review/SKILL.md"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "기존 release-project 스킬을 Codex plugin으로 패키징해줘. 배포 패키징을 명시적으로 요청하는 거야.",
+      "should_trigger": true,
+      "expected_output": "Uses the current Codex plugin contract and built-in creator because plugin packaging was explicitly requested, creates only the minimum package, and reports missing publisher, version, or marketplace values instead of inventing them.",
+      "files": [
+        "evals/fixtures/portable/release-project/SKILL.md"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "기존 release-project 스킬에 Claude Code 전용 disable-model-invocation frontmatter metadata만 준비해줘.",
+      "should_trigger": true,
+      "expected_output": "Keeps the portable source unchanged, reports the Claude-only frontmatter as a separate derived host-specific deployment task, and creates no plugin packaging because it was not requested.",
+      "files": [
+        "evals/fixtures/portable/release-project/SKILL.md"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "기존 release-project 스킬을 Claude Code plugin으로 패키징해줘. 배포 패키징을 명시적으로 요청하는 거야.",
+      "should_trigger": true,
+      "expected_output": "Uses the current Claude Code plugin contract and installable official plugin/provider because plugin packaging was explicitly requested, creates only the minimum package, and reports missing publisher, version, or marketplace values instead of inventing them.",
+      "files": [
+        "evals/fixtures/portable/release-project/SKILL.md"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "GitHub에 공개된 외부 스킬을 찾아서 설치해줘. 새 스킬을 쓰거나 기존 스킬을 고칠 필요는 없어.",
+      "should_trigger": false,
+      "expected_output": "Does not invoke to-skill; uses the external skill discovery and installation workflow without authoring, revising, normalizing, or preparing a host package.",
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "일반 소비 프로젝트에서 Claude Code의 .claude/skills/change-risk-review에만 물리 사본이 있어. 이 사본을 canonical로 이동해 정규화해줘.",
+      "should_trigger": true,
+      "expected_output": "Shows the move and link plan, requests explicit confirmation before changing anything, and only after approval moves the Claude physical copy to the canonical .agents path and creates the relative symlink.",
+      "files": [
+        "evals/fixtures/layouts/claude-only-copy.json"
+      ]
+    }
+  ]
+}
