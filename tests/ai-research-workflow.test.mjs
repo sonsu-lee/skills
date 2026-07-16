@@ -93,15 +93,19 @@ test('ai-research-workflow evals cover trigger boundaries and output gates', asy
     evaluation.evals.length,
   );
 
-  const documentationNearMisses = evaluation.evals.filter((item) => (
+  const isDocumentationNearMiss = (item, promptPattern) => (
     !item.should_trigger
-    && /React|Codex CLI|OpenAI/i.test(item.prompt)
+    && promptPattern.test(item.prompt)
     && /official .*documentation/i.test(item.expected_output)
     && /does not invoke ai-research-workflow/i.test(item.expected_output)
-  ));
+  );
   assert.ok(
-    documentationNearMisses.length >= 2,
-    'evals need narrow library and coding-agent documentation near-misses',
+    evaluation.evals.some((item) => isDocumentationNearMiss(item, /React/i)),
+    'evals need a narrow library-documentation near-miss',
+  );
+  assert.ok(
+    evaluation.evals.some((item) => isDocumentationNearMiss(item, /Codex CLI/i)),
+    'evals need a narrow coding-agent product-documentation near-miss',
   );
 
   for (const item of evaluation.evals) {
