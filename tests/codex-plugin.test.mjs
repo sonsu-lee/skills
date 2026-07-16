@@ -31,7 +31,7 @@ test('Codex plugin manifest is the exact skills-only contract', async () => {
 
   assert.deepEqual(manifest, {
     name: 'sonsu-skills',
-    version: '0.1.0',
+    version: '0.2.0',
     description: 'Personal skills maintained by sonsu-lee.',
     skills: './skills/',
   });
@@ -78,7 +78,12 @@ test('Codex plugin exposes the exact owned and namespaced skill inventory', asyn
     .map((entry) => entry.name)
     .sort();
 
-  assert.deepEqual(directories, ['to-commit', 'to-pr', 'to-skill']);
+  assert.deepEqual(directories, [
+    'ai-research-workflow',
+    'to-commit',
+    'to-pr',
+    'to-skill',
+  ]);
 
   const skillNames = [];
   for (const directory of directories) {
@@ -89,6 +94,7 @@ test('Codex plugin exposes the exact owned and namespaced skill inventory', asyn
   }
 
   assert.deepEqual(skillNames, [
+    'sonsu-skills:ai-research-workflow',
     'sonsu-skills:to-commit',
     'sonsu-skills:to-pr',
     'sonsu-skills:to-skill',

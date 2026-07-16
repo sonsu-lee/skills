@@ -20,7 +20,12 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const repositoryPath = fileURLToPath(new URL('..', import.meta.url));
 const repositoryRoot = await realpath(repositoryPath);
 const pluginId = 'sonsu-skills@sonsu-skills';
-const ownedSkills = ['to-commit', 'to-pr', 'to-skill'];
+const ownedSkills = [
+  'ai-research-workflow',
+  'to-commit',
+  'to-pr',
+  'to-skill',
+];
 const namespacedSkills = ownedSkills.map((name) => `sonsu-skills:${name}`);
 
 export function runCodex(
@@ -296,7 +301,7 @@ async function main() {
         pluginId,
         name: 'sonsu-skills',
         marketplaceName: 'sonsu-skills',
-        version: '0.1.0',
+        version: '0.2.0',
         installed: false,
         enabled: false,
         source: 'local',
@@ -313,7 +318,7 @@ async function main() {
       commandOptions,
     );
     assert.equal(installed.pluginId, pluginId);
-    assert.equal(installed.version, '0.1.0');
+    assert.equal(installed.version, '0.2.0');
     const cacheRoot = await realpath(installed.installedPath);
     const sourceManifest = JSON.parse(
       await readFile(join(repositoryRoot, '.codex-plugin', 'plugin.json'), 'utf8'),

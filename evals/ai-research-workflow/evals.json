@@ -1,0 +1,54 @@
+{
+  "skill_name": "ai-research-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "최근 AI 코딩 에이전트의 계획 및 리뷰 방식에 관한 공식 가이드와 논문을 조사해 비교하고, 우리 저장소의 skill workflow를 바꿀 근거가 있는지 판단해줘.",
+      "should_trigger": true,
+      "expected_output": "Classifies the research mode and scope, checks current official guidance and canonical papers, grounds the major claims, looks for contradictory evidence, and makes a confidence-calibrated workflow recommendation with target, cost, risk, validation, and rollback.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "공급사는 새 코드 리뷰 모델이 결함을 90% 잡는다고 하고 독립 preprint는 기존 모델보다 유의한 개선이 없다고 해. benchmark 범위와 근거 수준을 검토해서 blocking gate 도입 여부를 결정해줘.",
+      "should_trigger": true,
+      "expected_output": "Separates vendor evidence from independent evidence, checks whether the claims measure comparable outcomes, records publication and benchmark limitations, represents the contradiction, and recommends a reversible experiment rather than overstating confidence.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "AI research agent를 어떻게 구성하는지 넓게 조사해줘. 공식 문서, 논문, 구현 저장소를 병렬로 살펴보고 최종 결론은 하나로 종합해줘. 보고서 파일은 만들지 마.",
+      "should_trigger": true,
+      "expected_output": "Uses bounded independent evidence lanes while keeping scope, source policy, conflict resolution, and final synthesis with the coordinator; returns the result in chat and does not create a report artifact.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "이 AI 평가 결과를 근거로 AGENTS.md나 plugin 설정을 바꿀지 검토하고, 바꾼다면 검증 방법과 되돌릴 조건도 같이 정리해줘.",
+      "should_trigger": true,
+      "expected_output": "Maps each evidence-backed recommendation to the correct workflow surface and states its trigger, cost, risk, validation, and rollback; unsupported changes are deferred or labeled experimental.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "React의 useOptimistic 최신 API signature와 간단한 사용 예제를 공식 문서 기준으로 알려줘.",
+      "should_trigger": false,
+      "expected_output": "Does not invoke ai-research-workflow; uses the current React documentation workflow for the narrow API question.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "도쿄에서 오늘 저녁에 갈 만한 라멘집 세 곳을 찾아줘.",
+      "should_trigger": false,
+      "expected_output": "Does not invoke ai-research-workflow; uses an ordinary current web recommendation workflow.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Codex CLI에서 현재 지원하는 sandbox 옵션만 공식 문서로 확인해줘.",
+      "should_trigger": false,
+      "expected_output": "Does not invoke ai-research-workflow; uses the official OpenAI documentation workflow for the narrow product fact.",
+      "files": []
+    }
+  ]
+}
