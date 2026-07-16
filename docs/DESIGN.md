@@ -162,7 +162,7 @@ flowchart LR
 
 #### 스킬 metadata의 namespace 호환성
 
-직접 설치한 스킬 이름은 `to-commit`이고 plugin 설치 이름은 `sonsu-skills:to-commit`이다. Codex는 plugin skill의 이름만 namespace로 한정하며 `agents/openai.yaml`의 `default_prompt` 안에 있는 `$to-commit` 같은 문자열은 자동으로 바꾸지 않는다. 같은 `skills/` 원본을 두 채널에서 사용하려면 `default_prompt`에 자기 자신의 `$skill-name`을 넣지 않고 invocation-neutral 문장으로 쓰거나 필드를 생략한다. 구현 PR은 현재 세 metadata 파일을 이 규칙에 맞추고 두 채널의 이름을 각각 검증한다.
+직접 설치한 스킬 이름은 `to-commit`이고 plugin 설치 이름은 `sonsu-skills:to-commit`이다. Codex는 plugin skill의 이름만 namespace로 한정하며 `agents/openai.yaml`의 `default_prompt` 안에 있는 `$to-commit` 같은 문자열은 자동으로 바꾸지 않는다. 같은 `skills/` 원본을 두 채널에서 사용하려면 `default_prompt`에 자기 자신의 `$skill-name`을 넣지 않고 invocation-neutral 문장으로 쓰거나 필드를 생략한다. 구현 PR은 모든 owned-skill metadata 파일을 이 규칙에 맞추고 두 채널의 이름을 각각 검증한다.
 
 #### 접근법 검토
 
