@@ -318,7 +318,7 @@ test('to-skill provides and conditionally routes its three references', async ()
   assert.ok(interfaceMetadata.display_name.length > 0);
   assert.ok(interfaceMetadata.short_description.length >= 25);
   assert.ok(interfaceMetadata.short_description.length <= 64);
-  assert.match(interfaceMetadata.default_prompt, /\$to-skill\b/);
+  assert.doesNotMatch(interfaceMetadata.default_prompt, /\$[a-z0-9-]+\b/i);
 });
 
 test('to-skill documents the consumer canonical layout and repository exception', async () => {
@@ -366,6 +366,37 @@ test('the distribution repository has no host-discovery mirrors of owned skills'
       join(repositoryRoot, '.claude', 'skills', name),
       `.claude/skills/${name} must not link the distribution source`,
     );
+  }
+});
+
+test('owned skill default prompts are invocation-neutral', async () => {
+  const expectedMetadata = {
+    'to-commit': {
+      display_name: 'To Commit',
+      short_description: 'Organize changes into verified commits',
+      default_prompt: 'Organize the current changes into coherent, verified commits.',
+    },
+    'to-pr': {
+      display_name: 'To PR',
+      short_description: 'Prepare focused pull requests',
+      default_prompt: 'Prepare and publish the current branch as a focused pull request.',
+    },
+    'to-skill': {
+      display_name: 'To Skill',
+      short_description: 'Create and normalize skills across hosts',
+      default_prompt: 'Create, revise, or normalize this Agent Skill for Codex and Claude Code.',
+    },
+  };
+
+  for (const [name, expected] of Object.entries(expectedMetadata)) {
+    const metadata = await readFile(
+      join(repositoryRoot, 'skills', name, 'agents', 'openai.yaml'),
+      'utf8',
+    );
+    const interfaceMetadata = parseOpenAiInterface(metadata, name);
+
+    assert.deepEqual(interfaceMetadata, expected);
+    assert.doesNotMatch(interfaceMetadata.default_prompt, /\$[a-z0-9-]+\b/i);
   }
 });
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "To Commit"
   short_description: "Organize changes into verified commits"
-  default_prompt: "Use $to-commit to organize the current changes into coherent, verified commits."
+  default_prompt: "Organize the current changes into coherent, verified commits."
