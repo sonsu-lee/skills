@@ -1,43 +1,126 @@
-# Personal Skills
+# Personal skills
 
-직접 만든 portable Agent Skills를 보관하고, 외부 스킬과 호스트 플러그인의 설치 구성을 관리하는 개인 저장소입니다.
+This repository distributes three owned portable Agent Skills and a managed Codex plugin bundle. It also stores installation metadata for third-party skills. Choose one owned-skill channel for each Codex environment, or use the profile CLI for external catalog entries.
 
-## 구조
+## Repository layout
 
-- `skills/`: 직접 만든 스킬을 보관합니다.
-- `evals/`: 개인 스킬의 trigger·output 사례와 공용 portable fixture를 관리합니다.
-- `catalog/`: 외부 스킬을 소스 복사 없이 분류하고 설치 방법을 기록합니다.
-- `scripts/`: profile을 해석하고 `npx skills`와 호스트 공식 설치 명령을 호출합니다.
-- `docs/DESIGN.md`: 저장소의 현재 설계와 작업 원칙을 기록합니다.
+Use these paths to find owned skills, evaluations, external metadata, installer scripts, and design documentation:
 
-외부 카탈로그에는 검토한 profile과 add-on만 등록하며 upstream 소스는 포함하지 않습니다.
+- `skills/`: portable skills authored in this repository.
+- `evals/`: trigger and output cases for owned skills, plus shared portable fixtures.
+- `catalog/`: third-party skill classifications and installation metadata, without copied source.
+- `scripts/`: profile resolution and thin wrappers around `npx skills` and official host installation commands.
+- `docs/DESIGN.md`: the current design and working agreements.
 
-### 직접 만든 스킬
+The external catalog contains only reviewed third-party entries and installation groups. It does not include upstream source code.
 
-| 스킬 | 용도 |
+### Owned skills
+
+The repository maintains these three portable skills:
+
+| Skill | Purpose |
 | --- | --- |
-| `to-commit` | 변경을 주제별 영어 Conventional Commit으로 정리 |
-| `to-pr` | 완료된 브랜치를 짧은 영어 제목과 본문의 PR로 게시 |
-| `to-skill` | Agent Skill 작성·수정·정규화와 host preparation 수행 |
+| `to-commit` | Organize changes into focused English Conventional Commits |
+| `to-pr` | Publish a completed branch with a concise English title and body |
+| `to-skill` | Author, revise, normalize, and prepare Agent Skills for hosts |
 
-`to-skill`은 새 스킬 작성, 기존 스킬 수정, 다중 host 사본 정규화와 요청된 Codex·Claude Code 준비를 하나의 안전한 workflow로 처리합니다.
+Use `to-skill` to author new skills, revise existing skills, normalize copies across hosts, and prepare Codex and Claude Code integrations.
 
-## 빠른 시작
+## Choose an installation channel
 
-설치 전에 catalog 유효성과 실행할 명령을 확인합니다.
+Choose the channel that matches what you want to install:
+
+| Channel | Installs | Use it when |
+| --- | --- | --- |
+| Skills CLI | One or more owned skills from `skills/` | You need a selective project-local installation |
+| Codex `sonsu-skills` plugin | All three owned skills as one managed bundle | You want Codex to manage the complete bundle |
+| Profile CLI | Third-party entries from `catalog/` | You need the reviewed profile and optional external add-ons |
+
+Directly installed owned skills and an enabled `sonsu-skills` plugin are mutually exclusive in the same Codex environment. The profile CLI currently installs only third-party catalog entries, not owned skills or the plugin.
+
+## Install selected owned skills directly
+
+List the owned skills before selecting them:
+
+```bash
+npx skills add sonsu-lee/skills --list
+```
+
+Install one owned skill for Codex:
+
+```bash
+npx skills add sonsu-lee/skills \
+  --skill to-commit \
+  --agent codex
+```
+
+Repeat `--skill` to install more than one:
+
+```bash
+npx skills add sonsu-lee/skills \
+  --skill to-commit \
+  --skill to-pr \
+  --agent codex
+```
+
+Run these commands from the target project. The project's `.agents/skills` directory is canonical, and host-specific paths use symlinks by default.
+
+## Install the managed Codex plugin
+
+Use the plugin to install all owned skills as one Codex-managed bundle. This channel does not support individual skill selection. Before installing it, remove direct owned-skill installations from the same Codex environment. The plugin does not automatically detect or remove directly installed skills.
+
+Add the repository marketplace and install the bundle:
+
+```bash
+codex plugin marketplace add sonsu-lee/skills
+codex plugin add sonsu-skills@sonsu-skills
+```
+
+The enabled plugin exposes these namespaced runtime skills:
+
+- `sonsu-skills:to-commit`
+- `sonsu-skills:to-pr`
+- `sonsu-skills:to-skill`
+
+The plugin exposes no entries from `catalog/`. Start a new Codex task after installation so Codex loads the plugin.
+
+### Update the managed Codex plugin
+
+Refresh the marketplace snapshot, then install the bundle again:
+
+```bash
+codex plugin marketplace upgrade sonsu-skills
+codex plugin add sonsu-skills@sonsu-skills
+```
+
+Start a new Codex task after updating the plugin.
+
+### Remove the managed Codex plugin
+
+Remove the installed bundle from the current Codex environment:
+
+```bash
+codex plugin remove sonsu-skills@sonsu-skills
+```
+
+## Install external catalog entries
+
+The profile CLI currently installs only third-party entries from `catalog/`. It does not install owned skills from `skills/` or the `sonsu-skills` plugin.
+
+Validate the catalog and preview the generated commands before installation.
 
 ```bash
 npm run validate
 npm run skills:install -- --profile react --host codex --dry-run
 ```
 
-dry-run 결과가 맞으면 `--dry-run`을 제거합니다.
+Remove `--dry-run` after reviewing the plan.
 
 ```bash
 npm run skills:install -- --profile react --host codex
 ```
 
-여러 선택 기능과 host를 함께 지정할 수 있습니다.
+Select multiple optional groups and hosts in one command.
 
 ```bash
 npm run skills:install -- \
@@ -48,35 +131,37 @@ npm run skills:install -- \
   --host claude-code
 ```
 
-### 선택할 수 있는 구성
+### Available profile selections
 
-| 구분 | 이름 | 용도 |
+The profile CLI supports these selections:
+
+| Type | Name | Purpose |
 | --- | --- | --- |
-| profile | `react` | React 컴포넌트 설계와 성능 지침 |
-| add-on | `view-transitions` | React·Next.js View Transition 구현 |
-| add-on | `design-review` | UI·UX·접근성 검토 |
-| add-on | `docs-writing` | 문서와 prose 검토 |
-| add-on | `alignment` | 계획·설계·도메인 모델 점검 |
-| capability | `discovery` | 외부 스킬 탐색 |
-| capability | `skill-authoring` | host-native 스킬 작성 도구 |
+| profile | `react` | React component design and performance guidance |
+| add-on | `view-transitions` | React and Next.js View Transition implementation |
+| add-on | `design-review` | UI, UX, and accessibility review |
+| add-on | `docs-writing` | Documentation and prose review |
+| add-on | `alignment` | Plan, design, and domain-model alignment |
+| capability | `discovery` | Third-party skill discovery |
+| capability | `skill-authoring` | Host-native skill authoring tools |
 
-`--profile`은 한 번만 사용합니다. `--with`와 `--host`는 반복할 수 있습니다. 명시된 dependency는 자동으로 포함되며 중복 항목은 한 번만 설치됩니다.
+Use `--profile` exactly once. Repeat `--with` and `--host` as needed. The installer includes declared dependencies automatically and installs each entry once.
 
-## 설치 동작
+## External catalog installation behavior
 
-외부 프로젝트는 이 저장소에 복사하거나 미러링하지 않습니다. 설치할 때 upstream 저장소, `npx skills` 또는 호스트의 공식 플러그인을 사용합니다.
+This repository does not copy or mirror third-party projects. The installer uses upstream repositories, `npx skills`, or official host plugins and follows these rules:
 
-- `shared` 스킬은 `npx skills`로 설치합니다.
-- 대상 project의 `.agents/skills`를 원본 위치로 사용하며, agent 전용 경로는 기본적으로 symlink로 연결합니다.
-- `host-specific` 항목은 허용된 host에서만 설치합니다.
-- `host-native` builtin은 이미 사용할 수 있다고 표시합니다.
-- shell에서 실행할 수 없는 plugin 명령은 자동 실행하지 않고 수동 명령으로 출력합니다.
-- `claude-code`를 요청했는데 `.claude/`가 없으면 warning을 출력하고 해당 host를 건너뜁니다.
-- 요청한 host를 모두 건너뛰면 외부 명령을 실행하지 않고 오류로 종료합니다.
+- **Shared skills**: The installer uses `npx skills`.
+- **Canonical path**: The target project's `.agents/skills` directory stores the source files. Agent-specific paths use symlinks by default.
+- **Host-specific entries**: The installer installs each entry only for its supported hosts.
+- **Host-native features**: The installer reports built-in features as already available.
+- **Manual plugin commands**: The installer prints commands that cannot run in a shell.
+- **Missing Claude Code directory**: The installer warns and skips `claude-code` when the project has no `.claude/` directory.
+- **No available hosts**: If the installer skips every requested host, it exits before running an external command.
 
-## 다른 저장소에서 고정 버전 실행
+## Run a pinned version from another repository
 
-원격 스크립트를 shell로 바로 전달하지 않습니다. 검토한 전체 commit SHA만 임시 디렉터리에 받은 다음 dry-run부터 실행합니다.
+Do not pipe a remote script directly into a shell. Fetch a reviewed full commit SHA into a temporary directory, then start with a dry run.
 
 ```bash
 SKILLS_REF=7e852c3c8483efe19b60c90c567cf4a03940f24b
@@ -99,7 +184,7 @@ node "$SKILLS_REPOSITORY/scripts/install.mjs" \
   --dry-run
 ```
 
-`scripts/install.mjs`, `scripts/validate-catalog.mjs`, `catalog/skills.json`, `catalog/profiles.json`을 확인하세요. 출력된 명령도 검토한 뒤 `--dry-run`을 제거합니다. 명령을 실행한 현재 디렉터리가 스킬을 설치할 대상 project가 됩니다.
+Review `scripts/install.mjs`, `scripts/validate-catalog.mjs`, `catalog/skills.json`, and `catalog/profiles.json`. Inspect the generated commands before removing `--dry-run`. The current working directory becomes the target project for installation.
 
 ```bash
 node "$SKILLS_REPOSITORY/scripts/install.mjs" \
@@ -107,21 +192,24 @@ node "$SKILLS_REPOSITORY/scripts/install.mjs" \
   --host codex
 ```
 
-실행을 마쳤거나 설치하지 않기로 했다면 임시 checkout과 shell 변수를 정리합니다.
+Remove the temporary checkout and shell variables after installation, or when you decide not to continue.
 
 ```bash
 rm -rf -- "$SKILLS_TMP"
 unset SKILLS_REF SKILLS_TMP SKILLS_REPOSITORY
 ```
 
-새 commit을 사용할 때는 전체 SHA와 변경 내용을 먼저 검토하고 `SKILLS_REF`만 갱신합니다.
+Before using a new commit, review its full SHA and diff, then update only `SKILLS_REF`.
 
-## 검증
+## Verify repository changes
+
+Run these checks before committing repository changes:
 
 ```bash
 npm test
 npm run test:e2e
 npm run validate
+npm run test:plugin
 ```
 
-자세한 경계와 설치 방향은 [`docs/DESIGN.md`](docs/DESIGN.md), 등록 원칙은 [`catalog/README.md`](catalog/README.md)를 참고하세요.
+See [`docs/DESIGN.md`](docs/DESIGN.md) for repository boundaries and installation design. See [`catalog/README.md`](catalog/README.md) for catalog registration rules.
