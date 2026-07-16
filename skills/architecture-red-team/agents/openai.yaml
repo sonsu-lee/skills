@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Red Team"
+  short_description: "Challenge architecture assumptions and failure modes"
+  default_prompt: "Red-team this architecture from first principles and return a quality-gate decision."

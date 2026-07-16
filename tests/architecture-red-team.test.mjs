@@ -59,6 +59,8 @@ test('architecture red-team remains read-only and returns a decision contract', 
   assert.match(markdown, /read-only/i);
   assert.match(markdown, /do not (?:edit|modify)/i);
   assert.match(markdown, /commit|revert/i);
+  assert.match(markdown, /combined.*not a separate remediation request/is);
+  assert.match(markdown, /end the turn after the verdict/i);
   assert.match(markdown, /observed|evidence/i);
   assert.match(markdown, /inferred|inference/i);
   assert.match(markdown, /reference baseline/i);
