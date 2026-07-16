@@ -27,8 +27,10 @@ test('ai-research-workflow is a concise portable research contract', async () =>
   assert.equal(frontmatter.name, 'ai-research-workflow');
   assert.match(frontmatter.description, /^Use when /);
   assert.match(frontmatter.description, /AI\/ML|AI research/i);
-  assert.match(frontmatter.description, /paper|benchmark|official guidance/i);
+  assert.match(frontmatter.description, /multi-source|multiple sources/i);
+  assert.match(frontmatter.description, /paper|benchmark|contradiction/i);
   assert.match(frontmatter.description, /workflow/i);
+  assert.match(frontmatter.description, /not for narrow .*documentation/i);
   assert.ok(markdown.split(/\r?\n/).length < 180);
 
   for (const required of [
@@ -89,6 +91,17 @@ test('ai-research-workflow evals cover trigger boundaries and output gates', asy
   assert.equal(
     new Set(evaluation.evals.map(({ id }) => id)).size,
     evaluation.evals.length,
+  );
+
+  const documentationNearMisses = evaluation.evals.filter((item) => (
+    !item.should_trigger
+    && /React|Codex CLI|OpenAI/i.test(item.prompt)
+    && /official .*documentation/i.test(item.expected_output)
+    && /does not invoke ai-research-workflow/i.test(item.expected_output)
+  ));
+  assert.ok(
+    documentationNearMisses.length >= 2,
+    'evals need narrow library and coding-agent documentation near-misses',
   );
 
   for (const item of evaluation.evals) {

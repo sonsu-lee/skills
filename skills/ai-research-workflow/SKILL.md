@@ -1,11 +1,11 @@
 ---
 name: ai-research-workflow
-description: Use when researching AI/ML topics that require recent papers, official model or coding-agent guidance, benchmark interpretation, conflicting evidence, or evidence-backed changes to prompts, skills, plugins, agents, or engineering workflows.
+description: Use when AI/ML research requires multi-source synthesis, benchmark interpretation, contradiction resolution, or evidence-backed changes to prompts, skills, plugins, agents, or engineering workflows; not for narrow API or product documentation questions.
 ---
 
 # AI Research Workflow
 
-Turn broad AI/ML research into source-grounded conclusions and reversible workflow recommendations. Do not use this skill for a narrow API fact that an official documentation workflow can answer directly, or for ordinary non-AI web lookup.
+Turn broad AI/ML research into source-grounded conclusions and reversible workflow recommendations. Do not use this skill for a narrow API or product-documentation fact that an official documentation workflow can answer directly, or for ordinary non-AI web lookup.
 
 ## Workflow
 

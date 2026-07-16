@@ -33,7 +33,7 @@
       "id": 5,
       "prompt": "React의 useOptimistic 최신 API signature와 간단한 사용 예제를 공식 문서 기준으로 알려줘.",
       "should_trigger": false,
-      "expected_output": "Does not invoke ai-research-workflow; uses the current React documentation workflow for the narrow API question.",
+      "expected_output": "Does not invoke ai-research-workflow; uses the official React documentation workflow for the narrow API question.",
       "files": []
     },
     {
