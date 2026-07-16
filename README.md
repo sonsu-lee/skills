@@ -16,6 +16,7 @@
 
 | 스킬 | 용도 |
 | --- | --- |
+| `ai-research-workflow` | AI/ML 근거를 원문에서 검증하고 workflow 변경안을 평가 |
 | `to-commit` | 변경을 주제별 영어 Conventional Commit으로 정리 |
 | `to-pr` | 완료된 브랜치를 짧은 영어 제목과 본문의 PR로 게시 |
 | `to-skill` | Agent Skill 작성·수정·정규화와 host preparation 수행 |
