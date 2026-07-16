@@ -9,6 +9,7 @@ import {
   realpath,
   rm,
   stat,
+  symlink,
   writeFile,
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -16,32 +17,43 @@ import { join } from 'node:path';
 import { createInterface } from 'node:readline';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-const repositoryRoot = await realpath(fileURLToPath(new URL('..', import.meta.url)));
+const repositoryPath = fileURLToPath(new URL('..', import.meta.url));
+const repositoryRoot = await realpath(repositoryPath);
 const pluginId = 'sonsu-skills@sonsu-skills';
 const ownedSkills = ['to-commit', 'to-pr', 'to-skill'];
 const namespacedSkills = ownedSkills.map((name) => `sonsu-skills:${name}`);
 
-function runCodex(args, env) {
+export function runCodex(
+  args,
+  env,
+  { cwd = repositoryRoot, timeoutMs = 30_000 } = {},
+) {
+  const command = `codex ${args.join(' ')}`;
   const result = spawnSync('codex', args, {
-    cwd: repositoryRoot,
+    cwd,
     env,
     encoding: 'utf8',
+    timeout: timeoutMs,
   });
 
   if (result.error?.code === 'ENOENT') {
     throw new Error('`codex` executable is required in PATH for npm run test:plugin');
   }
+  if (result.error?.code === 'ETIMEDOUT') {
+    throw new Error(`${command} timed out after ${timeoutMs} ms`);
+  }
   if (result.error) throw result.error;
-  assert.equal(
-    result.status,
-    0,
-    `codex ${args.join(' ')} failed:\n${result.stderr || result.stdout}`,
-  );
+  if (result.status !== 0) {
+    const status = result.status ?? result.signal ?? 'unknown';
+    const output = (result.stderr || result.stdout).trimEnd();
+    const detail = output ? `:\n${output}` : '';
+    throw new Error(`${command} failed with status ${status}${detail}`);
+  }
   return result.stdout;
 }
 
-function runCodexJson(args, env) {
-  const output = runCodex(args, env);
+function runCodexJson(args, env, options) {
+  const output = runCodex(args, env, options);
   try {
     return JSON.parse(output);
   } catch {
@@ -233,6 +245,7 @@ async function main() {
   const home = join(temporaryRoot, 'home');
   const codexHome = join(temporaryRoot, 'codex-home');
   const project = join(temporaryRoot, 'project');
+  const repositorySource = join(project, 'repository');
 
   try {
     await Promise.all([
@@ -240,11 +253,20 @@ async function main() {
       mkdir(codexHome, { recursive: true }),
       mkdir(project, { recursive: true }),
     ]);
+    await symlink(
+      repositoryPath,
+      repositorySource,
+      process.platform === 'win32' ? 'junction' : 'dir',
+    );
+    assert.equal(await realpath(repositorySource), repositoryRoot);
+
     const env = { ...process.env, HOME: home, CODEX_HOME: codexHome };
+    const commandOptions = { cwd: project };
 
     const marketplace = runCodexJson(
-      ['plugin', 'marketplace', 'add', repositoryRoot, '--json'],
+      ['plugin', 'marketplace', 'add', repositorySource, '--json'],
       env,
+      commandOptions,
     );
     assert.equal(marketplace.marketplaceName, 'sonsu-skills');
     assert.equal(await realpath(marketplace.installedRoot), repositoryRoot);
@@ -253,6 +275,7 @@ async function main() {
     const listing = runCodexJson(
       ['plugin', 'list', '--marketplace', 'sonsu-skills', '--available', '--json'],
       env,
+      commandOptions,
     );
     assert.deepEqual(listing.installed, []);
     assert.equal(listing.available.length, 1);
@@ -284,7 +307,11 @@ async function main() {
     assert.equal(await realpath(available.source.path), repositoryRoot);
     console.log('marketplace metadata available');
 
-    const installed = runCodexJson(['plugin', 'add', pluginId, '--json'], env);
+    const installed = runCodexJson(
+      ['plugin', 'add', pluginId, '--json'],
+      env,
+      commandOptions,
+    );
     assert.equal(installed.pluginId, pluginId);
     assert.equal(installed.version, '0.1.0');
     const cacheRoot = await realpath(installed.installedPath);
