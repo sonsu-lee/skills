@@ -45,11 +45,15 @@ test('architecture red-team has an explicit and narrow trigger', async () => {
   assert.equal(frontmatter.name, 'architecture-red-team');
   assert.match(frontmatter.description, /^Use when /);
   assert.match(frontmatter.description, /explicit/i);
-  assert.match(frontmatter.description, /architecture|design/i);
+  assert.match(frontmatter.description, /software architecture/i);
+  assert.match(frontmatter.description, /system design/i);
+  assert.match(frontmatter.description, /ADR/i);
+  assert.match(frontmatter.description, /cross-cutting technical proposal/i);
   assert.match(frontmatter.description, /adversarial|red-team|first-principles|quality gate/i);
   assert.match(frontmatter.description, /not for ordinary code review/i);
   assert.match(frontmatter.description, /implementation/i);
   assert.match(frontmatter.description, /brainstorming/i);
+  assert.match(frontmatter.description, /non-architectural product and interface critique/i);
   assert.ok(frontmatter.description.length <= 1024);
 });
 
@@ -124,13 +128,13 @@ test('architecture red-team evals separate explicit review from near misses', as
   const evaluation = await readEvaluation();
 
   assert.equal(evaluation.skill_name, 'architecture-red-team');
-  assert.equal(evaluation.evals.length, 8);
-  assert.equal(new Set(evaluation.evals.map(({ id }) => id)).size, 8);
+  assert.equal(evaluation.evals.length, 11);
+  assert.equal(new Set(evaluation.evals.map(({ id }) => id)).size, 11);
 
   const triggering = evaluation.evals.filter(({ should_trigger }) => should_trigger);
   const nearMisses = evaluation.evals.filter(({ should_trigger }) => !should_trigger);
   assert.equal(triggering.length, 4);
-  assert.equal(nearMisses.length, 4);
+  assert.equal(nearMisses.length, 7);
 
   for (const item of evaluation.evals) {
     assert.ok(Number.isInteger(item.id) && item.id > 0);
@@ -152,4 +156,7 @@ test('architecture red-team evals separate explicit review from near misses', as
   assert.ok(nearMisses.some(({ prompt }) => /일반적인 설계 리뷰/i.test(prompt)));
   assert.ok(nearMisses.some(({ prompt }) => /구현/i.test(prompt)));
   assert.ok(nearMisses.some(({ prompt }) => /브레인스토밍/i.test(prompt)));
+  assert.ok(nearMisses.some(({ prompt }) => /UI 디자인.*red-team/i.test(prompt)));
+  assert.ok(nearMisses.some(({ prompt }) => /가격 정책.*first principles/i.test(prompt)));
+  assert.ok(nearMisses.some(({ prompt }) => /함수 API.*adversarial review/i.test(prompt)));
 });

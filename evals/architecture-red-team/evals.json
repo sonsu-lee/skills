@@ -56,6 +56,27 @@
       "should_trigger": false,
       "expected_output": "Does not invoke architecture-red-team; uses a design exploration or brainstorming workflow without issuing a quality gate.",
       "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "이 온보딩 UI 디자인을 red-team 관점에서 공격적으로 검토해줘.",
+      "should_trigger": false,
+      "expected_output": "Does not invoke architecture-red-team because an adversarial interface critique is not a software-architecture or cross-cutting system review.",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "새 구독 가격 정책을 first principles로 challenge해줘.",
+      "should_trigger": false,
+      "expected_output": "Does not invoke architecture-red-team because a product-strategy challenge is outside software architecture and system design.",
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "이 함수 API 이름과 인자 구성을 adversarial review해줘.",
+      "should_trigger": false,
+      "expected_output": "Does not invoke architecture-red-team because a local function-interface review is code-level feedback rather than an architecture quality gate.",
+      "files": []
     }
   ]
 }

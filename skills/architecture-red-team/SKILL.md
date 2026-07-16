@@ -1,6 +1,6 @@
 ---
 name: architecture-red-team
-description: Use when the user explicitly requests an adversarial architecture or design review, an architecture red-team, a first-principles challenge, or an architecture quality gate; not for ordinary code review, implementation, or brainstorming.
+description: Use when the user explicitly requests an adversarial, red-team, first-principles, or quality-gate review of a software architecture, system design, ADR, or cross-cutting technical proposal; not for ordinary code review, implementation, brainstorming, or non-architectural product and interface critique.
 ---
 
 # Architecture Red Team
@@ -11,7 +11,7 @@ Challenge a proposed system shape before implementation deepens its commitments.
 
 ## Boundary
 
-- Trigger only on explicit adversarial, red-team, first-principles, or architecture quality-gate intent.
+- Trigger only when explicit adversarial, red-team, first-principles, or quality-gate intent targets a software architecture, system design, ADR, or cross-cutting technical proposal.
 - Do not use for ordinary code review, routine design feedback, implementation, or open-ended brainstorming.
 - Remain read-only even when the request also asks to fix findings. Do not edit or modify files, apply patches, stage changes, commit, or revert during the review.
 - A combined “review, then fix” request is not a separate remediation request. Treat its mutation step as out of scope, end the turn after the verdict, and wait for a later user turn before changing anything.
