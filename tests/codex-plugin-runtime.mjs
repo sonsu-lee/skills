@@ -21,6 +21,7 @@ const repositoryPath = fileURLToPath(new URL('..', import.meta.url));
 const repositoryRoot = await realpath(repositoryPath);
 const pluginId = 'sonsu-skills@sonsu-skills';
 const ownedSkills = [
+  'ai-research-workflow',
   'architecture-red-team',
   'to-commit',
   'to-pr',
@@ -301,7 +302,7 @@ async function main() {
         pluginId,
         name: 'sonsu-skills',
         marketplaceName: 'sonsu-skills',
-        version: '0.2.0',
+        version: '0.3.0',
         installed: false,
         enabled: false,
         source: 'local',
@@ -318,7 +319,7 @@ async function main() {
       commandOptions,
     );
     assert.equal(installed.pluginId, pluginId);
-    assert.equal(installed.version, '0.2.0');
+    assert.equal(installed.version, '0.3.0');
     const cacheRoot = await realpath(installed.installedPath);
     const sourceManifest = JSON.parse(
       await readFile(join(repositoryRoot, '.codex-plugin', 'plugin.json'), 'utf8'),
