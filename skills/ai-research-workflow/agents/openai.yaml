@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Research Workflow"
+  short_description: "Ground AI research in original sources"
+  default_prompt: "Research this AI or ML question using original sources, contradiction checks, and evidence-calibrated workflow recommendations."
