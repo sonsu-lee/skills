@@ -160,3 +160,54 @@ test('architecture red-team evals separate explicit review from near misses', as
   assert.ok(nearMisses.some(({ prompt }) => /가격 정책.*first principles/i.test(prompt)));
   assert.ok(nearMisses.some(({ prompt }) => /함수 API.*adversarial review/i.test(prompt)));
 });
+
+test('architecture red-team near-miss expectations avoid internal selection language', async () => {
+  const evaluation = await readEvaluation();
+  const nearMisses = evaluation.evals.filter(({ should_trigger }) => !should_trigger);
+  const internalSelectionLanguage = new RegExp([
+    '\\b(?:does not|do not|doesn.t|without)\\b[^.;]*'
+      + '\\b(?:invoke|invocation|dispatch|route|routing|trigger|activation|select|selection|choose)\\b'
+      + '[^.;]*\\b(?:architecture-red-team|skill|workflow|reviewer|code[- ]review)\\b',
+    '\\b(?:skill|workflow)\\s+(?:selection|invocation|activation|dispatch|routing)\\b',
+    '\\b(?:dispatch(?:es|ed|ing)?|rout(?:e|es|ed|ing)'
+      + '|select(?:s|ed|ing)?|choose|chooses|chose|choosing)\\b'
+      + '[^.;]*\\b(?:skill|workflow|reviewer|code[- ]review)\\b',
+    '\\b(?:use|uses|used|using|follow|follows|followed|following)\\b'
+      + '[^.;]*\\b(?:ordinary|implementation|design exploration|brainstorming|code[- ]review)\\b'
+      + '[^.;]*\\bworkflow\\b',
+  ].join('|'), 'i');
+  const internalSelectionExamples = [
+    'Does not invoke architecture-red-team.',
+    'Dispatches this request to another reviewer.',
+    'Routes the request to ordinary code review.',
+    'Does not trigger this skill.',
+    'Workflow selection handles this request.',
+    'Selects another skill.',
+    'Uses the ordinary code-review workflow for implementation defects and test gaps.',
+    'Follows an implementation workflow because the user asked to build the design.',
+    'Uses a design exploration or brainstorming workflow without issuing a quality gate.',
+  ];
+  const userFacingExamples = [
+    'Implements the queue route, dispatches jobs, and reports test results.',
+    'Explains which user actions trigger notifications and where feedback is missing.',
+    'Explains how the onboarding workflow triggers notifications.',
+    'Reviews whether the function invokes the callback consistently.',
+    'Uses code-review findings to explain implementation defects and test gaps.',
+    'Uses reviewer feedback to prioritize the reported bugs.',
+    'The workflow invokes the callback after validation.',
+    'Does not trigger notifications when validation fails.',
+    'Does not route unauthenticated requests to the application.',
+  ];
+
+  for (const example of internalSelectionExamples) {
+    assert.match(example, internalSelectionLanguage);
+  }
+  for (const example of userFacingExamples) {
+    assert.doesNotMatch(example, internalSelectionLanguage);
+  }
+
+  for (const item of nearMisses) {
+    assert.doesNotMatch(item.expected_output, /architecture-red-team/i);
+    assert.doesNotMatch(item.expected_output, internalSelectionLanguage);
+  }
+});
