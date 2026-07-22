@@ -46,8 +46,6 @@ appendFileSync(
       join(repository, 'scripts', 'install.mjs'),
       '--profile',
       'react',
-      '--with',
-      'alignment',
       '--host',
       'codex',
     ],
@@ -85,22 +83,6 @@ appendFileSync(
         '--yes',
       ],
     },
-    {
-      cwd: projectPath,
-      args: [
-        '--yes',
-        'skills',
-        'add',
-        'https://github.com/mattpocock/skills',
-        '--skill',
-        'grilling',
-        'grill-me',
-        'domain-modeling',
-        'grill-with-docs',
-        '--agent',
-        'codex',
-        '--yes',
-      ],
-    },
   ]);
+  assert.doesNotMatch(JSON.stringify(calls), /mattpocock|grill-me|grilling/);
 });

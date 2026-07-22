@@ -44,7 +44,6 @@ npm run skills:install -- --profile react --host codex
 ```bash
 npm run skills:install -- \
   --profile react \
-  --with alignment \
   --with skill-authoring \
   --host codex \
   --host claude-code
@@ -58,7 +57,6 @@ npm run skills:install -- \
 | add-on | `view-transitions` | React·Next.js View Transition 구현 |
 | add-on | `design-review` | UI·UX·접근성 검토 |
 | add-on | `docs-writing` | 문서와 prose 검토 |
-| add-on | `alignment` | 계획·설계·도메인 모델 점검 |
 | capability | `discovery` | 외부 스킬 탐색 |
 | capability | `skill-authoring` | host-native 스킬 작성 도구 |
 

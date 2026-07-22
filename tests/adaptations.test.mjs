@@ -49,3 +49,16 @@ test('adaptation provenance uses the reviewed immutable revisions', async () => 
       '16f29800fd2681bdf24f3eb4ccffe38be3baec6b',
   });
 });
+
+test('active install groups do not expose superseded alignment providers', async () => {
+  const [skills, profiles] = await Promise.all([
+    readFile(new URL('../catalog/skills.json', import.meta.url), 'utf8').then(JSON.parse),
+    readFile(new URL('../catalog/profiles.json', import.meta.url), 'utf8').then(JSON.parse),
+  ]);
+  const ids = skills.skills.map(({ id }) => id);
+
+  for (const id of ['grilling', 'grill-me', 'domain-modeling', 'grill-with-docs']) {
+    assert.ok(!ids.includes(id), `${id} must not remain an active provider`);
+  }
+  assert.ok(!Object.hasOwn(profiles.addons, 'alignment'));
+});
