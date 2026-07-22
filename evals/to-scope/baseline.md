@@ -387,7 +387,7 @@ Captured before `skills/to-scope/` existed.
 권한과 감사는 플래그 변경 경로 하나에 집중시키면 됩니다. 즉, “승인된 운영자만 변경 가능하고, 모든 변경은 추적 가능하다”를 보장하되, 평가 이벤트 분석이나 복잡한 타기팅 기능은 실제 필요가 생길 때 별도 과제로 분리합니다.
 ### Observable misses
 
-- No observable contract miss: it retained authorization and audit requirements while pruning the named speculative components.
+- Removed all four named components without supplying a distinct reason for each removal; the plugin API was listed but not justified.
 
 #### Run 5
 
