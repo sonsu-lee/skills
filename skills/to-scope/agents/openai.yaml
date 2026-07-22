@@ -1,0 +1,4 @@
+interface:
+  display_name: "To Scope"
+  short_description: "Refine work into a minimal complete scope"
+  default_prompt: "Refine this request into a complete, minimal, decision-ready scope."

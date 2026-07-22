@@ -381,6 +381,11 @@ test('owned skill default prompts are invocation-neutral', async () => {
       short_description: 'Prepare focused pull requests',
       default_prompt: 'Prepare and publish the current branch as a focused pull request.',
     },
+    'to-scope': {
+      display_name: 'To Scope',
+      short_description: 'Refine work into a minimal complete scope',
+      default_prompt: 'Refine this request into a complete, minimal, decision-ready scope.',
+    },
     'to-skill': {
       display_name: 'To Skill',
       short_description: 'Create and normalize skills across hosts',
