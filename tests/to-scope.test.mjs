@@ -50,6 +50,10 @@ test('to-scope has a recorded no-skill baseline', async () => {
 
   assert.match(baseline, /## Isolation/);
   assert.match(baseline, /Exposed refinement skills: none/);
+  assert.match(
+    baseline,
+    /Model and version: gpt-5\.6-terra; codex-cli 0\.145\.0-alpha\.30\./,
+  );
   assert.doesNotMatch(
     baseline.match(/## Isolation([\s\S]*?)(?=\n## Eval )/)?.[1] ?? '',
     /grill-me|grilling|ponytail|to-scope/i,
