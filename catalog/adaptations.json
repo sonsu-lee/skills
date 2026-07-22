@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "adaptations": [
+    {
+      "skill": "to-scope",
+      "relationship": "independent-reimplementation",
+      "runtimeDependencies": [],
+      "sources": [
+        {
+          "repository": "https://github.com/mattpocock/skills",
+          "paths": [
+            "skills/productivity/grill-me",
+            "skills/productivity/grilling"
+          ],
+          "ref": "ed37663cc5fbef691ddfecd080dff42f7e7e350d",
+          "license": {
+            "spdx": "MIT",
+            "evidence": "https://github.com/mattpocock/skills/blob/ed37663cc5fbef691ddfecd080dff42f7e7e350d/LICENSE"
+          },
+          "adoptedConcepts": [
+            "surface missing decisions before action",
+            "ask one blocking question at a time",
+            "offer a recommended default while preserving user choice"
+          ]
+        },
+        {
+          "repository": "https://github.com/DietrichGebert/ponytail",
+          "paths": [
+            "skills/ponytail"
+          ],
+          "ref": "16f29800fd2681bdf24f3eb4ccffe38be3baec6b",
+          "license": {
+            "spdx": "MIT",
+            "evidence": "https://github.com/DietrichGebert/ponytail/blob/16f29800fd2681bdf24f3eb4ccffe38be3baec6b/LICENSE"
+          },
+          "adoptedConcepts": [
+            "challenge whether proposed scope is necessary",
+            "prefer reuse and native capability before new work",
+            "retain safety and verification while minimizing"
+          ]
+        }
+      ]
+    }
+  ]
+}
