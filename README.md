@@ -9,6 +9,7 @@
 - `catalog/`: 외부 스킬을 소스 복사 없이 분류하고 설치 방법을 기록합니다.
 - `scripts/`: profile을 해석하고 `npx skills`와 호스트 공식 설치 명령을 호출합니다.
 - `docs/DESIGN.md`: 저장소의 현재 설계와 작업 원칙을 기록합니다.
+- `docs/design/SKILL-PORTFOLIO.md`: owned·외부 스킬의 분류 벡터와 후속 구현 순서를 기록합니다.
 
 외부 카탈로그에는 검토한 profile과 add-on만 등록하며 upstream 소스는 포함하지 않습니다.
 
@@ -20,9 +21,18 @@
 | `architecture-red-team` | 소프트웨어 아키텍처를 적대적으로 검토하고 품질 게이트 판정 |
 | `to-commit` | 변경을 주제별 영어 Conventional Commit으로 정리 |
 | `to-pr` | 완료된 브랜치를 짧은 영어 제목과 본문의 PR로 게시 |
+| `to-scope` | 누락을 찾은 뒤 불필요한 범위를 걷어내 결정 가능한 최소 scope로 정리 |
 | `to-skill` | Agent Skill 작성·수정·정규화와 host preparation 수행 |
 
+`to-scope`는 외부 refinement skill을 로드하지 않는 독립 owned workflow입니다. 누락 검토만 필요하면 `complete`, 불필요한 범위 제거만 필요하면 `minimal`, 두 과정이 모두 필요하면 `full` pass를 사용합니다.
+
 `to-skill`은 새 스킬 작성, 기존 스킬 수정, 다중 host 사본 정규화와 요청된 Codex·Claude Code 준비를 하나의 안전한 workflow로 처리합니다.
+
+### Retired external refinement providers
+
+`to-scope`를 활성화하기 전에 현재 host의 skill inventory를 확인하세요. `grill-me`, `grilling` 또는 Ponytail 계열 provider가 활성화되어 있으면 해당 provider가 지원하는 방식으로 disable하거나 uninstall해야 합니다. 같은 runtime에서 이 provider와 `to-scope`를 함께 활성화한 구성은 지원하지 않습니다.
+
+이 저장소의 installer는 user-global 파일을 삭제하거나 외부 plugin을 disable하지 않습니다. 중복 provider가 발견되면 migration blocker로 보고하고, 사용자가 해당 host 또는 provider에서 정리해야 합니다. 제거된 `domain-modeling`과 `grill-with-docs`는 `to-scope`가 대체한 것으로 간주하지 않으며, 이 저장소에서 active 설치 대상으로 제공하지 않습니다.
 
 ## 빠른 시작
 
@@ -124,4 +134,4 @@ npm run test:e2e
 npm run validate
 ```
 
-자세한 경계와 설치 방향은 [`docs/DESIGN.md`](docs/DESIGN.md), 등록 원칙은 [`catalog/README.md`](catalog/README.md)를 참고하세요.
+자세한 경계와 설치 방향은 [`docs/DESIGN.md`](docs/DESIGN.md), 스킬 분류와 로드맵은 [`docs/design/SKILL-PORTFOLIO.md`](docs/design/SKILL-PORTFOLIO.md), 등록 원칙은 [`catalog/README.md`](catalog/README.md)를 참고하세요.
