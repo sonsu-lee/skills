@@ -25,6 +25,7 @@ const ownedSkills = [
   'architecture-red-team',
   'to-commit',
   'to-pr',
+  'to-scope',
   'to-skill',
 ];
 const namespacedSkills = ownedSkills.map((name) => `sonsu-skills:${name}`);
@@ -237,6 +238,12 @@ async function assertSkillList(result, cwd, expectedNamespaced) {
     names.filter((name) => name.startsWith('sonsu-skills:')).sort(),
     expectedNamespaced,
   );
+  for (const external of ['grill-me', 'grilling', 'ponytail']) {
+    assert.ok(
+      !names.some((name) => name === external || name.endsWith(`:${external}`)),
+      `${external} must not be exposed by the owned plugin runtime`,
+    );
+  }
 
   const directSkill = entry.skills.find(({ name }) => name === 'to-commit');
   assert.ok(directSkill, 'direct to-commit skill must remain available');
@@ -302,7 +309,7 @@ async function main() {
         pluginId,
         name: 'sonsu-skills',
         marketplaceName: 'sonsu-skills',
-        version: '0.3.0',
+        version: '0.4.0',
         installed: false,
         enabled: false,
         source: 'local',
@@ -319,7 +326,7 @@ async function main() {
       commandOptions,
     );
     assert.equal(installed.pluginId, pluginId);
-    assert.equal(installed.version, '0.3.0');
+    assert.equal(installed.version, '0.4.0');
     const cacheRoot = await realpath(installed.installedPath);
     const sourceManifest = JSON.parse(
       await readFile(join(repositoryRoot, '.codex-plugin', 'plugin.json'), 'utf8'),

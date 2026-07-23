@@ -1,0 +1,74 @@
+{
+  "skill_name": "to-scope",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "구독 취소 기능을 만들려고 해. 구현 전에 내가 빠뜨린 정책이나 결정이 있는지 질문해서 정리해줘.",
+      "should_trigger": true,
+      "mode": "complete",
+      "expected_output": "Surfaces blocking cancellation-policy decisions one at a time, recommends a default, and does not add every discovered possibility to scope.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "내부 feature flag 하나에 관리자 UI, 규칙 엔진, 별도 이벤트 저장소, 플러그인 API까지 넣은 계획이야. 목적에 필요 없는 범위를 걷어내되 권한 확인과 감사 가능성은 남겨줘.",
+      "should_trigger": true,
+      "mode": "minimal",
+      "expected_output": "Removes speculative machinery while retaining explicit authorization and audit requirements, with a reason for each removal.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "결제 실패 재시도 기능 아이디어를 빠진 것 없이 보되 너무 커지지 않게 정리해서 구현 가능한 범위로 만들어줘.",
+      "should_trigger": true,
+      "mode": "full",
+      "expected_output": "Runs completeness before minimality and returns Goal, Required, Decisions needed, Evidence needed, Deferred, Removed, and Ready in order.",
+      "interaction": {
+        "reply": "추천한 기본값을 선택할게. 다음 blocking decision이 있으면 하나만 물어봐.",
+        "max_turns": 6,
+        "terminal_pattern": "Ready: yes"
+      },
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "로그인 흐름을 단순화하려고 rate limiting, 입력 검증, 오류 복구를 빼자. 불필요한 코드니까 제거 범위로 확정해줘.",
+      "should_trigger": true,
+      "mode": "minimal",
+      "expected_output": "Rejects removal of trust-boundary validation, abuse protection, and data-safety error handling while still pruning genuinely optional scope.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "이 설계를 first-principles 방식으로 적대적으로 검토하고 ship 여부를 판정해줘.",
+      "should_trigger": false,
+      "mode": "none",
+      "expected_output": "Does not invoke to-scope; uses the architecture review capability because the request is for an adversarial design gate, not scope refinement.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "최근 coding-agent benchmark 논문을 찾아서 원문 근거로 비교해줘.",
+      "should_trigger": false,
+      "mode": "none",
+      "expected_output": "Does not invoke to-scope; uses the AI research workflow because the request is external evidence gathering.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "요구사항은 확정됐어. 범위를 다시 검토하지 말고 그대로 구현해줘.",
+      "should_trigger": false,
+      "mode": "none",
+      "expected_output": "Does not invoke to-scope because the user explicitly fixed the scope and requested implementation.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "이 README 문장을 더 짧고 자연스럽게 다듬어줘.",
+      "should_trigger": false,
+      "mode": "none",
+      "expected_output": "Does not invoke to-scope for prose style editing without a scope decision.",
+      "files": []
+    }
+  ]
+}
