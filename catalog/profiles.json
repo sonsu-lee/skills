@@ -27,13 +27,6 @@
       "skills": [
         "writing-guidelines"
       ]
-    },
-    "alignment": {
-      "description": "Plan, design and domain-model stress testing",
-      "skills": [
-        "grill-me",
-        "grill-with-docs"
-      ]
     }
   },
   "capabilities": {

@@ -28,11 +28,12 @@
 
 - [`skills.json`](skills.json): 외부 스킬의 source, delivery, dependency와 provider
 - [`profiles.json`](profiles.json): `react` profile, 선택 add-on과 전역 capability
+- [`adaptations.json`](adaptations.json): owned skill이 참고한 upstream provenance. 설치기는 이 파일을 읽지 않습니다.
 
 현재 공개 묶음은 다음과 같습니다.
 
 - profile: `react`
-- add-on: `view-transitions`, `design-review`, `docs-writing`, `alignment`
+- add-on: `view-transitions`, `design-review`, `docs-writing`
 - global capability: `discovery`, `skill-authoring`
 
 각 항목의 선정 근거와 제한은 [`초기 외부 스킬 구성 결정`](../research/reports/2026-07-12-initial-skill-selection.md)을 참고하세요.
@@ -51,10 +52,15 @@
 | `view-transitions` | `vercel-react-view-transitions` |
 | `design-review` | `web-design-guidelines` |
 | `docs-writing` | `writing-guidelines` |
-| `alignment` | `grill-me`, `grill-with-docs`와 실제 dependency |
 | `discovery` | `find-skills` |
 | `skill-authoring` | host별 `skill-creator` provider |
 
-dependency는 profile이나 `--with`의 편의상 묶음과 별도로 처리합니다. 예를 들어 `grill-me`는 `grilling`, `grill-with-docs`는 `grilling`과 `domain-modeling`을 먼저 선택합니다.
+dependency는 profile이나 `--with`의 편의상 묶음과 별도로 처리합니다.
+
+## Owned adaptation provenance
+
+`adaptations.json`은 owned skill이 참고한 upstream revision과 개념을 기록하는 개발 provenance이며 설치 입력이 아니다. owned adaptation으로 대체된 upstream provider는 active profile과 add-on에서 제거해 같은 실행 환경에 동등한 trigger가 중복되지 않게 한다.
+
+대체된 upstream provider는 immutable provenance로 계속 추적하지만 profile이나 add-on으로 설치하지 않습니다. `domain-modeling`과 `grill-with-docs`는 이번 변경에서 owned replacement 없이 active 설치 대상에서 제외했습니다. owned domain-modeling workflow가 필요하면 별도의 승인된 계획과 eval set으로 다룹니다.
 
 설치 명령과 commit 고정 원격 실행 절차는 [저장소 README](../README.md)를 참고하세요.

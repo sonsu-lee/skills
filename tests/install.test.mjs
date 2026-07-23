@@ -94,7 +94,7 @@ test('parses one profile with repeated add-ons and hosts', () => {
       '--with',
       'design-review',
       '--with',
-      'alignment',
+      'docs-writing',
       '--host',
       'codex',
       '--host',
@@ -103,7 +103,7 @@ test('parses one profile with repeated add-ons and hosts', () => {
     ]),
     {
       profile: 'react',
-      with: ['design-review', 'alignment'],
+      with: ['design-review', 'docs-writing'],
       hosts: ['codex', 'claude-code'],
       dryRun: true,
     },
@@ -394,8 +394,6 @@ test('the CLI builds a dry-run from the repository catalog', async (t) => {
       '--profile',
       'react',
       '--with',
-      'alignment',
-      '--with',
       'skill-authoring',
       '--host',
       'codex',
@@ -415,10 +413,7 @@ test('the CLI builds a dry-run from the repository catalog', async (t) => {
     result.stdout,
     /--skill vercel-composition-patterns vercel-react-best-practices --agent codex claude-code --yes/,
   );
-  assert.match(
-    result.stdout,
-    /--skill grilling grill-me domain-modeling grill-with-docs --agent codex claude-code --yes/,
-  );
+  assert.doesNotMatch(result.stdout, /mattpocock|grill-me|grilling/);
   assert.match(result.stdout, /builtin codex: skill-creator/);
   assert.match(
     result.stdout,
