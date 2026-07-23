@@ -198,6 +198,8 @@ flowchart LR
 
 `to-*` 이름은 입력을 commit, PR, skill, scope처럼 안정적으로 설명할 수 있는 결과 상태로 전환하는 workflow에만 사용한다. 독립적인 판단 primitive를 분리할 때는 `find-*`, `prune-*`, `review-*`처럼 실제 행동을 나타내는 verb-led 이름을 사용한다.
 
+현재 owned·외부 스킬의 범주형 feature vector, workflow 조합과 후속 구현 순서는 [`docs/design/SKILL-PORTFOLIO.md`](design/SKILL-PORTFOLIO.md)에서 관리한다. 이 보조 문서는 후보 비교와 로드맵을 담당하며, 승인된 저장소 경계의 SSOT는 계속 이 문서다.
+
 외부 패턴을 내재화한 owned skill은 upstream 표현이나 runtime을 복사하지 않고 독립적으로 작성한다. immutable revision, license와 반영한 개념은 `catalog/adaptations.json`에 남기되 portable `SKILL.md`는 외부 skill, plugin, hook, command 또는 network를 요구하지 않는다. 대체된 upstream provider는 active install group에서 제거해 동일 trigger의 중복 활성화를 막는다.
 
 `ai-research-workflow`는 넓은 AI/ML 조사, benchmark 해석과 근거 기반 workflow 변경 검토를 담당한다. 검색 provider는 discovery layer로만 사용하고 결정에 영향을 주는 claim은 원문에서 확인한다. report artifact는 사용자가 요청한 경우에만 만들며, MCP server와 고정 custom agent는 portable skill의 dependency로 두지 않는다.

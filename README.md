@@ -9,6 +9,7 @@
 - `catalog/`: 외부 스킬을 소스 복사 없이 분류하고 설치 방법을 기록합니다.
 - `scripts/`: profile을 해석하고 `npx skills`와 호스트 공식 설치 명령을 호출합니다.
 - `docs/DESIGN.md`: 저장소의 현재 설계와 작업 원칙을 기록합니다.
+- `docs/design/SKILL-PORTFOLIO.md`: owned·외부 스킬의 분류 벡터와 후속 구현 순서를 기록합니다.
 
 외부 카탈로그에는 검토한 profile과 add-on만 등록하며 upstream 소스는 포함하지 않습니다.
 
@@ -133,4 +134,4 @@ npm run test:e2e
 npm run validate
 ```
 
-자세한 경계와 설치 방향은 [`docs/DESIGN.md`](docs/DESIGN.md), 등록 원칙은 [`catalog/README.md`](catalog/README.md)를 참고하세요.
+자세한 경계와 설치 방향은 [`docs/DESIGN.md`](docs/DESIGN.md), 스킬 분류와 로드맵은 [`docs/design/SKILL-PORTFOLIO.md`](docs/design/SKILL-PORTFOLIO.md), 등록 원칙은 [`catalog/README.md`](catalog/README.md)를 참고하세요.
