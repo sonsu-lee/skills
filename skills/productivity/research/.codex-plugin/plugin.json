@@ -1,0 +1,24 @@
+{
+  "name": "research",
+  "version": "0.1.0",
+  "description": "근거 검증형 범용 리서치와 보고서 감사 플러그인",
+  "author": {
+    "name": "sonsu-lee"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Research",
+    "shortDescription": "범용 조사, 코드·문헌 검증과 보고서 감사",
+    "longDescription": "원문 검증, 반증 탐색, 인용 감사와 공급자 장애 fallback을 제공하는 범용 리서치 플러그인입니다.",
+    "developerName": "sonsu-lee",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "이 주제를 근거 중심으로 조사해줘.",
+      "이 보고서의 인용을 감사하고 수정본까지 작성해줘.",
+      "이 코드 패턴의 실제 사용과 버전별 근거를 조사해줘."
+    ]
+  }
+}
