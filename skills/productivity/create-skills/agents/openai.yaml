@@ -1,0 +1,4 @@
+interface:
+  display_name: "스킬 생성"
+  short_description: "한글 기반 Agent Skill 자동 생성과 품질 검증"
+  default_prompt: "$create-skills를 사용해 Agent Skill을 한글로 생성하거나 개선하고 구조·트리거·행동·보안을 검증해줘."
