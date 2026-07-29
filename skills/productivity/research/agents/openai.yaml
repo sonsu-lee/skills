@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research"
+  short_description: "근거 검증형 범용 리서치와 코드·문헌·비교 조사"
+  default_prompt: "$research를 사용해 이 요청을 lookup·standard·deep으로 라우팅하고, 필요한 깊이에서만 연구 계약·원문 교차검증·반증 탐색·인용 감사를 적용해 근거 중심 결과를 작성해줘."
