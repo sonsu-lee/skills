@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR 생성"
+  short_description: "merge mode와 템플릿에 맞춰 PR을 준비·생성"
+  default_prompt: "$create-pull-request를 사용해 base/head diff와 저장소 merge mode를 검토하고 템플릿에 맞는 PR을 준비하거나 생성해줘."

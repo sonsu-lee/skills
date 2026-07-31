@@ -1,0 +1,4 @@
+interface:
+  display_name: "커밋 생성"
+  short_description: "변경을 의미 단위로 나누고 Conventional Commit을 안전하게 생성"
+  default_prompt: "$create-commit을 사용해 현재 변경을 의미 단위로 계획하고 영어 Conventional Commit 메시지로 안전하게 커밋한 뒤 결과를 검증해줘."

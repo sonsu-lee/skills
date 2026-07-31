@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git 변경 감사"
+  short_description: "커밋·PR을 변경 없이 감사하고 수정안을 제안"
+  default_prompt: "$audit-git-change를 사용해 현재 변경을 읽기 전용으로 감사하고, Conventional Commits·원자성·PR template·merge 방식별 최종 history·검증 주장·스크린샷 문제와 수정안을 보고해줘."
