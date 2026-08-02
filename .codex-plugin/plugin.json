@@ -1,0 +1,25 @@
+{
+  "name": "skills",
+  "version": "0.1.0",
+  "description": "제품 문서, 리서치, Git 워크플로와 스킬 제작을 하나의 루트 skills 컬렉션으로 제공하는 개인 Codex 플러그인",
+  "author": {
+    "name": "sonsu-lee"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Sonsu Skills",
+    "shortDescription": "제품 문서·리서치·Git·스킬 제작 컬렉션",
+    "longDescription": "루트 skills 디렉터리를 단일 원본으로 사용해 제품 요구사항과 도메인·결정 기록, 근거 검증형 리서치, 안전한 Git 워크플로와 Agent Skill 제작을 제공합니다.",
+    "developerName": "sonsu-lee",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "$skills:create-prd로 제품 요구사항을 인터뷰하고 PRD를 작성해줘.",
+      "$skills:research로 이 주제를 근거 중심으로 조사해줘.",
+      "$skills:create-commit으로 변경을 의미 단위로 커밋해줘."
+    ]
+  }
+}
