@@ -9,7 +9,7 @@ PRD를 “그럴듯한 기능 설명”이 아니라 제품·디자인·개발·
 
 ## 시작할 때 읽을 것
 
-1. 플러그인의 공통 계약 `../../shared/product-docs/document-contract.md`를 읽고 문서 소유권, 출처, 상태, 쓰기 규칙을 적용한다.
+1. 스킬 로컬 [Product Docs 문서 계약](references/document-contract.md)을 전부 읽고 문서 소유권, 출처, 상태, 쓰기 규칙을 적용한다.
 2. [PRD quality bar](references/prd-quality-bar.md)를 읽는다.
 3. 새 문서를 쓸 때는 [PRD template](assets/prd-template.md)을 출발점으로 사용하되 관련 없는 섹션과 모든 자리표시자를 제거한다.
 

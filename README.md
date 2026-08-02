@@ -2,7 +2,7 @@
 
 개인 Agent Skill을 루트 `skills/`에 한 번만 보관하고, 저장소 전체를 Codex와 Claude Code에서 같은 `skills` 플러그인으로 배포한다. Codex manifest와 Claude Code의 기본 skill discovery가 같은 루트 `skills/`를 사용하므로 플러그인별 복사본이나 symlink가 필요 없다.
 
-Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를 기준으로 동작하므로 물리 구조는 평탄하게 유지한다. `product-docs`, `git-workflow`, `research`, `skill-authoring`은 설치·버전 경계가 아니라 아래 표와 공유 자료에서만 논리적으로 묶는다.
+Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를 기준으로 동작하므로 물리 구조는 평탄하게 유지한다. `product-docs`, `git-workflow`, `research`, `skill-authoring`은 설치·버전 경계가 아니라 아래 표에서만 논리적으로 묶고, 실행에 필요한 자료는 각 skill 디렉터리 안에 둔다.
 
 ```text
 .
@@ -19,9 +19,6 @@ Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를
 │   ├── maintain-domain-docs/
 │   ├── record-decision/
 │   └── research/
-├── shared/                  # 여러 스킬이 실행 중 공유하는 계약
-│   ├── git-workflow/
-│   └── product-docs/
 ├── docs/
 │   └── design/              # maintainer용 설계·연구 근거
 ├── evals/
@@ -31,7 +28,7 @@ Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를
 
 `.agents/skills/`와 `.claude/skills/`는 로컬 개발용 설치 경로일 뿐 정본이나 플러그인 입력이 아니다. 둘은 Git에서 제외한다. `.claude-plugin/`은 이 로컬 설치 경로와 무관한 Claude Code 배포 adapter다. Codex 플러그인 bundle은 symlink를 허용하지 않으므로 배포할 때는 로컬 설치물이 섞인 raw worktree가 아니라 Git이 추적하는 repository archive를 사용한다. marketplace 이름과 업데이트 정책을 정하기 전에는 호스트별 marketplace manifest를 두지 않는다.
 
-`.codex-plugin/plugin.json`과 `.claude-plugin/plugin.json`은 같은 plugin ID, version과 `skills/` 정본을 사용하는 얇은 host adapter다. release할 때 두 manifest의 ID와 version을 함께 검증하고 version을 같은 변경에서 올린다. 어느 호스트도 별도의 생성본을 소유하지 않으며, Product Docs나 Git Workflow를 독립 설치·릴리스해야 할 실제 요구가 생길 때만 self-contained plugin root로 분리한다.
+`.codex-plugin/plugin.json`과 `.claude-plugin/plugin.json`은 같은 plugin ID, version과 `skills/` 정본을 사용하는 얇은 host adapter다. release할 때 두 manifest의 ID와 version을 함께 검증하고 version을 같은 변경에서 올린다. 어느 호스트도 별도의 생성본을 소유하지 않는다. 각 skill의 정본은 해당 디렉터리의 `SKILL.md`, `references/`, `assets/`와 `agents/`이며, 독립 릴리스 요구가 생길 때만 별도의 self-contained plugin root로 분리한다.
 
 Claude Code adapter는 plugin root의 기본 `skills/` 탐색을 사용한다. marketplace 게시 전에는 저장소 루트에서 `claude --plugin-dir .`로 로컬 실행하고 `claude plugin validate . --strict`로 manifest를 검증할 수 있다.
 
@@ -59,9 +56,9 @@ $skills:create-commit으로 현재 변경을 의미 단위로 커밋해줘.
 /skills:create-prd 이 아이디어를 full 깊이로 인터뷰하고 PRD를 작성해줘.
 ```
 
-## 공유 계약
+## 스킬 로컬 계약
 
-Product Docs 세 스킬은 `shared/product-docs/document-contract.md`의 저장 및 상호 연결 규칙을 공유한다. PRD가 다른 두 문서의 내용을 소유하지는 않는다. 도메인 지식이나 장기 보존할 결정이 발견되면 승격 후보를 제시하고, 사용자가 승인한 뒤 해당 스킬로 정본을 만든다. 한 작업에서 세 문서를 모두 요청해도 PRD → 승인된 promotion candidate → companion skill 순서로 처리하며, 쓰기 요청·의미 승인·문서 소유권을 별도로 확인한다.
+Product Docs 세 스킬은 동일한 저장 및 상호 연결 규칙을 각자의 `references/document-contract.md`에 보유한다. 이 파일은 다른 스킬을 호출하거나 import하는 dependency가 아니라 해당 skill만 설치해도 빠지지 않는 로컬 runtime 계약이다. PRD가 다른 두 문서의 내용을 소유하지는 않는다. 도메인 지식이나 장기 보존할 결정이 발견되면 승격 후보를 제시하고, 사용자가 승인한 뒤 해당 스킬로 정본을 만든다. 한 작업에서 세 문서를 모두 요청해도 PRD → 승인된 promotion candidate → companion skill 순서로 처리하며, 쓰기 요청·의미 승인·문서 소유권을 별도로 확인한다.
 
 저장소에 기존 규칙이 없을 때 Product Docs의 기본 저장 경로는 다음과 같다.
 
@@ -74,7 +71,7 @@ docs/
 
 OpenWiki 같은 파생 위키는 이후 이 정본들을 읽어 탐색 문서를 만들 수 있다. 생성된 위키를 정본으로 간주하거나 `openwiki/` 아래에 제품 결정을 직접 기록하지 않는다. `visibility`와 `publication`은 정책 힌트일 뿐 OpenWiki 접근 제어가 아니다. 연결할 때는 `.openwikiignore` 또는 별도 staging/export projection으로 비공개 입력을 먼저 제외하고 결과를 검증해야 한다.
 
-Git Workflow 세 스킬은 `shared/git-workflow/change-policy.md`를 공유한다. PR은 하나의 승인·배포·되돌리기 단위로 취급하고, 내부 commit은 리뷰 가능한 의미 단위로 나눈다. 저장소의 `AGENTS.md`, `CONTRIBUTING`, commitlint, hooks와 PR template을 우선하며, 읽기 전용 감사는 수정안을 제안할 수 있지만 적용하지 않는다. 격리된 실행 환경의 인증·서명 오류는 `shared/git-workflow/host-auth-and-signing.md`의 재확인 절차를 따른다.
+Git Workflow 세 스킬도 같은 변경 원칙을 각자의 `references/change-policy.md`에, 격리된 실행 환경의 인증·서명 재확인 절차를 각자의 `references/host-auth-and-signing.md`에 보유한다. PR은 하나의 승인·배포·되돌리기 단위로 취급하고, 내부 commit은 리뷰 가능한 의미 단위로 나눈다. 저장소의 `AGENTS.md`, `CONTRIBUTING`, commitlint, hooks와 PR template을 우선하며, 읽기 전용 감사는 수정안을 제안할 수 있지만 적용하지 않는다.
 
 Git Workflow에는 다음 원칙도 공통으로 적용한다.
 
@@ -85,7 +82,7 @@ Git Workflow에는 다음 원칙도 공통으로 적용한다.
 - Before/After screenshot은 실제 이미지에 접근할 수 있는 시각 변경에만 포함한다.
 - GitHub 인증이나 signing 실패가 격리 때문일 수 있으면 실패를 곧바로 미인증으로 단정하지 않고, 허용된 최소 읽기 전용 진단 뒤 실제 상태를 재확인해 중복 실행을 막는다.
 
-plugin root의 `shared/` 계약을 읽는 Product Docs와 Git Workflow 스킬은 이 저장소 전체를 플러그인으로 설치하는 것이 기본이다. `create-skills`와 `research`의 실행 reference는 각 skill 디렉터리 안에 있으며, Research의 선택 공급자 opt-in만 아래 루트 설정을 사용한다.
+Product Docs와 Git Workflow의 여섯 skill은 자기 디렉터리 밖의 runtime 문서를 참조하지 않으므로 skill 디렉터리만 독립 설치할 수 있다. 공통 원칙을 바꿀 때는 해당 그룹의 로컬 reference를 같은 변경에서 함께 갱신하고 교차 스킬 평가로 일관성을 확인한다. 별도 dependency skill에 암묵적으로 의존하지 않는다. `create-skills`와 `research`의 실행 reference도 각 skill 디렉터리 안에 있으며, Research의 선택 공급자 opt-in만 아래 루트 설정을 사용한다.
 
 ## Research 공급자 opt-in
 
