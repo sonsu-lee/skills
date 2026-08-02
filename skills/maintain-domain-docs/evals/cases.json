@@ -1,6 +1,6 @@
 {
   "skill_name": "maintain-domain-docs",
-  "evals": [
+  "cases": [
     {
       "id": "domain-dev-ko-direct",
       "skill": "maintain-domain-docs",

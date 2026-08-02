@@ -1,6 +1,6 @@
 {
   "skill_name": "audit-git-change",
-  "evals": [
+  "cases": [
     {
       "id": "ko-working-tree-preflight",
       "language": "ko",

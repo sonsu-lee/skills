@@ -1,6 +1,6 @@
 {
   "skill_name": "create-pull-request",
-  "evals": [
+  "cases": [
     {
       "id": "ko-create-pr-template",
       "language": "ko",

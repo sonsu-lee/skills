@@ -1,6 +1,6 @@
 {
   "skill_name": "create-prd",
-  "evals": [
+  "cases": [
     {
       "id": "prd-dev-ko-direct",
       "skill": "create-prd",

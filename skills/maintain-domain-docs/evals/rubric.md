@@ -11,7 +11,7 @@
 
 ## Deterministic checks
 
-1. `evals.json` 객체와 `evals` 배열이 파싱되고 `skill_name`이 일치하며 ID 유일성, split·language·axes 존재를 검사한다.
+1. `cases.json` 객체와 `cases` 배열이 파싱되고 `skill_name`이 일치하며 ID 유일성, split·language·axes 존재를 검사한다.
 2. 실행 전후 tree와 hash를 비교해 `write_allowlist` 밖의 변경을 즉시 실패시킨다.
 3. frontmatter의 `type`, `id`, `title`, `status`, `workflow_status`, `context`, structured `terms`, sources, relations, lifecycle links, visibility·publication과 ID·파일명 정합성을 검사한다.
 4. OKF v0.2를 표방하는 fixture에서는 `status`가 `draft | stable | deprecated`인지 확인한다.

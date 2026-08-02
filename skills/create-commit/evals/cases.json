@@ -1,6 +1,6 @@
 {
   "skill_name": "create-commit",
-  "evals": [
+  "cases": [
     {
       "id": "ko-actual-atomic-dirty",
       "language": "ko",

@@ -1,6 +1,6 @@
 {
   "skill_name": "product-docs",
-  "evals": [
+  "cases": [
     {
       "id": "product-docs-regression-promotion-flow",
       "split": "regression",

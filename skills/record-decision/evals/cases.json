@@ -1,6 +1,6 @@
 {
   "skill_name": "record-decision",
-  "evals": [
+  "cases": [
     {
       "id": "decision-dev-ko-direct",
       "skill": "record-decision",

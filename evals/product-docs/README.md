@@ -1,6 +1,6 @@
 # Product Docs 교차 스킬 평가
 
-`evals.json`은 `create-prd` → 승인된 promotion candidate → `maintain-domain-docs`와 `record-decision` 흐름을 검증하는 공개 회귀 suite다. 읽기 쉬운 공통 JSON 컨테이너를 사용하지만 `skill_name: product-docs`, `steps`, `expected_skills`는 이 저장소의 교차 스킬 확장이므로 일반적인 단일 스킬 runner가 그대로 실행할 수 있다고 가정하지 않는다. 각 스킬의 단독 사례와 판정 기준은 `skills/<skill>/evals/`에 있다. 실행 격리, 다중 턴 checkpoint, 반복과 security gate는 `protocol.md`를 따른다.
+`cases.json`은 `create-prd` → 승인된 promotion candidate → `maintain-domain-docs`와 `record-decision` 흐름을 검증하는 공개 회귀 suite다. `skill_name`, `cases`, `steps`와 `expected_skills`를 사용하는 저장소 전용 structured JSON이므로 공식 skill-creator의 `evals/evals.json`이나 일반적인 단일 스킬 runner가 그대로 실행할 수 있다고 가정하지 않는다. 각 스킬의 단독 `cases.json`도 fixture repository와 assertion ID를 포함한 같은 저장소 전용 계약이며, 판정 기준은 옆의 rubric에 있다. 실행 격리, 다중 턴 checkpoint, 반복과 security gate는 `protocol.md`를 따른다.
 
 `split: regression`은 공개 사례이며 비공개 holdout이 아니다. 실제 release holdout, runtime canary와 injection 변형은 플러그인 밖에서 관리한다.
 

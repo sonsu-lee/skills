@@ -1,6 +1,6 @@
 {
   "skill_name": "research",
-  "evals": [
+  "cases": [
     {
       "id": "ko-literature-deep",
       "language": "ko",
