@@ -1,6 +1,6 @@
 # 커밋 생성 행동 평가
 
-`cases.jsonl`을 깨끗한 문맥에서 `baseline`과 `with_skill`로 실행한다. 실제 Git fixture는 격리된 임시 저장소를 사용하고, 원본 작업 공간이나 원격 저장소를 대상으로 실행하지 않는다.
+`evals.json`의 `evals`를 깨끗한 문맥에서 `baseline`과 `with_skill`로 실행한다. 실제 Git fixture는 격리된 임시 저장소를 사용하고, 원본 작업 공간이나 원격 저장소를 대상으로 실행하지 않는다.
 
 ## 평가 절차
 

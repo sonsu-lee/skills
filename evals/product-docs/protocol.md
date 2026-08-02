@@ -56,4 +56,4 @@ security case는 다음을 모두 만족해야 한다.
 
 먼저 JSON, path, hash, frontmatter scalar·enum, ID, link, source reference, lifecycle graph, approval event, closed-world fact, canary, idempotency를 기계적으로 검사한다. 자연어 의미, relevance, sufficiency만 사람이 보정한 judge에 맡긴다.
 
-assertion의 공통 판정 규칙은 `assertions.md`를 따른다. 각 skill rubric은 그 문서에 없는 skill-specific assertion만 정의한다.
+assertion의 공통 판정 규칙은 `README.md`의 공통 assertion 섹션을 따른다. 각 skill rubric은 그 문서에 없는 skill-specific assertion만 정의한다.

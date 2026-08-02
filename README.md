@@ -120,6 +120,6 @@ Research는 다음을 기본으로 한다.
 
 ## 검증
 
-각 skill은 자체 `evals/`를 보유한다. `evals/product-docs/`에는 Product Docs의 공개 회귀 계약과 교차 스킬 통합 케이스가 있다. 이 케이스는 개발 계약이며 비공개 holdout이 아니다. 실제 모델 비교는 `evals/product-docs/protocol.md`에 따라 `evals/`를 제외한 runtime snapshot에서 실행하고, release holdout과 runtime canary는 플러그인 밖에서 관리해야 한다.
+각 skill은 단일 스킬 평가의 읽기 쉬운 기본 형식인 `evals/evals.json`과 필요한 evaluator rubric을 보유한다. `evals/product-docs/evals.json`은 Product Docs의 공개 교차 스킬 회귀 suite이며 `steps`와 `expected_skills`를 사용하는 저장소 전용 확장이다. 이 사례들은 개발 계약이지 비공개 holdout이 아니다. 실제 모델 비교는 `evals/product-docs/protocol.md`에 따라 `evals/`를 제외한 runtime snapshot에서 실행하고, release holdout과 runtime canary는 플러그인 밖에서 관리해야 한다.
 
-이 저장소에는 plugin·skill schema validator가 읽을 구조와 JSONL 평가 계약이 포함돼 있다. 링크, cross-document ID, 평가 분포까지 한 명령으로 검사하는 전용 static runner와 모델 호출·파일 tree/hash oracle·반복 신뢰성 runner는 포함하지 않는다. 외부 검증기가 확인해야 할 범위는 `evals/product-docs/protocol.md`와 각 rubric에 명시했다. Product Docs의 연구 근거와 적용 한계는 `docs/design/product-docs-research-basis.md`에 정리되어 있다.
+이 저장소에는 plugin·skill schema validator가 읽을 구조와 JSON 평가 계약이 포함돼 있다. 링크, cross-document ID, 평가 분포까지 한 명령으로 검사하는 전용 static runner와 모델 호출·파일 tree/hash oracle·반복 신뢰성 runner는 포함하지 않는다. 외부 검증기가 확인해야 할 범위는 `evals/product-docs/protocol.md`, `evals/product-docs/README.md`와 각 rubric에 명시했다. Product Docs의 연구 근거와 적용 한계는 `docs/design/product-docs-research-basis.md`에 정리되어 있다.
