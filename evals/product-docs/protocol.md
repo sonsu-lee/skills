@@ -6,8 +6,9 @@
 
 평가 runner는 대상 agent에게 다음만 제공한다.
 
-- `.codex-plugin/plugin.json`
+- 대상 호스트의 manifest: `.codex-plugin/plugin.json` 또는 `.claude-plugin/plugin.json`
 - 선택 대상들의 `SKILL.md`, `agents/`, `assets/`, `references/`
+- Product Docs 공통 runtime 계약 `shared/product-docs/document-contract.md`
 - 현재 user step과 그 시점의 fixture repository
 
 다음은 runtime snapshot에서 제외한다.

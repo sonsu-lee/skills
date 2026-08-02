@@ -9,7 +9,7 @@ Git 변경이 저장소 규칙과 하나의 merge 의도에 맞는지 검증한�
 
 ## 불변 조건
 
-- 시작할 때 플러그인 공통 파일 `../../references/change-policy.md`를 전부 읽고 저장소의 명시적 규칙과 함께 적용한다.
+- 시작할 때 Git Workflow 공통 정책 `../../shared/git-workflow/change-policy.md`를 전부 읽고 저장소의 명시적 규칙과 함께 적용한다.
 - `stage`, `commit`, `amend`, `rebase`, `push`, PR 생성·수정·병합, 설정 변경을 수행하지 않는다.
 - 테스트·formatter처럼 worktree, cache, lockfile 또는 외부 상태를 바꿀 수 있는 명령을 자동 실행하지 않는다. 기존 check 결과와 로그는 읽을 수 있다.
 - Git read는 `GIT_OPTIONAL_LOCKS=0`, `GIT_NO_LAZY_FETCH=1` 또는 동등한 non-refresh·no-lazy-fetch 방식으로 index/object write를 막고, pager·optional fsmonitor·external diff/textconv와 비신뢰 실행 위임을 비활성화하거나 사전 차단한다. 먼저 `extensions.partialClone`, promisor remote/pack을 확인하며 필요한 object가 없으면 fetch·credential helper를 실행하지 않고 증거를 `unverified`로 둔다. signature를 판정하는 read는 `gpg.program`, `gpg.<format>.program`, `gpg.ssh.defaultKeyCommand`, `gpg.format`, `gpg.minTrustLevel`, `gpg.ssh.allowedSignersFile`, `gpg.ssh.revocationFile`와 backend trust-store environment의 origin·trust를 먼저 확인한다. 비신뢰 program을 실행하거나 branch/worktree-controlled·changed trust root를 승인하는 대신 signature 상태를 `unverified`로 둔다.
@@ -73,7 +73,7 @@ Git 변경이 저장소 규칙과 하나의 merge 의도에 맞는지 검증한�
 - 기본 브랜치에서 대소문자를 구분하지 않는 `.md`·`.txt` 지원 template 위치를 확인한다. 현재 저장소에 없으면 owner의 공개 `.github` 저장소 또는 호스트가 제공하는 effective default community health PR template도 확인한다. 접근하지 못하면 template 부재로 단정하지 않고 `unverified`로 둔다. 여러 template이 있으면 선택 근거를 확인하고 임의로 하나를 강제하지 않는다.
 - template의 제목, 순서와 checklist가 보존됐는지 확인한다. 수행하지 않은 항목을 완료로 표시한 흔적이 있으면 검증 증거와 대조한다.
 
-원격 조회 실패가 실제 미인증인지 sandbox 격리인지 불명확할 때만 플러그인 공통 파일 `../../references/host-auth-and-signing.md`를 읽는다. 허용되는 호스트라면 동일 host에 대한 최소 읽기 전용 진단을 최대 한 번 수행한다. 로그인·token 조회·계정 전환·권한 갱신은 하지 않는다. 외부 진단을 사용할 수 없으면 인증 실패로 단정하지 말고 환경을 `unverified`로 남긴다.
+원격 조회 실패가 실제 미인증인지 sandbox 격리인지 불명확할 때만 Git Workflow 공통 자료 `../../shared/git-workflow/host-auth-and-signing.md`를 읽는다. 허용되는 호스트라면 동일 host에 대한 최소 읽기 전용 진단을 최대 한 번 수행한다. 로그인·token 조회·계정 전환·권한 갱신은 하지 않는다. 외부 진단을 사용할 수 없으면 인증 실패로 단정하지 말고 환경을 `unverified`로 남긴다.
 
 완료 조건: 판정에 사용한 snapshot과 읽지 못한 증거가 분리되어 있다.
 
