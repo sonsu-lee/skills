@@ -1,0 +1,25 @@
+{
+  "name": "product-docs",
+  "version": "0.1.0",
+  "description": "근거와 명시적 합의를 보존하며 PRD, 도메인 문서, 결정 기록을 생성하고 유지하는 제품 문서 플러그인",
+  "author": {
+    "name": "sonsu-lee"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Product Docs",
+    "shortDescription": "PRD·도메인·결정을 근거와 합의로 관리",
+    "longDescription": "제품 요구사항을 인터뷰해 PRD로 만들고, 도메인 언어와 중요한 결정을 별도 문서로 유지합니다. 모든 문서는 출처, 상태, 관련 문서를 연결하며 사람의 명시적 승인 없이 사실이나 결정으로 승격하지 않습니다.",
+    "developerName": "sonsu-lee",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "$product-docs:create-prd로 제품 요구사항을 인터뷰하고 PRD를 작성해줘.",
+      "$product-docs:maintain-domain-docs로 도메인 용어와 규칙을 정리해줘.",
+      "$product-docs:record-decision으로 이 결정을 근거와 함께 기록해줘."
+    ]
+  }
+}

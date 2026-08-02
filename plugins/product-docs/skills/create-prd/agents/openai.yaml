@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create PRD"
+  short_description: "근거와 합의를 보존하며 검증 가능한 PRD를 작성"
+  default_prompt: "$create-prd로 제품 아이디어를 인터뷰하고 검증 가능한 PRD로 작성해줘."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Record Decision"
+  short_description: "제품·정책·아키텍처 결정을 근거와 이력으로 기록"
+  default_prompt: "$record-decision으로 이 선택의 실제 근거와 결과를 Decision Record로 남겨줘."
