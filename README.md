@@ -1,12 +1,14 @@
 # Sonsu Skills
 
-개인 Agent Skill을 루트 `skills/`에 한 번만 보관하고, 저장소 전체를 하나의 Codex 플러그인으로 배포한다. `.codex-plugin/plugin.json`의 `skills: "./skills/"`가 이 디렉터리를 직접 가리키므로 플러그인별 복사본이나 symlink가 필요 없다.
+개인 Agent Skill을 루트 `skills/`에 한 번만 보관하고, 저장소 전체를 Codex와 Claude Code에서 같은 `skills` 플러그인으로 배포한다. Codex manifest와 Claude Code의 기본 skill discovery가 같은 루트 `skills/`를 사용하므로 플러그인별 복사본이나 symlink가 필요 없다.
 
-Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를 기준으로 동작하므로 물리 구조는 평탄하게 유지한다. `product-docs`, `git-workflow`, `research`, `skill-authoring`은 아래 표와 문서에서만 논리적으로 묶는다.
+Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를 기준으로 동작하므로 물리 구조는 평탄하게 유지한다. `product-docs`, `git-workflow`, `research`, `skill-authoring`은 설치·버전 경계가 아니라 아래 표와 공유 자료에서만 논리적으로 묶는다.
 
 ```text
 .
 ├── .codex-plugin/
+│   └── plugin.json
+├── .claude-plugin/
 │   └── plugin.json
 ├── skills/
 │   ├── audit-git-change/
@@ -17,12 +19,21 @@ Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를
 │   ├── maintain-domain-docs/
 │   ├── record-decision/
 │   └── research/
-├── references/              # 컬렉션 안의 여러 스킬이 공유하는 계약
-├── evals/                   # 교차 스킬 평가 계약
+├── shared/                  # 여러 스킬이 실행 중 공유하는 계약
+│   ├── git-workflow/
+│   └── product-docs/
+├── docs/
+│   └── design/              # maintainer용 설계·연구 근거
+├── evals/
+│   └── product-docs/        # Product Docs 교차 스킬 평가 계약
 └── skills-lock.json         # 외부에서 설치한 로컬 개발 스킬 잠금
 ```
 
-`.agents/skills/`와 `.claude/skills/`는 로컬 개발용 설치 경로일 뿐 정본이나 플러그인 입력이 아니다. 둘은 Git에서 제외한다. Codex 플러그인 bundle은 symlink를 허용하지 않으므로 배포할 때는 이 로컬 설치물이 섞인 raw worktree가 아니라 Git이 추적하는 repository archive를 사용한다. 원격 저장소와 배포 채널이 정해지기 전에는 별도 marketplace manifest를 두지 않는다.
+`.agents/skills/`와 `.claude/skills/`는 로컬 개발용 설치 경로일 뿐 정본이나 플러그인 입력이 아니다. 둘은 Git에서 제외한다. `.claude-plugin/`은 이 로컬 설치 경로와 무관한 Claude Code 배포 adapter다. Codex 플러그인 bundle은 symlink를 허용하지 않으므로 배포할 때는 로컬 설치물이 섞인 raw worktree가 아니라 Git이 추적하는 repository archive를 사용한다. marketplace 이름과 업데이트 정책을 정하기 전에는 호스트별 marketplace manifest를 두지 않는다.
+
+`.codex-plugin/plugin.json`과 `.claude-plugin/plugin.json`은 같은 plugin ID, version과 `skills/` 정본을 사용하는 얇은 host adapter다. release할 때 두 manifest의 ID와 version을 함께 검증하고 version을 같은 변경에서 올린다. 어느 호스트도 별도의 생성본을 소유하지 않으며, Product Docs나 Git Workflow를 독립 설치·릴리스해야 할 실제 요구가 생길 때만 self-contained plugin root로 분리한다.
+
+Claude Code adapter는 plugin root의 기본 `skills/` 탐색을 사용한다. marketplace 게시 전에는 저장소 루트에서 `claude --plugin-dir .`로 로컬 실행하고 `claude plugin validate . --strict`로 manifest를 검증할 수 있다.
 
 ## 스킬 컬렉션
 
@@ -37,7 +48,7 @@ Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를
 | Research | `research` | 원문 교차검증, 반증 탐색과 인용 감사를 포함한 범용 조사를 수행한다. |
 | Skill Authoring | `create-skills` | Agent Skill을 생성·개선하고 구조, 트리거, 행동과 보안을 검증한다. |
 
-플러그인으로 설치하면 명시적 호출은 `$skills:<skill-name>` 형식을 사용한다.
+플러그인으로 설치하면 Codex에서는 `$skills:<skill-name>`, Claude Code에서는 `/skills:<skill-name>` 형식으로 명시적으로 호출한다.
 
 ```text
 $skills:create-prd로 이 아이디어를 full 깊이로 인터뷰하고 PRD를 작성해줘.
@@ -45,11 +56,12 @@ $skills:maintain-domain-docs로 반복되는 정산 용어와 상태 전이를 �
 $skills:record-decision으로 수동 검토를 선택한 실제 근거와 재검토 조건을 남겨줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
 $skills:create-commit으로 현재 변경을 의미 단위로 커밋해줘.
+/skills:create-prd 이 아이디어를 full 깊이로 인터뷰하고 PRD를 작성해줘.
 ```
 
 ## 공유 계약
 
-Product Docs 세 스킬은 `references/document-contract.md`의 저장 및 상호 연결 규칙을 공유한다. PRD가 다른 두 문서의 내용을 소유하지는 않는다. 도메인 지식이나 장기 보존할 결정이 발견되면 승격 후보를 제시하고, 사용자가 승인한 뒤 해당 스킬로 정본을 만든다. 한 작업에서 세 문서를 모두 요청해도 PRD → 승인된 promotion candidate → companion skill 순서로 처리하며, 쓰기 요청·의미 승인·문서 소유권을 별도로 확인한다.
+Product Docs 세 스킬은 `shared/product-docs/document-contract.md`의 저장 및 상호 연결 규칙을 공유한다. PRD가 다른 두 문서의 내용을 소유하지는 않는다. 도메인 지식이나 장기 보존할 결정이 발견되면 승격 후보를 제시하고, 사용자가 승인한 뒤 해당 스킬로 정본을 만든다. 한 작업에서 세 문서를 모두 요청해도 PRD → 승인된 promotion candidate → companion skill 순서로 처리하며, 쓰기 요청·의미 승인·문서 소유권을 별도로 확인한다.
 
 저장소에 기존 규칙이 없을 때 Product Docs의 기본 저장 경로는 다음과 같다.
 
@@ -62,7 +74,7 @@ docs/
 
 OpenWiki 같은 파생 위키는 이후 이 정본들을 읽어 탐색 문서를 만들 수 있다. 생성된 위키를 정본으로 간주하거나 `openwiki/` 아래에 제품 결정을 직접 기록하지 않는다. `visibility`와 `publication`은 정책 힌트일 뿐 OpenWiki 접근 제어가 아니다. 연결할 때는 `.openwikiignore` 또는 별도 staging/export projection으로 비공개 입력을 먼저 제외하고 결과를 검증해야 한다.
 
-Git Workflow 세 스킬은 `references/change-policy.md`를 공유한다. PR은 하나의 승인·배포·되돌리기 단위로 취급하고, 내부 commit은 리뷰 가능한 의미 단위로 나눈다. 저장소의 `AGENTS.md`, `CONTRIBUTING`, commitlint, hooks와 PR template을 우선하며, 읽기 전용 감사는 수정안을 제안할 수 있지만 적용하지 않는다. 격리된 실행 환경의 인증·서명 오류는 `references/host-auth-and-signing.md`의 재확인 절차를 따른다.
+Git Workflow 세 스킬은 `shared/git-workflow/change-policy.md`를 공유한다. PR은 하나의 승인·배포·되돌리기 단위로 취급하고, 내부 commit은 리뷰 가능한 의미 단위로 나눈다. 저장소의 `AGENTS.md`, `CONTRIBUTING`, commitlint, hooks와 PR template을 우선하며, 읽기 전용 감사는 수정안을 제안할 수 있지만 적용하지 않는다. 격리된 실행 환경의 인증·서명 오류는 `shared/git-workflow/host-auth-and-signing.md`의 재확인 절차를 따른다.
 
 Git Workflow에는 다음 원칙도 공통으로 적용한다.
 
@@ -73,7 +85,7 @@ Git Workflow에는 다음 원칙도 공통으로 적용한다.
 - Before/After screenshot은 실제 이미지에 접근할 수 있는 시각 변경에만 포함한다.
 - GitHub 인증이나 signing 실패가 격리 때문일 수 있으면 실패를 곧바로 미인증으로 단정하지 않고, 허용된 최소 읽기 전용 진단 뒤 실제 상태를 재확인해 중복 실행을 막는다.
 
-루트 공유 reference를 읽는 Product Docs와 Git Workflow 스킬은 이 저장소 전체를 플러그인으로 설치하는 것이 기본이다. `create-skills`와 `research`의 실행 reference는 각 skill 디렉터리 안에 있으며, Research의 선택 공급자 opt-in만 아래 루트 설정을 사용한다.
+plugin root의 `shared/` 계약을 읽는 Product Docs와 Git Workflow 스킬은 이 저장소 전체를 플러그인으로 설치하는 것이 기본이다. `create-skills`와 `research`의 실행 reference는 각 skill 디렉터리 안에 있으며, Research의 선택 공급자 opt-in만 아래 루트 설정을 사용한다.
 
 ## Research 공급자 opt-in
 
@@ -108,6 +120,6 @@ Research는 다음을 기본으로 한다.
 
 ## 검증
 
-각 skill은 자체 `evals/`를 보유한다. 루트 `evals/`에는 Product Docs의 공개 회귀 계약과 교차 스킬 통합 케이스가 있다. 이 케이스는 개발 계약이며 비공개 holdout이 아니다. 실제 모델 비교는 `evals/protocol.md`에 따라 `evals/`를 제외한 runtime snapshot에서 실행하고, release holdout과 runtime canary는 플러그인 밖에서 관리해야 한다.
+각 skill은 자체 `evals/`를 보유한다. `evals/product-docs/`에는 Product Docs의 공개 회귀 계약과 교차 스킬 통합 케이스가 있다. 이 케이스는 개발 계약이며 비공개 holdout이 아니다. 실제 모델 비교는 `evals/product-docs/protocol.md`에 따라 `evals/`를 제외한 runtime snapshot에서 실행하고, release holdout과 runtime canary는 플러그인 밖에서 관리해야 한다.
 
-이 저장소에는 plugin·skill schema validator가 읽을 구조와 JSONL 평가 계약이 포함돼 있다. 링크, cross-document ID, 평가 분포까지 한 명령으로 검사하는 전용 static runner와 모델 호출·파일 tree/hash oracle·반복 신뢰성 runner는 포함하지 않는다. 외부 검증기가 확인해야 할 범위는 `evals/protocol.md`와 각 rubric에 명시했다. Product Docs의 연구 근거와 적용 한계는 `references/research-basis.md`에 정리되어 있다.
+이 저장소에는 plugin·skill schema validator가 읽을 구조와 JSONL 평가 계약이 포함돼 있다. 링크, cross-document ID, 평가 분포까지 한 명령으로 검사하는 전용 static runner와 모델 호출·파일 tree/hash oracle·반복 신뢰성 runner는 포함하지 않는다. 외부 검증기가 확인해야 할 범위는 `evals/product-docs/protocol.md`와 각 rubric에 명시했다. Product Docs의 연구 근거와 적용 한계는 `docs/design/product-docs-research-basis.md`에 정리되어 있다.

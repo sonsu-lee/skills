@@ -2,7 +2,7 @@
 
 ## Protocol
 
-- 공통 격리·stepwise·security 규칙은 `../../../evals/protocol.md`, 공통 assertion은 `../../../evals/assertions.md`를 따른다.
+- 공통 격리·stepwise·security 규칙은 `../../../evals/product-docs/protocol.md`, 공통 assertion은 `../../../evals/product-docs/assertions.md`를 따른다.
 - Routing은 세 Product Docs 스킬의 descriptions를 함께 제공해 평가한다.
 - 행동 평가는 고정 clock의 임시 저장소에서 baseline과 with-skill을 쌍으로 실행한다.
 - multi-step은 user step마다 실제 실행하고 원래 표현, proposed diff, 정정, 승인 상태, file snapshot을 checkpoint별로 확인한다.
