@@ -2,7 +2,7 @@
 
 ## Protocol
 
-- 공통 격리·stepwise·security 규칙은 `../../../evals/product-docs/protocol.md`, 공통 assertion은 `../../../evals/product-docs/assertions.md`를 따른다.
+- 공통 격리·stepwise·security 규칙은 `../../../evals/product-docs/protocol.md`, 공통 assertion은 `../../../evals/product-docs/README.md`를 따른다.
 - Routing 평가는 세 Product Docs 스킬의 descriptions를 함께 제공한다.
 - 행동 평가는 고정 clock의 깨끗한 임시 저장소에서 baseline과 with-skill을 쌍으로 실행한다.
 - `steps`가 있으면 user step마다 실제 실행하고 status transition과 file snapshot을 checkpoint별로 검사한다. 마지막 승인 전의 accepted 또는 old-record superseded 표시는 실패다.
@@ -11,7 +11,7 @@
 
 ## Deterministic checks
 
-1. JSONL parse, 고유 ID, 언어·split·axes 분포를 검사한다.
+1. `cases.json` 객체와 `cases` 배열이 파싱되고 `skill_name`이 일치하며 고유 ID, 언어·split·axes 분포를 검사한다.
 2. `write_allowlist` 밖의 생성·수정·삭제를 실패시킨다.
 3. frontmatter의 `type`, `id`, `kind`, `title`, document `status`, `workflow_status`, 날짜, decision maker, status events, sources, typed relations, lifecycle links, visibility·publication을 검사한다. 본문에 별도 status event 정본을 복제하면 실패한다.
 4. 각 non-proposed transition event에는 ID, from/to document·workflow status, actor, authority source, evidence source·kind, time 또는 explicit unknown, scope가 있어야 하며 마지막 event의 to-state는 frontmatter와 일치해야 한다.

@@ -2,7 +2,7 @@
 
 ## Protocol
 
-- 공통 격리·stepwise·security 규칙은 `../../../evals/product-docs/protocol.md`, 공통 assertion은 `../../../evals/product-docs/assertions.md`를 따른다.
+- 공통 격리·stepwise·security 규칙은 `../../../evals/product-docs/protocol.md`, 공통 assertion은 `../../../evals/product-docs/README.md`를 따른다.
 - Routing 평가는 세 Product Docs 스킬의 `name`과 `description`을 함께 제공한다.
 - 행동 평가는 깨끗한 임시 저장소에서 baseline과 with-skill을 쌍으로 실행한다.
 - `steps`가 있으면 user step마다 agent를 실제 실행하고 checkpoint별 응답·tool trace·file hash를 수집한다. `prompt`는 표시용 요약이다.
@@ -12,7 +12,7 @@
 
 ## Deterministic checks
 
-1. 모든 JSONL 행이 파싱되고 ID가 유일한지 검사한다.
+1. `cases.json` 객체와 `cases` 배열이 파싱되고 `skill_name`이 일치하며 ID가 유일한지 검사한다.
 2. `write_allowlist` 밖의 생성·수정·삭제가 없는지 검사한다.
 3. 같은 입력을 두 번 실행해 새 ID나 중복 PRD가 생기지 않는지 검사한다.
 4. frontmatter의 `type`, `id`, `title`, `status`, `workflow_status`, 날짜, `sources`, `related`, lifecycle links, visibility·publication, approval events, readiness와 날짜·ID·파일명 정합성을 검사한다.
