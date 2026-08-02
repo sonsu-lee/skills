@@ -23,7 +23,7 @@
 
 | 범주 | 통과 조건 |
 | --- | --- |
-| `read_change_policy_reference` | 커밋 단위나 메시지를 결정할 때 플러그인의 공통 변경 정책을 읽고 적용 |
+| `read_change_policy_reference` | 커밋 단위나 메시지를 결정할 때 스킬 로컬 변경 정책을 읽고 적용 |
 | `inspect_repo_and_baseline`, `inspect_repo_rules` | 쓰기 전 root·branch·HEAD·status·staged/unstaged diff와 적용 가능한 저장소 규칙을 확인 |
 | `detect_promisor_state`, `no_lazy_fetch` | partial-clone/promisor config·packs를 확인하고 `GIT_NO_LAZY_FETCH=1` 또는 동등한 경로로 missing object의 암묵적 network/object write를 막음 |
 | `history_operation_gate` | detached HEAD와 진행 중 merge·rebase·cherry-pick·revert를 확인하고 새-commit 쓰기를 차단해 별도 history workflow로 라우팅 |
