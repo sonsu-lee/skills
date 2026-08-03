@@ -18,7 +18,35 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 ## 설치
 
-최신 Codex CLI에서 아래 명령을 한 번 실행합니다. marketplace 등록과 플러그인 설치가 끝나면 Codex가 시작됩니다.
+사용할 범위와 설치 형태에 맞는 방법을 선택합니다.
+
+| 목적 | 설치 방식 | 적용 범위 | Codex 호출 형식 |
+|---|---|---|---|
+| 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$create-prd` |
+| 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$create-prd` |
+| 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:create-prd` |
+
+### 현재 프로젝트에 설치
+
+대상 프로젝트 루트에서 다음 명령을 실행합니다. 설치할 스킬을 선택할 수 있으며 Codex는 프로젝트의 `.agents/skills/`에서 스킬을 읽습니다.
+
+```bash
+npx skills add sonsu-lee/skills --agent codex
+```
+
+이 방식은 해당 프로젝트에만 스킬을 적용하려는 경우에 적합합니다. 설치한 스킬은 플러그인 네임스페이스 없이 `$create-prd`, `$research`처럼 호출합니다.
+
+### 모든 프로젝트에 독립 스킬로 설치
+
+같은 독립 스킬을 현재 사용자의 모든 프로젝트에서 사용하려면 `--global`을 추가합니다.
+
+```bash
+npx skills add sonsu-lee/skills --agent codex --global
+```
+
+### Codex 플러그인으로 설치
+
+플러그인에 포함된 스킬을 `$skills:<skill-name>` 형식으로 사용하려면 최신 Codex CLI에서 다음 명령을 실행합니다. marketplace 등록과 플러그인 설치가 끝나면 Codex가 시작됩니다.
 
 ```bash
 codex plugin marketplace add sonsu-lee/skills \
@@ -26,7 +54,9 @@ codex plugin marketplace add sonsu-lee/skills \
   && codex
 ```
 
-업데이트하거나 제거할 때는 다음 명령을 사용합니다.
+Codex 플러그인은 현재 사용자 범위에 설치됩니다. 현재 Codex CLI에는 플러그인을 프로젝트 범위로 설치하는 옵션이 없으므로, 프로젝트에서만 사용하려면 위의 독립 스킬 설치 방식을 사용하세요.
+
+플러그인을 업데이트하거나 제거할 때는 다음 명령을 사용합니다.
 
 ```bash
 # 업데이트
@@ -40,12 +70,16 @@ codex plugin marketplace remove sonsu-skills
 
 ## 사용법
 
-설치 후 스킬 이름과 작업을 함께 요청합니다.
+설치 방식에 맞는 스킬 이름과 작업을 함께 요청합니다.
 
 ```text
-# Codex
+# Codex 플러그인 설치
 $skills:create-prd로 이 아이디어의 PRD를 작성해줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
+
+# Codex 독립 스킬 설치
+$create-prd로 이 아이디어의 PRD를 작성해줘.
+$research로 이 주제를 근거 중심으로 조사해줘.
 
 # Claude Code
 /skills:create-commit 현재 변경을 의미 단위로 커밋해줘.
