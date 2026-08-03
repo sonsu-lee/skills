@@ -27,8 +27,9 @@ PRD를 “그럴듯한 기능 설명”이 아니라 제품·디자인·개발·
 
 소유하지 않는 것:
 
-- 여러 기능에서 재사용되는 도메인 정의의 정본: `maintain-domain-docs`로 승격한다.
-- 중요한 선택의 장기 근거: `record-decision`으로 승격한다.
+- 여러 기능에서 재사용되는 도메인 정의의 정본: `write-domain-docs`로 승격한다.
+- 중요한 아키텍처·기술 선택의 장기 근거: `write-adr`로 승격한다.
+- 제품·사업·정책 결정: PRD의 결정 원장에 남긴다. 별도 문서가 필요하면 새 스킬 후보로 보고한다.
 - 구현 설계, 파일별 작업 계획, 티켓 분해, 일정 추정
 - 시장·법률·규제·사용자 의도를 근거 없이 만드는 일
 
@@ -71,7 +72,7 @@ PRD를 “그럴듯한 기능 설명”이 아니라 제품·디자인·개발·
 
 ### 2. Discover sources
 
-공통 계약에 따라 저장소 관례와 기존 문서를 찾는다. 관련 코드, 테스트, 스키마, 이슈, 분석 자료, 사용자 조사, 이전 PRD, Domain Doc, Decision Record를 읽을 수 있다.
+공통 계약에 따라 저장소 관례와 기존 문서를 찾는다. 관련 코드, 테스트, 스키마, 이슈, 분석 자료, 사용자 조사, 이전 PRD, Domain Doc, ADR을 읽을 수 있다.
 
 출처 권한을 구분한다.
 
@@ -231,7 +232,7 @@ requirements:
 2. 의미 검토: 모호한 대명사·범용 형용사·무제한 표현·기준 없는 비교·정의되지 않은 actor·누락된 오류와 예외·검증 불가능한 표현을 찾는다.
 3. 출처 검토: 각 핵심 주장과 숫자가 출처, 사용자 결정, 가정, 미해결 중 하나인지 확인한다.
 4. 집합 검토: Goal → Requirement → Acceptance/Verification coverage, orphan goal·requirement, 중복·충돌 요구사항, actor·경계·실패 scenario coverage를 확인한다.
-5. 반대 검토: 정본 Domain Doc 또는 Decision Record와 충돌하는지 확인한다.
+5. 반대 검토: 정본 Domain Doc 또는 ADR와 충돌하는지 확인한다.
 6. 변경 검토: 허용된 PRD 경로 밖을 수정하지 않았고 resolved path가 symlink로 탈출하지 않는지 확인한다.
 
 LLM 검토 결과는 오류 확정이 아니라 검토 후보로 표시한다. “문제가 발견되지 않음”을 완전성 증명으로 표현하지 않는다.
@@ -241,9 +242,9 @@ LLM 검토 결과는 오류 확정이 아니라 검토 후보로 표시한다. �
 최종 응답에 필요할 때만 두 목록을 포함한다.
 
 - `Domain Promotion Candidates`: 여러 기능에서 재사용될 용어, 상태, 전이, 비즈니스 규칙. candidate ID, 원문, 정규화 후보, 문맥, source IDs, target owner와 승격 이유를 적고 `proposed/non-canonical`로 표시한다.
-- `Decision Record Candidates`: 되돌리기 어렵거나 여러 팀에 영향을 주고, 기각한 대안이나 장기 근거를 보존할 가치가 있는 선택. candidate ID, 결정문, 상태, 결정권자, 실제 source IDs, target path와 후보 이유를 적고 `proposed/non-canonical`로 표시한다.
+- `ADR Candidates`: 되돌리기 어렵거나 여러 팀에 영향을 주고, 기각한 대안이나 장기 근거를 보존할 가치가 있는 아키텍처·기술 선택. candidate ID, 결정문, 상태, 결정권자, 실제 source IDs, target path와 후보 이유를 적고 `proposed/non-canonical`로 표시한다. 제품·사업·정책 결정은 ADR 후보로 올리지 않는다.
 
-이 목록은 제안이다. 사용자가 승인하기 전에는 Domain Doc이나 Decision Record를 만들거나 수정하지 않는다.
+이 목록은 제안이다. 사용자가 승인하기 전에는 Domain Doc이나 ADR을 만들거나 수정하지 않는다.
 
 ## 완료 응답
 

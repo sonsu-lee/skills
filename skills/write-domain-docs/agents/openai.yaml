@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Domain Docs"
+  short_description: "도메인 용어·규칙·상태를 근거와 이력으로 정비"
+  default_prompt: "$write-domain-docs로 도메인 용어와 규칙을 정본 문서로 정리해줘."

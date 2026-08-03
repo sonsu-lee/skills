@@ -53,7 +53,7 @@
 - `problem_user_outcome`: 기능 목록보다 문제, 대상, 관찰 가능한 제품 결과를 먼저 확립한다.
 - `workflow_status_discovery_needed`: 문제·경계·도메인 합의가 부족하면 공통 `status`와 분리해 `discovery-needed`를 사용한다.
 - `workflow_status_conditional`: 유용한 초안이지만 blocker가 남으면 공통 `status`와 분리해 `conditional`을 사용한다.
-- `promotion_candidates_only`: 승인 전에는 Domain Doc이나 Decision Record를 수정하지 않고 후보만 제시한다.
+- `promotion_candidates_only`: 승인 전에는 Domain Doc이나 ADR을 수정하지 않고 후보만 제시한다.
 - `requirements_and_acceptance`: 요구사항에 actor·조건·outcome·출처·검증이 있다.
 - `facts_assumptions_unknowns_separated`: 사실, 결정, 추론, 가정, 충돌, 미해결이 서로 구분된다.
 - `approval_event_grounded`: approval actor·authority·evidence·time·scope·approved revision이 fixture에 근거하고 current revision과 일치한다.

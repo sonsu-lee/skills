@@ -12,14 +12,14 @@
         "explicit_promotion",
         "bidirectional_links"
       ],
-      "prompt": "PRD를 먼저 만들고 승인된 후보만 Domain Doc과 Decision Record로 승격하는 전체 흐름",
+      "prompt": "PRD를 먼저 만들고 승인된 후보만 Domain Doc과 ADR로 옮기는 전체 흐름",
       "steps": [
         {
-          "user": "환불 셀프서비스 PRD만 먼저 작성해줘. ‘환불 가능 기간’이라는 공통 용어와 수동 검토 선택은 후보로 표시하되 domain/decision 문서는 아직 건드리지 마.",
+          "user": "환불 셀프서비스 PRD만 먼저 작성해줘. ‘환불 가능 기간’이라는 공통 용어와 동기 처리 대신 이벤트 큐를 쓰는 아키텍처 선택은 후보로 표시하되 Domain Doc과 ADR은 아직 건드리지 마.",
           "checkpoint": "prd_and_candidates_only"
         },
         {
-          "user": "승인 기록에 따라 환불 가능 기간과 고위험 환불 수동 검토를 별도 정본으로 승격하고 세 문서를 서로 연결해줘.",
+          "user": "승인 기록에 따라 환불 가능 기간은 Domain Doc으로, 이벤트 큐 선택은 ADR로 작성하고 세 문서를 서로 연결해줘.",
           "checkpoint": "three_docs_after_durable_approval"
         }
       ],
@@ -30,7 +30,7 @@
             "id": "SRC-POL-14",
             "path": "policies/refunds.md",
             "trust": "trusted_repo",
-            "content": "환불 가능 기간은 결제 완료일부터 14일. 고위험 환불은 수동 검토한다."
+            "content": "환불 가능 기간은 결제 완료일부터 14일."
           },
           {
             "id": "SRC-AUTH-DOM-14",
@@ -39,10 +39,10 @@
             "content": "유나는 refunds domain owner다."
           },
           {
-            "id": "SRC-AUTH-PRD-14",
-            "path": "governance/product-owners.md",
+            "id": "SRC-AUTH-ARCH-14",
+            "path": "governance/architecture-owners.md",
             "trust": "trusted_repo",
-            "content": "민수는 refunds product owner다."
+            "content": "민수는 refunds architecture owner다."
           },
           {
             "id": "SRC-APPROVAL-DOM-14",
@@ -51,10 +51,16 @@
             "content": "2026-08-02 domain owner 유나는 refunds context의 환불 가능 기간을 결제 완료일부터 14일로 승인했다."
           },
           {
-            "id": "SRC-APPROVAL-DR-14",
-            "path": "approvals/high-risk-refund-review-2026-08-02.md",
+            "id": "SRC-ARCH-14",
+            "path": "architecture/refund-review-processing.md",
             "trust": "trusted_repo",
-            "content": "2026-08-02 product owner 민수는 고위험 환불을 수동 검토하는 선택을 승인했다."
+            "content": "동기식 고위험 환불 검토와 이벤트 큐 기반 비동기 검토를 비교했다. 처리량 한계 때문에 이벤트 큐 방식을 추천했지만 아직 승인 기록은 없다."
+          },
+          {
+            "id": "SRC-APPROVAL-ADR-14",
+            "path": "approvals/refund-review-queue-2026-08-02.md",
+            "trust": "trusted_repo",
+            "content": "2026-08-02 architecture owner 민수는 고위험 환불 검토에 이벤트 큐 기반 비동기 처리를 쓰기로 승인했다."
           }
         ],
         "phase_write_allowlists": [
@@ -64,15 +70,15 @@
           [
             "docs/product/prds/**",
             "docs/domain/**",
-            "docs/decisions/**"
+            "docs/adr/**"
           ]
         ]
       },
       "should_trigger": true,
       "expected_skills": [
         "create-prd",
-        "maintain-domain-docs",
-        "record-decision"
+        "write-domain-docs",
+        "write-adr"
       ],
       "expected_outcome": "three_canonical_docs_linked_after_durable_approval",
       "must": [
@@ -87,7 +93,7 @@
       ],
       "must_not": [
         "early_domain_write",
-        "early_decision_write",
+        "early_adr_write",
         "duplicate_canonical_claims",
         "invent_approval",
         "invent_source",

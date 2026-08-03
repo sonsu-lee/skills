@@ -78,7 +78,7 @@ Conventional Commits 형식을 사용한다.
 
 ## 4. commit 전 audit gate를 실행한다
 
-`audit-git-change`가 사용 가능하면 `working-tree` 범위의 읽기 전용 검사를 적용한다. 사용할 수 없어도 아래 검사를 직접 수행해 gate를 생략하지 않는다.
+`git-change-review`가 사용 가능하면 `working-tree` 범위의 읽기 전용 검사를 적용한다. 사용할 수 없어도 아래 검사를 직접 수행해 gate를 생략하지 않는다.
 
 candidate tree를 materialize하거나 index를 쓰기 전에 5절의 전체 hook·alias·maintenance inventory와 trust gate를 먼저 수행한다. 그 전에는 `post-checkout`이나 index write를 일으키지 않는 archive/export/plumbing만 사용할 수 있다.
 

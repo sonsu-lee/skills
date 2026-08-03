@@ -7,12 +7,12 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | 스킬 | 설명 |
 |---|---|
 | `create-prd` | 인터뷰를 통해 제품 요구사항 문서를 작성합니다. |
-| `maintain-domain-docs` | 용어, 상태, 전이와 비즈니스 규칙을 정리합니다. |
-| `record-decision` | 제품·정책·아키텍처 결정을 근거와 함께 기록합니다. |
+| `write-domain-docs` | 용어, 상태, 전이와 비즈니스 규칙을 정리합니다. |
+| `write-adr` | 중요한 아키텍처·기술 결정을 ADR로 작성합니다. |
 | `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
 | `create-commit` | 변경을 의미 단위로 나누어 커밋합니다. |
 | `create-pull-request` | 변경 범위와 저장소 규칙에 맞는 PR을 만듭니다. |
-| `audit-git-change` | worktree, 커밋 또는 PR을 읽기 전용으로 검토합니다. |
+| `git-change-review` | worktree, 커밋 또는 PR을 읽기 전용으로 검토합니다. |
 | `create-skills` | Agent Skill을 만들거나 개선하고 검증합니다. |
 | `write-developer-resume` | 개발자 이력서와 경력기술서를 작성하거나 진단합니다. |
 
@@ -83,7 +83,7 @@ $research로 이 주제를 근거 중심으로 조사해줘.
 
 # Claude Code
 /skills:create-commit 현재 변경을 의미 단위로 커밋해줘.
-/skills:audit-git-change 현재 worktree를 검토해줘.
+/skills:git-change-review 현재 worktree를 검토해줘.
 ```
 
 각 스킬의 자세한 동작과 옵션은 `skills/<skill-name>/SKILL.md`에서 확인할 수 있습니다.

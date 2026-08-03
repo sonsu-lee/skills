@@ -113,7 +113,7 @@ gh auth status --active --hostname <remote-host>
 
 - `create-commit`: 원래 commit이 요청됐고 대상 저장소, `HEAD`, index tree, staged 범위, message, 명령 인자와 안전한 hook·signing·content-processing inventory가 모두 사전 기록과 같을 때만 외부 commit 재시도를 수행할 수 있다.
 - `create-pull-request`: 원래 push/PR 생성이 요청됐고 remote ref, 기존 PR과 안전한 hook·transport·credential inventory 확인 후에만 외부 재시도를 수행할 수 있다.
-- `audit-git-change`: 외부 읽기 진단까지만 수행하며 commit, push, PR 생성·수정을 재시도하지 않는다.
+- `git-change-review`: 외부 읽기 진단까지만 수행하며 commit, push, PR 생성·수정을 재시도하지 않는다.
 
 ## 금지되는 fallback
 
