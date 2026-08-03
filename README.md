@@ -22,12 +22,11 @@ Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를
 │   └── write-developer-resume/
 ├── docs/
 │   └── design/              # maintainer용 설계·연구 근거
-├── evals/
-│   └── product-docs/        # Product Docs 교차 스킬 평가 계약
-└── skills-lock.json         # 외부에서 설치한 로컬 개발 스킬 잠금
+└── evals/
+    └── product-docs/        # Product Docs 교차 스킬 평가 계약
 ```
 
-`.agents/skills/`와 `.claude/skills/`는 로컬 개발용 설치 경로일 뿐 정본이나 플러그인 입력이 아니다. 둘은 Git에서 제외한다. `.claude-plugin/`은 이 로컬 설치 경로와 무관한 Claude Code 배포 adapter다. Codex 플러그인 bundle은 symlink를 허용하지 않으므로 배포할 때는 로컬 설치물이 섞인 raw worktree가 아니라 Git이 추적하는 repository archive를 사용한다. marketplace 이름과 업데이트 정책을 정하기 전에는 호스트별 marketplace manifest를 두지 않는다.
+`.agents/skills/`, `.claude/skills/`와 `skills-lock.json`은 개발자가 로컬에서 설치한 스킬과 그 설치 상태일 뿐 정본이나 플러그인 입력이 아니다. 이 로컬 설치 상태는 Git에서 추적하지 않는다. `.claude-plugin/`은 로컬 설치 경로와 무관한 Claude Code 배포 adapter다. Codex 플러그인 bundle은 symlink를 허용하지 않으므로 배포할 때는 로컬 설치물이 섞인 raw worktree가 아니라 Git이 추적하는 repository archive를 사용한다. marketplace 이름과 업데이트 정책을 정하기 전에는 호스트별 marketplace manifest를 두지 않는다.
 
 `.codex-plugin/plugin.json`과 `.claude-plugin/plugin.json`은 같은 plugin ID, version과 `skills/` 정본을 사용하는 얇은 host adapter다. release할 때 두 manifest의 ID와 version을 함께 검증하고 version을 같은 변경에서 올린다. 어느 호스트도 별도의 생성본을 소유하지 않는다. 각 skill의 정본은 해당 디렉터리의 `SKILL.md`, `references/`, `assets/`와 `agents/`이며, 독립 릴리스 요구가 생길 때만 별도의 self-contained plugin root로 분리한다.
 
