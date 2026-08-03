@@ -1,6 +1,6 @@
 # Sonsu Skills
 
-Codex와 Claude Code에서 함께 사용하는 개인 Agent Skill 컬렉션입니다. 제품 문서 작성, 리서치, Git 작업, 스킬 제작과 개발자 이력서 작성을 지원합니다.
+Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서치, Git 작업, 스킬 제작과 개발자 이력서 작성을 지원하며 Claude Code용 manifest도 함께 제공합니다.
 
 ## 제공 스킬
 
@@ -16,9 +16,33 @@ Codex와 Claude Code에서 함께 사용하는 개인 Agent Skill 컬렉션입�
 | `create-skills` | Agent Skill을 만들거나 개선하고 검증합니다. |
 | `write-developer-resume` | 개발자 이력서와 경력기술서를 작성하거나 진단합니다. |
 
+## 설치
+
+최신 Codex CLI에서 marketplace를 등록하고 플러그인을 설치합니다.
+
+```bash
+codex plugin marketplace add sonsu-lee/skills
+codex plugin add skills@sonsu-skills
+codex plugin list
+```
+
+marketplace만 등록한 뒤 Codex CLI의 `/plugins` 또는 Codex 앱의 **Plugins**에서 **Sonsu Skills**의 `skills` 플러그인을 설치할 수도 있습니다. 설치 후 새 Codex 세션을 시작하세요.
+
+업데이트하거나 제거할 때는 다음 명령을 사용합니다.
+
+```bash
+# 업데이트
+codex plugin marketplace upgrade sonsu-skills
+codex plugin add skills@sonsu-skills
+
+# 제거
+codex plugin remove skills@sonsu-skills
+codex plugin marketplace remove sonsu-skills
+```
+
 ## 사용법
 
-플러그인을 연결한 뒤 스킬 이름과 작업을 함께 요청합니다.
+설치 후 스킬 이름과 작업을 함께 요청합니다.
 
 ```text
 # Codex
@@ -63,6 +87,7 @@ API 키 값은 출력하거나 저장소에 커밋하지 마세요.
 skills/          # 스킬 본문, 참고 자료, 템플릿과 평가 fixture
 evals/           # 스킬 간 회귀 평가
 docs/            # 설계 및 연구 문서
+.agents/plugins/ # Codex marketplace catalog
 .codex-plugin/   # Codex manifest
 .claude-plugin/  # Claude Code manifest
 ```
