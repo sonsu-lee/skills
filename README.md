@@ -46,12 +46,12 @@ npx skills add sonsu-lee/skills --agent codex --global
 
 ### Codex 플러그인으로 설치
 
-플러그인에 포함된 스킬을 `$skills:<skill-name>` 형식으로 사용하려면 최신 Codex CLI에서 다음 명령을 실행합니다. marketplace 등록과 플러그인 설치가 끝나면 Codex가 시작됩니다.
+플러그인에 포함된 스킬을 `$skills:<skill-name>` 형식으로 사용하려면 최신 Codex CLI에서 다음 명령을 한 줄씩 차례로 실행합니다. marketplace 등록과 플러그인 설치가 끝나면 Codex가 시작됩니다.
 
 ```bash
-codex plugin marketplace add sonsu-lee/skills \
-  && codex plugin add skills@sonsu-skills \
-  && codex
+codex plugin marketplace add sonsu-lee/skills
+codex plugin add skills@sonsu-skills
+codex
 ```
 
 Codex 플러그인은 현재 사용자 범위에 설치됩니다. 현재 Codex CLI에는 플러그인을 프로젝트 범위로 설치하는 옵션이 없으므로, 프로젝트에서만 사용하려면 위의 독립 스킬 설치 방식을 사용하세요.
