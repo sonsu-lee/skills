@@ -179,7 +179,7 @@
         ]
       },
       "should_trigger": false,
-      "expected_route": "maintain-domain-docs",
+      "expected_route": "write-domain-docs",
       "expected_mode": "route",
       "expected_outcome": "no_prd_mutation",
       "must": [
@@ -191,25 +191,25 @@
       ]
     },
     {
-      "id": "prd-regression-en-near-decision",
+      "id": "prd-regression-en-near-adr",
       "skill": "create-prd",
       "split": "regression",
       "kind": "routing",
       "language": "en",
       "axes": [
         "near_negative",
-        "route_decision"
+        "route_adr"
       ],
-      "prompt": "Preserve why manual withdrawal review was chosen, the automated alternative that was rejected, and the event that should reopen the choice.",
+      "prompt": "Preserve why Postgres was chosen over DynamoDB for the order service and the event that should reopen this architecture choice.",
       "fixture": {
         "clock": "2026-08-02",
         "repo_files": [],
         "write_allowlist": [
-          "docs/decisions/**"
+          "docs/adr/**"
         ]
       },
       "should_trigger": false,
-      "expected_route": "record-decision",
+      "expected_route": "write-adr",
       "expected_mode": "route",
       "expected_outcome": "no_prd_mutation",
       "must": [

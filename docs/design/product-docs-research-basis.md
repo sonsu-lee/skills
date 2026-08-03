@@ -34,11 +34,11 @@
 - [Architecture Decision Records in Practice (ECSA 2024)](https://research.chalmers.se/en/publication/542849)는 한 조직의 3개월 action research와 7개 인터뷰에서 ADR이 지식 전달과 협업에 도움을 주며 저장 위치가 중요하다고 보고했다. 단일 사례의 결과이므로 효과를 보장하지 않고, 저장소 가까이에 작고 연결된 기록을 둔다는 설계 근거로만 사용한다.
 - [Using LLMs in Generating Design Rationale (2025)](https://arxiv.org/abs/2504.20781)은 100개 설계 문제에서 여러 모델과 프롬프트를 평가했고, 생성 근거의 정밀도가 낮고 일부는 오도 가능함을 보고했다. 모델이 선택지나 근거를 만들어 과거 사실처럼 기록하는 것을 금지한다.
 - [Architectural Design Decisions That Incur Technical Debt (2021)](https://doi.org/10.1016/j.infsof.2021.106669)는 의도적으로 수용한 부채와 context 변화로 부채가 된 결정을 구분한다. deliberate debt와 assumption 기반 revisit trigger에 반영했다.
-- [Traceability of Architectural Design Decisions and Software Artifacts (2023)](https://doi.org/10.2478/fcds-2023-0018)는 요구사항, 코드, 기술 문서와 결정 사이 trace link 연구를 검토한다. Decision Record가 rationale를 복제하지 않고 관련 artifact를 연결하는 근거다.
+- [Traceability of Architectural Design Decisions and Software Artifacts (2023)](https://doi.org/10.2478/fcds-2023-0018)는 요구사항, 코드, 기술 문서와 결정 사이 trace link 연구를 검토한다. ADR이 rationale를 복제하지 않고 관련 artifact를 연결하는 근거다.
 - [Using Architecture Decision Records in Open Source Projects (2023)](https://doi.org/10.1109/ACCESS.2023.3287654)는 921개 GitHub repository의 ADR 사용 양상을 분석했다. repository-local persistence와 template 사용의 실증 관찰로 참고하되 인과 효과로 해석하지 않는다.
 - [One Size Fits All? An Empirical Comparison of ADR Templates (2026)](https://arxiv.org/abs/2604.27333)는 33명과 두 시나리오에서 간결한 Nygard 계열과 구조화된 MADR 계열을 비교했다. 작은 학생 표본이라는 한계가 있어 우열을 일반화하지 않고, 관련 없는 섹션을 제거하는 점진적 template의 보조 근거로 사용한다.
 - [Architecture Decision Records: Adoption, Impact, and Developer Engagement (ICSA 2026)](https://conf.researchr.org/details/icsa-2026/icsa-2026-papers/34/Architecture-Decision-Records-Adoption-Impact-and-Developer-Engagement-in-Open-Sou)는 대규모 오픈소스 표본에서 ADR 개수와 여러 품질 지표의 상관이 대체로 작음을 보고한다. 기록 수를 성공 지표로 보지 않고 중요한 결정의 provenance와 retrieval을 평가한다.
-- [MADR 4.0](https://adr.github.io/madr/)과 [Nygard의 ADR 제안](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)은 한 기록에 한 결정, 맥락·선택·결과, 작은 Markdown 기록, 대체 관계라는 실무 관례를 제공한다. 템플릿은 이 원칙을 참고하되 제품·정책 결정까지 포괄한다.
+- [MADR 4.0](https://adr.github.io/madr/)과 [Nygard의 ADR 제안](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)은 한 기록에 한 결정, 맥락·선택·결과, 작은 Markdown 기록, 대체 관계라는 실무 관례를 제공한다. 템플릿과 `write-adr`은 이 범위에 맞춰 아키텍처·기술 결정만 다룬다.
 
 ## 질문 설계와 앵커링
 
