@@ -1,2 +1,4 @@
-.agents/skills/
-.claude/skills/
+# Local developer-installed skills; not plugin inputs.
+/.agents/skills/
+/.claude/skills/
+/skills-lock.json
