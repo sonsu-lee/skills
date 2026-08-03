@@ -18,15 +18,13 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 ## 설치
 
-최신 Codex CLI에서 marketplace를 등록하고 플러그인을 설치합니다.
+최신 Codex CLI에서 아래 명령을 한 번 실행합니다. marketplace 등록과 플러그인 설치가 끝나면 Codex가 시작됩니다.
 
 ```bash
-codex plugin marketplace add sonsu-lee/skills
-codex plugin add skills@sonsu-skills
-codex plugin list
+codex plugin marketplace add sonsu-lee/skills \
+  && codex plugin add skills@sonsu-skills \
+  && codex
 ```
-
-marketplace만 등록한 뒤 Codex CLI의 `/plugins` 또는 Codex 앱의 **Plugins**에서 **Sonsu Skills**의 `skills` 플러그인을 설치할 수도 있습니다. 설치 후 새 Codex 세션을 시작하세요.
 
 업데이트하거나 제거할 때는 다음 명령을 사용합니다.
 
