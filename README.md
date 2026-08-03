@@ -1,95 +1,49 @@
 # Sonsu Skills
 
-개인 Agent Skill을 루트 `skills/`에 한 번만 보관하고, 저장소 전체를 Codex와 Claude Code에서 같은 `skills` 플러그인으로 배포한다. Codex manifest와 Claude Code의 기본 skill discovery가 같은 루트 `skills/`를 사용하므로 플러그인별 복사본이나 symlink가 필요 없다.
+Codex와 Claude Code에서 함께 사용하는 개인 Agent Skill 컬렉션입니다. 제품 문서 작성, 리서치, Git 작업, 스킬 제작과 개발자 이력서 작성을 지원합니다.
 
-Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를 기준으로 동작하므로 물리 구조는 평탄하게 유지한다. `product-docs`, `git-workflow`, `research`, `skill-authoring`은 설치·버전 경계가 아니라 아래 표에서만 논리적으로 묶고, 실행에 필요한 자료는 각 skill 디렉터리 안에 둔다.
+## 제공 스킬
 
-```text
-.
-├── .codex-plugin/
-│   └── plugin.json
-├── .claude-plugin/
-│   └── plugin.json
-├── skills/
-│   ├── audit-git-change/
-│   ├── create-commit/
-│   ├── create-prd/
-│   ├── create-pull-request/
-│   ├── create-skills/
-│   ├── maintain-domain-docs/
-│   ├── record-decision/
-│   ├── research/
-│   └── write-developer-resume/
-├── docs/
-│   └── design/              # maintainer용 설계·연구 근거
-├── evals/
-│   └── product-docs/        # Product Docs 교차 스킬 평가 계약
-└── skills-lock.json         # 외부에서 설치한 로컬 개발 스킬 잠금
-```
+| 스킬 | 설명 |
+|---|---|
+| `create-prd` | 인터뷰를 통해 제품 요구사항 문서를 작성합니다. |
+| `maintain-domain-docs` | 용어, 상태, 전이와 비즈니스 규칙을 정리합니다. |
+| `record-decision` | 제품·정책·아키텍처 결정을 근거와 함께 기록합니다. |
+| `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
+| `create-commit` | 변경을 의미 단위로 나누어 커밋합니다. |
+| `create-pull-request` | 변경 범위와 저장소 규칙에 맞는 PR을 만듭니다. |
+| `audit-git-change` | worktree, 커밋 또는 PR을 읽기 전용으로 검토합니다. |
+| `create-skills` | Agent Skill을 만들거나 개선하고 검증합니다. |
+| `write-developer-resume` | 개발자 이력서와 경력기술서를 작성하거나 진단합니다. |
 
-`.agents/skills/`와 `.claude/skills/`는 로컬 개발용 설치 경로일 뿐 정본이나 플러그인 입력이 아니다. 둘은 Git에서 제외한다. `.claude-plugin/`은 이 로컬 설치 경로와 무관한 Claude Code 배포 adapter다. Codex 플러그인 bundle은 symlink를 허용하지 않으므로 배포할 때는 로컬 설치물이 섞인 raw worktree가 아니라 Git이 추적하는 repository archive를 사용한다. marketplace 이름과 업데이트 정책을 정하기 전에는 호스트별 marketplace manifest를 두지 않는다.
+## 사용법
 
-`.codex-plugin/plugin.json`과 `.claude-plugin/plugin.json`은 같은 plugin ID, version과 `skills/` 정본을 사용하는 얇은 host adapter다. release할 때 두 manifest의 ID와 version을 함께 검증하고 version을 같은 변경에서 올린다. 어느 호스트도 별도의 생성본을 소유하지 않는다. 각 skill의 정본은 해당 디렉터리의 `SKILL.md`, `references/`, `assets/`와 `agents/`이며, 독립 릴리스 요구가 생길 때만 별도의 self-contained plugin root로 분리한다.
-
-Claude Code adapter는 plugin root의 기본 `skills/` 탐색을 사용한다. marketplace 게시 전에는 저장소 루트에서 `claude --plugin-dir .`로 로컬 실행하고 `claude plugin validate . --strict`로 manifest를 검증할 수 있다.
-
-## 스킬 컬렉션
-
-| 그룹 | 스킬 | 역할 |
-|---|---|---|
-| Product Docs | `create-prd` | 문제, 제품 결과, 범위, 동작, 규칙과 성공 기준을 합의해 PRD로 만든다. |
-| Product Docs | `maintain-domain-docs` | 용어, 개념, 역할, 상태, 전이와 비즈니스 규칙을 근거와 함께 유지한다. |
-| Product Docs | `record-decision` | 중요한 제품·정책·아키텍처 결정을 선택지, 근거, 결과와 재검토 조건과 함께 남긴다. |
-| Git Workflow | `create-commit` | 변경을 의미 단위로 나누고 Conventional Commit으로 안전하게 커밋한다. |
-| Git Workflow | `create-pull-request` | base/head diff, merge mode와 저장소 템플릿에 맞는 PR을 준비하거나 생성한다. |
-| Git Workflow | `audit-git-change` | worktree, commit range 또는 PR을 변경 없이 감사하고 수정안을 제안한다. |
-| Research | `research` | 원문 교차검증, 반증 탐색과 인용 감사를 포함한 범용 조사를 수행한다. |
-| Skill Authoring | `create-skills` | Agent Skill을 생성·개선하고 구조, 트리거, 행동과 보안을 검증한다. |
-| Career Docs | `write-developer-resume` | 개발자 경험을 주장과 근거로 재구성하고 이력서·경력기술서·포트폴리오 서술을 작성하거나 진단한다. |
-
-플러그인으로 설치하면 Codex에서는 `$skills:<skill-name>`, Claude Code에서는 `/skills:<skill-name>` 형식으로 명시적으로 호출한다.
+플러그인을 연결한 뒤 스킬 이름과 작업을 함께 요청합니다.
 
 ```text
-$skills:create-prd로 이 아이디어를 full 깊이로 인터뷰하고 PRD를 작성해줘.
-$skills:maintain-domain-docs로 반복되는 정산 용어와 상태 전이를 정본으로 정리해줘.
-$skills:record-decision으로 수동 검토를 선택한 실제 근거와 재검토 조건을 남겨줘.
+# Codex
+$skills:create-prd로 이 아이디어의 PRD를 작성해줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
-$skills:write-developer-resume로 개발자 이력서를 주장→근거 구조로 다시 써줘.
-$skills:create-commit으로 현재 변경을 의미 단위로 커밋해줘.
-/skills:create-prd 이 아이디어를 full 깊이로 인터뷰하고 PRD를 작성해줘.
+
+# Claude Code
+/skills:create-commit 현재 변경을 의미 단위로 커밋해줘.
+/skills:audit-git-change 현재 worktree를 검토해줘.
 ```
 
-## 스킬 로컬 계약
+각 스킬의 자세한 동작과 옵션은 `skills/<skill-name>/SKILL.md`에서 확인할 수 있습니다.
 
-Product Docs 세 스킬은 동일한 저장 및 상호 연결 규칙을 각자의 `references/document-contract.md`에 보유한다. 이 파일은 다른 스킬을 호출하거나 import하는 dependency가 아니라 해당 skill만 설치해도 빠지지 않는 로컬 runtime 계약이다. PRD가 다른 두 문서의 내용을 소유하지는 않는다. 도메인 지식이나 장기 보존할 결정이 발견되면 승격 후보를 제시하고, 사용자가 승인한 뒤 해당 스킬로 정본을 만든다. 한 작업에서 세 문서를 모두 요청해도 PRD → 승인된 promotion candidate → companion skill 순서로 처리하며, 쓰기 요청·의미 승인·문서 소유권을 별도로 확인한다.
+## 로컬 확인
 
-저장소에 기존 규칙이 없을 때 Product Docs의 기본 저장 경로는 다음과 같다.
+Claude Code에서는 저장소 루트에서 플러그인을 직접 불러오고 manifest를 검증할 수 있습니다.
 
-```text
-docs/
-├── product/prds/
-├── domain/
-└── decisions/
+```bash
+claude --plugin-dir .
+claude plugin validate . --strict
 ```
 
-OpenWiki 같은 파생 위키는 이후 이 정본들을 읽어 탐색 문서를 만들 수 있다. 생성된 위키를 정본으로 간주하거나 `openwiki/` 아래에 제품 결정을 직접 기록하지 않는다. `visibility`와 `publication`은 정책 힌트일 뿐 OpenWiki 접근 제어가 아니다. 연결할 때는 `.openwikiignore` 또는 별도 staging/export projection으로 비공개 입력을 먼저 제외하고 결과를 검증해야 한다.
+## Research 공급자 설정 (선택)
 
-Git Workflow 세 스킬도 같은 변경 원칙을 각자의 `references/change-policy.md`에, 격리된 실행 환경의 인증·서명 재확인 절차를 각자의 `references/host-auth-and-signing.md`에 보유한다. PR은 하나의 승인·배포·되돌리기 단위로 취급하고, 내부 commit은 리뷰 가능한 의미 단위로 나눈다. 저장소의 `AGENTS.md`, `CONTRIBUTING`, commitlint, hooks와 PR template을 우선하며, 읽기 전용 감사는 수정안을 제안할 수 있지만 적용하지 않는다.
-
-Git Workflow에는 다음 원칙도 공통으로 적용한다.
-
-- Conventional Commit 제목은 영어 한 줄이며 body와 footer는 필요할 때 허용한다.
-- PR 제목은 전체 변경을 요약하는 Conventional Commit 형식으로 만든다.
-- squash를 기본 선호로 두되 저장소가 commit 보존 전략을 쓰면 각 commit을 최종 history 기준으로 검사한다.
-- 새 squash·merge commit과 rebase 결과의 서명을 source commit에서 추론하지 않는다.
-- Before/After screenshot은 실제 이미지에 접근할 수 있는 시각 변경에만 포함한다.
-- GitHub 인증이나 signing 실패가 격리 때문일 수 있으면 실패를 곧바로 미인증으로 단정하지 않고, 허용된 최소 읽기 전용 진단 뒤 실제 상태를 재확인해 중복 실행을 막는다.
-
-Product Docs와 Git Workflow의 여섯 skill은 자기 디렉터리 밖의 runtime 문서를 참조하지 않으므로 skill 디렉터리만 독립 설치할 수 있다. 공통 원칙을 바꿀 때는 해당 그룹의 로컬 reference를 같은 변경에서 함께 갱신하고 교차 스킬 평가로 일관성을 확인한다. 별도 dependency skill에 암묵적으로 의존하지 않는다. `create-skills`와 `research`의 실행 reference도 각 skill 디렉터리 안에 있으며, Research의 선택 공급자 opt-in만 아래 루트 설정을 사용한다.
-
-## Research 공급자 opt-in
-
-검색 공급자는 선택 사항이며 이 플러그인은 MCP, 계정 연결 또는 공급자 SDK를 번들하지 않는다. 아래 두 marker 사이의 매핑만 공급자 opt-in 선언으로 인정한다. 항목을 제거하면 해당 공급자를 사용하지 않는다.
+`research`는 기본 검색 도구만으로 사용할 수 있습니다. Exa 또는 Perplexity를 사용하려면 아래 선언을 유지하고 대응하는 환경변수를 설정합니다.
 
 <!-- research-provider-opt-in:v1:start -->
 ```yaml
@@ -101,25 +55,14 @@ providers:
 ```
 <!-- research-provider-opt-in:v1:end -->
 
-선언만으로 공급자가 활성화되지는 않는다. 다음 조건을 모두 충족해야 한다.
+API 키 값은 출력하거나 저장소에 커밋하지 마세요.
 
-1. 설치 manifest에서 유도한 고정 플러그인 루트의 이 README가 regular file이고 symlink가 아니다.
-2. 위 전용 블록에 공급자와 환경변수의 정확한 매핑이 있다.
-3. 환경변수가 non-empty라는 사실을 값·길이·접두사 없이 boolean 또는 exit status로만 확인할 수 있다.
-4. 대응하는 읽기 전용 도구의 실제 스키마와 인증 상태를 확인할 수 있다.
+## 저장소 구조
 
-하나라도 충족하지 않으면 해당 공급자는 비활성으로 간주한다. 환경변수 값은 출력·로그·검색어·위임 메시지에 넣지 않으며 `env`, `printenv`, shell trace나 오류 dump로 검사하지 않는다. 플러그인이 공급자를 자동 설치하거나 연결하지도 않는다.
-
-Research는 다음을 기본으로 한다.
-
-- Exa는 후보 자료와 원문 발견에 우선 사용한다.
-- Perplexity는 중복 기본 검색이 아니라 누락, 반례, 실패와 적용 한계를 찾는 optional challenger로 사용한다.
-- `standard`와 `deep` 조사는 최종 출력 전에 자동 인용 감사를 거친다.
-- 기존 보고서 감사는 판정 요약, 중요한 수정 근거와 수정된 보고서를 기본 출력으로 하며 별도 쓰기 요청 없이 원본을 덮어쓰지 않는다.
-- 공급자 장애와 내부 실행 상태는 현재성·완전성·독립성이나 결론을 실제로 저하시킬 때만 자연어로 알린다.
-
-## 검증
-
-행동 평가 suite가 있는 8개 skill은 저장소 전용 structured fixture인 `evals/cases.json`과 필요한 evaluator rubric을 보유한다. `evals/product-docs/cases.json`은 Product Docs의 공개 교차 스킬 회귀 suite다. 이 파일들은 공식 skill-creator의 `evals/evals.json` 스키마가 아니라 fixture repository, multi-turn checkpoint와 `must`/`must_not` assertion ID를 보존하는 이 저장소의 회귀 계약이다. 이 사례들은 개발 계약이지 비공개 holdout이 아니다. 실제 모델 비교는 `evals/product-docs/protocol.md`에 따라 `evals/`를 제외한 runtime snapshot에서 실행하고, release holdout과 runtime canary는 플러그인 밖에서 관리해야 한다.
-
-이 저장소에는 plugin·skill schema validator가 읽을 구조와 저장소 전용 JSON 평가 계약이 포함돼 있다. 링크, cross-document ID, 평가 분포까지 한 명령으로 검사하는 전용 static runner와 모델 호출·파일 tree/hash oracle·반복 신뢰성 runner는 포함하지 않는다. 외부 검증기가 확인해야 할 범위는 `evals/product-docs/protocol.md`, `evals/product-docs/README.md`와 각 rubric에 명시했다. Product Docs의 연구 근거와 적용 한계는 `docs/design/product-docs-research-basis.md`에 정리되어 있다.
+```text
+skills/          # 스킬 본문, 참고 자료, 템플릿과 평가 fixture
+evals/           # 스킬 간 회귀 평가
+docs/            # 설계 및 연구 문서
+.codex-plugin/   # Codex manifest
+.claude-plugin/  # Claude Code manifest
+```
