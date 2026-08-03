@@ -18,7 +18,8 @@ Codex 플러그인의 skill discovery가 `skills/` 바로 아래 디렉터리를
 │   ├── create-skills/
 │   ├── maintain-domain-docs/
 │   ├── record-decision/
-│   └── research/
+│   ├── research/
+│   └── write-developer-resume/
 ├── docs/
 │   └── design/              # maintainer용 설계·연구 근거
 ├── evals/
@@ -44,6 +45,7 @@ Claude Code adapter는 plugin root의 기본 `skills/` 탐색을 사용한다. m
 | Git Workflow | `audit-git-change` | worktree, commit range 또는 PR을 변경 없이 감사하고 수정안을 제안한다. |
 | Research | `research` | 원문 교차검증, 반증 탐색과 인용 감사를 포함한 범용 조사를 수행한다. |
 | Skill Authoring | `create-skills` | Agent Skill을 생성·개선하고 구조, 트리거, 행동과 보안을 검증한다. |
+| Career Docs | `write-developer-resume` | 개발자 경험을 주장과 근거로 재구성하고 이력서·경력기술서·포트폴리오 서술을 작성하거나 진단한다. |
 
 플러그인으로 설치하면 Codex에서는 `$skills:<skill-name>`, Claude Code에서는 `/skills:<skill-name>` 형식으로 명시적으로 호출한다.
 
@@ -52,6 +54,7 @@ $skills:create-prd로 이 아이디어를 full 깊이로 인터뷰하고 PRD를 
 $skills:maintain-domain-docs로 반복되는 정산 용어와 상태 전이를 정본으로 정리해줘.
 $skills:record-decision으로 수동 검토를 선택한 실제 근거와 재검토 조건을 남겨줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
+$skills:write-developer-resume로 개발자 이력서를 주장→근거 구조로 다시 써줘.
 $skills:create-commit으로 현재 변경을 의미 단위로 커밋해줘.
 /skills:create-prd 이 아이디어를 full 깊이로 인터뷰하고 PRD를 작성해줘.
 ```
@@ -117,6 +120,6 @@ Research는 다음을 기본으로 한다.
 
 ## 검증
 
-행동 평가 suite가 있는 7개 skill은 저장소 전용 structured fixture인 `evals/cases.json`과 필요한 evaluator rubric을 보유한다. `evals/product-docs/cases.json`은 Product Docs의 공개 교차 스킬 회귀 suite다. 이 파일들은 공식 skill-creator의 `evals/evals.json` 스키마가 아니라 fixture repository, multi-turn checkpoint와 `must`/`must_not` assertion ID를 보존하는 이 저장소의 회귀 계약이다. 이 사례들은 개발 계약이지 비공개 holdout이 아니다. 실제 모델 비교는 `evals/product-docs/protocol.md`에 따라 `evals/`를 제외한 runtime snapshot에서 실행하고, release holdout과 runtime canary는 플러그인 밖에서 관리해야 한다.
+행동 평가 suite가 있는 8개 skill은 저장소 전용 structured fixture인 `evals/cases.json`과 필요한 evaluator rubric을 보유한다. `evals/product-docs/cases.json`은 Product Docs의 공개 교차 스킬 회귀 suite다. 이 파일들은 공식 skill-creator의 `evals/evals.json` 스키마가 아니라 fixture repository, multi-turn checkpoint와 `must`/`must_not` assertion ID를 보존하는 이 저장소의 회귀 계약이다. 이 사례들은 개발 계약이지 비공개 holdout이 아니다. 실제 모델 비교는 `evals/product-docs/protocol.md`에 따라 `evals/`를 제외한 runtime snapshot에서 실행하고, release holdout과 runtime canary는 플러그인 밖에서 관리해야 한다.
 
 이 저장소에는 plugin·skill schema validator가 읽을 구조와 저장소 전용 JSON 평가 계약이 포함돼 있다. 링크, cross-document ID, 평가 분포까지 한 명령으로 검사하는 전용 static runner와 모델 호출·파일 tree/hash oracle·반복 신뢰성 runner는 포함하지 않는다. 외부 검증기가 확인해야 할 범위는 `evals/product-docs/protocol.md`, `evals/product-docs/README.md`와 각 rubric에 명시했다. Product Docs의 연구 근거와 적용 한계는 `docs/design/product-docs-research-basis.md`에 정리되어 있다.
