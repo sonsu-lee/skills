@@ -1,4 +1,4 @@
-# Create PRD Evaluation Rubric
+# Write PRD Evaluation Rubric
 
 ## Protocol
 

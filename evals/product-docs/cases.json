@@ -76,7 +76,7 @@
       },
       "should_trigger": true,
       "expected_skills": [
-        "create-prd",
+        "write-prd",
         "write-domain-docs",
         "write-adr"
       ],
