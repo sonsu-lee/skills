@@ -1,6 +1,6 @@
 ---
 name: review-before-commit
-description: "현재 변경이 커밋할 준비가 됐는지 읽기 전용으로 검토한다. 기존 커밋 계획이나 메시지 후보가 적절한지 확인해 달라는 요청에 사용한다."
+description: "아직 commit되지 않은 staged·unstaged·untracked 변경, 기존 commit plan과 message 후보가 commit-ready인지 읽기 전용으로 검토한다. Commit 전 review, audit, preflight, check 요청에 사용한다. 기존 commit/history 검토, 실제 stage·commit, 일반 코드 리뷰에는 사용하지 않는다."
 ---
 
 # Review Before Commit
@@ -21,7 +21,7 @@ description: "현재 변경이 커밋할 준비가 됐는지 읽기 전용으로
 
 1. repository root, 현재 branch와 `HEAD`, detached 여부를 확인한다.
 2. 진행 중인 merge, rebase, cherry-pick 또는 revert와 dirty·untracked 상태를 확인한다.
-3. status·diff와 commit-ready gate가 실행할 수 있는 fsmonitor, pager, diff/textconv·filter, hook, Git alias·external `git-*`와 environment override의 effective origin·trust를 비밀값 없이 확인한다.
+3. status·diff와 commit-ready gate가 실행할 수 있는 fsmonitor, pager, diff/textconv·filter, hook, signing program·format·trust input, Git alias·external `git-*`와 environment override의 effective origin·trust를 비밀값 없이 확인한다.
 4. `extensions.partialClone`, promisor remote/pack을 확인하고 필요한 object가 로컬에 없으면 fetch·credential helper를 실행하지 않는다.
 5. 사용자 지정 파일·hunk와 제안된 commit plan을 그대로 보존한다.
 6. 가까운 `AGENTS.md`, `CONTRIBUTING`, commitlint, commit hook과 CI 규칙을 찾는다.
@@ -37,6 +37,7 @@ description: "현재 변경이 커밋할 준비가 됐는지 읽기 전용으로
 - 기존 사용자 변경을 임의로 제외하거나 `HEAD` 내용으로 대신하지 않는다.
 - 제안된 commit plan이 있으면 각 묶음이 범위의 변경 전체를 빠짐없이 한 번씩 덮는지 확인한다.
 - commit 생성 전 gate라면 resolved traditional hook과 `hook.<friendly-name>.command/event/enabled` 설정 hook을 모두 검사한다. `pre-commit`, message hook, `reference-transaction`과 간접 호출 alias·external `git-*`를 최종 실행 대상까지 resolve한다.
+- commit signing이 활성화됐거나 custom SSH/GPG 설정이 있으면 `gpg.program`, `gpg.<format>.program`, `gpg.format`, key-selection delegate, SSH allowed-signers·revocation file와 backend trust-store 입력의 origin·trust를 확인한다. branch/worktree-controlled·changed·opaque signer 또는 trust root는 실행·승인하지 않는다.
 - 원래 저장소에 활성 `reference-transaction` hook이 있으면 trust와 관계없이 자동 ref promotion 불가 finding으로 기록한다.
 
 완료 조건: 모든 대상 변경이 staged·unstaged·untracked 중 하나와 제안된 commit 단위에 연결된다.

@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: "Pull request의 내용과 merge 준비 상태를 읽기 전용으로 검토한다. PR의 전체 변경, 제목·본문, 검증 결과와 merge 방식을 확인해 달라는 요청에 사용한다."
+description: "기존 pull request 또는 생성 전 PR 제목·본문 후보가 하나의 결과로 merge될 준비가 됐는지 읽기 전용으로 검토한다. PR review, audit, preflight, readiness check 요청에 사용한다. 일반 코드 리뷰, 구현 결함 탐색, PR 생성·수정·병합에는 사용하지 않는다."
 ---
 
 # Pull Request Review
@@ -17,18 +17,19 @@ Pull request가 저장소 규칙에 맞고 하나의 결과로 안전하게 merg
 - 비밀이나 개인정보가 발견되면 값을 재출력하지 않고 artifact·위치와 종류만 마스킹해 보고한다.
 - 검사할 수 없는 항목을 통과로 판정하지 않는다. `unverified`에 원인과 영향을 남긴다.
 
-## 1. PR과 적용 규칙을 확정한다
+## 1. 대상과 적용 규칙을 확정한다
 
-1. repository, PR 식별자, base/head branch와 full SHA를 확인한다.
-2. 원격 PR의 제목, 본문, draft 상태, labels, commits와 공개된 check 결과를 읽는다.
-3. 원격의 실제 base–head 전체 diff를 사용한다. 로컬 diff만 가능하면 merge-base 기준 누적 diff를 검사하고 원격과의 동일성은 `unverified`로 둔다.
-4. 가까운 저장소 지침, `CONTRIBUTING`, commitlint, CI·merge 규칙과 기본 브랜치의 PR template을 찾는다.
-5. 사용자 요청, 저장소 정책과 활성화된 merge 방법을 근거로 `merge_mode`를 `squash | preserve-commits | unverified`, `merge_strategy`를 `squash | rebase | merge | unverified`로 기록한다.
-6. 범위에서 제외한 파일, commit 또는 metadata가 있으면 목록과 이유를 기록한다.
+1. `target_kind`를 `remote-pr | pr-artifacts`로 정한다. 실제 PR 번호·URL을 검토하면 `remote-pr`, 생성 전에 준비한 제목·본문 후보를 검토하면 `pr-artifacts`다.
+2. 두 대상 모두 repository, base/head branch와 full SHA 또는 그에 준하는 immutable snapshot, 전체 base–head diff를 확인한다.
+3. `remote-pr`이면 PR 식별자, 원격 제목·본문, draft 상태, labels, commits와 공개된 check 결과를 읽고 원격의 실제 diff를 사용한다. 로컬 diff만 가능하면 원격 동일성을 `unverified`로 둔다.
+4. `pr-artifacts`이면 제공된 제목·본문 후보, commit 목록, merge 설정, template, signature 요구와 기존 검증 증거를 읽는다. 아직 없는 PR 식별자·labels·원격 check를 요구하거나 원격 객체가 존재한다고 가정하지 않는다.
+5. 가까운 저장소 지침, `CONTRIBUTING`, commitlint, CI·merge 규칙과 기본 브랜치의 PR template을 찾는다.
+6. 사용자 요청, 저장소 정책과 활성화된 merge 방법을 근거로 `merge_mode`를 `squash | preserve-commits | unverified`, `merge_strategy`를 `squash | rebase | merge | unverified`로 기록한다.
+7. 범위에서 제외한 파일, commit 또는 metadata가 있으면 목록과 이유를 기록한다.
 
-PR 정체성, base/head 또는 전체 diff를 확인할 수 없으면 다른 변경을 검토했을 위험이 있으므로 `fail`로 둔다. 검토 목적으로 fetch하거나 계정·remote를 전환하지 않는다.
+`remote-pr`의 PR 정체성·base/head·전체 diff 또는 `pr-artifacts`의 snapshot·전체 diff·제목·본문 후보를 확인할 수 없으면 다른 변경을 검토했을 위험이 있으므로 `fail`로 둔다. `pr-artifacts`에서 PR 식별자나 원격 check가 아직 없다는 사실만으로 실패시키지 않으며, 제공되지 않은 검증 주장은 `unverified`로 둔다. 검토 목적으로 fetch하거나 계정·remote를 전환하지 않는다.
 
-완료 조건: repository, PR, base/head snapshot, 전체 diff와 적용한 규칙 출처가 결과에서 식별된다.
+완료 조건: target kind, repository, base/head snapshot, 전체 diff, 검토한 원격 PR 또는 후보 artifact와 적용한 규칙 출처가 결과에서 식별된다.
 
 ## 2. 최종 history를 판정한다
 
@@ -100,7 +101,8 @@ Screenshot은 저장소 정책이 강제하지 않는 한 선택 사항이다. �
 status: pass | pass_with_warnings | fail
 scope:
   repository: <repository>
-  pull_request: <number or URL>
+  target_kind: remote-pr | pr-artifacts
+  pull_request: <number or URL or not_created>
   snapshot: <base-sha...head-sha>
   merge_mode: squash | preserve-commits | unverified
   merge_strategy: squash | rebase | merge | unverified
@@ -142,4 +144,4 @@ unverified:
 
 원격 조회 실패가 실제 미인증인지 sandbox 격리인지 불명확할 때만 [원격 검증 재확인](references/remote-verification.md)을 읽는다. 허용되는 호스트에서 동일 host에 대한 최소 읽기 전용 진단을 최대 한 번 수행하며 로그인·token 조회·계정 전환·권한 갱신은 하지 않는다.
 
-완료 조건: 상태가 findings와 일치하고 수정안이 PR 의도를 보존하며 로컬·원격 상태가 바뀌지 않았다.
+완료 조건: 상태가 findings와 일치하고 수정안이 PR 의도를 보존하며 로컬·원격 상태가 바뀌지 않았다. `pr-artifacts` 결과는 원격 PR이 존재하거나 최신 상태라고 표현하지 않는다.

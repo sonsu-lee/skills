@@ -13,11 +13,12 @@
 
 ## 읽기 안전 경계
 
-- read 전에 `core.fsmonitor`, pager, diff/textconv·filter, hook, `alias.*`, external `git-*`, automatic maintenance와 관련 environment의 effective origin·trust를 확인한다.
+- read 전에 `core.fsmonitor`, pager, diff/textconv·filter, hook, signing program·format·trust input, `alias.*`, external `git-*`, automatic maintenance와 관련 environment의 effective origin·trust를 확인한다.
 - `GIT_OPTIONAL_LOCKS=0`, `GIT_NO_LAZY_FETCH=1` 또는 동등한 방식으로 index stat refresh, optional lock, lazy fetch와 object write를 막는다.
 - pager, optional fsmonitor, external diff/textconv와 불필요한 filter를 비활성화한다.
 - `extensions.partialClone`, promisor remote와 promisor pack을 먼저 확인한다. 필요한 object가 없으면 fetch, credential helper와 network를 실행하지 않고 영향을 `unverified`로 둔다.
 - branch/worktree-controlled·changed·opaque 실행 위임을 실행하지 않는다. config의 존재만 보지 않고 origin, scope와 최종 실행 파일을 확인한다.
+- commit signing이 활성화됐거나 custom signing 설정이 있으면 `gpg.program`, `gpg.<format>.program`, `gpg.format`, `gpg.minTrustLevel`, `gpg.ssh.defaultKeyCommand`, SSH allowed-signers·revocation file와 backend trust-store 입력을 확인한다. branch/worktree-controlled·changed·opaque signer, key-selection delegate 또는 trust root는 실행·승인하지 않고 commit-ready 판정을 차단한다.
 - status, diff, untracked 파일 read가 index, worktree, refs, object database 또는 config를 바꾸지 않았음을 확인한다.
 
 ## 변경 범위
@@ -62,6 +63,7 @@ PR과 commit은 서로 다른 의미 단위다. 이 스킬은 commit 단위만 �
 - `hook.<friendly-name>.command/event/enabled` 설정 hook
 - `pre-commit`, `prepare-commit-msg`, `commit-msg`, `post-commit`, `reference-transaction`, `post-index-change`, 필요시 `post-checkout`과 version-dependent `pre-auto-gc`
 - hook·launcher가 호출하는 Git alias, `-c` expansion과 PATH의 external `git-*`
+- signing program, key-selection delegate와 allowed-signers·revocation·backend trust-store 입력
 - `maintenance.*`, `gc.auto*`와 `gc.recentObjectsHook`
 
 지원되는 Git에서는 event마다 `git hook list -z --show-scope <event>`를 사용하고, 구버전에서는 hook directory와 `git config --show-origin --show-scope --get-regexp '^hook\.'`를 함께 해석한다. alias cycle은 안전한 최종 action으로 승인하지 않는다.
@@ -72,7 +74,7 @@ worktree·branch가 제어하거나 이번 변경에서 수정된 hook·alias·l
 
 기존 검증은 exact candidate tree와 연결될 때만 증거로 사용한다. dirty worktree에서만 수행한 검사는 제외된 변경의 영향을 분리할 수 없으므로 future commit tree 검증으로 세지 않는다.
 
-- `P0`: credential·개인정보 노출, 잘못된 범위, 비신뢰 실행 위임의 scope·credential 위험
+- `P0`: credential·개인정보 노출, 잘못된 범위, 비신뢰 hook·signer·trust root를 포함한 실행 위임의 scope·credential 위험
 - `P1`: 원자성·메시지·필수 파일·저장소 정책 오류
 - `P2`: 비차단 명확성 개선
 

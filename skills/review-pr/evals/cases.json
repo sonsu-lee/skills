@@ -1462,67 +1462,75 @@
         "update_pr"
       ]
     },
-    {
-      "id": "holdout-audit-valid-merge-message-blank-defaults",
-      "split": "holdout",
-      "language": "mixed",
-      "prompt": "MERGE_MESSAGE 제목과 빈 merge body가 허용되는 merge-commit PR을 감사해줘.",
-      "fixture": {
-        "merge_mode": "preserve-commits",
-        "merge_strategy": "merge",
-        "merge_commit_title": "MERGE_MESSAGE",
-        "merge_commit_message": "BLANK",
-        "repo_policy": {
-          "require_conventional_final_subject": false,
-          "required_footer": null,
-          "require_signed_commits": false
-        },
-        "merge_commit_signature": "not_created",
-        "merge_time_signing_path": "not_applicable",
-        "effective_template": "none_confirmed",
-        "pull_request": {
-          "number": 103,
-          "base_sha": "3131313131313131313131313131313131313131",
-          "head_sha": "3232323232323232323232323232323232323232",
-          "title": "fix(api): bound request retries",
-          "body": "## Summary\n- Bound request retries",
-          "commits": [
-            {
-              "sha": "3232323232323232323232323232323232323232",
-              "message": "fix(api): bound request retries",
-              "signature": "unsigned",
-              "changes": [
-                "src/api/retry.ts",
-                "test/api/retry.test.ts"
-              ]
-            }
-          ]
-        },
-        "full_diff_summary": [
-          "bound request retries and cover the retry limit"
+  {
+    "id": "holdout-review-pr-artifacts-before-create",
+    "split": "holdout",
+    "language": "mixed",
+    "prompt": "PR 생성 전에 이 base/head diff와 제목·본문 후보를 merge readiness 기준으로 audit해줘. 원격 PR은 아직 만들지 마.",
+    "fixture": {
+      "target_kind": "pr-artifacts",
+      "repository": "example/api",
+      "base_ref": "main",
+      "head_ref": "fix/bound-retries",
+      "merge_mode": "preserve-commits",
+      "merge_strategy": "merge",
+      "merge_commit_title": "MERGE_MESSAGE",
+      "merge_commit_message": "BLANK",
+      "repo_policy": {
+        "require_conventional_final_subject": false,
+        "required_footer": null,
+        "require_signed_commits": false
+      },
+      "merge_commit_signature": "not_created",
+      "merge_time_signing_path": "not_applicable",
+      "effective_template": "none_confirmed",
+      "pr_artifacts": {
+        "base_sha": "3131313131313131313131313131313131313131",
+        "head_sha": "3232323232323232323232323232323232323232",
+        "title": "fix(api): bound request retries",
+        "body": "## Summary\n- Bound request retries",
+        "commits": [
+          {
+            "sha": "3232323232323232323232323232323232323232",
+            "message": "fix(api): bound request retries",
+            "signature": "unsigned",
+            "changes": [
+              "src/api/retry.ts",
+              "test/api/retry.test.ts"
+            ]
+          }
         ]
       },
-      "should_trigger": true,
-      "expected_status": "pass",
-      "must": [
-        "inspect_full_base_head_diff",
-        "determine_merge_mode",
-        "read_merge_commit_defaults",
-        "resolve_actual_merge_commit_message",
-        "merge_commit_signature_semantics",
-        "conventional_pr_title",
-        "preserved_commit_history_audit",
-        "inspect_each_commit_and_range",
-        "do_not_treat_pr_title_as_final_commit",
-        "read_only"
-      ],
-      "must_not": [
-        "correct_actual_merge_artifact",
-        "p1_finding",
-        "record_unverified",
-        "update_pr"
+      "full_diff_summary": [
+        "bound request retries and cover the retry limit"
       ]
     },
+    "should_trigger": true,
+    "expected_status": "pass",
+    "must": [
+      "accept_pr_artifacts_without_remote_identity",
+      "require_artifact_snapshot",
+      "inspect_full_base_head_diff",
+      "determine_merge_mode",
+      "read_merge_commit_defaults",
+      "resolve_actual_merge_commit_message",
+      "merge_commit_signature_semantics",
+      "conventional_pr_title",
+      "preserved_commit_history_audit",
+      "inspect_each_commit_and_range",
+      "do_not_treat_pr_title_as_final_commit",
+      "read_only"
+    ],
+    "must_not": [
+      "require_pr_identifier",
+      "target_critical_unverified_fail",
+      "correct_actual_merge_artifact",
+      "p1_finding",
+      "record_unverified",
+      "create_pr",
+      "update_pr"
+    ]
+  },
     {
       "id": "holdout-audit-hook-alias-cycle",
       "split": "holdout",

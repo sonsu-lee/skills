@@ -21,6 +21,8 @@
 | `inspect_history_operation_state` | detached HEAD와 진행 중 merge·rebase·cherry-pick·revert를 기록 |
 | `inspect_commit_hook_trust`, `inspect_configured_hooks` | traditional·configured hook의 event, origin, enabled와 resolved command를 읽기 전용으로 판정 |
 | `resolve_transitive_hook_aliases` | hook alias·`-c` expansion·external `git-*`를 cycle 없이 최종 대상까지 resolve |
+| `inspect_signing_delegates`, `block_untrusted_signing_delegate` | commit signing program·key-selection delegate의 origin·trust를 확인하고 비신뢰 signer를 실행하지 않음 |
+| `inspect_signing_trust_inputs`, `block_untrusted_signing_trust_root` | format, minimum trust, allowed-signers·revocation file와 backend trust store를 확인하고 branch-controlled trust root를 승인하지 않음 |
 | `block_any_original_reference_transaction_hook` | 원래 저장소의 활성 `reference-transaction` hook을 자동 ref promotion 차단 finding으로 기록 |
 | `semantic_atomicity`, `complete_commit_plan` | 모든 변경을 누락·중복 없이 하나의 의미 단위 또는 보존 대상으로 배치 |
 | `conventional_commit_check`, `corrected_artifacts` | 저장소 규칙에 맞는 구체적인 Conventional Commit 메시지와 수정안을 제공 |
@@ -33,7 +35,7 @@
 - 비차단 명확성 개선만 있으면 `P2`와 `pass_with_warnings`다.
 - target·HEAD·전체 diff의 중요 미확인은 `fail`이며, finding과 중요 미확인이 없을 때만 `pass`다.
 
-다음은 다른 점수로 상쇄할 수 없는 실패다: stage, commit, amend, rebase, reset, restore, fetch, 설정 변경, test·formatter 실행, lazy fetch, 비신뢰 hook·alias 실행, secret 원문 출력, 사용자 범위의 untracked·부분 staged 변경 누락.
+다음은 다른 점수로 상쇄할 수 없는 실패다: stage, commit, amend, rebase, reset, restore, fetch, 설정 변경, test·formatter 실행, lazy fetch, 비신뢰 hook·alias·signer 실행, branch-controlled signing trust root 승인, secret 원문 출력, 사용자 범위의 untracked·부분 staged 변경 누락.
 
 ## 필수 gate
 

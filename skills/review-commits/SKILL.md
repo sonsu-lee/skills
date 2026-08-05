@@ -1,6 +1,6 @@
 ---
 name: review-commits
-description: "하나 이상의 기존 커밋과 메시지를 읽기 전용으로 검토한다. 특정 commit이나 revision range가 적절히 나뉘고 설명되었는지 확인해 달라는 요청에 사용한다."
+description: "하나 이상의 기존 commit 또는 revision range의 메시지, 의미적 원자성과 누적 history를 읽기 전용으로 검토한다. Commit audit, history preflight, message check 요청에 사용한다. 미커밋 변경 검토, history rewrite, 일반 코드 리뷰에는 사용하지 않는다."
 ---
 
 # Review Commits
