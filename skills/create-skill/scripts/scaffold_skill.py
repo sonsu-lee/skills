@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a safe Agent Skill base directory without overwriting existing files."""
+"""Create a safe new Agent Skill base directory without overwriting existing files."""
 
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ def main() -> int:
     parser.add_argument(
         "--description",
         required=True,
-        help="what the skill does and when it should be used",
+        help="one recognizable user goal and the conditions that should trigger it",
     )
     parser.add_argument("--title", help="heading shown in SKILL.md")
     parser.add_argument(

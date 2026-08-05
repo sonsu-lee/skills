@@ -15,14 +15,13 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | `review-before-commit` | 커밋 전 현재 변경과 커밋 계획을 읽기 전용으로 검토합니다. |
 | `review-commits` | 하나 이상의 기존 커밋과 메시지를 읽기 전용으로 검토합니다. |
 | `review-pr` | PR의 내용과 merge 준비 상태를 읽기 전용으로 검토합니다. |
-| `develop-skill` | Agent Skill을 만들거나 개선하고 검증합니다. |
+| `create-skill` | 하나의 사용자 목표에 집중한 새 Agent Skill을 만들고 검증합니다. |
 | `write-developer-resume` | 개발자 이력서와 경력기술서를 작성하거나 진단합니다. |
 
 ## 명명 규칙
 
 - `write-*`: 문서를 새로 작성하거나 기존 문서를 갱신·재구성합니다.
-- `create-*`: commit이나 pull request처럼 Git 또는 외부 시스템의 객체를 생성합니다.
-- `develop-*`: 산출물을 만들고 개선하며 품질까지 검증하는 전체 개발 주기를 다룹니다.
+- `create-*`: Agent Skill, commit이나 pull request처럼 새로운 산출물 또는 객체를 생성합니다.
 - `review-*`와 `research`: 상태를 바꾸지 않는 검토·조사 작업을 나타냅니다.
 
 ## 설치
