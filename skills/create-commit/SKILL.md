@@ -5,7 +5,7 @@ description: "Git 변경을 하나의 의미로 설명 가능한 단위로 계�
 
 # 커밋 생성
 
-현재 작업 트리의 사용자 변경을 보존하면서 하나의 의미로 설명 가능한 커밋을 계획하거나 생성한다. 실제 커밋 전후에는 읽기 전용 audit gate를 자동으로 수행한다. push와 pull request는 이 스킬의 범위가 아니다.
+현재 작업 트리의 사용자 변경을 보존하면서 하나의 의미로 설명 가능한 커밋을 계획하거나 생성한다. 실제 커밋 전후에는 읽기 전용 review gate를 자동으로 수행한다. push와 pull request는 이 스킬의 범위가 아니다.
 
 ## 계약
 
@@ -76,9 +76,9 @@ Conventional Commits 형식을 사용한다.
 
 완료 조건: header만 읽어도 staged diff의 한 가지 의미가 설명되고, 선택한 type·scope·breaking 표기가 실제 변경과 일치한다.
 
-## 4. commit 전 audit gate를 실행한다
+## 4. commit 전 review gate를 실행한다
 
-`git-change-review`가 사용 가능하면 `working-tree` 범위의 읽기 전용 검사를 적용한다. 사용할 수 없어도 아래 검사를 직접 수행해 gate를 생략하지 않는다.
+`review-before-commit`이 사용 가능하면 현재 변경과 계획에 읽기 전용 검사를 적용한다. 사용할 수 없어도 아래 검사를 직접 수행해 gate를 생략하지 않는다.
 
 candidate tree를 materialize하거나 index를 쓰기 전에 5절의 전체 hook·alias·maintenance inventory와 trust gate를 먼저 수행한다. 그 전에는 `post-checkout`이나 index write를 일으키지 않는 archive/export/plumbing만 사용할 수 있다.
 
@@ -114,11 +114,13 @@ commit hook이 실패하거나 파일을 수정하면 `--no-verify`로 우회하
 
 서명, keychain, credential helper, GPG/SSH agent socket, 네트워크 또는 sandbox 격리로 보이는 오류가 발생하면 스킬 로컬 [host 인증·서명 자료](references/host-auth-and-signing.md)를 읽는다. sandbox 안에서 계정이나 키가 보이지 않는다는 결과만으로 실제 미인증·키 부재를 확정하지 않는다. 허용된 범위의 읽기 전용 호스트 진단을 최대 한 번 수행하고, 재시도 전 대상 저장소, `HEAD`, index tree, staged 범위, 메시지, 명령 인자, author·committer snapshot과 hook·signing·filter·fsmonitor·alias·maintenance·environment 실행 위임 inventory가 모두 사전 기록과 같은지 확인한다. repository/worktree-controlled·changed·opaque 실행 위임이 새 credential/network 접근을 얻거나 기대한 trusted helper와 signing backend만 사용함을 증명할 수 없으면 commit 명령을 sandbox 밖에서 자동 재시도하지 않는다. 서명을 끄거나 `--no-gpg-sign`, `commit.gpgsign=false`, `--no-verify`로 성공을 꾸미지 않는다.
 
-실패나 timeout 뒤 최초 process와 이번 attempt의 hook·signing·maintenance worker 및 이 transaction을 바꿀 수 있는 outstanding request가 모두 settled되고 대상 저장소가 quiescent임을 확인하기 전에는 commit·import·promotion·cleanup을 재시도하지 않는다. 기존 공유 GPG/SSH agent 같은 장기 daemon 자체는 종료하지 않지만 그 안의 이번 attempt 요청은 끝나야 한다. `HEAD`가 이미 예상 commit으로 이동했으면 다시 commit하지 않고 감사한다. 격리 transaction의 검증된 `temp_committed` 결과가 있으면 hook·서명을 다시 실행하지 않고 import부터, `object_imported` 결과가 있으면 commit을 다시 만들지 않고 상태 검증 후 promotion부터 재개한다. `HEAD`가 같아도 index tree, staged 범위, 메시지, identity/date, 명령 인자, 실행 inventory 또는 대상 저장소가 달라졌으면 중단하고 상태를 다시 감사한다. attempt가 settled됐고 일치하는 임시 commit·imported object·promoted ref가 전혀 없으며 모든 사전 기록이 같을 때만 원래 승인 범위 안에서 commit 실행을 최대 한 번 다시 시도한다.
+실패나 timeout 뒤 최초 process와 이번 attempt의 hook·signing·maintenance worker 및 이 transaction을 바꿀 수 있는 outstanding request가 모두 settled되고 대상 저장소가 quiescent임을 확인하기 전에는 commit·import·promotion·cleanup을 재시도하지 않는다. 기존 공유 GPG/SSH agent 같은 장기 daemon 자체는 종료하지 않지만 그 안의 이번 attempt 요청은 끝나야 한다. `HEAD`가 이미 예상 commit으로 이동했으면 다시 commit하지 않고 검토한다. 격리 transaction의 검증된 `temp_committed` 결과가 있으면 hook·서명을 다시 실행하지 않고 import부터, `object_imported` 결과가 있으면 commit을 다시 만들지 않고 상태 검증 후 promotion부터 재개한다. `HEAD`가 같아도 index tree, staged 범위, 메시지, identity/date, 명령 인자, 실행 inventory 또는 대상 저장소가 달라졌으면 중단하고 상태를 다시 검토한다. attempt가 settled됐고 일치하는 임시 commit·imported object·promoted ref가 전혀 없으며 모든 사전 기록이 같을 때만 원래 승인 범위 안에서 commit 실행을 최대 한 번 다시 시도한다.
 
 완료 조건: 각 commit은 한 번만 생성됐고, 생성된 SHA와 실제 메시지를 확인했다.
 
 ## 6. commit 후 읽기 전용 audit을 수행한다
+
+`review-commits`가 사용 가능하면 생성된 exact SHA 범위에 적용한다. 사용할 수 없어도 아래 검사를 직접 수행한다.
 
 각 생성 commit에 대해 다음을 확인한다.
 

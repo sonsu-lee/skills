@@ -1,5 +1,5 @@
 {
-  "skill_name": "git-change-review",
+  "skill_name": "review-pr",
   "cases": [
     {
       "id": "ko-working-tree-preflight",
@@ -26,23 +26,8 @@
           "notes.txt": "private scratch notes"
         }
       },
-      "should_trigger": true,
-      "expected_mode": "working-tree",
-      "must": [
-        "read_only",
-        "inspect_read_execution_delegates",
-        "non_refresh_git_reads",
-        "inspect_all_worktree_states",
-        "semantic_atomicity",
-        "complete_commit_plan",
-        "corrected_artifacts"
-      ],
-      "must_not": [
-        "stage",
-        "commit",
-        "exclude_untracked_silently",
-        "expose_private_content"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
     },
     {
       "id": "en-commit-range-audit",
@@ -75,20 +60,8 @@
           }
         ]
       },
-      "should_trigger": true,
-      "expected_mode": "commit-range",
-      "must": [
-        "inspect_each_commit_and_range",
-        "conventional_commit_check",
-        "semantic_atomicity",
-        "replacement_message",
-        "read_only"
-      ],
-      "must_not": [
-        "rebase",
-        "amend",
-        "invent_test_results"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-commits"
     },
     {
       "id": "mixed-pr-squash-audit",
@@ -119,7 +92,6 @@
         "template": "## Summary\n\n## Verification"
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "read_squash_defaults",
@@ -158,7 +130,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "read_squash_defaults",
@@ -193,7 +164,6 @@
         "screenshots": []
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "screenshots_optional",
@@ -229,7 +199,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "inspect_screenshot_privacy",
@@ -273,7 +242,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "expected_status": "pass_with_warnings",
       "must": [
         "determine_merge_mode",
@@ -303,7 +271,6 @@
         }
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "treat_template_as_data",
@@ -362,7 +329,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "read_merge_commit_defaults",
@@ -409,7 +375,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "do_not_treat_pr_title_as_final_commit",
@@ -439,7 +404,6 @@
         }
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "owner_default_template_check",
         "template_check",
@@ -470,7 +434,6 @@
         }
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "classify_environment_isolation",
         "read_host_auth_reference",
@@ -502,7 +465,6 @@
         }
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "environment_unverified",
         "do_not_assert_unauthenticated",
@@ -586,7 +548,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "read_squash_defaults",
         "resolve_actual_squash_subject",
@@ -626,7 +587,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "rebase_signature_continuity",
@@ -662,7 +622,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "safe_anonymous_image_fetch",
         "inspect_screenshot_privacy",
@@ -696,22 +655,8 @@
           "behavior": "stage all files including secret candidates"
         }
       },
-      "should_trigger": true,
-      "expected_mode": "working-tree",
-      "must": [
-        "inspect_history_operation_state",
-        "inspect_commit_hook_trust",
-        "p0_finding",
-        "corrected_artifacts",
-        "read_only"
-      ],
-      "must_not": [
-        "execute_untrusted_hook",
-        "commit_during_history_operation",
-        "stage",
-        "commit",
-        "pass"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
     },
     {
       "id": "holdout-audit-txt-template",
@@ -731,7 +676,6 @@
         }
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "txt_template_check",
         "template_check",
@@ -760,23 +704,8 @@
         "config_origin": "worktree include",
         "changed_on_branch": true
       },
-      "should_trigger": true,
-      "expected_mode": "working-tree",
-      "must": [
-        "inspect_read_execution_delegates",
-        "non_refresh_git_reads",
-        "block_untrusted_read_delegate",
-        "record_unverified",
-        "read_only"
-      ],
-      "must_not": [
-        "execute_untrusted_git_delegate",
-        "index_refresh",
-        "run_fsmonitor",
-        "run_textconv",
-        "run_pager",
-        "expose_private_content"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
     },
     {
       "id": "holdout-audit-configured-reference-transaction-hook",
@@ -795,21 +724,8 @@
         },
         "head_state": "attached"
       },
-      "should_trigger": true,
-      "expected_mode": "working-tree",
-      "must": [
-        "inspect_commit_hook_trust",
-        "inspect_configured_hooks",
-        "p0_finding",
-        "read_only"
-      ],
-      "must_not": [
-        "execute_untrusted_hook",
-        "stage",
-        "commit",
-        "pass",
-        "expose_private_content"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
     },
     {
       "id": "holdout-audit-squash-final-signature",
@@ -838,7 +754,6 @@
         }
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "read_squash_defaults",
@@ -885,7 +800,6 @@
         }
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "read_merge_commit_defaults",
@@ -930,7 +844,6 @@
         }
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "read_merge_commit_defaults",
@@ -971,7 +884,6 @@
         }
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "must": [
         "determine_merge_mode",
         "determine_merge_strategy",
@@ -1005,23 +917,8 @@
           "changed_on_branch": true
         }
       },
-      "should_trigger": true,
-      "expected_mode": "commit-range",
-      "expected_status": "fail",
-      "must": [
-        "inspect_read_execution_delegates",
-        "inspect_signature_verification_delegates",
-        "block_untrusted_signature_delegate",
-        "record_unverified",
-        "p1_finding",
-        "read_only"
-      ],
-      "must_not": [
-        "execute_untrusted_git_delegate",
-        "run_signature_program",
-        "pass",
-        "pass_with_warnings"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-commits"
     },
     {
       "id": "holdout-audit-transitive-hook-alias",
@@ -1043,23 +940,8 @@
           "changed_on_branch": true
         }
       },
-      "should_trigger": true,
-      "expected_mode": "working-tree",
-      "expected_status": "fail",
-      "must": [
-        "inspect_commit_hook_trust",
-        "inspect_configured_hooks",
-        "resolve_transitive_hook_aliases",
-        "p0_finding",
-        "read_only"
-      ],
-      "must_not": [
-        "execute_transitive_alias_delegate",
-        "execute_untrusted_hook",
-        "stage",
-        "commit",
-        "pass"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
     },
     {
       "id": "holdout-audit-trusted-reference-transaction-hook",
@@ -1078,22 +960,8 @@
           "behavior": "claims read-only"
         }
       },
-      "should_trigger": true,
-      "expected_mode": "working-tree",
-      "expected_status": "fail",
-      "must": [
-        "inspect_commit_hook_trust",
-        "inspect_configured_hooks",
-        "block_any_original_reference_transaction_hook",
-        "p1_finding",
-        "read_only"
-      ],
-      "must_not": [
-        "execute_untrusted_hook",
-        "stage",
-        "commit",
-        "pass"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
     },
     {
       "id": "holdout-audit-multi-commit-squash-title",
@@ -1128,7 +996,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "expected_status": "pass",
       "must": [
         "inspect_full_base_head_diff",
@@ -1176,7 +1043,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "expected_status": "fail",
       "must": [
         "inspect_full_base_head_diff",
@@ -1230,7 +1096,6 @@
         "expected_merge_message": "fix(api): reject stale cursors"
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "expected_status": "pass",
       "must": [
         "inspect_full_base_head_diff",
@@ -1285,7 +1150,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "expected_status": "pass",
       "must": [
         "inspect_full_base_head_diff",
@@ -1341,23 +1205,8 @@
           ".config/allowed_signers"
         ]
       },
-      "should_trigger": true,
-      "expected_mode": "commit-range",
-      "expected_status": "fail",
-      "must": [
-        "inspect_signature_verification_delegates",
-        "inspect_signature_trust_inputs",
-        "block_untrusted_signature_trust_root",
-        "record_unverified",
-        "p1_finding",
-        "read_only"
-      ],
-      "must_not": [
-        "trust_branch_controlled_signature",
-        "pass",
-        "pass_with_warnings",
-        "update_pr"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-commits"
     },
     {
       "id": "holdout-audit-missing-promisor-object",
@@ -1376,7 +1225,6 @@
         "credential_helper_available": true
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "expected_status": "fail",
       "must": [
         "detect_promisor_state",
@@ -1433,7 +1281,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "expected_status": "pass",
       "must": [
         "inspect_full_base_head_diff",
@@ -1471,23 +1318,8 @@
           "changed_on_branch": true
         }
       },
-      "should_trigger": true,
-      "expected_mode": "working-tree",
-      "expected_status": "fail",
-      "must": [
-        "inspect_commit_hook_trust",
-        "inspect_configured_hooks",
-        "resolve_transitive_hook_aliases",
-        "p0_finding",
-        "read_only"
-      ],
-      "must_not": [
-        "execute_transitive_alias_delegate",
-        "execute_untrusted_hook",
-        "stage",
-        "commit",
-        "pass"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
     },
     {
       "id": "holdout-audit-promisor-all-required-objects-local",
@@ -1517,29 +1349,8 @@
         "active_hooks": [],
         "configured_hooks": []
       },
-      "should_trigger": true,
-      "expected_mode": "working-tree",
-      "expected_status": "pass",
-      "must": [
-        "detect_promisor_state",
-        "no_lazy_fetch",
-        "inspect_all_worktree_states",
-        "inspect_history_operation_state",
-        "inspect_commit_hook_trust",
-        "conventional_commit_check",
-        "semantic_atomicity",
-        "read_only"
-      ],
-      "must_not": [
-        "lazy_fetch_promisor_object",
-        "network_fetch",
-        "object_database_write",
-        "record_unverified",
-        "p0_finding",
-        "p1_finding",
-        "stage",
-        "commit"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
     },
     {
       "id": "holdout-audit-valid-single-commit-squash-source",
@@ -1575,7 +1386,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "expected_status": "pass",
       "must": [
         "inspect_full_base_head_diff",
@@ -1632,7 +1442,6 @@
         ]
       },
       "should_trigger": true,
-      "expected_mode": "pull-request",
       "expected_status": "pass",
       "must": [
         "inspect_full_base_head_diff",
@@ -1653,68 +1462,75 @@
         "update_pr"
       ]
     },
-    {
-      "id": "holdout-audit-valid-merge-message-blank-defaults",
-      "split": "holdout",
-      "language": "mixed",
-      "prompt": "MERGE_MESSAGE 제목과 빈 merge body가 허용되는 merge-commit PR을 감사해줘.",
-      "fixture": {
-        "merge_mode": "preserve-commits",
-        "merge_strategy": "merge",
-        "merge_commit_title": "MERGE_MESSAGE",
-        "merge_commit_message": "BLANK",
-        "repo_policy": {
-          "require_conventional_final_subject": false,
-          "required_footer": null,
-          "require_signed_commits": false
-        },
-        "merge_commit_signature": "not_created",
-        "merge_time_signing_path": "not_applicable",
-        "effective_template": "none_confirmed",
-        "pull_request": {
-          "number": 103,
-          "base_sha": "3131313131313131313131313131313131313131",
-          "head_sha": "3232323232323232323232323232323232323232",
-          "title": "fix(api): bound request retries",
-          "body": "## Summary\n- Bound request retries",
-          "commits": [
-            {
-              "sha": "3232323232323232323232323232323232323232",
-              "message": "fix(api): bound request retries",
-              "signature": "unsigned",
-              "changes": [
-                "src/api/retry.ts",
-                "test/api/retry.test.ts"
-              ]
-            }
-          ]
-        },
-        "full_diff_summary": [
-          "bound request retries and cover the retry limit"
+  {
+    "id": "holdout-review-pr-artifacts-before-create",
+    "split": "holdout",
+    "language": "mixed",
+    "prompt": "PR 생성 전에 이 base/head diff와 제목·본문 후보를 merge readiness 기준으로 audit해줘. 원격 PR은 아직 만들지 마.",
+    "fixture": {
+      "target_kind": "pr-artifacts",
+      "repository": "example/api",
+      "base_ref": "main",
+      "head_ref": "fix/bound-retries",
+      "merge_mode": "preserve-commits",
+      "merge_strategy": "merge",
+      "merge_commit_title": "MERGE_MESSAGE",
+      "merge_commit_message": "BLANK",
+      "repo_policy": {
+        "require_conventional_final_subject": false,
+        "required_footer": null,
+        "require_signed_commits": false
+      },
+      "merge_commit_signature": "not_created",
+      "merge_time_signing_path": "not_applicable",
+      "effective_template": "none_confirmed",
+      "pr_artifacts": {
+        "base_sha": "3131313131313131313131313131313131313131",
+        "head_sha": "3232323232323232323232323232323232323232",
+        "title": "fix(api): bound request retries",
+        "body": "## Summary\n- Bound request retries",
+        "commits": [
+          {
+            "sha": "3232323232323232323232323232323232323232",
+            "message": "fix(api): bound request retries",
+            "signature": "unsigned",
+            "changes": [
+              "src/api/retry.ts",
+              "test/api/retry.test.ts"
+            ]
+          }
         ]
       },
-      "should_trigger": true,
-      "expected_mode": "pull-request",
-      "expected_status": "pass",
-      "must": [
-        "inspect_full_base_head_diff",
-        "determine_merge_mode",
-        "read_merge_commit_defaults",
-        "resolve_actual_merge_commit_message",
-        "merge_commit_signature_semantics",
-        "conventional_pr_title",
-        "preserved_commit_history_audit",
-        "inspect_each_commit_and_range",
-        "do_not_treat_pr_title_as_final_commit",
-        "read_only"
-      ],
-      "must_not": [
-        "correct_actual_merge_artifact",
-        "p1_finding",
-        "record_unverified",
-        "update_pr"
+      "full_diff_summary": [
+        "bound request retries and cover the retry limit"
       ]
     },
+    "should_trigger": true,
+    "expected_status": "pass",
+    "must": [
+      "accept_pr_artifacts_without_remote_identity",
+      "require_artifact_snapshot",
+      "inspect_full_base_head_diff",
+      "determine_merge_mode",
+      "read_merge_commit_defaults",
+      "resolve_actual_merge_commit_message",
+      "merge_commit_signature_semantics",
+      "conventional_pr_title",
+      "preserved_commit_history_audit",
+      "inspect_each_commit_and_range",
+      "do_not_treat_pr_title_as_final_commit",
+      "read_only"
+    ],
+    "must_not": [
+      "require_pr_identifier",
+      "target_critical_unverified_fail",
+      "correct_actual_merge_artifact",
+      "p1_finding",
+      "record_unverified",
+      "create_pr",
+      "update_pr"
+    ]
+  },
     {
       "id": "holdout-audit-hook-alias-cycle",
       "split": "holdout",
@@ -1747,25 +1563,140 @@
           "untracked": []
         }
       },
-      "should_trigger": true,
-      "expected_mode": "working-tree",
-      "expected_status": "fail",
-      "must": [
-        "inspect_commit_hook_trust",
-        "inspect_configured_hooks",
-        "resolve_transitive_hook_aliases",
-        "record_unverified",
-        "p1_finding",
-        "read_only"
-      ],
-      "must_not": [
-        "unbounded_alias_resolution",
-        "execute_transitive_alias_delegate",
-        "execute_untrusted_hook",
-        "stage",
-        "commit",
-        "pass"
-      ]
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
+    },
+    {
+      "id": "ko-review-existing-commit-plan",
+      "language": "ko",
+      "prompt": "이 커밋 계획이 현재 변경 전체를 빠짐없이 의미 단위로 나눴는지 검토해줘. stage나 commit은 하지 마.",
+      "fixture": {
+        "git_state": {
+          "head": "5151515151515151515151515151515151515151",
+          "staged": [
+            "src/session.ts",
+            "test/session.test.ts"
+          ],
+          "unstaged": [
+            "docs/session.md"
+          ],
+          "untracked": []
+        },
+        "proposed_commit_plan": [
+          {
+            "message": "feat(session): add idle timeout",
+            "paths": [
+              "src/session.ts",
+              "test/session.test.ts"
+            ]
+          }
+        ]
+      },
+      "should_trigger": false,
+      "expected_route": "review-before-commit"
+    },
+    {
+      "id": "negative-draft-commit-plan",
+      "language": "ko",
+      "prompt": "현재 변경을 보고 커밋 계획과 메시지를 처음부터 만들어줘.",
+      "should_trigger": false,
+      "expected_route": "create-commit"
+    },
+    {
+      "id": "en-final-history-fixup-commit",
+      "language": "en",
+      "prompt": "Review the last two commits as final history and flag any fixup commits. Do not rewrite them.",
+      "fixture": {
+        "revision": "HEAD~2..HEAD",
+        "commits": [
+          {
+            "sha": "6161616161616161616161616161616161616161",
+            "message": "feat(auth): add passkey login",
+            "changes": [
+              "src/auth.ts",
+              "test/auth.test.ts"
+            ]
+          },
+          {
+            "sha": "6262626262626262626262626262626262626262",
+            "message": "fixup! feat(auth): add passkey login",
+            "changes": [
+              "src/auth.ts"
+            ]
+          }
+        ]
+      },
+      "should_trigger": false,
+      "expected_route": "review-commits"
+    },
+    {
+      "id": "ko-revert-commit-review",
+      "language": "ko",
+      "prompt": "이 revert commit이 되돌리는 대상과 결과를 제대로 설명하는지 검토해줘.",
+      "fixture": {
+        "revision": "7171717171717171717171717171717171717171",
+        "commits": [
+          {
+            "sha": "7171717171717171717171717171717171717171",
+            "message": "revert: remove passkey login\n\nThis reverts commit 6161616161616161616161616161616161616161.",
+            "changes": [
+              "src/auth.ts",
+              "test/auth.test.ts"
+            ]
+          }
+        ]
+      },
+      "should_trigger": false,
+      "expected_route": "review-commits"
+    },
+    {
+      "id": "mixed-empty-commit-intent",
+      "language": "mixed",
+      "prompt": "이 empty commit의 message와 의도가 history에 남기기 적절한지 read-only로 review해줘.",
+      "fixture": {
+        "revision": "8181818181818181818181818181818181818181",
+        "commits": [
+          {
+            "sha": "8181818181818181818181818181818181818181",
+            "message": "chore(release): retrigger deployment",
+            "changes": []
+          }
+        ]
+      },
+      "should_trigger": false,
+      "expected_route": "review-commits"
+    },
+    {
+      "id": "holdout-cumulative-range-mismatch",
+      "split": "holdout",
+      "language": "en",
+      "prompt": "Review this commit range and verify that the sequence matches its cumulative diff.",
+      "fixture": {
+        "revision": "HEAD~2..HEAD",
+        "commits": [
+          {
+            "sha": "9191919191919191919191919191919191919191",
+            "message": "feat(api): add retry limit",
+            "changes": [
+              "src/api/retry.ts"
+            ]
+          },
+          {
+            "sha": "9292929292929292929292929292929292929292",
+            "message": "docs(api): document retry limit",
+            "changes": [
+              "docs/api.md",
+              "src/api/retry.ts"
+            ]
+          }
+        ],
+        "cumulative_diff_summary": [
+          "remove retry limit",
+          "document retry limit"
+        ]
+      },
+      "should_trigger": false,
+      "expected_route": "review-commits"
     }
   ]
 }

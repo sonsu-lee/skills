@@ -113,7 +113,7 @@
       "language": "en",
       "prompt": "Audit the existing PR title and body, but do not change anything.",
       "should_trigger": false,
-      "expected_route": "git-change-review",
+      "expected_route": "review-pr",
       "must": [
         "route_to_audit_skill"
       ],
