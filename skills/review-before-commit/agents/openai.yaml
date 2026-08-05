@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Before Commit"
+  short_description: "커밋 전 현재 변경과 커밋 계획을 읽기 전용으로 검토"
+  default_prompt: "$review-before-commit을 사용해 현재 변경과 커밋 계획을 읽기 전용으로 검토하고 수정안을 제안해줘."

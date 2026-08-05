@@ -12,7 +12,9 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
 | `create-commit` | 변경을 의미 단위로 나누어 커밋합니다. |
 | `create-pull-request` | 변경 범위와 저장소 규칙에 맞는 PR을 만듭니다. |
-| `git-change-review` | worktree, 커밋 또는 PR을 읽기 전용으로 검토합니다. |
+| `review-before-commit` | 커밋 전 현재 변경과 커밋 계획을 읽기 전용으로 검토합니다. |
+| `review-commits` | 하나 이상의 기존 커밋과 메시지를 읽기 전용으로 검토합니다. |
+| `review-pr` | PR의 내용과 merge 준비 상태를 읽기 전용으로 검토합니다. |
 | `develop-skill` | Agent Skill을 만들거나 개선하고 검증합니다. |
 | `write-developer-resume` | 개발자 이력서와 경력기술서를 작성하거나 진단합니다. |
 
@@ -21,7 +23,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 - `write-*`: 문서를 새로 작성하거나 기존 문서를 갱신·재구성합니다.
 - `create-*`: commit이나 pull request처럼 Git 또는 외부 시스템의 객체를 생성합니다.
 - `develop-*`: 산출물을 만들고 개선하며 품질까지 검증하는 전체 개발 주기를 다룹니다.
-- `review`와 `research`: 상태를 바꾸지 않는 검토·조사 작업을 나타냅니다.
+- `review-*`와 `research`: 상태를 바꾸지 않는 검토·조사 작업을 나타냅니다.
 
 ## 설치
 
@@ -90,7 +92,9 @@ $research로 이 주제를 근거 중심으로 조사해줘.
 
 # Claude Code
 /skills:create-commit 현재 변경을 의미 단위로 커밋해줘.
-/skills:git-change-review 현재 worktree를 검토해줘.
+/skills:review-before-commit 현재 변경을 커밋하기 전에 검토해줘.
+/skills:review-commits 최근 커밋 세 개를 검토해줘.
+/skills:review-pr 이 PR의 merge 준비 상태를 검토해줘.
 ```
 
 각 스킬의 자세한 동작과 옵션은 `skills/<skill-name>/SKILL.md`에서 확인할 수 있습니다.
