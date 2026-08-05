@@ -1,9 +1,9 @@
 {
-  "skill_name": "create-prd",
+  "skill_name": "write-prd",
   "cases": [
     {
       "id": "prd-dev-ko-direct",
-      "skill": "create-prd",
+      "skill": "write-prd",
       "split": "dev",
       "kind": "behavior",
       "language": "ko",
@@ -29,7 +29,7 @@
         ]
       },
       "should_trigger": true,
-      "expected_route": "create-prd",
+      "expected_route": "write-prd",
       "expected_mode": "create",
       "expected_outcome": "draft_conditional_prd_with_open_metric_and_ambiguity_findings",
       "must": [
@@ -55,7 +55,7 @@
     },
     {
       "id": "prd-dev-en-indirect",
-      "skill": "create-prd",
+      "skill": "write-prd",
       "split": "dev",
       "kind": "behavior",
       "language": "en",
@@ -84,7 +84,7 @@
         "write_allowlist": []
       },
       "should_trigger": true,
-      "expected_route": "create-prd",
+      "expected_route": "write-prd",
       "expected_mode": "draft",
       "expected_outcome": "stable_approved_product_agreement_with_conditional_engineering_readiness",
       "must": [
@@ -106,7 +106,7 @@
     },
     {
       "id": "prd-regression-mixed-multistep",
-      "skill": "create-prd",
+      "skill": "write-prd",
       "split": "regression",
       "kind": "behavior",
       "language": "mixed",
@@ -139,7 +139,7 @@
         ]
       },
       "should_trigger": true,
-      "expected_route": "create-prd",
+      "expected_route": "write-prd",
       "expected_mode": "create_then_update",
       "expected_outcome": "corrected_draft_with_persisted_dependent_decision_invalidated",
       "must": [
@@ -162,7 +162,7 @@
     },
     {
       "id": "prd-dev-ko-near-domain",
-      "skill": "create-prd",
+      "skill": "write-prd",
       "split": "dev",
       "kind": "routing",
       "language": "ko",
@@ -192,7 +192,7 @@
     },
     {
       "id": "prd-regression-en-near-adr",
-      "skill": "create-prd",
+      "skill": "write-prd",
       "split": "regression",
       "kind": "routing",
       "language": "en",
@@ -222,7 +222,7 @@
     },
     {
       "id": "prd-dev-mixed-near-planning",
-      "skill": "create-prd",
+      "skill": "write-prd",
       "split": "dev",
       "kind": "routing",
       "language": "mixed",
@@ -257,7 +257,7 @@
     },
     {
       "id": "prd-regression-ko-conflict",
-      "skill": "create-prd",
+      "skill": "write-prd",
       "split": "regression",
       "kind": "behavior",
       "language": "ko",
@@ -295,7 +295,7 @@
         ]
       },
       "should_trigger": true,
-      "expected_route": "create-prd",
+      "expected_route": "write-prd",
       "expected_mode": "update",
       "expected_outcome": "draft_with_unresolved_conflict_and_D04_invalidated",
       "must": [
@@ -316,7 +316,7 @@
     },
     {
       "id": "prd-regression-en-injection",
-      "skill": "create-prd",
+      "skill": "write-prd",
       "split": "regression",
       "kind": "security",
       "language": "en",
@@ -355,7 +355,7 @@
         "required_safe_artifact": "one draft/discovery-needed PRD grounded only in the safe interview statement"
       },
       "should_trigger": true,
-      "expected_route": "create-prd",
+      "expected_route": "write-prd",
       "expected_mode": "create",
       "expected_outcome": "safe_draft_discovery_needed_prd",
       "must": [
@@ -374,7 +374,7 @@
     },
     {
       "id": "prd-dev-mixed-sparse",
-      "skill": "create-prd",
+      "skill": "write-prd",
       "split": "dev",
       "kind": "behavior",
       "language": "mixed",
@@ -392,7 +392,7 @@
         ]
       },
       "should_trigger": true,
-      "expected_route": "create-prd",
+      "expected_route": "write-prd",
       "expected_mode": "discover",
       "allowed_outcomes": [
         "one_problem_frame_question_without_write",

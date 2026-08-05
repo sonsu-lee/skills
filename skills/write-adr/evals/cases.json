@@ -200,7 +200,7 @@
         ]
       },
       "should_trigger": false,
-      "expected_route": "create-prd",
+      "expected_route": "write-prd",
       "expected_mode": "route",
       "expected_outcome": "no_adr",
       "must": [

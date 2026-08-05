@@ -1,9 +1,9 @@
 ---
-name: create-skills
+name: develop-skill
 description: "새 Agent Skill을 생성하거나 기존 SKILL.md를 개선하고 구조·트리거·행동·보안을 검증한다. 사용자가 스킬 생성, 스킬 작성, SKILL.md 제작, 기존 스킬 개선이나 평가를 요청할 때 사용한다. Korean-first authoring with Korean, English, and mixed-language trigger evaluation. Use when the user asks to create, write, build, review, test, or optimize an agent skill."
 ---
 
-# 스킬 생성
+# 스킬 개발
 
 요청을 반복 사용에서도 정확하고 안정적으로 수행하는 고품질 스킬로 구현하고, 실제 사례와 검증으로 품질을 입증한다. 품질 기준을 충족한 뒤에만 불필요한 복잡성을 제거한다.
 

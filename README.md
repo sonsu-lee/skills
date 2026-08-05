@@ -6,15 +6,22 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 | 스킬 | 설명 |
 |---|---|
-| `create-prd` | 인터뷰를 통해 제품 요구사항 문서를 작성합니다. |
+| `write-prd` | 인터뷰를 통해 제품 요구사항 문서를 작성합니다. |
 | `write-domain-docs` | 용어, 상태, 전이와 비즈니스 규칙을 정리합니다. |
 | `write-adr` | 중요한 아키텍처·기술 결정을 ADR로 작성합니다. |
 | `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
 | `create-commit` | 변경을 의미 단위로 나누어 커밋합니다. |
 | `create-pull-request` | 변경 범위와 저장소 규칙에 맞는 PR을 만듭니다. |
 | `git-change-review` | worktree, 커밋 또는 PR을 읽기 전용으로 검토합니다. |
-| `create-skills` | Agent Skill을 만들거나 개선하고 검증합니다. |
+| `develop-skill` | Agent Skill을 만들거나 개선하고 검증합니다. |
 | `write-developer-resume` | 개발자 이력서와 경력기술서를 작성하거나 진단합니다. |
+
+## 명명 규칙
+
+- `write-*`: 문서를 새로 작성하거나 기존 문서를 갱신·재구성합니다.
+- `create-*`: commit이나 pull request처럼 Git 또는 외부 시스템의 객체를 생성합니다.
+- `develop-*`: 산출물을 만들고 개선하며 품질까지 검증하는 전체 개발 주기를 다룹니다.
+- `review`와 `research`: 상태를 바꾸지 않는 검토·조사 작업을 나타냅니다.
 
 ## 설치
 
@@ -22,9 +29,9 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 | 목적 | 설치 방식 | 적용 범위 | Codex 호출 형식 |
 |---|---|---|---|
-| 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$create-prd` |
-| 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$create-prd` |
-| 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:create-prd` |
+| 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$write-prd` |
+| 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$write-prd` |
+| 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:write-prd` |
 
 ### 현재 프로젝트에 설치
 
@@ -34,7 +41,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 npx skills add sonsu-lee/skills --agent codex
 ```
 
-이 방식은 해당 프로젝트에만 스킬을 적용하려는 경우에 적합합니다. 설치한 스킬은 플러그인 네임스페이스 없이 `$create-prd`, `$research`처럼 호출합니다.
+이 방식은 해당 프로젝트에만 스킬을 적용하려는 경우에 적합합니다. 설치한 스킬은 플러그인 네임스페이스 없이 `$write-prd`, `$research`처럼 호출합니다.
 
 ### 모든 프로젝트에 독립 스킬로 설치
 
@@ -74,11 +81,11 @@ codex plugin marketplace remove sonsu-skills
 
 ```text
 # Codex 플러그인 설치
-$skills:create-prd로 이 아이디어의 PRD를 작성해줘.
+$skills:write-prd로 이 아이디어의 PRD를 작성해줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
 
 # Codex 독립 스킬 설치
-$create-prd로 이 아이디어의 PRD를 작성해줘.
+$write-prd로 이 아이디어의 PRD를 작성해줘.
 $research로 이 주제를 근거 중심으로 조사해줘.
 
 # Claude Code

@@ -17,7 +17,7 @@
       "Write"
     ],
     "defaultPrompt": [
-      "$skills:create-prd로 제품 요구사항을 인터뷰하고 PRD를 작성해줘.",
+      "$skills:write-prd로 제품 요구사항을 인터뷰하고 PRD를 작성해줘.",
       "$skills:research로 이 주제를 근거 중심으로 조사해줘.",
       "$skills:create-commit으로 변경을 의미 단위로 커밋해줘."
     ]
