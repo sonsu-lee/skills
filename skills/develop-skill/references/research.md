@@ -12,6 +12,16 @@
 6. 이론과 논문은 규칙을 설명하거나 검증하는 데 사용한다.
 7. 대표 사례로 규칙을 적용하고, 실패 사례로 잘못된 행동이 차단되는지 확인한다.
 
+## 조사 도구를 선택한다
+
+- OpenAI API, 모델, PTC와 플러그인 규격은 OpenAI Developers MCP의 공식 문서 검색·원문 조회 도구를 우선한다. Codex 자체 동작은 대상 호스트가 제공하는 공식 Codex 문서 경로를 먼저 따르고 필요한 공백만 Developers MCP로 보완한다.
+- 공개 저장소의 Agent Skill 구현, 테스트와 유지관리자 코드는 GitHub MCP의 저장소·코드 검색과 파일 조회 도구를 우선한다.
+- 검색 결과 목록은 발견 단서로만 취급한다. 규칙을 바꾸는 주장은 선택한 공식 원문이나 저장소 파일을 직접 조회해 확인한다.
+- 도구가 없거나 인증·정책으로 사용할 수 없으면 같은 출처를 읽을 수 있는 기존 도구로 대체하고 미확인 범위를 남긴다. 조사 편의를 위해 새 MCP를 만들지 않는다.
+- 개발 중 조사에만 사용한 MCP는 생성 대상 스킬의 런타임 의존성이 아니다. 대상 스킬의 대표 작업이 그 MCP 없이는 완료될 수 있을 때만 `agents/openai.yaml`의 `dependencies.tools`에 선언한다.
+
+고정된 여러 읽기 전용 검색을 실행해 URL·저장소·파일 경로를 정규화하고 중복 제거하는 제한된 단계는 [도구 오케스트레이션](tool-orchestration.md)의 PTC 후보로 평가한다. 검색 결과에 따라 다음 질의를 바꾸는 탐색, 관련성 판단, 원문 선택·해석, 인용과 라이선스 확인은 직접 호출로 유지한다.
+
 ## 출처 선택
 
 | 주장 | 우선 출처 | 확인할 내용 |
@@ -67,6 +77,7 @@
 
 ## 참고한 방법론
 
+- [OpenAI Programmatic Tool Calling](https://developers.openai.com/api/docs/guides/tools-programmatic-tool-calling)
 - [OpenAI Build Skills](https://learn.chatgpt.com/docs/build-skills)
 - [Agent Skills Specification](https://agentskills.io/specification)
 - [Agent Skills Best Practices](https://agentskills.io/skill-creation/best-practices)

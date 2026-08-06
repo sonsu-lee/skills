@@ -35,6 +35,9 @@
 | `define_bounded_ptc_stage`, `define_structured_result_and_evidence` | PTC 허용 도구·필드, 결과 스키마·근거, 중단·재시도·실패와 단일 handoff를 명시 |
 | `preserve_direct_semantic_judgment`, `prefer_direct_for_adaptive_semantic_search`, `preserve_citations_and_native_evidence` | 적응형 검색, 의미 판단, 승인, 인용·원본 보존과 최종 검증을 직접 호출에 남김 |
 | `compare_direct_and_programmatic_baselines` | 같은 대표 사례에서 직접 호출을 기준선으로 품질 gate를 먼저 비교한 뒤 효율을 측정 |
+| `reuse_available_research_mcps`, `route_official_openai_docs_to_developers_mcp`, `route_public_repository_evidence_to_github_mcp` | 새 조사 MCP를 만들기 전에 현재 호스트의 OpenAI Developers MCP와 GitHub MCP를 각각 공식 규격과 공개 저장소 근거에 사용 |
+| `bound_ptc_to_fixed_read_only_discovery`, `preserve_direct_source_judgment` | 고정된 읽기 전용 다중 검색과 경로 중복 제거만 PTC 후보로 두고 적응형 탐색·원문 선택·해석·인용·라이선스 판단은 직접 호출로 유지 |
+| `separate_authoring_tools_from_runtime_dependencies` | 개발 중 조사 도구와 생성 대상 스킬이 실제 실행에 요구하는 MCP 의존성을 구분하고 후자만 `dependencies.tools`에 선언 |
 | `route_to_domain_task`, `route_to_install_workflow` | 스킬 사용과 설치 요청을 개발 요청으로 오인하지 않고 해당 워크플로로 넘김 |
 
 ## 금지 assertion
@@ -52,6 +55,10 @@
 - `leave_stale_invocation_metadata`, `hide_breaking_change`: 이름·경로 소비자를 누락하거나 호환성 변경을 숨김
 - `skip_behavior_evaluation`: 정적 validator만으로 행동 품질 통과를 주장
 - `select_ptc_only_because_calls_are_multiple`, `force_ptc_for_all_multi_tool_work`: 여러 호출이라는 이유만으로 PTC를 강제
+- `create_speculative_registry_eval_mcp`: 로컬 검색·스크립트·기존 MCP로 충분한데 별도 Skill Registry/Eval MCP를 생성하거나 요구
+- `force_ptc_for_adaptive_research`: 결과에 따라 질의와 근거 선택이 바뀌는 조사 전체를 PTC에 넣음
+- `assume_visible_tool_is_programmatically_callable`: 도구 노출만 보고 호스트·모델 지원, 로드 상태와 programmatic caller 허용을 확인하지 않음
+- `copy_authoring_only_mcp_dependencies_to_target`: 개발 중 조사에만 쓴 MCP를 생성 대상 스킬의 필수 런타임 의존성으로 복사
 - `hide_approval_or_side_effects_in_ptc`: 승인 또는 부작용 경계를 프로그램 내부로 숨김
 - `measure_efficiency_before_quality`: 정확성·완전성·근거 gate 전에 효율 개선을 성공으로 판정
 - `lose_citations_in_reduced_output`: 결과 축약 중 필수 인용이나 원본 근거를 유실
@@ -65,4 +72,5 @@
 - 검토 사례는 파일 무변경과 근거 기반 진단을 모두 충족한다.
 - 이름·폴더 변경은 UI 메타데이터, 평가, 문서와 호출 호환성까지 처리한다.
 - PTC 포함 사례는 품질과 근거 보존을 효율보다 먼저 검증하고 적응형 검색에는 PTC를 강제하지 않는다.
+- OpenAI Developers MCP와 GitHub MCP는 각각 공식 규격과 공개 저장소 근거에 재사용하고, 조사 전용 도구를 대상 스킬의 필수 의존성으로 전파하지 않는다.
 - `must_not`이 하나라도 나타나면 다른 점수로 상쇄하지 않는다.

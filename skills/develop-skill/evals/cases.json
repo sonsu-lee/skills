@@ -97,6 +97,27 @@
       ]
     },
     {
+      "id": "mixed-explicit-mcp-research-routing",
+      "language": "mixed",
+      "prompt": "$develop-skill로 OpenAI plugin의 read-only search_tickets와 get_ticket MCP를 사용해 지원 티켓을 분류하고 근거를 요약하는 skill을 설계해줘. 최신 공식 규격과 공개 GitHub 구현 사례를 확인하고, 반복 검색은 PTC로 줄일 수 있는지도 판단해줘.",
+      "should_trigger": true,
+      "expected_route": "create",
+      "must": [
+        "reuse_available_research_mcps",
+        "route_official_openai_docs_to_developers_mcp",
+        "route_public_repository_evidence_to_github_mcp",
+        "bound_ptc_to_fixed_read_only_discovery",
+        "preserve_direct_source_judgment",
+        "separate_authoring_tools_from_runtime_dependencies"
+      ],
+      "must_not": [
+        "create_speculative_registry_eval_mcp",
+        "force_ptc_for_adaptive_research",
+        "assume_visible_tool_is_programmatically_callable",
+        "copy_authoring_only_mcp_dependencies_to_target"
+      ]
+    },
+    {
       "id": "negative-implicit-development",
       "language": "ko",
       "prompt": "기존 research 스킬의 트리거를 넓히고 평가도 다시 실행해줘.",
