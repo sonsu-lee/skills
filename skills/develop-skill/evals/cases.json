@@ -1,0 +1,211 @@
+{
+  "skill_name": "develop-skill",
+  "cases": [
+    {
+      "id": "ko-explicit-create",
+      "language": "ko",
+      "prompt": "$develop-skill을 사용해서 릴리스 노트를 매주 같은 형식으로 작성하는 새 스킬을 만들어줘.",
+      "should_trigger": true,
+      "expected_route": "create",
+      "must": [
+        "classify_create",
+        "confirm_single_user_goal",
+        "search_existing_skills",
+        "scaffold_new_target_only",
+        "apply_shared_development_core",
+        "validate_structure_and_behavior"
+      ],
+      "must_not": [
+        "modify_unrelated_existing_skill",
+        "combine_independent_goals",
+        "skip_behavior_evaluation"
+      ]
+    },
+    {
+      "id": "en-explicit-update",
+      "language": "en",
+      "prompt": "Use $develop-skill to update the existing research skill so its trigger boundary covers evidence reviews but preserves its current source and citation behavior.",
+      "should_trigger": true,
+      "expected_route": "update",
+      "must": [
+        "classify_update",
+        "resolve_authoritative_source",
+        "capture_existing_contract",
+        "preserve_unrequested_behavior",
+        "patch_without_scaffolding",
+        "compare_before_and_after",
+        "validate_existing_new_and_holdout_cases"
+      ],
+      "must_not": [
+        "edit_install_cache_as_source",
+        "create_duplicate_skill",
+        "rewrite_all_prompt_layers_at_once",
+        "drop_existing_evaluations"
+      ]
+    },
+    {
+      "id": "ko-explicit-review-only",
+      "language": "ko",
+      "prompt": "$develop-skill로 기존 write-prd 스킬의 구조와 트리거 평가를 검토만 해줘. 파일은 수정하지 마.",
+      "should_trigger": true,
+      "expected_route": "review",
+      "must": [
+        "classify_review",
+        "preserve_read_only_boundary",
+        "inspect_complete_skill_surface",
+        "report_evidence_and_unverified_risks"
+      ],
+      "must_not": [
+        "mutate_review_target",
+        "expand_review_into_update"
+      ]
+    },
+    {
+      "id": "mixed-explicit-incomplete-update",
+      "language": "mixed",
+      "prompt": "$develop-skill로 기존 skill의 tool routing을 개선해줘. 어느 파일인지는 아직 말하지 않았어.",
+      "should_trigger": true,
+      "expected_route": "update_needs_target_resolution",
+      "must": [
+        "classify_update",
+        "resolve_target_before_edit",
+        "ask_smallest_material_question",
+        "avoid_outcome_changing_assumption"
+      ],
+      "must_not": [
+        "guess_update_target",
+        "edit_first_similar_skill"
+      ]
+    },
+    {
+      "id": "en-explicit-ptc-create",
+      "language": "en",
+      "prompt": "Use $develop-skill to create a skill that reads thousands of structured records from several read-only tools, deduplicates and aggregates them, then produces an evidence-backed analyst summary.",
+      "should_trigger": true,
+      "expected_route": "create",
+      "must": [
+        "select_tool_calling_route_by_stage",
+        "define_bounded_ptc_stage",
+        "define_structured_result_and_evidence",
+        "preserve_direct_semantic_judgment",
+        "compare_direct_and_programmatic_baselines"
+      ],
+      "must_not": [
+        "select_ptc_only_because_calls_are_multiple",
+        "hide_approval_or_side_effects_in_ptc",
+        "measure_efficiency_before_quality"
+      ]
+    },
+    {
+      "id": "negative-implicit-development",
+      "language": "ko",
+      "prompt": "기존 research 스킬의 트리거를 넓히고 평가도 다시 실행해줘.",
+      "should_trigger": false,
+      "expected_route": "built_in_skill_creator_or_other_explicit_workflow",
+      "must": [
+        "respect_explicit_only_policy"
+      ],
+      "must_not": [
+        "implicit_develop_skill_activation"
+      ]
+    },
+    {
+      "id": "negative-domain-task",
+      "language": "en",
+      "prompt": "Use the research skill to compare current database hosting options.",
+      "should_trigger": false,
+      "expected_route": "domain_skill",
+      "must": [
+        "route_to_domain_task"
+      ],
+      "must_not": [
+        "develop_skill_activation",
+        "treat_skill_usage_as_skill_development"
+      ]
+    },
+    {
+      "id": "negative-install-request",
+      "language": "ko",
+      "prompt": "이 GitHub 저장소의 스킬을 내 Codex에 설치해줘.",
+      "should_trigger": false,
+      "expected_route": "skill_installer",
+      "must": [
+        "route_to_install_workflow"
+      ],
+      "must_not": [
+        "develop_skill_activation",
+        "modify_skill_source"
+      ]
+    },
+    {
+      "id": "holdout-explicit-cache-path-update",
+      "split": "holdout",
+      "language": "ko",
+      "prompt": "$develop-skill로 ~/.codex/plugins/cache/acme/skills/1.0.0/skills/reporting/SKILL.md 내용을 고쳐줘. 같은 스킬의 소스 저장소가 현재 작업 공간에 있으면 거기를 원본으로 사용해.",
+      "should_trigger": true,
+      "expected_route": "update",
+      "must": [
+        "resolve_authoritative_source",
+        "distinguish_cache_from_source",
+        "report_installation_refresh_requirement"
+      ],
+      "must_not": [
+        "edit_install_cache_as_source",
+        "claim_cache_updated_without_install"
+      ]
+    },
+    {
+      "id": "target-explicit-structural-update",
+      "language": "mixed",
+      "prompt": "$develop-skill로 create-only skill을 create와 update가 같은 core workflow를 쓰는 lifecycle skill로 재구성해줘. 이름과 폴더를 바꿔야 하면 바꿔도 돼.",
+      "should_trigger": true,
+      "expected_route": "update",
+      "must": [
+        "classify_update",
+        "preserve_shared_user_goal",
+        "evaluate_rename_compatibility",
+        "update_all_name_and_path_consumers",
+        "validate_existing_new_and_holdout_cases"
+      ],
+      "must_not": [
+        "duplicate_core_workflow",
+        "leave_stale_invocation_metadata",
+        "hide_breaking_change"
+      ]
+    },
+    {
+      "id": "holdout-explicit-independent-goals",
+      "split": "holdout",
+      "language": "ko",
+      "prompt": "$develop-skill로 이력서 작성과 Git 커밋 생성을 모두 수행하는 새 스킬 하나를 만들어줘.",
+      "should_trigger": true,
+      "expected_route": "split_or_compose",
+      "must": [
+        "detect_independent_goals",
+        "split_or_compose_skills",
+        "explain_goal_boundaries"
+      ],
+      "must_not": [
+        "combine_independent_goals",
+        "create_multi_topic_skill"
+      ]
+    },
+    {
+      "id": "holdout-explicit-adaptive-cited-search",
+      "split": "holdout",
+      "language": "mixed",
+      "prompt": "$develop-skill로 검색 결과를 보고 다음 query를 바꾸며 최종 답에 원문 citation을 붙이는 research skill을 만들어줘. 여러 tool을 쓰니 PTC가 필요하면 포함해줘.",
+      "should_trigger": true,
+      "expected_route": "create",
+      "must": [
+        "select_tool_calling_route_by_stage",
+        "prefer_direct_for_adaptive_semantic_search",
+        "preserve_citations_and_native_evidence"
+      ],
+      "must_not": [
+        "force_ptc_for_all_multi_tool_work",
+        "lose_citations_in_reduced_output"
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate a newly created Codex-oriented Agent Skill using only the Python standard library."""
+"""Validate a Codex-oriented Agent Skill using only the Python standard library."""
 
 from __future__ import annotations
 
