@@ -1,6 +1,0 @@
-interface:
-  display_name: "Create Skill"
-  short_description: "한글 기반 신규 Agent Skill 생성과 품질 검증"
-  default_prompt: "$create-skill을 사용해 하나의 사용자 목표에 집중한 새 Agent Skill을 생성하고 구조·트리거·행동·보안을 검증해줘."
-policy:
-  allow_implicit_invocation: false

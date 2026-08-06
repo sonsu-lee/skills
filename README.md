@@ -15,13 +15,14 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | `review-before-commit` | 커밋 전 현재 변경과 커밋 계획을 읽기 전용으로 검토합니다. |
 | `review-commits` | 하나 이상의 기존 커밋과 메시지를 읽기 전용으로 검토합니다. |
 | `review-pr` | PR의 내용과 merge 준비 상태를 읽기 전용으로 검토합니다. |
-| `create-skill` | 하나의 사용자 목표에 집중한 새 Agent Skill을 만들고 검증합니다. |
+| `develop-skill` | Agent Skill을 생성·수정·검토하고 구조와 행동을 검증합니다. |
 | `write-developer-resume` | 개발자 이력서와 경력기술서를 작성하거나 진단합니다. |
 
 ## 명명 규칙
 
 - `write-*`: 문서를 새로 작성하거나 기존 문서를 갱신·재구성합니다.
-- `create-*`: Agent Skill, commit이나 pull request처럼 새로운 산출물 또는 객체를 생성합니다.
+- `create-*`: commit이나 pull request처럼 새로운 산출물 또는 객체를 생성합니다.
+- `develop-*`: 같은 품질 코어로 산출물의 생성·수정·검토 주기를 다룹니다.
 - `review-*`와 `research`: 상태를 바꾸지 않는 검토·조사 작업을 나타냅니다.
 
 ## 설치
@@ -84,6 +85,7 @@ codex plugin marketplace remove sonsu-skills
 # Codex 플러그인 설치
 $skills:write-prd로 이 아이디어의 PRD를 작성해줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
+$skills:develop-skill로 새 스킬을 만들거나 기존 스킬을 개선해줘.
 
 # Codex 독립 스킬 설치
 $write-prd로 이 아이디어의 PRD를 작성해줘.
@@ -94,6 +96,7 @@ $research로 이 주제를 근거 중심으로 조사해줘.
 /skills:review-before-commit 현재 변경을 커밋하기 전에 검토해줘.
 /skills:review-commits 최근 커밋 세 개를 검토해줘.
 /skills:review-pr 이 PR의 merge 준비 상태를 검토해줘.
+/skills:develop-skill 기존 스킬의 트리거와 행동을 개선해줘.
 ```
 
 각 스킬의 자세한 동작과 옵션은 `skills/<skill-name>/SKILL.md`에서 확인할 수 있습니다.
