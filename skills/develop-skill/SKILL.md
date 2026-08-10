@@ -1,6 +1,6 @@
 ---
 name: develop-skill
-description: "새 Agent Skill을 생성하거나 기존 스킬을 수정·재구성·검토하고 구조·트리거·행동·보안을 검증한다. 스킬 생성, SKILL.md 작성, 기존 스킬 개선·리팩터링·평가 요청에 사용한다. Korean-first authoring with Korean, English, and mixed-language trigger evaluation. Use when the user asks to create, write, build, update, improve, refactor, review, test, or optimize an agent skill. Do not use to perform the domain task that a skill merely describes or to install a finished skill."
+description: "새 에이전트 스킬을 생성하거나 기존 스킬을 수정·재구성·검토하고 구조·트리거·행동·보안을 검증한다. 스킬 생성, SKILL.md 작성, 기존 스킬 개선·리팩터링·평가 요청에 사용한다. 스킬이 설명하는 도메인 작업을 수행하거나 완성된 스킬을 설치하는 요청에는 사용하지 않는다."
 ---
 
 # 스킬 개발
@@ -92,10 +92,16 @@ description: "새 Agent Skill을 생성하거나 기존 스킬을 수정·재구
 python3 "$SKILL_DIR/scripts/scaffold_skill.py" <skill-name> \
   --path <parent-directory> \
   --description "<무엇을 하는지와 언제 사용하는지>" \
+  --title "<한국어 표시 제목>" \
+  --short-description "<25~64자의 한국어 기능 요약>" \
+  --default-prompt '$<skill-name>을 사용해 <대표 작업>을 수행하고 결과를 검증해줘.' \
+  --allow-implicit-invocation false \
   --resources references,scripts
 ```
 
 기존 대상이 있으면 스캐폴더를 실행하지 않는다. `UPDATE`에서는 수정 모드의 변경·마이그레이션 절차를 적용한다. `REVIEW`에서는 이 단계를 설계안과 근거 작성까지만 수행한다.
+
+사용자나 프로젝트의 별도 언어 지시가 없으면 `SKILL.md` 본문·`description`·UI 표시 메타데이터는 한국어를 canonical 원문으로 작성하고 같은 규칙을 영어로 중복하지 않는다. `name`, 경로, rule ID, schema key와 명령은 ASCII를 유지한다. `default_prompt`는 명시적 `$skill-name` 호출과 대표 결과만 담은 한 문장으로 작성한다. 암시적 호출은 대상이 독립적인 사용자 결과를 소유하고 긍정·부정 트리거 평가를 통과한 경우에만 `true`로 선택하며, meta·고영향·명시 전용 스킬은 `false`로 둔다.
 
 참조는 `SKILL.md`에서 한 단계로 연결하고 언제 읽는지 적는다. 같은 의미를 본문과 참조에 중복하지 않는다. 각 번들 자원은 주된 목표의 호출, 판단, 실행 또는 검증을 직접 지원해야 한다.
 
@@ -111,6 +117,13 @@ python3 "$SKILL_DIR/scripts/scaffold_skill.py" <skill-name> \
 
 ```bash
 python3 "$SKILL_DIR/scripts/validate_skill.py" <skill-directory>
+```
+
+`CREATE`로 생성한 새 스킬은 메타데이터와 호출 정책을 명시했는지 추가로 검증한다. 기존 스킬의 호출 정책 이관은 그 변경이 승인된 범위에 있을 때만 같은 strict 검사를 적용한다.
+
+```bash
+python3 "$SKILL_DIR/scripts/validate_skill.py" <skill-directory> \
+  --require-explicit-invocation-policy
 ```
 
 모든 스크립트의 구문과 대표 실행 경로를 확인한다. 외부 입력이나 시스템 변경을 다루면 [보안 검토](references/security.md)의 정적·동적 검사를 수행한다. 이 스킬 자체는 Codex 내장 `skill-creator`와 자연어 트리거가 겹치므로 `agents/openai.yaml`에서 암시적 호출을 끄고 명시적 `$develop-skill` 호출만 평가한다.
