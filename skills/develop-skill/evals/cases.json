@@ -12,12 +12,18 @@
         "confirm_single_user_goal",
         "search_existing_skills",
         "scaffold_new_target_only",
+        "author_korean_canonical",
+        "generate_lean_interface_metadata",
+        "declare_explicit_invocation_policy",
+        "run_scaffold_and_strict_validation",
         "apply_shared_development_core",
         "validate_structure_and_behavior"
       ],
       "must_not": [
         "modify_unrelated_existing_skill",
         "combine_independent_goals",
+        "duplicate_canonical_language",
+        "omit_invocation_policy",
         "skip_behavior_evaluation"
       ]
     },
@@ -227,6 +233,26 @@
         "force_ptc_for_all_multi_tool_work",
         "lose_citations_in_reduced_output"
       ]
+    }
+  ],
+  "validator_regressions": [
+    {
+      "id": "strict-valid-explicit-policy",
+      "openai_yaml": "interface:\n  display_name: \"감사 스킬\"\n  short_description: \"감사 스킬의 반복 작업을 정확하고 안전하게 수행하도록 안내\"\n  default_prompt: \"$audit-skill을 사용해 대표 작업을 수행하고 결과를 검증해줘.\"\npolicy:\n  allow_implicit_invocation: false\n",
+      "expected_exit": 0,
+      "expected_error": null
+    },
+    {
+      "id": "strict-invalid-yaml-syntax",
+      "openai_yaml": "interface:\n  display_name: \"감사 스킬\"\n  short_description: \"감사 스킬의 반복 작업을 정확하고 안전하게 수행하도록 안내\"\n  default_prompt: \"$audit-skill을 사용해 대표 작업을 수행하고 결과를 검증해줘.\"\npolicy:\n  allow_implicit_invocation: false\ninvalid: :\n",
+      "expected_exit": 1,
+      "expected_error": "invalid openai.yaml syntax"
+    },
+    {
+      "id": "strict-reject-escaped-policy-shadow",
+      "openai_yaml": "interface:\n  display_name: \"감사 스킬\"\n  short_description: \"감사 스킬의 반복 작업을 정확하고 안전하게 수행하도록 안내\"\n  default_prompt: \"$audit-skill을 사용해 대표 작업을 수행하고 결과를 검증해줘.\"\npolicy:\n  allow_implicit_invocation: false\n\"allow\\u005fimplicit_invocation\": true\n",
+      "expected_exit": 1,
+      "expected_error": "strict openai.yaml validation does not allow quoted mapping keys"
     }
   ]
 }

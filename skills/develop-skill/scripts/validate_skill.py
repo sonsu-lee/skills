@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate a Codex-oriented Agent Skill using only the Python standard library."""
+"""Validate a Codex-oriented Agent Skill; strict metadata parsing uses PyYAML."""
 
 from __future__ import annotations
 
@@ -140,12 +140,238 @@ def validate_python(root: Path, findings: list[Finding]) -> None:
                 add(findings, "warning", script, "script has no shebang")
 
 
-def validate_openai_yaml(root: Path, skill_name: str, findings: list[Finding]) -> None:
+def count_yaml_mapping_key(lines: list[str], key: str) -> int:
+    """Count block- or flow-style mapping keys while ignoring quoted scalar text."""
+    escaped_key = re.escape(key)
+    key_token = rf"(?:{escaped_key}|\"{escaped_key}\"|'{escaped_key}')\s*:"
+    block_key = re.compile(rf"^\s*(?:-\s*)?{key_token}")
+    flow_key = re.compile(rf"\s*{key_token}")
+    count = 0
+
+    for line in lines:
+        if block_key.match(line):
+            count += 1
+
+        quote: str | None = None
+        escaped = False
+        index = 0
+        while index < len(line):
+            character = line[index]
+            if quote == '"':
+                if escaped:
+                    escaped = False
+                elif character == "\\":
+                    escaped = True
+                elif character == quote:
+                    quote = None
+            elif quote == "'":
+                if character == quote:
+                    if index + 1 < len(line) and line[index + 1] == quote:
+                        index += 1
+                    else:
+                        quote = None
+            elif character in {'"', "'"}:
+                quote = character
+            elif character == "#":
+                break
+            elif character in "{[,":
+                if flow_key.match(line, index + 1):
+                    count += 1
+            index += 1
+
+    return count
+
+
+def has_quoted_yaml_mapping_key(lines: list[str]) -> bool:
+    """Detect quoted mapping keys without rejecting quoted scalar values."""
+    double_quoted = r'"(?:\\.|[^"\\])*"'
+    single_quoted = r"'(?:''|[^'])*'"
+    quoted_key = rf"(?:{double_quoted}|{single_quoted})\s*:"
+    block_key = re.compile(rf"^\s*(?:[-?]\s*)?{quoted_key}")
+    flow_key = re.compile(rf"\s*{quoted_key}")
+
+    for line in lines:
+        if block_key.match(line):
+            return True
+
+        quote: str | None = None
+        escaped = False
+        index = 0
+        while index < len(line):
+            character = line[index]
+            if quote == '"':
+                if escaped:
+                    escaped = False
+                elif character == "\\":
+                    escaped = True
+                elif character == quote:
+                    quote = None
+            elif quote == "'":
+                if character == quote:
+                    if index + 1 < len(line) and line[index + 1] == quote:
+                        index += 1
+                    else:
+                        quote = None
+            elif character in {'"', "'"}:
+                quote = character
+            elif character == "#":
+                break
+            elif character in "{[,":
+                if flow_key.match(line, index + 1):
+                    return True
+            index += 1
+
+    return False
+
+
+def unquoted_yaml_surface(line: str) -> str:
+    """Mask quoted scalar text and comments, preserving YAML surface punctuation."""
+    surface: list[str] = []
+    quote: str | None = None
+    escaped = False
+    index = 0
+    while index < len(line):
+        character = line[index]
+        if quote == '"':
+            surface.append(" ")
+            if escaped:
+                escaped = False
+            elif character == "\\":
+                escaped = True
+            elif character == quote:
+                quote = None
+        elif quote == "'":
+            surface.append(" ")
+            if character == quote:
+                if index + 1 < len(line) and line[index + 1] == quote:
+                    surface.append(" ")
+                    index += 1
+                else:
+                    quote = None
+        elif character in {'"', "'"}:
+            quote = character
+            surface.append(" ")
+        elif character == "#" and (index == 0 or line[index - 1].isspace()):
+            break
+        else:
+            surface.append(character)
+        index += 1
+    return "".join(surface)
+
+
+def has_disallowed_strict_yaml_surface(lines: list[str]) -> bool:
+    """Reject advanced key and flow syntax outside normal quoted scalar values."""
+    for line in lines:
+        surface = unquoted_yaml_surface(line)
+        if any(character in surface for character in "{}[]"):
+            return True
+        if any(character in surface for character in "!&*"):
+            return True
+        if re.search(r"(?:^|\s)(?:-\s*)?<<\s*:", surface):
+            return True
+        if re.match(r"^\s*(?:-\s*)?\?(?:\s|$)", surface):
+            return True
+    return False
+
+
+def validate_strict_yaml_document(
+    text: str, config: Path, findings: list[Finding]
+) -> bool:
+    """Parse the complete metadata document with the parser used by OpenAI tooling."""
+    try:
+        import yaml  # type: ignore[import-not-found]
+    except ImportError:
+        add(
+            findings,
+            "error",
+            config,
+            "strict openai.yaml validation requires PyYAML",
+        )
+        return False
+
+    try:
+        document = yaml.safe_load(text)
+    except yaml.YAMLError:
+        add(findings, "error", config, "invalid openai.yaml syntax")
+        return False
+
+    if not isinstance(document, dict):
+        add(findings, "error", config, "openai.yaml must be a mapping")
+        return False
+    return True
+
+
+def top_level_yaml_block(
+    lines: list[str], key: str
+) -> tuple[list[tuple[int, str]], int] | None:
+    """Return one exact top-level block and its direct-child indentation."""
+    headers = [
+        index
+        for index, line in enumerate(lines)
+        if re.match(rf"^{re.escape(key)}\s*:", line)
+    ]
+    if (
+        len(headers) != 1
+        or lines[headers[0]].strip() != f"{key}:"
+        or count_yaml_mapping_key(lines, key) != 1
+    ):
+        return None
+
+    block: list[tuple[int, str]] = []
+    for index, line in enumerate(lines[headers[0] + 1 :], headers[0] + 1):
+        if line and not line[:1].isspace() and not line.lstrip().startswith("#"):
+            break
+        block.append((index, line))
+
+    content_indents = [
+        len(line) - len(line.lstrip(" "))
+        for _, line in block
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    if not content_indents:
+        return None
+    return block, min(content_indents)
+
+
+def validate_openai_yaml(
+    root: Path,
+    skill_name: str,
+    findings: list[Finding],
+    require_explicit_invocation_policy: bool = False,
+) -> None:
     config = root / "agents" / "openai.yaml"
     if not config.exists():
         add(findings, "warning", config, "agents/openai.yaml is recommended for Codex UI metadata")
+        if require_explicit_invocation_policy:
+            add(
+                findings,
+                "error",
+                config,
+                "policy.allow_implicit_invocation must be explicitly set to true or false",
+            )
         return
     text = config.read_text(encoding="utf-8")
+    lines = text.splitlines()
+    if require_explicit_invocation_policy and not validate_strict_yaml_document(
+        text, config, findings
+    ):
+        return
+    if require_explicit_invocation_policy and has_quoted_yaml_mapping_key(lines):
+        add(
+            findings,
+            "error",
+            config,
+            "strict openai.yaml validation does not allow quoted mapping keys",
+        )
+    if require_explicit_invocation_policy and has_disallowed_strict_yaml_surface(lines):
+        add(
+            findings,
+            "error",
+            config,
+            "strict openai.yaml validation allows only plain block mapping keys; "
+            "tags, anchors, aliases, explicit or merge keys, and flow collections "
+            "are not allowed",
+        )
     field_values: dict[str, str] = {}
     for field in ("display_name", "short_description", "default_prompt"):
         match = re.search(
@@ -164,14 +390,79 @@ def validate_openai_yaml(root: Path, skill_name: str, findings: list[Finding]) -
                 add(findings, "error", config, f"invalid quoted interface.{field}")
         else:
             field_values[field] = raw_value.replace("''", "'")
+
+    if require_explicit_invocation_policy:
+        interface_block = top_level_yaml_block(lines, "interface")
+        valid_interface = interface_block is not None
+        if interface_block is not None:
+            block, direct_indent = interface_block
+            for field in ("display_name", "short_description", "default_prompt"):
+                direct_fields = [
+                    line
+                    for _, line in block
+                    if re.fullmatch(
+                        rf" +{field}\s*:\s*(?P<quote>[\"'])(?P<value>.+)"
+                        rf"(?P=quote)\s*",
+                        line,
+                    )
+                ]
+                valid_interface = valid_interface and (
+                    len(direct_fields) == 1
+                    and len(direct_fields[0]) - len(direct_fields[0].lstrip(" "))
+                    == direct_indent
+                    and count_yaml_mapping_key(lines, field) == 1
+                )
+        if not valid_interface:
+            add(
+                findings,
+                "error",
+                config,
+                "interface must be exactly one top-level block whose display_name, "
+                "short_description, and default_prompt each appear exactly once as "
+                "quoted direct children without nested, flow-style, or quoted-key shadows",
+            )
+
     short_description = field_values.get("short_description", "")
     if short_description and not 25 <= len(short_description) <= 64:
         add(findings, "error", config, "interface.short_description must be 25-64 characters")
     if f"${skill_name}" not in field_values.get("default_prompt", ""):
         add(findings, "error", config, f"default_prompt must mention ${skill_name}")
 
+    if require_explicit_invocation_policy:
+        policy_block = top_level_yaml_block(lines, "policy")
+        valid_policy = False
+        if policy_block is not None:
+            block, direct_indent = policy_block
+            policy_keys = [
+                (index, line)
+                for index, line in block
+                if re.fullmatch(
+                    r" +allow_implicit_invocation\s*:\s*(?:true|false)\s*",
+                    line,
+                )
+            ]
 
-def validate_skill(root: Path, profile: str) -> list[Finding]:
+            valid_policy = (
+                len(policy_keys) == 1
+                and len(policy_keys[0][1]) - len(policy_keys[0][1].lstrip(" "))
+                == direct_indent
+                and count_yaml_mapping_key(lines, "allow_implicit_invocation") == 1
+            )
+        if not valid_policy:
+            add(
+                findings,
+                "error",
+                config,
+                "policy.allow_implicit_invocation must appear exactly once as a direct "
+                "child of top-level policy and use an unquoted true or false",
+            )
+
+
+def validate_skill(
+    root: Path,
+    profile: str,
+    require_explicit_invocation_policy: bool = False,
+) -> list[Finding]:
     findings: list[Finding] = []
     skill_file = root / "SKILL.md"
     if not root.is_dir():
@@ -239,7 +530,12 @@ def validate_skill(root: Path, profile: str) -> list[Finding]:
 
     validate_markdown_links(root, findings)
     validate_python(root, findings)
-    validate_openai_yaml(root, name or root.name, findings)
+    validate_openai_yaml(
+        root,
+        name or root.name,
+        findings,
+        require_explicit_invocation_policy,
+    )
     return findings
 
 
@@ -252,11 +548,20 @@ def main() -> int:
         default="codex",
         help="frontmatter compatibility profile",
     )
+    parser.add_argument(
+        "--require-explicit-invocation-policy",
+        action="store_true",
+        help="require policy.allow_implicit_invocation to be an explicit boolean",
+    )
     parser.add_argument("--json", action="store_true", help="emit machine-readable output")
     args = parser.parse_args()
 
     root = Path(args.skill_directory).expanduser().resolve()
-    findings = validate_skill(root, args.profile)
+    findings = validate_skill(
+        root,
+        args.profile,
+        args.require_explicit_invocation_policy,
+    )
     errors = [finding for finding in findings if finding.level == "error"]
     warnings = [finding for finding in findings if finding.level == "warning"]
 

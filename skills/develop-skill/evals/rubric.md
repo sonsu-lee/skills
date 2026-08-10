@@ -7,11 +7,12 @@
 1. 라우팅 평가에는 frontmatter `description`과 `agents/openai.yaml`의 policy만 제공한다.
 2. `should_trigger: true` 사례는 명시적 `$develop-skill` 호출과 원시 대상만 제공한다.
 3. `should_trigger: false` 사례에는 이 스킬을 제공하지 않고 해당 도메인·설치·내장 워크플로로 남겨 둔다.
-4. `CREATE`는 스킬 미적용 기준선과 생성본을 비교한다.
+4. `CREATE`는 스킬 미적용 기준선과 생성본을 비교하고, disposable 디렉터리에서 스캐폴더와 `--require-explicit-invocation-policy` 검증기를 실제로 실행한다.
 5. `UPDATE`는 변경 전 대상과 변경본을 같은 기존 회귀·새 목표·홀드아웃 사례에서 비교한다.
 6. `REVIEW`는 실행 전후 파일 목록과 hash가 같고 진단이 실제 근거와 연결되는지 확인한다.
 7. 평가 실행에는 저자의 기대 답, 의도한 수정이나 이전 실패 분석을 노출하지 않는다.
-8. `split: holdout` 사례는 수정에 사용하지 않고 마지막 회귀 검사에서 실행한다.
+8. `validator_regressions`는 각 `openai_yaml`을 disposable `audit-skill/agents/openai.yaml`에 기록하고 `validate_skill.py audit-skill --require-explicit-invocation-policy --json`을 실행해 exit code와 `expected_error`를 정확히 대조한다.
+9. `split: holdout` 사례는 수정에 사용하지 않고 마지막 회귀 검사에서 실행한다.
 
 ## 공통·모드 assertion
 
@@ -24,6 +25,10 @@
 | `detect_independent_goals`, `split_or_compose_skills`, `explain_goal_boundaries` | 독립 트리거·입출력·성공 기준을 가진 목표를 분리하거나 조합하고 경계를 설명 |
 | `search_existing_skills` | 이름이 아니라 기능으로 기존 스킬을 검색해 중복 생성을 방지 |
 | `scaffold_new_target_only`, `patch_without_scaffolding` | 새 대상에만 스캐폴더를 사용하고 기존 대상은 필요한 파일만 수정 |
+| `author_korean_canonical` | 별도 언어 지시가 없는 생성 사례에서 본문·description·UI 메타데이터를 한국어 canonical 원문으로 작성하고 식별자·경로·schema key는 ASCII로 유지 |
+| `generate_lean_interface_metadata` | display name·25~64자 기능 요약·명시적 `$skill-name`을 포함한 한 문장의 대표 `default_prompt`를 중복 설명 없이 생성 |
+| `declare_explicit_invocation_policy` | 생성본에 `policy.allow_implicit_invocation` boolean을 명시하고, 독립 outcome·트리거 평가 근거가 없는 meta·고영향·명시 전용 스킬은 `false`로 유지 |
+| `run_scaffold_and_strict_validation` | 실제 스캐폴더로 새 target을 만든 뒤 `SKILL.md` 본문을 완성하고 strict invocation-policy 검증을 통과시켜 실행 명령·결과를 보고 |
 | `resolve_target_before_edit`, `ask_smallest_material_question`, `avoid_outcome_changing_assumption` | 수정 대상을 확정하고 결과를 바꾸는 최소 공백만 질문 |
 | `resolve_authoritative_source`, `distinguish_cache_from_source` | 설치 캐시·배포물과 authoring source를 구분해 권위 있는 소스를 수정 |
 | `capture_existing_contract`, `preserve_unrequested_behavior` | 기존 트리거·출력·안전·호환성의 성공 계약을 회귀 기준으로 보존 |
@@ -49,6 +54,8 @@
 - `edit_install_cache_as_source`, `claim_cache_updated_without_install`: 설치 캐시를 원본으로 수정하거나 설치 갱신 없이 반영됐다고 주장
 - `create_duplicate_skill`: 같은 목표의 기존 스킬이 있는데 새 스킬 생성
 - `combine_independent_goals`, `create_multi_topic_skill`: 독립 목표를 한 스킬에 결합
+- `duplicate_canonical_language`: 같은 규칙을 한국어와 영어로 중복해 canonical 원문을 두 벌로 만듦
+- `omit_invocation_policy`: 생성본의 `policy.allow_implicit_invocation` boolean을 생략하거나 default 유무로 정책을 추정
 - `duplicate_core_workflow`: 생성·수정에 별도 품질 코어를 복제해 서로 다르게 침전
 - `rewrite_all_prompt_layers_at_once`: 원인 구분 없이 프롬프트·도구·참조·평가를 한꺼번에 재작성
 - `drop_existing_evaluations`: 수정 과정에서 기존 회귀 사례를 제거
@@ -67,7 +74,8 @@
 ## 필수 gate
 
 - `CREATE`, `UPDATE`, `REVIEW`가 같은 개발 코어를 사용하고 초기화·보존·권한 경계만 모드별로 다르다.
-- 생성 사례는 중복 스킬과 독립 목표 결합 없이 새 대상만 만든다.
+- 생성 사례는 중복 스킬과 독립 목표 결합 없이 새 대상만 만들고, 한국어 canonical·lean UI 메타데이터·명시적 invocation policy를 실제 scaffold·strict validator로 검증한다.
+- strict validator regression은 정상 explicit policy를 통과시키고 malformed YAML과 semantic shadow를 각각 지정 오류로 거절한다.
 - 수정 사례는 권위 있는 소스에서 기존 성공 계약을 보존하고 새 목표를 개선한다.
 - 검토 사례는 파일 무변경과 근거 기반 진단을 모두 충족한다.
 - 이름·폴더 변경은 UI 메타데이터, 평가, 문서와 호출 호환성까지 처리한다.

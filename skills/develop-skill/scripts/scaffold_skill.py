@@ -38,6 +38,19 @@ def main() -> int:
     )
     parser.add_argument("--title", help="heading shown in SKILL.md")
     parser.add_argument(
+        "--short-description",
+        help="25-64 character UI summary; defaults to a compatibility summary",
+    )
+    parser.add_argument(
+        "--default-prompt",
+        help="single-line invocation example containing the explicit $skill-name",
+    )
+    parser.add_argument(
+        "--allow-implicit-invocation",
+        choices=("true", "false"),
+        help="write an explicit agents/openai.yaml invocation policy",
+    )
+    parser.add_argument(
         "--resources",
         default=[],
         type=parse_resources,
@@ -63,11 +76,29 @@ def main() -> int:
         parser.error("title must be a non-empty single line")
 
     description = args.description.strip()
-    short_description = f"{title} 작업을 일관되고 안전하게 수행"
-    if len(short_description) < 25:
-        short_description += "하도록 안내"
-    if len(short_description) > 64:
-        short_description = short_description[:61].rstrip() + "..."
+    if args.short_description is None:
+        short_description = f"{title} 작업을 일관되고 안전하게 수행"
+        if len(short_description) < 25:
+            short_description += "하도록 안내"
+        if len(short_description) > 64:
+            short_description = short_description[:61].rstrip() + "..."
+    else:
+        short_description = args.short_description.strip()
+        if "\n" in short_description or "\r" in short_description:
+            parser.error("short-description must be a single line")
+        if not 25 <= len(short_description) <= 64:
+            parser.error("short-description must contain 25-64 characters")
+
+    if args.default_prompt is None:
+        default_prompt = (
+            f"${args.name} 스킬을 사용해 이 작업을 수행하고 결과를 검증해줘."
+        )
+    else:
+        default_prompt = args.default_prompt.strip()
+        if not default_prompt or "\n" in default_prompt or "\r" in default_prompt:
+            parser.error("default-prompt must be a non-empty single line")
+        if f"${args.name}" not in default_prompt:
+            parser.error(f"default-prompt must mention ${args.name}")
 
     target.mkdir()
     for resource in args.resources:
@@ -87,8 +118,13 @@ def main() -> int:
         "interface:\n"
         f"  display_name: {json.dumps(title, ensure_ascii=False)}\n"
         f"  short_description: {json.dumps(short_description, ensure_ascii=False)}\n"
-        f"  default_prompt: {json.dumps(f'${args.name} 스킬을 사용해 이 작업을 수행하고 결과를 검증해줘.', ensure_ascii=False)}\n"
+        f"  default_prompt: {json.dumps(default_prompt, ensure_ascii=False)}\n"
     )
+    if args.allow_implicit_invocation is not None:
+        openai_yaml += (
+            "policy:\n"
+            f"  allow_implicit_invocation: {args.allow_implicit_invocation}\n"
+        )
     (target / "agents" / "openai.yaml").write_text(openai_yaml, encoding="utf-8")
     print(target)
     return 0
