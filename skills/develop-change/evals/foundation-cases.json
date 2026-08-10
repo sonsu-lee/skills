@@ -1,12 +1,10 @@
 {
   "schema_version": "phase1-foundation-cases-v1",
-  "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
   "schema_id": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1",
   "canonical_identity_binding": "phase1-foundation-record-digest-v1",
   "base_fixture": {
     "schema_version": "phase1-foundation-draft-v1",
     "record_kind": "foundation_contract_fixture",
-    "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
     "candidate_only": true,
     "fixture_only": true,
     "runtime_activation": false,

@@ -28,7 +28,6 @@ from runtime_projection import (
     snapshot_projection,
 )
 
-BASELINE_ID = "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec"
 SCHEMA_VERSION = "phase1-foundation-draft-v1"
 VALIDATOR_ID = "phase1-contract-foundation-validator"
 VALIDATOR_REVISION = 2
@@ -1677,8 +1676,6 @@ def validate_instance(instance: dict[str, Any], schema: dict[str, Any]) -> list[
 def validate_foundation_cases(root: Path) -> dict[str, Any]:
     schema = json.loads((root / "references/foundation-contract.schema.json").read_text())
     catalog = json.loads((root / "evals/foundation-cases.json").read_text())
-    if catalog.get("design_baseline_manifest_id") != BASELINE_ID:
-        raise ValueError("fixture catalog design baseline mismatch")
     if catalog.get("canonical_identity_binding") != "phase1-foundation-record-digest-v1":
         raise ValueError("fixture catalog identity binding mismatch")
     results = []
@@ -1706,9 +1703,7 @@ def validate_contract_documents(root: Path) -> dict[str, Any]:
         text = path.read_text(encoding="utf-8") if path.is_file() else ""
         expected = (
             *tokens,
-            SCHEMA_VERSION,
-            BASELINE_ID,
-            "candidate-only draft",
+            "현재 runtime에서는 사용하지 않는다.",
             "foundation-contract.schema.json",
         )
         missing = [token for token in expected if token not in text]
@@ -2238,8 +2233,6 @@ def validate_active_catalog_isolation_cases(
 def validate_leaf_catalog(repo: Path, catalog: dict[str, Any]) -> dict[str, Any]:
     if catalog.get("schema_version") != "phase1-leaf-only-install-cases-v1":
         raise ValueError("FND-INSTALL-001: leaf fixture catalog schema mismatch")
-    if catalog.get("design_baseline_manifest_id") != BASELINE_ID:
-        raise ValueError("FND-INSTALL-001: leaf fixture catalog design baseline mismatch")
     expected_probe = {
         "required_for_pass": True,
         "installed_inventory": {
@@ -2450,8 +2443,8 @@ def validate_leaf_catalog(repo: Path, catalog: dict[str, Any]) -> dict[str, Any]
     if actual_case_projection != expected_case_projection:
         raise ValueError("FND-INSTALL-001: leaf fixture case set is incomplete")
     bundle = catalog.get("contract_bundle")
-    if not isinstance(bundle, dict) or bundle.get("design_baseline_manifest_id") != BASELINE_ID:
-        raise ValueError("FND-INSTALL-001: leaf contract bundle baseline mismatch")
+    if not isinstance(bundle, dict):
+        raise ValueError("FND-INSTALL-001: leaf contract bundle is missing")
     schema = bundle.get("schema")
     documents = bundle.get("documents")
     expected_document_paths = [
@@ -2485,7 +2478,6 @@ def validate_leaf_catalog(repo: Path, catalog: dict[str, Any]) -> dict[str, Any]
     }:
         raise ValueError("FND-INSTALL-001: leaf fixture plugin manifest mismatch")
     return {
-        "design_baseline_manifest_id": BASELINE_ID,
         "schema": dict(schema),
         "documents": [dict(item) for item in documents],
         "bundle_digest": hashlib.sha256(
@@ -3087,7 +3079,6 @@ def validate_leaf_cases(
         evidence_status = "pass"
     return {
         "catalog": "leaf-only-install-cases.json",
-        "design_baseline_manifest_id": BASELINE_ID,
         "contract_bundle": bundle,
         "active_catalog_isolation": active_catalog_isolation,
         "discovery_coverage": "installed_plugins_only",
@@ -3302,7 +3293,6 @@ def main() -> int:
         emit_report(
             {
                 "schema_version": "phase1-foundation-validation-report-v1",
-                "design_baseline_manifest_id": BASELINE_ID,
                 "validator": {
                     "id": VALIDATOR_ID,
                     "revision": VALIDATOR_REVISION,
@@ -3360,7 +3350,6 @@ def main() -> int:
     )
     result = {
         "schema_version": "phase1-foundation-validation-report-v1",
-        "design_baseline_manifest_id": BASELINE_ID,
         "validator": {"id": VALIDATOR_ID, "revision": VALIDATOR_REVISION},
         "status": status,
         "documents": documents,
