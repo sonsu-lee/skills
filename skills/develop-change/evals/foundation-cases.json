@@ -2733,6 +2733,20 @@
       ]
     },
     {
+      "case_id": "foundation-invalid-legacy-stage-and-commit-capability",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-AUTH-001"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/authorizations/0/capability",
+          "value": "stage_and_commit"
+        }
+      ]
+    },
+    {
       "case_id": "foundation-invalid-runtime-activation",
       "expected": "reject",
       "expected_rule_ids": [

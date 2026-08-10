@@ -27,12 +27,12 @@
     "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
     "schema": {
       "path": "foundation-contract.schema.json",
-      "sha256": "ddc6b6f0ed38988a10f1297aff7c150ec0f5628c846889746a750d4db16cbcbe"
+      "sha256": "c8f16b89a2b35f1bf80753a64648a62a58b1ef094f092b4df64f36467352c891"
     },
     "documents": [
       {
         "path": "authorization-contract.md",
-        "sha256": "1a6069e36a34599ddc503f8122ac2fb30f9bba78adae45bb58a27f586c064093"
+        "sha256": "16546e53d21d61690381184ce8ac7cfd361b27f4e53f93bb5e4c49c06f0fd0ff"
       },
       {
         "path": "gate-contract.md",
