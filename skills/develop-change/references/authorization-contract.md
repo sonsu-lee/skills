@@ -13,11 +13,12 @@ Machine-readable draft는 [foundation-contract.schema.json](./foundation-contrac
 
 Per-task capability enum은 다음 값으로 닫는다.
 
-`local_change / working_artifact_write / temporary_work_state / workspace_cleanup / durable_document_write / durable_document_content / stage_and_commit / push / pr_create / merge / rebase / history_rewrite / destructive_local / external_write / scope_expansion`
+`local_change / working_artifact_write / temporary_work_state / workspace_cleanup / durable_document_write / durable_document_content / stage / commit / push / pr_create / merge / rebase / history_rewrite / destructive_local / external_write / scope_expansion`
 
 Capability마다 `not_applicable / not_granted / granted / denied / withdrawn / stale` 상태를 독립적으로 기록한다. 하나의 capability는 다른 capability를 묵시적으로 부여하지 않는다 (`FND-AUTH-001`).
 
-- `stage_and_commit`은 승인된 file set의 staging을 포함하지만 push를 포함하지 않는다.
+- `stage`는 승인된 file set의 exact bytes를 Git index에 기록할 권한이며 commit이나 push를 포함하지 않는다.
+- `commit`은 검증된 exact index tree로 새 commit object와 대상 branch ref를 생성할 권한이며 staging이나 push를 포함하지 않는다.
 - `push`, `pr_create`, `merge`, `rebase`는 각각 별도 capability다.
 - `external_write`는 이름이 없는 외부 쓰기의 fallback이며 위 구체 capability를 포괄하지 않는다.
 - `history_rewrite`는 이름이 없는 history 변경의 fallback이며 rebase나 merge를 포괄하지 않는다.
@@ -40,7 +41,7 @@ Record identity는 `authorization_id`, positive revision, optional predecessor I
 
 `not_applicable`은 request·authorization·receipt tuple이 모두 null이다. `not_granted`는 nullable request revision만 가질 수 있고 authorization·receipt는 null이다. `denied`는 거절된 request revision만 non-null이다. `granted`는 target·scope·basis와 request/authorization/receipt revision, receipt fingerprint가 모두 non-null이고 현재 관측과 일치해야 한다. `withdrawn / stale`는 직전 grant의 complete receipt tuple을 감사 history로 보존하지만 runtime capability는 즉시 무효다. `future_only: true`는 stale revision에만 허용하며 relevance successor 이후에는 immutable historical fact로 보존한다 (`FND-AUTH-002`).
 
-Target, scope, basis, file set, branch, command, semantic outcome 또는 capability가 바뀌면 이전 grant를 재사용하지 않는다. `durable_document_content`는 exact target·item revision·raw byte SHA-256, `stage_and_commit`은 file set·bytes·message, `push`는 head·range에 결박한다 (`FND-AUTH-003`).
+Target, scope, basis, file set, branch, command, semantic outcome 또는 capability가 바뀌면 이전 grant를 재사용하지 않는다. `durable_document_content`는 exact target·item revision·raw byte SHA-256, `stage`는 시작 index tree·file set·bytes, `commit`은 검증된 index tree·parent HEAD·branch·message, `push`는 head·range에 결박한다 (`FND-AUTH-003`).
 
 ## 상태 전이
 
