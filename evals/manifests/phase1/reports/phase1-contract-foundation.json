@@ -1,0 +1,1394 @@
+{
+  "develop_skill": {
+    "case_count": 5,
+    "default_compatibility": {
+      "passed_count": 11,
+      "results": [
+        {
+          "passed": true,
+          "skill_id": "create-commit"
+        },
+        {
+          "passed": true,
+          "skill_id": "create-pull-request"
+        },
+        {
+          "passed": true,
+          "skill_id": "develop-skill"
+        },
+        {
+          "passed": true,
+          "skill_id": "research"
+        },
+        {
+          "passed": true,
+          "skill_id": "review-before-commit"
+        },
+        {
+          "passed": true,
+          "skill_id": "review-commits"
+        },
+        {
+          "passed": true,
+          "skill_id": "review-pr"
+        },
+        {
+          "passed": true,
+          "skill_id": "write-adr"
+        },
+        {
+          "passed": true,
+          "skill_id": "write-developer-resume"
+        },
+        {
+          "passed": true,
+          "skill_id": "write-domain-docs"
+        },
+        {
+          "passed": true,
+          "skill_id": "write-prd"
+        }
+      ],
+      "skill_count": 11
+    },
+    "passed_count": 5,
+    "results": [
+      {
+        "id": "develop-skill-strict-self",
+        "passed": true
+      },
+      {
+        "id": "scaffold-to-strict-validator",
+        "passed": true
+      },
+      {
+        "id": "strict-valid-explicit-policy",
+        "passed": true
+      },
+      {
+        "id": "strict-invalid-yaml-syntax",
+        "passed": true
+      },
+      {
+        "id": "strict-reject-escaped-policy-shadow",
+        "passed": true
+      }
+    ],
+    "status": "pass"
+  },
+  "documents": {
+    "document_count": 3,
+    "passed_count": 3,
+    "results": [
+      {
+        "missing_tokens": [],
+        "passed": true,
+        "path": "references/routing-contract.md"
+      },
+      {
+        "missing_tokens": [],
+        "passed": true,
+        "path": "references/gate-contract.md"
+      },
+      {
+        "missing_tokens": [],
+        "passed": true,
+        "path": "references/authorization-contract.md"
+      }
+    ]
+  },
+  "foundation": {
+    "case_count": 89,
+    "catalog": "foundation-cases.json",
+    "passed_count": 89,
+    "results": [
+      {
+        "case_id": "foundation-valid-direct-granted",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-provisional-read-only",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-future-only-defer",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-safe-default-assumption",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-granted-authorization-receipt",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-discoverable-fact-pending",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-user-evidence-resolved",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-material-decision-answered",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-external-blocker-resolved",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-external-blocker-pending",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-blocking-defer-matrix",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-future-only-stale-authorization",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-withdrawn-authorization-blocking-successor",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-denied-rerequest-transition",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-fresh-regrant-chain",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-scope-expansion-authorization-pending",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-scope-expansion-authorization-blocking-defer",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-future-only-stale-reopened-current",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-partial-answer-fresh-view-revision",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-expired-view-lineage",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-unknown-route",
+        "expected_rule_ids": [
+          "FND-ROUTE-001"
+        ],
+        "observed_rule_ids": [
+          "FND-ROUTE-001",
+          "FND-ROUTE-002"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-numeric-risk-score",
+        "expected_rule_ids": [
+          "FND-ROUTE-001"
+        ],
+        "observed_rule_ids": [
+          "FND-ROUTE-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-profile-derivation",
+        "expected_rule_ids": [
+          "FND-PROFILE-001",
+          "FND-PROFILE-002"
+        ],
+        "observed_rule_ids": [
+          "FND-PROFILE-001",
+          "FND-PROFILE-002",
+          "FND-PROFILE-003"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-gate-authorization-clarify",
+        "expected_rule_ids": [
+          "FND-GATE-001"
+        ],
+        "observed_rule_ids": [
+          "FND-GATE-001",
+          "FND-GATE-002"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-unsafe-preference-assumption",
+        "expected_rule_ids": [
+          "FND-FRONTIER-003"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-003",
+          "FND-GATE-002"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-raw-question-field",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-blocking-defer-continue",
+        "expected_rule_ids": [
+          "FND-FRONTIER-002"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001",
+          "FND-FRONTIER-002",
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-history-without-successor",
+        "expected_rule_ids": [
+          "FND-FRONTIER-005"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-capability-substitution",
+        "expected_rule_ids": [
+          "FND-AUTH-005"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-stale-authorization-use",
+        "expected_rule_ids": [
+          "FND-AUTH-002",
+          "FND-AUTH-005"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-002",
+          "FND-AUTH-005",
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-rollout-capability-leak",
+        "expected_rule_ids": [
+          "FND-AUTH-001"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-001",
+          "FND-AUTH-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-nonfixture-draft-record",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-forced-provisional-escalation",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-heterogeneous-clarification-view",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-current-required-stale-authorization",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-historical-successor-pair",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-mixed-true-and-unresolved-axes",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-valid-dev-test-dependency-exception",
+        "expected_rule_ids": [],
+        "observed_rule_ids": [],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-runtime-dependency-assessment",
+        "expected_rule_ids": [
+          "FND-PROFILE-003"
+        ],
+        "observed_rule_ids": [
+          "FND-PROFILE-003"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-runtime-dependency-evidence-binding",
+        "expected_rule_ids": [
+          "FND-PROFILE-003"
+        ],
+        "observed_rule_ids": [
+          "FND-PROFILE-003"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-profile-transition",
+        "expected_rule_ids": [
+          "FND-PROFILE-004"
+        ],
+        "observed_rule_ids": [
+          "FND-PROFILE-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-gate-progress",
+        "expected_rule_ids": [
+          "FND-GATE-002"
+        ],
+        "observed_rule_ids": [
+          "FND-GATE-002"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-frontier-action-state",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-current-material-decision-nonblocking-defer",
+        "expected_rule_ids": [
+          "FND-FRONTIER-002"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-002"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-authorization-generic-evidence-binding",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-missing-clarification-view",
+        "expected_rule_ids": [
+          "FND-FRONTIER-004",
+          "FND-GATE-002"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-004",
+          "FND-GATE-002"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-consumed-view-digest",
+        "expected_rule_ids": [
+          "FND-FRONTIER-004"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-authorization-frontier-state",
+        "expected_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001",
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-authorization-binding-reuse",
+        "expected_rule_ids": [
+          "FND-AUTH-003",
+          "FND-AUTH-005"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-003",
+          "FND-AUTH-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-authorization-successor-transition",
+        "expected_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-001",
+          "FND-AUTH-003",
+          "FND-AUTH-004",
+          "FND-AUTH-005",
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-primary-route-omitted",
+        "expected_rule_ids": [
+          "FND-ROUTE-002"
+        ],
+        "observed_rule_ids": [
+          "FND-ROUTE-002"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-scope-expansion-with-allowed-evaluation",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001",
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001",
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-dangling-frontier-authorization-ref",
+        "expected_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-gate-ref-digest",
+        "expected_rule_ids": [
+          "FND-GATE-001"
+        ],
+        "observed_rule_ids": [
+          "FND-GATE-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-routing-ref-digest",
+        "expected_rule_ids": [
+          "FND-ROUTE-001"
+        ],
+        "observed_rule_ids": [
+          "FND-ROUTE-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-authorization-ref-digest",
+        "expected_rule_ids": [
+          "FND-AUTH-001"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-current-grant-marked-future-only",
+        "expected_rule_ids": [
+          "FND-FRONTIER-002",
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-002",
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-unresolved-profile-downshift",
+        "expected_rule_ids": [
+          "FND-PROFILE-004"
+        ],
+        "observed_rule_ids": [
+          "FND-PROFILE-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-never-pending-consumed-view",
+        "expected_rule_ids": [
+          "FND-FRONTIER-004"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-future-stale-authorization-prompt",
+        "expected_rule_ids": [
+          "FND-FRONTIER-002",
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-002",
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-old-grant-selected-after-stale",
+        "expected_rule_ids": [
+          "FND-AUTH-003",
+          "FND-AUTH-005"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-003",
+          "FND-AUTH-005",
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-stale-regrant-reuses-old-receipt",
+        "expected_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-withdrawn-regrant-reuses-old-receipt",
+        "expected_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-future-stale-history-marked-current",
+        "expected_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-current-stale-history-marked-future-only",
+        "expected_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-terminal-view-kind-mismatch",
+        "expected_rule_ids": [
+          "FND-FRONTIER-004"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-routed-not-granted-without-evaluation",
+        "expected_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-duplicate-authorization-evaluation-id",
+        "expected_rule_ids": [
+          "FND-AUTH-005"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-duplicate-selected-authorization-evaluation",
+        "expected_rule_ids": [
+          "FND-AUTH-005"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-disconnected-authorization-root-replay",
+        "expected_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-dependent-clarification-batch",
+        "expected_rule_ids": [
+          "FND-FRONTIER-004"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-ghost-unit-dependency",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-self-unit-dependency",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-cyclic-unit-dependency",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-current-unit-basis-drift",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-frontier-basis-drift",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001",
+          "FND-ROUTE-001"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001",
+          "FND-ROUTE-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-blocked-evaluation-cross-basis",
+        "expected_rule_ids": [
+          "FND-AUTH-003"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-003"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-allowed-authorization-cross-basis",
+        "expected_rule_ids": [
+          "FND-AUTH-003"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-003"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-current-unit-ghost-predecessor",
+        "expected_rule_ids": [
+          "FND-FRONTIER-005"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-current-unit-dangling-successor",
+        "expected_rule_ids": [
+          "FND-FRONTIER-005"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-current-unit-noninitial-root",
+        "expected_rule_ids": [
+          "FND-FRONTIER-005"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-hidden-missing-authorization-evaluation",
+        "expected_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-hidden-scope-expansion-evaluation",
+        "expected_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-unknown-selected-authorization",
+        "expected_rule_ids": [
+          "FND-AUTH-005",
+          "FND-FRONTIER-006"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-005",
+          "FND-FRONTIER-006"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-lineage-wide-receipt-replay",
+        "expected_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-current-stale-reclassified-future-only",
+        "expected_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-004"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-resolved-receipt-tuple-mismatch",
+        "expected_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "observed_rule_ids": [
+          "FND-FRONTIER-001"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-legacy-stage-and-commit-capability",
+        "expected_rule_ids": [
+          "FND-AUTH-001"
+        ],
+        "observed_rule_ids": [
+          "FND-AUTH-001",
+          "FND-AUTH-005"
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "foundation-invalid-runtime-activation",
+        "expected_rule_ids": [
+          "FND-RUNTIME-001"
+        ],
+        "observed_rule_ids": [
+          "FND-RUNTIME-001"
+        ],
+        "passed": true
+      }
+    ]
+  },
+  "leaf_only_install": {
+    "active_catalog_isolation": {
+      "case_count": 16,
+      "passed_count": 16,
+      "results": [
+        {
+          "case_id": "active-catalog-invalid-candidate-direct",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-symlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-hardlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-fallback",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-metadata_symlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-nested_reference_symlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-nested_script_symlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-nested_asset_hardlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-nested_directory_symlink_chain",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-nested_directory_hardlink_chain",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-candidate_intermediate_source_symlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-candidate_intermediate_metadata_symlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-candidate_intermediate_descendant_symlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-candidate_linked_subtree_hardlink",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-descendant_symlink_cycle",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        },
+        {
+          "case_id": "active-catalog-invalid-candidate-symlink_dotdot_candidate_chain",
+          "expected_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "observed_rule_ids": [
+            "FND-PROJECTION-001"
+          ],
+          "passed": true
+        }
+      ]
+    },
+    "case_count": 11,
+    "catalog": "leaf-only-install-cases.json",
+    "cli_probe": {
+      "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+      "reason_code": "supported",
+      "supported": true
+    },
+    "contract_bundle": {
+      "bundle_digest": "2b3ab8d87a96de5c294ac00920fd364f876dec55e8c9d755a80619373ffa28f0",
+      "documents": [
+        {
+          "path": "authorization-contract.md",
+          "sha256": "8a9a3d3635f379250b2b61d872869ab8a4d272cb6999121e510e9c6276fe3a88"
+        },
+        {
+          "path": "gate-contract.md",
+          "sha256": "bbd776b3ce49e1c3187687fcb72726965594693b2c08f99cabb7611ffadf3745"
+        },
+        {
+          "path": "routing-contract.md",
+          "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d"
+        }
+      ],
+      "schema": {
+        "path": "foundation-contract.schema.json",
+        "sha256": "abc27f0bbc80c1937e13e5b0d04bc73c740a48adba388f339a388dd765d21a84"
+      }
+    },
+    "discovery_coverage": "installed_plugins_only",
+    "effective_catalog_coverage": "model_visible_skills_instructions",
+    "effective_catalog_projection": "exact_skill_id_description_declared_resolved_locator_metadata_policy",
+    "evidence_status": "pass",
+    "installed_inventory_selector_catalog_coverage": "not_observed",
+    "internal_selector_state_coverage": "not_observed",
+    "passed_count": 11,
+    "results": [
+      {
+        "case_id": "leaf-only-valid-isolated-copy",
+        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_policy_observation_status": "complete",
+        "effective_skill_count": 6,
+        "expected_rule_ids": [],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [],
+        "passed": true,
+        "probe_status": "verified_plugin_and_effective_catalog",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-symlink",
+        "effective_catalog_digest": null,
+        "effective_policy_observation_status": null,
+        "effective_skill_count": null,
+        "expected_rule_ids": [
+          "FND-INSTALL-002"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-002",
+          "FND-INSTALL-003"
+        ],
+        "passed": true,
+        "probe_status": "cli_probe_invariant_rejected",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-hardlink",
+        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_policy_observation_status": "complete",
+        "effective_skill_count": 6,
+        "expected_rule_ids": [
+          "FND-INSTALL-002"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-002"
+        ],
+        "passed": true,
+        "probe_status": "verified_plugin_and_effective_catalog",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-contract-missing",
+        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_policy_observation_status": "complete",
+        "effective_skill_count": 6,
+        "expected_rule_ids": [
+          "FND-INSTALL-001"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-001"
+        ],
+        "passed": true,
+        "probe_status": "verified_plugin_and_effective_catalog",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-contract-drift",
+        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_policy_observation_status": "complete",
+        "effective_skill_count": 6,
+        "expected_rule_ids": [
+          "FND-INSTALL-001"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-001"
+        ],
+        "passed": true,
+        "probe_status": "verified_plugin_and_effective_catalog",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-schema-drift",
+        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_policy_observation_status": "complete",
+        "effective_skill_count": 6,
+        "expected_rule_ids": [
+          "FND-INSTALL-001"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-001"
+        ],
+        "passed": true,
+        "probe_status": "verified_plugin_and_effective_catalog",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-fallback-root",
+        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_policy_observation_status": "complete",
+        "effective_skill_count": 6,
+        "expected_rule_ids": [
+          "FND-INSTALL-002"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-002"
+        ],
+        "passed": true,
+        "probe_status": "verified_plugin_and_effective_catalog",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-develop-change-discovered",
+        "effective_catalog_digest": null,
+        "effective_policy_observation_status": null,
+        "effective_skill_count": null,
+        "expected_rule_ids": [
+          "FND-INSTALL-003"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-003"
+        ],
+        "passed": true,
+        "probe_status": "cli_probe_invariant_rejected",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-active-projection-drift",
+        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_policy_observation_status": "complete",
+        "effective_skill_count": 6,
+        "expected_rule_ids": [
+          "FND-INSTALL-004"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-004"
+        ],
+        "passed": true,
+        "probe_status": "verified_plugin_and_effective_catalog",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-description-only-drift",
+        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_policy_observation_status": "complete",
+        "effective_skill_count": 6,
+        "expected_rule_ids": [
+          "FND-INSTALL-004"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-004"
+        ],
+        "passed": true,
+        "probe_status": "verified_plugin_and_effective_catalog",
+        "structural_expectation_passed": true
+      },
+      {
+        "case_id": "leaf-only-invalid-policy-only-drift",
+        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_policy_observation_status": "complete",
+        "effective_skill_count": 6,
+        "expected_rule_ids": [
+          "FND-INSTALL-004"
+        ],
+        "isolation_kind": "sandboxed_disposable_codex_and_xdg_roots",
+        "observed_rule_ids": [
+          "FND-INSTALL-004"
+        ],
+        "passed": true,
+        "probe_status": "verified_plugin_and_effective_catalog",
+        "structural_expectation_passed": true
+      }
+    ],
+    "structural_passed_count": 11
+  },
+  "runtime_projection": {
+    "after_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244",
+    "before_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244",
+    "binding": {
+      "component_path_binding_digest": "decdb26452d015493397111d2691007c58ad0048d387ccf010654b5ad72501e4",
+      "hook_binding": "exact_codex_home_hooks_json",
+      "inventory_coverage": "installed_plugins_only",
+      "plugin_id": "skills@sonsu-skills",
+      "plugin_version": "0.1.0",
+      "selector_catalog_coverage": "not_observed",
+      "verified": true
+    },
+    "codex_executable_identity": {
+      "after_equal": true,
+      "executable_digest": "ae1d3ffe6d48aec6a4dc3f50e7eb8e0d11962485a6a9406c5a7012139383da02",
+      "path_digest": "0e4d20588e253a702163ddee5f839f46468664a773eaf41a07e86746f55d98ce",
+      "version": "codex-cli 0.146.0"
+    },
+    "components": [
+      {
+        "digest": "8866b55ead68af212078faa953763bcc12f2b157687b5bc22d6a9af8363ed91f",
+        "entry_count": 186,
+        "input_count": 1,
+        "kind": "active_plugin_root"
+      },
+      {
+        "digest": "416d11ae6f820cccaceb5c725f51f0a28a15ecf6ab0c4cd05205843afb70f1bb",
+        "entry_count": 1,
+        "input_count": 1,
+        "kind": "active_config"
+      },
+      {
+        "digest": "222170d133930f16d87acad82de407a9cae6a16ac967cd096df03f34496770f4",
+        "entry_count": 1,
+        "input_count": 1,
+        "kind": "active_hook"
+      },
+      {
+        "digest": "584f8f655b0609dd00508601ed438f8acdba1cc5c7f09810bc9da79abb56ae1e",
+        "entry_count": 0,
+        "input_count": 1,
+        "kind": "active_telemetry"
+      },
+      {
+        "digest": "4ec44cdfe8c32ff8b4439dda1f76d90f6f38e5fe8eafb6ade62594a97266d080",
+        "entry_count": 0,
+        "input_count": 1,
+        "kind": "active_rollout"
+      }
+    ],
+    "effective_skill_catalog": {
+      "after_count": 33,
+      "after_digest": "180afd84e31052c424fd3eb6c06d1c3043afb44816b7b5d09b20ec2eaf3f162e",
+      "before_count": 33,
+      "before_digest": "180afd84e31052c424fd3eb6c06d1c3043afb44816b7b5d09b20ec2eaf3f162e",
+      "candidate_source_isolation": {
+        "candidate_alias_count": 0,
+        "catalog_record_count": 33,
+        "descendant_symlink_count": 0,
+        "regular_descendant_count": 422,
+        "resolved_source_root_count": 58,
+        "verified": true
+      },
+      "candidate_source_isolation_equal": true,
+      "coverage": "model_visible_skills_instructions",
+      "equal": true,
+      "internal_selector_state_coverage": "not_observed",
+      "observer_kind": "sandboxed_minimal_active_effective_catalog",
+      "policy_observation_status": "complete",
+      "projection": "exact_skill_id_description_declared_resolved_locator_metadata_policy_digest",
+      "writable_non_temp_observer_state_equal": true
+    },
+    "equal": true,
+    "installed_plugin_inventory": {
+      "after_count": 12,
+      "after_digest": "68b7aef089c62d3758b5e925604130da037518b29f320a13e9fd16bb3edae27c",
+      "before_count": 12,
+      "before_digest": "68b7aef089c62d3758b5e925604130da037518b29f320a13e9fd16bb3edae27c",
+      "coverage": "installed_plugins_only",
+      "equal": true,
+      "observer_kind": "sandboxed_read_only_active_inventory",
+      "selector_catalog_coverage": "not_observed"
+    },
+    "schema_version": "phase1-runtime-projection-v2"
+  },
+  "schema_version": "phase1-foundation-validation-report-v1",
+  "status": "pass",
+  "validator": {
+    "id": "phase1-contract-foundation-validator",
+    "revision": 2
+  }
+}

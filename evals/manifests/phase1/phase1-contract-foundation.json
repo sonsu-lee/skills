@@ -1,0 +1,106 @@
+{
+  "schema_version": "phase1-slice-result-v1",
+  "manifest_id": "baad817e005824131c64cdbd37d1f45d150aab242d1b7d79c572eb62c91d04e1",
+  "slice_id": "phase1-contract-foundation",
+  "predecessor_slice_result_manifest_id": null,
+  "artifacts": [
+    {
+      "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
+      "sha256": "6e344dbe8e592a3d16a0f51778f423f7d12ee4b2b110e4000855b2f8c76cb4ae",
+      "role": "validation_report"
+    },
+    {
+      "path": "skills/develop-change/evals/README.md",
+      "sha256": "948c7207b8f85673f0e669d6cd02d50394d1490876a434e260093ee9d4d79cfe",
+      "role": "fixture_documentation"
+    },
+    {
+      "path": "skills/develop-change/evals/foundation-cases.json",
+      "sha256": "e1606c3d21e61ba4140eed3b973b71b9e383d4db89afaba0a7d079fb4c987de9",
+      "role": "semantic_fixture_catalog"
+    },
+    {
+      "path": "skills/develop-change/evals/leaf-only-install-cases.json",
+      "sha256": "757247dd4e782b10442672af3223469791e159f9fe527702e2303b324d1005a4",
+      "role": "isolation_fixture_catalog"
+    },
+    {
+      "path": "skills/develop-change/references/authorization-contract.md",
+      "sha256": "8a9a3d3635f379250b2b61d872869ab8a4d272cb6999121e510e9c6276fe3a88",
+      "role": "contract_reference"
+    },
+    {
+      "path": "skills/develop-change/references/foundation-contract.schema.json",
+      "sha256": "abc27f0bbc80c1937e13e5b0d04bc73c740a48adba388f339a388dd765d21a84",
+      "role": "draft_schema"
+    },
+    {
+      "path": "skills/develop-change/references/gate-contract.md",
+      "sha256": "bbd776b3ce49e1c3187687fcb72726965594693b2c08f99cabb7611ffadf3745",
+      "role": "contract_reference"
+    },
+    {
+      "path": "skills/develop-change/references/routing-contract.md",
+      "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d",
+      "role": "contract_reference"
+    },
+    {
+      "path": "skills/develop-change/scripts/runtime_projection.py",
+      "sha256": "b0a1eaa51989af33c268cee055abb807a16643024e2063dd8ec2ef87608e3c5f",
+      "role": "validation_helper"
+    },
+    {
+      "path": "skills/develop-change/scripts/validate_foundation.py",
+      "sha256": "1a547f129fc313f1a3e8a293384f56923c39fba7828c8f4888526fa8ae11465f",
+      "role": "validator"
+    },
+    {
+      "path": "skills/develop-skill/SKILL.md",
+      "sha256": "e5499e71878733fbc2812f0650987a17556b15b66cbf01a721820ed4f1b3a0e9",
+      "role": "skill_contract"
+    },
+    {
+      "path": "skills/develop-skill/agents/openai.yaml",
+      "sha256": "d3e45d9a1ec899d5c1f98ad7a1fdb962afd567abcba20085712c5e2d2669e01a",
+      "role": "invocation_metadata"
+    },
+    {
+      "path": "skills/develop-skill/evals/cases.json",
+      "sha256": "8730c24a256a1ce61124d8b14c0187335511b65ee2894df2275dc9ca95e139da",
+      "role": "regression_catalog"
+    },
+    {
+      "path": "skills/develop-skill/evals/rubric.md",
+      "sha256": "8e5aebc9494a7a3652761f60e013bf5f60625a095b8e8b9b225fc432986b0607",
+      "role": "evaluation_rubric"
+    },
+    {
+      "path": "skills/develop-skill/scripts/scaffold_skill.py",
+      "sha256": "cef8d57fd8af849296b8cbdabcdc88ad05ef07a80e4f14027b3473c57a983e80",
+      "role": "scaffold_helper"
+    },
+    {
+      "path": "skills/develop-skill/scripts/validate_skill.py",
+      "sha256": "64bff2902c0782895141b55abd114c01804186b8c2e9755ce657a564d37a39a4",
+      "role": "skill_validator"
+    }
+  ],
+  "fixture_report_ids": [
+    "phase1-contract-foundation:foundation-cases",
+    "phase1-contract-foundation:leaf-only-install"
+  ],
+  "fixture_report": {
+    "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
+    "sha256": "6e344dbe8e592a3d16a0f51778f423f7d12ee4b2b110e4000855b2f8c76cb4ae"
+  },
+  "validator": {
+    "id": "phase1-contract-foundation-validator",
+    "revision": 2,
+    "digest": "1a547f129fc313f1a3e8a293384f56923c39fba7828c8f4888526fa8ae11465f",
+    "result": "pass"
+  },
+  "runtime_projection": {
+    "before_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244",
+    "after_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244"
+  }
+}
