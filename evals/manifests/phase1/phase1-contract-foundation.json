@@ -1,0 +1,107 @@
+{
+  "schema_version": "phase1-slice-result-v1",
+  "manifest_id": "ac930317f44add1fed8d1536ac2e5e329c5ae0665d6c5870bea81178fba30131",
+  "slice_id": "phase1-contract-foundation",
+  "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
+  "predecessor_slice_result_manifest_id": null,
+  "artifacts": [
+    {
+      "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
+      "sha256": "446d6af309a4be81747df3765e0317fda735bc26d14f9fbe3b1f27c17e0d79c4",
+      "role": "validation_report"
+    },
+    {
+      "path": "skills/develop-change/evals/README.md",
+      "sha256": "5adc65a366d921c8b1b119046d615dafc0ee8e2bca017b842c8679f6e01fe352",
+      "role": "fixture_documentation"
+    },
+    {
+      "path": "skills/develop-change/evals/foundation-cases.json",
+      "sha256": "db5d06e4eb3db004ceda586f3c051a45f35ebd01ad9c368eb249943e2b69d9b9",
+      "role": "semantic_fixture_catalog"
+    },
+    {
+      "path": "skills/develop-change/evals/leaf-only-install-cases.json",
+      "sha256": "e82532c7637e89b3f08670eb8cc7939cbab1298178b94530975a366a58dfbcaf",
+      "role": "isolation_fixture_catalog"
+    },
+    {
+      "path": "skills/develop-change/references/authorization-contract.md",
+      "sha256": "1a6069e36a34599ddc503f8122ac2fb30f9bba78adae45bb58a27f586c064093",
+      "role": "contract_reference"
+    },
+    {
+      "path": "skills/develop-change/references/foundation-contract.schema.json",
+      "sha256": "ddc6b6f0ed38988a10f1297aff7c150ec0f5628c846889746a750d4db16cbcbe",
+      "role": "draft_schema"
+    },
+    {
+      "path": "skills/develop-change/references/gate-contract.md",
+      "sha256": "3cabf2d85b542eb5c4eaf82069448c8625165e2b7550b1195d0686e82e136632",
+      "role": "contract_reference"
+    },
+    {
+      "path": "skills/develop-change/references/routing-contract.md",
+      "sha256": "676b89293f4453095245574959a7637aef95ed5c001a2f944f96f7790feb16fa",
+      "role": "contract_reference"
+    },
+    {
+      "path": "skills/develop-change/scripts/runtime_projection.py",
+      "sha256": "b0a1eaa51989af33c268cee055abb807a16643024e2063dd8ec2ef87608e3c5f",
+      "role": "validation_helper"
+    },
+    {
+      "path": "skills/develop-change/scripts/validate_foundation.py",
+      "sha256": "f4b2b538a5979a1df9853090b89df34c0c6cf63b4d6a706de829245edaa68fc7",
+      "role": "validator"
+    },
+    {
+      "path": "skills/develop-skill/SKILL.md",
+      "sha256": "33a0bfa7165324a526876df65bfa53649ef84235833f6ff81ed817c18a627c0d",
+      "role": "skill_contract"
+    },
+    {
+      "path": "skills/develop-skill/agents/openai.yaml",
+      "sha256": "d3e45d9a1ec899d5c1f98ad7a1fdb962afd567abcba20085712c5e2d2669e01a",
+      "role": "invocation_metadata"
+    },
+    {
+      "path": "skills/develop-skill/evals/cases.json",
+      "sha256": "8730c24a256a1ce61124d8b14c0187335511b65ee2894df2275dc9ca95e139da",
+      "role": "regression_catalog"
+    },
+    {
+      "path": "skills/develop-skill/evals/rubric.md",
+      "sha256": "8e5aebc9494a7a3652761f60e013bf5f60625a095b8e8b9b225fc432986b0607",
+      "role": "evaluation_rubric"
+    },
+    {
+      "path": "skills/develop-skill/scripts/scaffold_skill.py",
+      "sha256": "cef8d57fd8af849296b8cbdabcdc88ad05ef07a80e4f14027b3473c57a983e80",
+      "role": "scaffold_helper"
+    },
+    {
+      "path": "skills/develop-skill/scripts/validate_skill.py",
+      "sha256": "64bff2902c0782895141b55abd114c01804186b8c2e9755ce657a564d37a39a4",
+      "role": "skill_validator"
+    }
+  ],
+  "fixture_report_ids": [
+    "phase1-contract-foundation:foundation-cases",
+    "phase1-contract-foundation:leaf-only-install"
+  ],
+  "fixture_report": {
+    "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
+    "sha256": "446d6af309a4be81747df3765e0317fda735bc26d14f9fbe3b1f27c17e0d79c4"
+  },
+  "validator": {
+    "id": "phase1-contract-foundation-validator",
+    "revision": 2,
+    "digest": "f4b2b538a5979a1df9853090b89df34c0c6cf63b4d6a706de829245edaa68fc7",
+    "result": "pass"
+  },
+  "runtime_projection": {
+    "before_digest": "0a9bcf030012efda714b91afaf4783c3d002ec9e1a13d6c0d5aea524ea1a7b05",
+    "after_digest": "0a9bcf030012efda714b91afaf4783c3d002ec9e1a13d6c0d5aea524ea1a7b05"
+  }
+}
