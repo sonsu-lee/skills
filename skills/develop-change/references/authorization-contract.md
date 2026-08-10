@@ -1,11 +1,6 @@
 # 공통 authorization 계약
 
-상태: `candidate-only draft`
-
-schema version: `phase1-foundation-draft-v1`
-
-설계 기준선: `29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec`
-근거: DEC-015, DEC-028, DEC-045, DEC-049와 `workflow-architecture.md` §3.5·§10
+적용 상태: 저장소 계약 초안. 현재 runtime에서는 사용하지 않는다.
 
 Authorization은 **어떤 행동을, 어느 대상과 범위에, 어떤 근거로 해도 되는지**를 적은 한 장짜리 허가다.
 

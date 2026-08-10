@@ -1,11 +1,6 @@
 # 공통 gate와 decision frontier 계약
 
-상태: `candidate-only draft`
-
-schema version: `phase1-foundation-draft-v1`
-
-설계 기준선: `29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec`
-근거: DEC-010, DEC-045, DEC-049와 `workflow-architecture.md` §8
+적용 상태: 저장소 계약 초안. 현재 runtime에서는 사용하지 않는다.
 
 Gate는 **지금 계속해도 되는지**, **무엇을 먼저 알아야 하는지**, **누구에게 물어야 하는지**를 정한다.
 

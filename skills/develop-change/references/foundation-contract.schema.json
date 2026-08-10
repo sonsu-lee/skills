@@ -3,7 +3,6 @@
   "$id": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1",
   "title": "Phase 1 contract foundation candidate schema",
   "description": "Candidate-only schema for the shared routing, gate, decision-frontier, and per-task authorization contracts. It is not a runtime activation contract.",
-  "x-design-baseline-manifest-id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
   "x-contract-rule-ids": [
     "FND-ROUTE-001",
     "FND-ROUTE-002",
@@ -31,7 +30,6 @@
   "required": [
     "schema_version",
     "record_kind",
-    "design_baseline_manifest_id",
     "candidate_only",
     "fixture_only",
     "runtime_activation",
@@ -50,9 +48,6 @@
         "foundation_contract_record",
         "foundation_contract_fixture"
       ]
-    },
-    "design_baseline_manifest_id": {
-      "const": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec"
     },
     "candidate_only": {
       "const": true
