@@ -1,5 +1,4 @@
 {
-  "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
   "develop_skill": {
     "case_count": 5,
     "default_compatibility": {
@@ -1097,28 +1096,26 @@
       "supported": true
     },
     "contract_bundle": {
-      "bundle_digest": "dd99ab651d76d0c306665b394d8822d11bc7c4835c0955ae7a42abd7eda3819b",
-      "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
+      "bundle_digest": "2b3ab8d87a96de5c294ac00920fd364f876dec55e8c9d755a80619373ffa28f0",
       "documents": [
         {
           "path": "authorization-contract.md",
-          "sha256": "ae4aa1fb78633b6bbb2bc9ba5f7072c8b4016e64b7bd6522774e52712f853649"
+          "sha256": "8a9a3d3635f379250b2b61d872869ab8a4d272cb6999121e510e9c6276fe3a88"
         },
         {
           "path": "gate-contract.md",
-          "sha256": "fe0156d1933deb702fa64f30ebb832105dcb97d4fd9ba23c52aaeebb97160d6b"
+          "sha256": "bbd776b3ce49e1c3187687fcb72726965594693b2c08f99cabb7611ffadf3745"
         },
         {
           "path": "routing-contract.md",
-          "sha256": "41e388d6e0491322ffbfe2dc96db2f5df6f20a5a67aa3a25425e6e8e28ed8d36"
+          "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d"
         }
       ],
       "schema": {
         "path": "foundation-contract.schema.json",
-        "sha256": "c8f16b89a2b35f1bf80753a64648a62a58b1ef094f092b4df64f36467352c891"
+        "sha256": "abc27f0bbc80c1937e13e5b0d04bc73c740a48adba388f339a388dd765d21a84"
       }
     },
-    "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
     "discovery_coverage": "installed_plugins_only",
     "effective_catalog_coverage": "model_visible_skills_instructions",
     "effective_catalog_projection": "exact_skill_id_description_declared_resolved_locator_metadata_policy",

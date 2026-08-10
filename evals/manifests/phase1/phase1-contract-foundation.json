@@ -1,48 +1,47 @@
 {
   "schema_version": "phase1-slice-result-v1",
-  "manifest_id": "6925d5081db5d3247e03175dd9fcb24892ed65bb4327c27ce6e83687a9ad49cf",
+  "manifest_id": "baad817e005824131c64cdbd37d1f45d150aab242d1b7d79c572eb62c91d04e1",
   "slice_id": "phase1-contract-foundation",
-  "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
   "predecessor_slice_result_manifest_id": null,
   "artifacts": [
     {
       "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-      "sha256": "1f988588c008af6229d1d15ec5e6955d11fb9dbdbccbf4eeb1754a34240a3677",
+      "sha256": "6e344dbe8e592a3d16a0f51778f423f7d12ee4b2b110e4000855b2f8c76cb4ae",
       "role": "validation_report"
     },
     {
       "path": "skills/develop-change/evals/README.md",
-      "sha256": "5adc65a366d921c8b1b119046d615dafc0ee8e2bca017b842c8679f6e01fe352",
+      "sha256": "948c7207b8f85673f0e669d6cd02d50394d1490876a434e260093ee9d4d79cfe",
       "role": "fixture_documentation"
     },
     {
       "path": "skills/develop-change/evals/foundation-cases.json",
-      "sha256": "fed4b16a2c41f6011f5f6cdb4818e5695972e8ca856c21cc9777846a7311c40f",
+      "sha256": "e1606c3d21e61ba4140eed3b973b71b9e383d4db89afaba0a7d079fb4c987de9",
       "role": "semantic_fixture_catalog"
     },
     {
       "path": "skills/develop-change/evals/leaf-only-install-cases.json",
-      "sha256": "87d209e1e6181d749bc59d64ec2dbba8c4ece536c8a7054d08a16ad94de75826",
+      "sha256": "757247dd4e782b10442672af3223469791e159f9fe527702e2303b324d1005a4",
       "role": "isolation_fixture_catalog"
     },
     {
       "path": "skills/develop-change/references/authorization-contract.md",
-      "sha256": "ae4aa1fb78633b6bbb2bc9ba5f7072c8b4016e64b7bd6522774e52712f853649",
+      "sha256": "8a9a3d3635f379250b2b61d872869ab8a4d272cb6999121e510e9c6276fe3a88",
       "role": "contract_reference"
     },
     {
       "path": "skills/develop-change/references/foundation-contract.schema.json",
-      "sha256": "c8f16b89a2b35f1bf80753a64648a62a58b1ef094f092b4df64f36467352c891",
+      "sha256": "abc27f0bbc80c1937e13e5b0d04bc73c740a48adba388f339a388dd765d21a84",
       "role": "draft_schema"
     },
     {
       "path": "skills/develop-change/references/gate-contract.md",
-      "sha256": "fe0156d1933deb702fa64f30ebb832105dcb97d4fd9ba23c52aaeebb97160d6b",
+      "sha256": "bbd776b3ce49e1c3187687fcb72726965594693b2c08f99cabb7611ffadf3745",
       "role": "contract_reference"
     },
     {
       "path": "skills/develop-change/references/routing-contract.md",
-      "sha256": "41e388d6e0491322ffbfe2dc96db2f5df6f20a5a67aa3a25425e6e8e28ed8d36",
+      "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d",
       "role": "contract_reference"
     },
     {
@@ -52,12 +51,12 @@
     },
     {
       "path": "skills/develop-change/scripts/validate_foundation.py",
-      "sha256": "72c56bda61c85b6831b818069251423243c140158e19cab99ac9d225847167fa",
+      "sha256": "1a547f129fc313f1a3e8a293384f56923c39fba7828c8f4888526fa8ae11465f",
       "role": "validator"
     },
     {
       "path": "skills/develop-skill/SKILL.md",
-      "sha256": "33a0bfa7165324a526876df65bfa53649ef84235833f6ff81ed817c18a627c0d",
+      "sha256": "e5499e71878733fbc2812f0650987a17556b15b66cbf01a721820ed4f1b3a0e9",
       "role": "skill_contract"
     },
     {
@@ -92,12 +91,12 @@
   ],
   "fixture_report": {
     "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-    "sha256": "1f988588c008af6229d1d15ec5e6955d11fb9dbdbccbf4eeb1754a34240a3677"
+    "sha256": "6e344dbe8e592a3d16a0f51778f423f7d12ee4b2b110e4000855b2f8c76cb4ae"
   },
   "validator": {
     "id": "phase1-contract-foundation-validator",
     "revision": 2,
-    "digest": "72c56bda61c85b6831b818069251423243c140158e19cab99ac9d225847167fa",
+    "digest": "1a547f129fc313f1a3e8a293384f56923c39fba7828c8f4888526fa8ae11465f",
     "result": "pass"
   },
   "runtime_projection": {
