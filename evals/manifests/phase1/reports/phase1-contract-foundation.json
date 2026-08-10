@@ -1097,20 +1097,20 @@
       "supported": true
     },
     "contract_bundle": {
-      "bundle_digest": "1d91c618b2527fec43ed2411a19e95cb36380ae26d36f48c931c277a943837d2",
+      "bundle_digest": "dd99ab651d76d0c306665b394d8822d11bc7c4835c0955ae7a42abd7eda3819b",
       "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
       "documents": [
         {
           "path": "authorization-contract.md",
-          "sha256": "16546e53d21d61690381184ce8ac7cfd361b27f4e53f93bb5e4c49c06f0fd0ff"
+          "sha256": "ae4aa1fb78633b6bbb2bc9ba5f7072c8b4016e64b7bd6522774e52712f853649"
         },
         {
           "path": "gate-contract.md",
-          "sha256": "3cabf2d85b542eb5c4eaf82069448c8625165e2b7550b1195d0686e82e136632"
+          "sha256": "fe0156d1933deb702fa64f30ebb832105dcb97d4fd9ba23c52aaeebb97160d6b"
         },
         {
           "path": "routing-contract.md",
-          "sha256": "676b89293f4453095245574959a7637aef95ed5c001a2f944f96f7790feb16fa"
+          "sha256": "41e388d6e0491322ffbfe2dc96db2f5df6f20a5a67aa3a25425e6e8e28ed8d36"
         }
       ],
       "schema": {
@@ -1304,8 +1304,8 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "0a9bcf030012efda714b91afaf4783c3d002ec9e1a13d6c0d5aea524ea1a7b05",
-    "before_digest": "0a9bcf030012efda714b91afaf4783c3d002ec9e1a13d6c0d5aea524ea1a7b05",
+    "after_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244",
+    "before_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244",
     "binding": {
       "component_path_binding_digest": "decdb26452d015493397111d2691007c58ad0048d387ccf010654b5ad72501e4",
       "hook_binding": "exact_codex_home_hooks_json",
@@ -1323,13 +1323,13 @@
     },
     "components": [
       {
-        "digest": "a6a0d5c9edf1e2399899cf5c41f083809b7c6cbc635fa4fe612c1a0a77b231ab",
+        "digest": "8866b55ead68af212078faa953763bcc12f2b157687b5bc22d6a9af8363ed91f",
         "entry_count": 186,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "d34ecf771905e6eea9a99657559edb9bb875748df43a9e4e63b06f692ef84042",
+        "digest": "416d11ae6f820cccaceb5c725f51f0a28a15ecf6ab0c4cd05205843afb70f1bb",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"

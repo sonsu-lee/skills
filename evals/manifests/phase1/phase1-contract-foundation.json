@@ -1,13 +1,13 @@
 {
   "schema_version": "phase1-slice-result-v1",
-  "manifest_id": "b696e28c61cee3b2b296557d62a0e1848a278ef95822ab50b89d55eac5de2af2",
+  "manifest_id": "6925d5081db5d3247e03175dd9fcb24892ed65bb4327c27ce6e83687a9ad49cf",
   "slice_id": "phase1-contract-foundation",
   "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
   "predecessor_slice_result_manifest_id": null,
   "artifacts": [
     {
       "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-      "sha256": "4778bd9533e8968d63192884ad243cbe9f0c2a14b282746d2d4423a609f295a0",
+      "sha256": "1f988588c008af6229d1d15ec5e6955d11fb9dbdbccbf4eeb1754a34240a3677",
       "role": "validation_report"
     },
     {
@@ -22,12 +22,12 @@
     },
     {
       "path": "skills/develop-change/evals/leaf-only-install-cases.json",
-      "sha256": "bf0dc8c2adc4b0e88efe7eacc925be7847bd94f9e00446fbd880f61264814e3f",
+      "sha256": "87d209e1e6181d749bc59d64ec2dbba8c4ece536c8a7054d08a16ad94de75826",
       "role": "isolation_fixture_catalog"
     },
     {
       "path": "skills/develop-change/references/authorization-contract.md",
-      "sha256": "16546e53d21d61690381184ce8ac7cfd361b27f4e53f93bb5e4c49c06f0fd0ff",
+      "sha256": "ae4aa1fb78633b6bbb2bc9ba5f7072c8b4016e64b7bd6522774e52712f853649",
       "role": "contract_reference"
     },
     {
@@ -37,12 +37,12 @@
     },
     {
       "path": "skills/develop-change/references/gate-contract.md",
-      "sha256": "3cabf2d85b542eb5c4eaf82069448c8625165e2b7550b1195d0686e82e136632",
+      "sha256": "fe0156d1933deb702fa64f30ebb832105dcb97d4fd9ba23c52aaeebb97160d6b",
       "role": "contract_reference"
     },
     {
       "path": "skills/develop-change/references/routing-contract.md",
-      "sha256": "676b89293f4453095245574959a7637aef95ed5c001a2f944f96f7790feb16fa",
+      "sha256": "41e388d6e0491322ffbfe2dc96db2f5df6f20a5a67aa3a25425e6e8e28ed8d36",
       "role": "contract_reference"
     },
     {
@@ -92,7 +92,7 @@
   ],
   "fixture_report": {
     "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-    "sha256": "4778bd9533e8968d63192884ad243cbe9f0c2a14b282746d2d4423a609f295a0"
+    "sha256": "1f988588c008af6229d1d15ec5e6955d11fb9dbdbccbf4eeb1754a34240a3677"
   },
   "validator": {
     "id": "phase1-contract-foundation-validator",
@@ -101,7 +101,7 @@
     "result": "pass"
   },
   "runtime_projection": {
-    "before_digest": "0a9bcf030012efda714b91afaf4783c3d002ec9e1a13d6c0d5aea524ea1a7b05",
-    "after_digest": "0a9bcf030012efda714b91afaf4783c3d002ec9e1a13d6c0d5aea524ea1a7b05"
+    "before_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244",
+    "after_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244"
   }
 }
