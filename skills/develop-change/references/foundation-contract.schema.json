@@ -1,0 +1,1214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1",
+  "title": "Phase 1 contract foundation candidate schema",
+  "description": "Candidate-only schema for the shared routing, gate, decision-frontier, and per-task authorization contracts. It is not a runtime activation contract.",
+  "x-contract-rule-ids": [
+    "FND-ROUTE-001",
+    "FND-ROUTE-002",
+    "FND-PROFILE-001",
+    "FND-PROFILE-002",
+    "FND-PROFILE-003",
+    "FND-PROFILE-004",
+    "FND-GATE-001",
+    "FND-GATE-002",
+    "FND-FRONTIER-001",
+    "FND-FRONTIER-002",
+    "FND-FRONTIER-003",
+    "FND-FRONTIER-004",
+    "FND-FRONTIER-005",
+    "FND-FRONTIER-006",
+    "FND-AUTH-001",
+    "FND-AUTH-002",
+    "FND-AUTH-003",
+    "FND-AUTH-004",
+    "FND-AUTH-005",
+    "FND-RUNTIME-001"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_kind",
+    "candidate_only",
+    "fixture_only",
+    "runtime_activation",
+    "routing",
+    "gate",
+    "frontier",
+    "authorizations",
+    "authorization_evaluations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "phase1-foundation-draft-v1"
+    },
+    "record_kind": {
+      "enum": [
+        "foundation_contract_record",
+        "foundation_contract_fixture"
+      ]
+    },
+    "candidate_only": {
+      "const": true
+    },
+    "fixture_only": {
+      "type": "boolean"
+    },
+    "runtime_activation": {
+      "const": false
+    },
+    "routing": {
+      "$ref": "#/$defs/routingEnvelope"
+    },
+    "gate": {
+      "$ref": "#/$defs/gateRecord"
+    },
+    "frontier": {
+      "$ref": "#/$defs/frontierRecord"
+    },
+    "authorizations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/authorizationRecord"
+      }
+    },
+    "authorization_evaluations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/authorizationEvaluation"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "stableId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[a-z0-9._:-]*[a-z0-9])?$"
+    },
+    "contentRef": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._:-]*$"
+    },
+    "identityRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision",
+        "digest"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "digest": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "nullableIdentityRef": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/identityRef"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "state",
+        "evidence_refs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "state": {
+          "enum": [
+            "true",
+            "false",
+            "unresolved"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/contentRef"
+          }
+        }
+      }
+    },
+    "routingTransition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "predecessor_routing_ref",
+        "from_route",
+        "from_profile",
+        "reason",
+        "applied_before_side_effect"
+      ],
+      "properties": {
+        "predecessor_routing_ref": {
+          "$ref": "#/$defs/nullableIdentityRef"
+        },
+        "from_route": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/route"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "from_profile": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/profile"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "enum": [
+            "initial",
+            "route_progress",
+            "new_evidence",
+            "scope_changed",
+            "hard_floor_detected",
+            "hard_floor_resolved"
+          ]
+        },
+        "applied_before_side_effect": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "route": {
+      "enum": [
+        "understand",
+        "shape",
+        "decide",
+        "design",
+        "diagnose",
+        "change",
+        "verify",
+        "deliver",
+        "operate",
+        "evolve"
+      ]
+    },
+    "profile": {
+      "enum": [
+        "direct",
+        "bounded",
+        "architectural"
+      ]
+    },
+    "architecturalAxis": {
+      "enum": [
+        "domain_rule",
+        "public_contract",
+        "trust_boundary",
+        "runtime_dependency",
+        "multi_system_owner",
+        "data_transition",
+        "operational_blast_radius"
+      ]
+    },
+    "directCondition": {
+      "enum": [
+        "exact_outcome",
+        "no_unresolved_architectural_axis",
+        "single_local_effect_boundary",
+        "mechanical_existing_semantics",
+        "simple_local_revert",
+        "narrow_immediate_validation",
+        "no_rollout_migration_or_operations"
+      ]
+    },
+    "profileCheckpoint": {
+      "enum": [
+        "read_only_discovery",
+        "before_material_decision",
+        "before_design_commitment",
+        "before_local_change",
+        "before_external_effect"
+      ]
+    },
+    "runtimeDependencyAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "change_kind",
+        "production_artifact_unchanged",
+        "runtime_unchanged",
+        "ci_contract_unchanged",
+        "deployment_license_security_unchanged",
+        "simple_removal_and_existing_validation",
+        "evidence_refs"
+      ],
+      "properties": {
+        "change_kind": {
+          "enum": [
+            "none",
+            "production_or_runtime",
+            "dev_test_only"
+          ]
+        },
+        "production_artifact_unchanged": {
+          "enum": ["true", "false", "unresolved", "not_applicable"]
+        },
+        "runtime_unchanged": {
+          "enum": ["true", "false", "unresolved", "not_applicable"]
+        },
+        "ci_contract_unchanged": {
+          "enum": ["true", "false", "unresolved", "not_applicable"]
+        },
+        "deployment_license_security_unchanged": {
+          "enum": ["true", "false", "unresolved", "not_applicable"]
+        },
+        "simple_removal_and_existing_validation": {
+          "enum": ["true", "false", "unresolved", "not_applicable"]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/contentRef"
+          }
+        }
+      }
+    },
+    "routingEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "routing_id",
+        "revision",
+        "logical_task_id",
+        "basis_fingerprint",
+        "primary_route",
+        "route_plan",
+        "profile",
+        "profile_status",
+        "profile_checkpoint",
+        "unresolved_architectural_axes",
+        "architectural_axes",
+        "runtime_dependency_assessment",
+        "direct_conditions",
+        "transition",
+        "gate_ref",
+        "authorization_ref"
+      ],
+      "properties": {
+        "routing_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "logical_task_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "basis_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "primary_route": {
+          "$ref": "#/$defs/route"
+        },
+        "route_plan": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/route"
+          }
+        },
+        "profile": {
+          "$ref": "#/$defs/profile"
+        },
+        "profile_status": {
+          "enum": [
+            "confirmed",
+            "provisional"
+          ]
+        },
+        "profile_checkpoint": {
+          "$ref": "#/$defs/profileCheckpoint"
+        },
+        "unresolved_architectural_axes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/architecturalAxis"
+          }
+        },
+        "architectural_axes": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "runtime_dependency_assessment": {
+          "$ref": "#/$defs/runtimeDependencyAssessment"
+        },
+        "direct_conditions": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "transition": {
+          "$ref": "#/$defs/routingTransition"
+        },
+        "gate_ref": {
+          "$ref": "#/$defs/identityRef"
+        },
+        "authorization_ref": {
+          "$ref": "#/$defs/identityRef"
+        }
+      }
+    },
+    "gateRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gate_id",
+        "revision",
+        "routing_ref",
+        "result",
+        "blocker",
+        "next_action",
+        "progress",
+        "work_remaining",
+        "missing_evidence_owner",
+        "assumption_effect",
+        "blocking_defer"
+      ],
+      "properties": {
+        "gate_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "routing_ref": {
+          "$ref": "#/$defs/identityRef"
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "conditional",
+            "blocked"
+          ]
+        },
+        "blocker": {
+          "enum": [
+            "none",
+            "missing_evidence",
+            "missing_decision",
+            "missing_authorization",
+            "scope_expansion",
+            "external_dependency"
+          ]
+        },
+        "next_action": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "continue",
+            "clarify",
+            "reauthorize",
+            null
+          ]
+        },
+        "progress": {
+          "enum": [
+            "continue",
+            "await_input",
+            "partial_block",
+            "terminal_blocked"
+          ]
+        },
+        "work_remaining": {
+          "type": "boolean"
+        },
+        "missing_evidence_owner": {
+          "enum": [
+            "none",
+            "local",
+            "user"
+          ]
+        },
+        "assumption_effect": {
+          "enum": [
+            "none",
+            "non_material",
+            "changes_result"
+          ]
+        },
+        "blocking_defer": {
+          "type": "boolean"
+        }
+      }
+    },
+    "valueBinding": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "ref"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "normalized_value",
+                "assumption",
+                "evidence"
+              ]
+            },
+            "ref": {
+              "$ref": "#/$defs/contentRef"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "authorization_id",
+            "receipt_revision",
+            "receipt_fingerprint"
+          ],
+          "properties": {
+            "kind": {
+              "const": "receipt"
+            },
+            "authorization_id": {
+              "$ref": "#/$defs/stableId"
+            },
+            "receipt_revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "receipt_fingerprint": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        }
+      ]
+    },
+    "runtimeDisposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resolution_action",
+        "defer_effect",
+        "gate_result",
+        "blocker",
+        "next_action",
+        "interaction_kind",
+        "interaction_requirement",
+        "interaction_owner",
+        "progress"
+      ],
+      "properties": {
+        "resolution_action": {
+          "enum": [
+            "investigate",
+            "request_input",
+            "assume",
+            "defer",
+            "report_blocker"
+          ]
+        },
+        "defer_effect": {
+          "enum": [
+            "none",
+            "nonblocking",
+            "blocks_dependent_scope"
+          ]
+        },
+        "gate_result": {
+          "enum": [
+            "pass",
+            "conditional",
+            "blocked"
+          ]
+        },
+        "blocker": {
+          "enum": [
+            "none",
+            "missing_evidence",
+            "missing_decision",
+            "missing_authorization",
+            "scope_expansion",
+            "external_dependency"
+          ]
+        },
+        "next_action": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "continue",
+            "clarify",
+            "reauthorize",
+            null
+          ]
+        },
+        "interaction_kind": {
+          "enum": [
+            "none",
+            "clarification",
+            "authorization"
+          ]
+        },
+        "interaction_requirement": {
+          "enum": [
+            "none",
+            "required"
+          ]
+        },
+        "interaction_owner": {
+          "$ref": "#/$defs/stableId"
+        },
+        "progress": {
+          "enum": [
+            "continue",
+            "await_input",
+            "partial_block",
+            "terminal_blocked"
+          ]
+        }
+      }
+    },
+    "safeDefaultCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "state",
+        "evidence_ref"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "within_authorized_scope",
+            "observable_result_unchanged",
+            "persistent_semantics_unchanged",
+            "no_external_or_destructive_effect",
+            "simple_local_revert",
+            "supported_by_project_evidence",
+            "detectable_by_current_validation"
+          ]
+        },
+        "state": {
+          "enum": [
+            "true",
+            "false",
+            "unresolved"
+          ]
+        },
+        "evidence_ref": {
+          "$ref": "#/$defs/contentRef"
+        }
+      }
+    },
+    "frontierUnit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "revision",
+        "predecessor_unit_ref",
+        "successor_unit_ref",
+        "gap_kind",
+        "state",
+        "basis_fingerprint",
+        "affected_scope",
+        "checkpoint_relevance",
+        "dependency_ids",
+        "value_binding",
+        "safe_default_conditions",
+        "authorization_id",
+        "runtime_disposition"
+      ],
+      "properties": {
+        "unit_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "predecessor_unit_ref": {
+          "$ref": "#/$defs/nullableIdentityRef"
+        },
+        "successor_unit_ref": {
+          "$ref": "#/$defs/nullableIdentityRef"
+        },
+        "gap_kind": {
+          "enum": [
+            "discoverable_fact",
+            "user_supplied_evidence",
+            "incidental_preference",
+            "material_decision",
+            "authorization",
+            "external_blocker"
+          ]
+        },
+        "state": {
+          "enum": [
+            "pending",
+            "resolved_by_evidence",
+            "assumed",
+            "answered",
+            "deferred",
+            "stale",
+            "superseded"
+          ]
+        },
+        "basis_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "affected_scope": {
+          "$ref": "#/$defs/sha256"
+        },
+        "checkpoint_relevance": {
+          "enum": [
+            "current",
+            "future_only"
+          ]
+        },
+        "dependency_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stableId"
+          }
+        },
+        "value_binding": {
+          "$ref": "#/$defs/valueBinding"
+        },
+        "safe_default_conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/safeDefaultCondition"
+          }
+        },
+        "authorization_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/stableId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "runtime_disposition": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/runtimeDisposition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "clarificationView": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/clarificationViewRecord"
+        }
+      ]
+    },
+    "clarificationViewRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "round_id",
+        "revision",
+        "predecessor_view_ref",
+        "transition_cause",
+        "view_digest",
+        "basis_fingerprint",
+        "view_state",
+        "interaction_owner",
+        "interaction_requirement",
+        "no_answer_disposition",
+        "renderer_version",
+        "visible_unit_ids",
+        "units",
+        "accepted_shorthand"
+      ],
+      "properties": {
+        "round_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "predecessor_view_ref": {
+          "$ref": "#/$defs/nullableIdentityRef"
+        },
+        "transition_cause": {
+          "enum": [
+            "initial_presentation",
+            "response_consumed",
+            "basis_expired",
+            "partial_response_remaining",
+            "basis_refreshed",
+            "new_interaction"
+          ]
+        },
+        "view_digest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "basis_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "view_state": {
+          "enum": [
+            "pending",
+            "consumed",
+            "expired"
+          ]
+        },
+        "interaction_owner": {
+          "$ref": "#/$defs/stableId"
+        },
+        "interaction_requirement": {
+          "const": "required"
+        },
+        "no_answer_disposition": {
+          "const": "pending_pause"
+        },
+        "renderer_version": {
+          "$ref": "#/$defs/stableId"
+        },
+        "visible_unit_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stableId"
+          }
+        },
+        "units": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/clarificationViewUnit"
+          }
+        },
+        "accepted_shorthand": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/acceptedShorthand"
+          }
+        }
+      }
+    },
+    "clarificationViewUnit": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/decisionViewUnit"
+        },
+        {
+          "$ref": "#/$defs/evidenceRequestViewUnit"
+        }
+      ]
+    },
+    "decisionViewUnit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "unit_id",
+        "decision_ref",
+        "options",
+        "recommended_option_id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "decision"
+        },
+        "unit_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "decision_ref": {
+          "$ref": "#/$defs/contentRef"
+        },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/decisionOption"
+          }
+        },
+        "recommended_option_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/stableId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "decisionOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "option_id",
+        "label_ref",
+        "impact_ref"
+      ],
+      "properties": {
+        "option_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "label_ref": {
+          "$ref": "#/$defs/contentRef"
+        },
+        "impact_ref": {
+          "$ref": "#/$defs/contentRef"
+        }
+      }
+    },
+    "evidenceRequestViewUnit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "unit_id",
+        "requested_evidence_ref",
+        "alternative_evidence_refs",
+        "sensitivity_boundary_ref"
+      ],
+      "properties": {
+        "kind": {
+          "const": "evidence_request"
+        },
+        "unit_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "requested_evidence_ref": {
+          "$ref": "#/$defs/contentRef"
+        },
+        "alternative_evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/contentRef"
+          }
+        },
+        "sensitivity_boundary_ref": {
+          "$ref": "#/$defs/contentRef"
+        }
+      }
+    },
+    "acceptedShorthand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shorthand_id",
+        "unit_id",
+        "option_id"
+      ],
+      "properties": {
+        "shorthand_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "unit_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "option_id": {
+          "$ref": "#/$defs/stableId"
+        }
+      }
+    },
+    "frontierRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frontier_id",
+        "revision",
+        "logical_task_id",
+        "basis_fingerprint",
+        "visible_unit_ids",
+        "units",
+        "clarification_view_history",
+        "clarification_view"
+      ],
+      "properties": {
+        "frontier_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "logical_task_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "basis_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "visible_unit_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stableId"
+          }
+        },
+        "units": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/frontierUnit"
+          }
+        },
+        "clarification_view_history": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/clarificationViewRecord"
+          }
+        },
+        "clarification_view": {
+          "$ref": "#/$defs/clarificationView"
+        }
+      }
+    },
+    "capability": {
+      "enum": [
+        "local_change",
+        "working_artifact_write",
+        "temporary_work_state",
+        "workspace_cleanup",
+        "durable_document_write",
+        "durable_document_content",
+        "stage",
+        "commit",
+        "push",
+        "pr_create",
+        "merge",
+        "rebase",
+        "history_rewrite",
+        "destructive_local",
+        "external_write",
+        "scope_expansion"
+      ]
+    },
+    "authorizationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_id",
+        "revision",
+        "predecessor_authorization_ref",
+        "logical_task_id",
+        "capability",
+        "target_fingerprint",
+        "scope_fingerprint",
+        "basis_fingerprint",
+        "request_revision",
+        "authorization_revision",
+        "receipt_revision",
+        "receipt_fingerprint",
+        "status",
+        "runtime_eligible",
+        "future_only",
+        "fixture_only"
+      ],
+      "properties": {
+        "authorization_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "predecessor_authorization_ref": {
+          "$ref": "#/$defs/nullableIdentityRef"
+        },
+        "logical_task_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "capability": {
+          "$ref": "#/$defs/capability"
+        },
+        "target_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "scope_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "basis_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "request_revision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "authorization_revision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "receipt_revision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "receipt_fingerprint": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "not_applicable",
+            "not_granted",
+            "granted",
+            "denied",
+            "withdrawn",
+            "stale"
+          ]
+        },
+        "runtime_eligible": {
+          "type": "boolean"
+        },
+        "future_only": {
+          "type": "boolean"
+        },
+        "fixture_only": {
+          "type": "boolean"
+        }
+      }
+    },
+    "authorizationEvaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluation_id",
+        "required_capability",
+        "target_fingerprint",
+        "scope_fingerprint",
+        "basis_fingerprint",
+        "selected_authorization_id",
+        "side_effect_intent",
+        "derived_result",
+        "next_action",
+        "dependent_side_effect_count"
+      ],
+      "properties": {
+        "evaluation_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "required_capability": {
+          "$ref": "#/$defs/capability"
+        },
+        "target_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "scope_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "basis_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "selected_authorization_id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "side_effect_intent": {
+          "enum": [
+            "none",
+            "dependent"
+          ]
+        },
+        "derived_result": {
+          "enum": [
+            "allowed",
+            "blocked_missing_authorization",
+            "blocked_scope_expansion"
+          ]
+        },
+        "next_action": {
+          "enum": [
+            "continue",
+            "reauthorize"
+          ]
+        },
+        "dependent_side_effect_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  }
+}
