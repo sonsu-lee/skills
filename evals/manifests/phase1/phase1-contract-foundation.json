@@ -1,13 +1,13 @@
 {
   "schema_version": "phase1-slice-result-v1",
-  "manifest_id": "ac930317f44add1fed8d1536ac2e5e329c5ae0665d6c5870bea81178fba30131",
+  "manifest_id": "b696e28c61cee3b2b296557d62a0e1848a278ef95822ab50b89d55eac5de2af2",
   "slice_id": "phase1-contract-foundation",
   "design_baseline_manifest_id": "29f39ef1d0418d78542eb4d966b7bea1201eb376d40894610ec758bcf1b19aec",
   "predecessor_slice_result_manifest_id": null,
   "artifacts": [
     {
       "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-      "sha256": "446d6af309a4be81747df3765e0317fda735bc26d14f9fbe3b1f27c17e0d79c4",
+      "sha256": "4778bd9533e8968d63192884ad243cbe9f0c2a14b282746d2d4423a609f295a0",
       "role": "validation_report"
     },
     {
@@ -17,22 +17,22 @@
     },
     {
       "path": "skills/develop-change/evals/foundation-cases.json",
-      "sha256": "db5d06e4eb3db004ceda586f3c051a45f35ebd01ad9c368eb249943e2b69d9b9",
+      "sha256": "fed4b16a2c41f6011f5f6cdb4818e5695972e8ca856c21cc9777846a7311c40f",
       "role": "semantic_fixture_catalog"
     },
     {
       "path": "skills/develop-change/evals/leaf-only-install-cases.json",
-      "sha256": "e82532c7637e89b3f08670eb8cc7939cbab1298178b94530975a366a58dfbcaf",
+      "sha256": "bf0dc8c2adc4b0e88efe7eacc925be7847bd94f9e00446fbd880f61264814e3f",
       "role": "isolation_fixture_catalog"
     },
     {
       "path": "skills/develop-change/references/authorization-contract.md",
-      "sha256": "1a6069e36a34599ddc503f8122ac2fb30f9bba78adae45bb58a27f586c064093",
+      "sha256": "16546e53d21d61690381184ce8ac7cfd361b27f4e53f93bb5e4c49c06f0fd0ff",
       "role": "contract_reference"
     },
     {
       "path": "skills/develop-change/references/foundation-contract.schema.json",
-      "sha256": "ddc6b6f0ed38988a10f1297aff7c150ec0f5628c846889746a750d4db16cbcbe",
+      "sha256": "c8f16b89a2b35f1bf80753a64648a62a58b1ef094f092b4df64f36467352c891",
       "role": "draft_schema"
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "path": "skills/develop-change/scripts/validate_foundation.py",
-      "sha256": "f4b2b538a5979a1df9853090b89df34c0c6cf63b4d6a706de829245edaa68fc7",
+      "sha256": "72c56bda61c85b6831b818069251423243c140158e19cab99ac9d225847167fa",
       "role": "validator"
     },
     {
@@ -92,12 +92,12 @@
   ],
   "fixture_report": {
     "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-    "sha256": "446d6af309a4be81747df3765e0317fda735bc26d14f9fbe3b1f27c17e0d79c4"
+    "sha256": "4778bd9533e8968d63192884ad243cbe9f0c2a14b282746d2d4423a609f295a0"
   },
   "validator": {
     "id": "phase1-contract-foundation-validator",
     "revision": 2,
-    "digest": "f4b2b538a5979a1df9853090b89df34c0c6cf63b4d6a706de829245edaa68fc7",
+    "digest": "72c56bda61c85b6831b818069251423243c140158e19cab99ac9d225847167fa",
     "result": "pass"
   },
   "runtime_projection": {
