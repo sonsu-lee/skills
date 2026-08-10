@@ -1,0 +1,2762 @@
+{
+  "schema_version": "phase1-foundation-cases-v1",
+  "schema_id": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1",
+  "canonical_identity_binding": "phase1-foundation-record-digest-v1",
+  "base_fixture": {
+    "schema_version": "phase1-foundation-draft-v1",
+    "record_kind": "foundation_contract_fixture",
+    "candidate_only": true,
+    "fixture_only": true,
+    "runtime_activation": false,
+    "routing": {
+      "routing_id": "routing.fixture.direct",
+      "revision": 1,
+      "logical_task_id": "task.fixture.direct",
+      "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "primary_route": "change",
+      "route_plan": [
+        "change",
+        "verify"
+      ],
+      "profile": "direct",
+      "profile_status": "confirmed",
+      "profile_checkpoint": "before_local_change",
+      "unresolved_architectural_axes": [],
+      "architectural_axes": [
+        {
+          "id": "domain_rule",
+          "state": "false",
+          "evidence_refs": [
+            "evidence:axis.domain_rule"
+          ]
+        },
+        {
+          "id": "public_contract",
+          "state": "false",
+          "evidence_refs": [
+            "evidence:axis.public_contract"
+          ]
+        },
+        {
+          "id": "trust_boundary",
+          "state": "false",
+          "evidence_refs": [
+            "evidence:axis.trust_boundary"
+          ]
+        },
+        {
+          "id": "runtime_dependency",
+          "state": "false",
+          "evidence_refs": [
+            "evidence:axis.runtime_dependency"
+          ]
+        },
+        {
+          "id": "multi_system_owner",
+          "state": "false",
+          "evidence_refs": [
+            "evidence:axis.multi_system_owner"
+          ]
+        },
+        {
+          "id": "data_transition",
+          "state": "false",
+          "evidence_refs": [
+            "evidence:axis.data_transition"
+          ]
+        },
+        {
+          "id": "operational_blast_radius",
+          "state": "false",
+          "evidence_refs": [
+            "evidence:axis.operational_blast_radius"
+          ]
+        }
+      ],
+      "runtime_dependency_assessment": {
+        "change_kind": "none",
+        "production_artifact_unchanged": "not_applicable",
+        "runtime_unchanged": "not_applicable",
+        "ci_contract_unchanged": "not_applicable",
+        "deployment_license_security_unchanged": "not_applicable",
+        "simple_removal_and_existing_validation": "not_applicable",
+        "evidence_refs": [
+          "evidence:axis.runtime_dependency"
+        ]
+      },
+      "direct_conditions": [
+        {
+          "id": "exact_outcome",
+          "state": "true",
+          "evidence_refs": [
+            "evidence:direct.exact_outcome"
+          ]
+        },
+        {
+          "id": "no_unresolved_architectural_axis",
+          "state": "true",
+          "evidence_refs": [
+            "evidence:direct.no_unresolved_axis"
+          ]
+        },
+        {
+          "id": "single_local_effect_boundary",
+          "state": "true",
+          "evidence_refs": [
+            "evidence:direct.single_local_boundary"
+          ]
+        },
+        {
+          "id": "mechanical_existing_semantics",
+          "state": "true",
+          "evidence_refs": [
+            "evidence:direct.mechanical_semantics"
+          ]
+        },
+        {
+          "id": "simple_local_revert",
+          "state": "true",
+          "evidence_refs": [
+            "evidence:direct.simple_revert"
+          ]
+        },
+        {
+          "id": "narrow_immediate_validation",
+          "state": "true",
+          "evidence_refs": [
+            "evidence:direct.narrow_validation"
+          ]
+        },
+        {
+          "id": "no_rollout_migration_or_operations",
+          "state": "true",
+          "evidence_refs": [
+            "evidence:direct.no_operations"
+          ]
+        }
+      ],
+      "transition": {
+        "predecessor_routing_ref": null,
+        "from_route": null,
+        "from_profile": null,
+        "reason": "initial",
+        "applied_before_side_effect": null
+      },
+      "gate_ref": {
+        "id": "gate.fixture.direct",
+        "revision": 1,
+        "digest": "d69788f6b1f160eabf0f247dcc8764bb62b643eaed3560c13b29c0fef82a53d7"
+      },
+      "authorization_ref": {
+        "id": "authorization.fixture.local-change",
+        "revision": 1,
+        "digest": "ea4e674126b623c5a4cc6044b3f0609d0104e04c7e66296b1b4906d000e3e92d"
+      }
+    },
+    "gate": {
+      "gate_id": "gate.fixture.direct",
+      "revision": 1,
+      "routing_ref": {
+        "id": "routing.fixture.direct",
+        "revision": 1,
+        "digest": "3d9c1e0e559f12f829073298a69ee6b7229366abedafca274617eebdcea1aa92"
+      },
+      "result": "pass",
+      "blocker": "none",
+      "next_action": "continue",
+      "progress": "continue",
+      "work_remaining": true,
+      "missing_evidence_owner": "none",
+      "assumption_effect": "none",
+      "blocking_defer": false
+    },
+    "frontier": {
+      "frontier_id": "frontier.fixture.direct",
+      "revision": 1,
+      "logical_task_id": "task.fixture.direct",
+      "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "visible_unit_ids": [
+        "unit.fixture.fact"
+      ],
+      "units": [
+        {
+          "unit_id": "unit.fixture.fact",
+          "revision": 1,
+          "predecessor_unit_ref": null,
+          "successor_unit_ref": null,
+          "gap_kind": "discoverable_fact",
+          "state": "resolved_by_evidence",
+          "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "checkpoint_relevance": "current",
+          "dependency_ids": [],
+          "value_binding": {
+            "kind": "evidence",
+            "ref": "evidence:repo.contract"
+          },
+          "safe_default_conditions": [],
+          "authorization_id": null,
+          "runtime_disposition": {
+            "resolution_action": "investigate",
+            "defer_effect": "none",
+            "gate_result": "pass",
+            "blocker": "none",
+            "next_action": "continue",
+            "interaction_kind": "none",
+            "interaction_requirement": "none",
+            "interaction_owner": "develop-change",
+            "progress": "continue"
+          }
+        }
+      ],
+      "clarification_view_history": [],
+      "clarification_view": null
+    },
+    "authorizations": [
+      {
+        "authorization_id": "authorization.fixture.local-change",
+        "revision": 1,
+        "predecessor_authorization_ref": null,
+        "logical_task_id": "task.fixture.direct",
+        "capability": "local_change",
+        "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+        "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+        "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "request_revision": 1,
+        "authorization_revision": 1,
+        "receipt_revision": 1,
+        "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+        "status": "granted",
+        "runtime_eligible": true,
+        "future_only": false,
+        "fixture_only": true
+      }
+    ],
+    "authorization_evaluations": [
+      {
+        "evaluation_id": "authorization-evaluation.fixture.local-change",
+        "required_capability": "local_change",
+        "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+        "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+        "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "selected_authorization_id": "authorization.fixture.local-change",
+        "side_effect_intent": "dependent",
+        "derived_result": "allowed",
+        "next_action": "continue",
+        "dependent_side_effect_count": 1
+      }
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "foundation-valid-direct-granted",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": []
+    },
+    {
+      "case_id": "foundation-valid-provisional-read-only",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/routing/primary_route",
+          "value": "understand"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/route_plan",
+          "value": [
+            "understand"
+          ]
+        },
+        {
+          "op": "replace",
+          "path": "/routing/profile",
+          "value": "bounded"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/profile_status",
+          "value": "provisional"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/profile_checkpoint",
+          "value": "read_only_discovery"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/unresolved_architectural_axes",
+          "value": [
+            "runtime_dependency"
+          ]
+        },
+        {
+          "op": "replace",
+          "path": "/routing/architectural_axes/3/state",
+          "value": "unresolved"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/change_kind",
+          "value": "dev_test_only"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/production_artifact_unchanged",
+          "value": "true"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/runtime_unchanged",
+          "value": "true"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/ci_contract_unchanged",
+          "value": "unresolved"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/deployment_license_security_unchanged",
+          "value": "true"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/simple_removal_and_existing_validation",
+          "value": "true"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/direct_conditions/1/state",
+          "value": "unresolved"
+        },
+        {
+          "op": "replace",
+          "path": "/gate/result",
+          "value": "conditional"
+        },
+        {
+          "op": "replace",
+          "path": "/gate/assumption_effect",
+          "value": "none"
+        },
+        {
+          "op": "replace",
+          "path": "/authorization_evaluations/0/side_effect_intent",
+          "value": "none"
+        },
+        {
+          "op": "replace",
+          "path": "/authorization_evaluations/0/dependent_side_effect_count",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-future-only-defer",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/gap_kind",
+          "value": "incidental_preference"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/state",
+          "value": "deferred"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/checkpoint_relevance",
+          "value": "future_only"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/value_binding",
+          "value": null
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/runtime_disposition/resolution_action",
+          "value": "defer"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/runtime_disposition/defer_effect",
+          "value": "nonblocking"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/runtime_disposition/gate_result",
+          "value": "pass"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-safe-default-assumption",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "conditional"},
+        {"op": "replace", "path": "/gate/assumption_effect", "value": "non_material"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "incidental_preference"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "assumed"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": {"kind": "assumption", "ref": "assumption:fixture.safe-default"}},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "assume"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "conditional"},
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/safe_default_conditions",
+          "value": [
+            {"id": "within_authorized_scope", "state": "true", "evidence_ref": "evidence:safe.scope"},
+            {"id": "observable_result_unchanged", "state": "true", "evidence_ref": "evidence:safe.result"},
+            {"id": "persistent_semantics_unchanged", "state": "true", "evidence_ref": "evidence:safe.semantics"},
+            {"id": "no_external_or_destructive_effect", "state": "true", "evidence_ref": "evidence:safe.effect"},
+            {"id": "simple_local_revert", "state": "true", "evidence_ref": "evidence:safe.revert"},
+            {"id": "supported_by_project_evidence", "state": "true", "evidence_ref": "evidence:safe.project"},
+            {"id": "detectable_by_current_validation", "state": "true", "evidence_ref": "evidence:safe.validation"}
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-granted-authorization-receipt",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": {"kind": "receipt", "authorization_id": "authorization.fixture.local-change", "receipt_revision": 1, "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333"}},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-discoverable-fact-pending",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "conditional"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "pending"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "conditional"}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-user-evidence-resolved",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "user_supplied_evidence"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-material-decision-answered",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "material_decision"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "answered"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": {"kind": "normalized_value", "ref": "decision:fixture.answer"}},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-external-blocker-resolved",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "external_blocker"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "report_blocker"}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-external-blocker-pending",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "external_dependency"},
+        {"op": "replace", "path": "/gate/next_action", "value": null},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "external_blocker"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "pending"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "report_blocker"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "blocked"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/blocker", "value": "external_dependency"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/next_action", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/progress", "value": "partial_block"}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-blocking-defer-matrix",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "external_dependency"},
+        {"op": "replace", "path": "/gate/next_action", "value": null},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/gate/blocking_defer", "value": true},
+        {"op": "replace", "path": "/authorizations/0/status", "value": "denied"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "replace", "path": "/authorizations/0/authorization_revision", "value": null},
+        {"op": "replace", "path": "/authorizations/0/receipt_revision", "value": null},
+        {"op": "replace", "path": "/authorizations/0/receipt_fingerprint", "value": null},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "deferred"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "defer"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/defer_effect", "value": "blocks_dependent_scope"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "blocked"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/blocker", "value": "missing_evidence"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/next_action", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/progress", "value": "partial_block"},
+        {
+          "op": "add",
+          "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.user-block", "revision": 1, "predecessor_unit_ref": null, "successor_unit_ref": null,
+            "gap_kind": "user_supplied_evidence", "state": "deferred",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": null,
+            "runtime_disposition": {"resolution_action": "defer", "defer_effect": "blocks_dependent_scope", "gate_result": "blocked", "blocker": "missing_evidence", "next_action": null, "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        },
+        {
+          "op": "add",
+          "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.decision-block", "revision": 1, "predecessor_unit_ref": null, "successor_unit_ref": null,
+            "gap_kind": "material_decision", "state": "deferred",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": null,
+            "runtime_disposition": {"resolution_action": "defer", "defer_effect": "blocks_dependent_scope", "gate_result": "blocked", "blocker": "missing_decision", "next_action": null, "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        },
+        {
+          "op": "add",
+          "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.authorization-block", "revision": 1, "predecessor_unit_ref": null, "successor_unit_ref": null,
+            "gap_kind": "authorization", "state": "deferred",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.local-change",
+            "runtime_disposition": {"resolution_action": "defer", "defer_effect": "blocks_dependent_scope", "gate_result": "blocked", "blocker": "missing_authorization", "next_action": null, "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        },
+        {
+          "op": "add",
+          "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.external-block", "revision": 1, "predecessor_unit_ref": null, "successor_unit_ref": null,
+            "gap_kind": "external_blocker", "state": "deferred",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": null,
+            "runtime_disposition": {"resolution_action": "defer", "defer_effect": "blocks_dependent_scope", "gate_result": "blocked", "blocker": "external_dependency", "next_action": null, "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        },
+        {"op": "replace", "path": "/frontier/visible_unit_ids", "value": ["unit.fixture.fact", "unit.fixture.user-block", "unit.fixture.decision-block", "unit.fixture.authorization-block", "unit.fixture.external-block"]}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-future-only-stale-authorization",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/authorizations/0/status", "value": "stale"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "replace", "path": "/authorizations/0/future_only", "value": true},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/checkpoint_relevance", "value": "future_only"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "deferred",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "future_only", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.local-change",
+            "runtime_disposition": {"resolution_action": "defer", "defer_effect": "nonblocking", "gate_result": "pass", "blocker": "none", "next_action": "continue", "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "continue"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-withdrawn-authorization-blocking-successor",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_authorization"},
+        {"op": "replace", "path": "/gate/next_action", "value": null},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/gate/blocking_defer", "value": true},
+        {"op": "replace", "path": "/authorizations/0/status", "value": "withdrawn"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "superseded"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "deferred",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.local-change",
+            "runtime_disposition": {"resolution_action": "defer", "defer_effect": "blocks_dependent_scope", "gate_result": "blocked", "blocker": "missing_authorization", "next_action": null, "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-denied-rerequest-transition",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.denied-history", "revision": 1, "predecessor_authorization_ref": null,
+            "logical_task_id": "task.fixture.direct", "capability": "push",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": null, "receipt_revision": null, "receipt_fingerprint": null,
+            "status": "denied", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        },
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.rerequest", "revision": 2,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.denied-history", "revision": 1, "digest": "4444444444444444444444444444444444444444444444444444444444444444"},
+            "logical_task_id": "task.fixture.direct", "capability": "push",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 2, "authorization_revision": null, "receipt_revision": null, "receipt_fingerprint": null,
+            "status": "not_granted", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-fresh-regrant-chain",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.stale-history", "revision": 2,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.local-change", "revision": 1, "digest": "4444444444444444444444444444444444444444444444444444444444444444"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "stale", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        },
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.fresh-regrant", "revision": 3,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.stale-history", "revision": 2, "digest": "5555555555555555555555555555555555555555555555555555555555555555"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 2, "authorization_revision": 2, "receipt_revision": 2,
+            "receipt_fingerprint": "7777777777777777777777777777777777777777777777777777777777777777",
+            "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true
+          }
+        },
+        {"op": "replace", "path": "/routing/authorization_ref", "value": {"id": "authorization.fixture.fresh-regrant", "revision": 3, "digest": "6666666666666666666666666666666666666666666666666666666666666666"}},
+        {"op": "replace", "path": "/authorization_evaluations/0/selected_authorization_id", "value": "authorization.fixture.fresh-regrant"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.stale-history"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "resolved_by_evidence",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [],
+            "value_binding": {"kind": "receipt", "authorization_id": "authorization.fixture.fresh-regrant", "receipt_revision": 2, "receipt_fingerprint": "7777777777777777777777777777777777777777777777777777777777777777"},
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.fresh-regrant",
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "pass", "blocker": "none", "next_action": "continue", "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "continue"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-scope-expansion-authorization-pending",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "scope_expansion"},
+        {"op": "replace", "path": "/gate/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/authorization_evaluations/0/scope_fingerprint", "value": "4444444444444444444444444444444444444444444444444444444444444444"},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_scope_expansion"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "pending"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "blocked"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/blocker", "value": "scope_expansion"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_requirement", "value": "required"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/progress", "value": "partial_block"}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-scope-expansion-authorization-blocking-defer",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "scope_expansion"},
+        {"op": "replace", "path": "/gate/next_action", "value": null},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/gate/blocking_defer", "value": true},
+        {"op": "replace", "path": "/authorization_evaluations/0/scope_fingerprint", "value": "4444444444444444444444444444444444444444444444444444444444444444"},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_scope_expansion"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "deferred"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "defer"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/defer_effect", "value": "blocks_dependent_scope"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "blocked"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/blocker", "value": "scope_expansion"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/next_action", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_kind", "value": "none"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_requirement", "value": "none"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/progress", "value": "partial_block"}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-future-only-stale-reopened-current",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_authorization"},
+        {"op": "replace", "path": "/gate/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.stale-future-history", "revision": 2,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.local-change", "revision": 1, "digest": "4444444444444444444444444444444444444444444444444444444444444444"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "stale", "runtime_eligible": false, "future_only": true, "fixture_only": true
+          }
+        },
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.stale-reopened-current", "revision": 3,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.stale-future-history", "revision": 2, "digest": "5555555555555555555555555555555555555555555555555555555555555555"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "stale", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        },
+        {"op": "replace", "path": "/routing/authorization_ref", "value": {"id": "authorization.fixture.stale-reopened-current", "revision": 3, "digest": "6666666666666666666666666666666666666666666666666666666666666666"}},
+        {"op": "replace", "path": "/authorization_evaluations/0/selected_authorization_id", "value": "authorization.fixture.stale-reopened-current"},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/checkpoint_relevance", "value": "future_only"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.stale-future-history"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "7777777777777777777777777777777777777777777777777777777777777777"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "8888888888888888888888888888888888888888888888888888888888888888"},
+            "successor_unit_ref": {"id": "unit.fixture.fact", "revision": 3, "digest": "9999999999999999999999999999999999999999999999999999999999999999"},
+            "gap_kind": "authorization", "state": "stale",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.stale-reopened-current",
+            "runtime_disposition": null
+          }
+        },
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 3,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 2, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.stale-reopened-current",
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_authorization", "next_action": "reauthorize", "interaction_kind": "authorization", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-partial-answer-fresh-view-revision",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_decision"},
+        {"op": "replace", "path": "/gate/next_action", "value": "clarify"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "user_supplied_evidence"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.material-remaining", "revision": 1,
+            "predecessor_unit_ref": null, "successor_unit_ref": null,
+            "gap_kind": "material_decision", "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": null,
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_decision", "next_action": "clarify", "interaction_kind": "clarification", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        },
+        {"op": "replace", "path": "/frontier/visible_unit_ids", "value": ["unit.fixture.fact", "unit.fixture.material-remaining"]},
+        {
+          "op": "replace", "path": "/frontier/clarification_view_history",
+          "value": [
+            {
+              "round_id": "round.fixture.partial", "revision": 1,
+              "predecessor_view_ref": null, "transition_cause": "initial_presentation",
+              "view_digest": "1111111111111111111111111111111111111111111111111111111111111111",
+              "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "view_state": "pending", "interaction_owner": "develop-change",
+              "interaction_requirement": "required", "no_answer_disposition": "pending_pause", "renderer_version": "renderer.phase1.v1",
+              "visible_unit_ids": ["unit.fixture.fact", "unit.fixture.material-remaining"],
+              "units": [
+                {"kind": "evidence_request", "unit_id": "unit.fixture.fact", "requested_evidence_ref": "evidence:request.required", "alternative_evidence_refs": [], "sensitivity_boundary_ref": "evidence:request.sensitivity"},
+                {"kind": "decision", "unit_id": "unit.fixture.material-remaining", "decision_ref": "decision:fixture.remaining", "options": [{"option_id": "option-a", "label_ref": "label:option.a", "impact_ref": "impact:option.a"}, {"option_id": "option-b", "label_ref": "label:option.b", "impact_ref": "impact:option.b"}], "recommended_option_id": "option-a"}
+              ],
+              "accepted_shorthand": [{"shorthand_id": "choice-a", "unit_id": "unit.fixture.material-remaining", "option_id": "option-a"}]
+            },
+            {
+              "round_id": "round.fixture.partial", "revision": 2,
+              "predecessor_view_ref": {"id": "round.fixture.partial", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
+              "transition_cause": "response_consumed",
+              "view_digest": "2222222222222222222222222222222222222222222222222222222222222222",
+              "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "view_state": "consumed", "interaction_owner": "develop-change",
+              "interaction_requirement": "required", "no_answer_disposition": "pending_pause", "renderer_version": "renderer.phase1.v1",
+              "visible_unit_ids": ["unit.fixture.fact", "unit.fixture.material-remaining"],
+              "units": [
+                {"kind": "evidence_request", "unit_id": "unit.fixture.fact", "requested_evidence_ref": "evidence:request.required", "alternative_evidence_refs": [], "sensitivity_boundary_ref": "evidence:request.sensitivity"},
+                {"kind": "decision", "unit_id": "unit.fixture.material-remaining", "decision_ref": "decision:fixture.remaining", "options": [{"option_id": "option-a", "label_ref": "label:option.a", "impact_ref": "impact:option.a"}, {"option_id": "option-b", "label_ref": "label:option.b", "impact_ref": "impact:option.b"}], "recommended_option_id": "option-a"}
+              ],
+              "accepted_shorthand": [{"shorthand_id": "choice-a", "unit_id": "unit.fixture.material-remaining", "option_id": "option-a"}]
+            }
+          ]
+        },
+        {
+          "op": "replace", "path": "/frontier/clarification_view",
+          "value": {
+            "round_id": "round.fixture.partial", "revision": 3,
+            "predecessor_view_ref": {"id": "round.fixture.partial", "revision": 2, "digest": "2222222222222222222222222222222222222222222222222222222222222222"},
+            "transition_cause": "partial_response_remaining",
+            "view_digest": "3333333333333333333333333333333333333333333333333333333333333333",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "view_state": "pending", "interaction_owner": "develop-change",
+            "interaction_requirement": "required", "no_answer_disposition": "pending_pause", "renderer_version": "renderer.phase1.v1",
+            "visible_unit_ids": ["unit.fixture.material-remaining"],
+            "units": [{"kind": "decision", "unit_id": "unit.fixture.material-remaining", "decision_ref": "decision:fixture.remaining", "options": [{"option_id": "option-a", "label_ref": "label:option.a", "impact_ref": "impact:option.a"}, {"option_id": "option-b", "label_ref": "label:option.b", "impact_ref": "impact:option.b"}], "recommended_option_id": "option-a"}],
+            "accepted_shorthand": [{"shorthand_id": "choice-a", "unit_id": "unit.fixture.material-remaining", "option_id": "option-a"}]
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-expired-view-lineage",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "user_supplied_evidence"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {
+          "op": "replace", "path": "/frontier/clarification_view_history",
+          "value": [{
+            "round_id": "round.fixture.expired", "revision": 1,
+            "predecessor_view_ref": null, "transition_cause": "initial_presentation",
+            "view_digest": "1111111111111111111111111111111111111111111111111111111111111111",
+            "basis_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "view_state": "pending", "interaction_owner": "develop-change",
+            "interaction_requirement": "required", "no_answer_disposition": "pending_pause", "renderer_version": "renderer.phase1.v1",
+            "visible_unit_ids": ["unit.fixture.fact"],
+            "units": [{"kind": "evidence_request", "unit_id": "unit.fixture.fact", "requested_evidence_ref": "evidence:request.prior", "alternative_evidence_refs": [], "sensitivity_boundary_ref": "evidence:request.sensitivity"}],
+            "accepted_shorthand": []
+          }]
+        },
+        {
+          "op": "replace", "path": "/frontier/clarification_view",
+          "value": {
+            "round_id": "round.fixture.expired", "revision": 2,
+            "predecessor_view_ref": {"id": "round.fixture.expired", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
+            "transition_cause": "basis_expired",
+            "view_digest": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "view_state": "expired", "interaction_owner": "develop-change",
+            "interaction_requirement": "required", "no_answer_disposition": "pending_pause", "renderer_version": "renderer.phase1.v1",
+            "visible_unit_ids": ["unit.fixture.fact"],
+            "units": [{"kind": "evidence_request", "unit_id": "unit.fixture.fact", "requested_evidence_ref": "evidence:request.prior", "alternative_evidence_refs": [], "sensitivity_boundary_ref": "evidence:request.sensitivity"}],
+            "accepted_shorthand": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-unknown-route",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-ROUTE-001"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/routing/primary_route",
+          "value": "unknown"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-numeric-risk-score",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-ROUTE-001"
+      ],
+      "mutations": [
+        {
+          "op": "add",
+          "path": "/routing/risk_score",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-profile-derivation",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROFILE-001",
+        "FND-PROFILE-002"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/routing/architectural_axes/3/state",
+          "value": "unresolved"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-gate-authorization-clarify",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-GATE-001"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/gate/result",
+          "value": "blocked"
+        },
+        {
+          "op": "replace",
+          "path": "/gate/blocker",
+          "value": "missing_authorization"
+        },
+        {
+          "op": "replace",
+          "path": "/gate/next_action",
+          "value": "clarify"
+        },
+        {
+          "op": "replace",
+          "path": "/gate/progress",
+          "value": "await_input"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-unsafe-preference-assumption",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-FRONTIER-003"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/gap_kind",
+          "value": "incidental_preference"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/state",
+          "value": "assumed"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/value_binding",
+          "value": {
+            "kind": "assumption",
+            "ref": "assumption:fixture.preference"
+          }
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/runtime_disposition/resolution_action",
+          "value": "assume"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/runtime_disposition/gate_result",
+          "value": "conditional"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/safe_default_conditions",
+          "value": [
+            {
+              "id": "within_authorized_scope",
+              "state": "false",
+              "evidence_ref": "evidence:safe.scope"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-raw-question-field",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-FRONTIER-001"
+      ],
+      "mutations": [
+        {
+          "op": "add",
+          "path": "/frontier/units/0/raw_question",
+          "value": "should never be persisted"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-blocking-defer-continue",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-FRONTIER-002"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/gap_kind",
+          "value": "authorization"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/state",
+          "value": "deferred"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/value_binding",
+          "value": null
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/runtime_disposition/resolution_action",
+          "value": "defer"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/runtime_disposition/defer_effect",
+          "value": "blocks_dependent_scope"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-history-without-successor",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-FRONTIER-005"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/state",
+          "value": "stale"
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/value_binding",
+          "value": null
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/runtime_disposition",
+          "value": null
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/visible_unit_ids",
+          "value": []
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-capability-substitution",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-AUTH-005"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/authorization_evaluations/0/required_capability",
+          "value": "push"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-stale-authorization-use",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-AUTH-002",
+        "FND-AUTH-005"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/authorizations/0/status",
+          "value": "stale"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-rollout-capability-leak",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-AUTH-001"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/authorizations/0/capability",
+          "value": "implicit_rollout_manage"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-nonfixture-draft-record",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/record_kind",
+          "value": "foundation_contract_record"
+        },
+        {
+          "op": "replace",
+          "path": "/fixture_only",
+          "value": false
+        },
+        {
+          "op": "replace",
+          "path": "/authorizations/0/fixture_only",
+          "value": false
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-forced-provisional-escalation",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/routing/profile",
+          "value": "architectural"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/profile_status",
+          "value": "provisional"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/unresolved_architectural_axes",
+          "value": ["runtime_dependency"]
+        },
+        {
+          "op": "replace",
+          "path": "/routing/architectural_axes/3/state",
+          "value": "unresolved"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/direct_conditions/1/state",
+          "value": "unresolved"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/change_kind",
+          "value": "dev_test_only"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/production_artifact_unchanged",
+          "value": "true"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/runtime_unchanged",
+          "value": "true"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/ci_contract_unchanged",
+          "value": "unresolved"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/deployment_license_security_unchanged",
+          "value": "true"
+        },
+        {
+          "op": "replace",
+          "path": "/routing/runtime_dependency_assessment/simple_removal_and_existing_validation",
+          "value": "true"
+        },
+        {
+          "op": "replace",
+          "path": "/gate/result",
+          "value": "conditional"
+        },
+        {
+          "op": "replace",
+          "path": "/gate/assumption_effect",
+          "value": "none"
+        },
+        {
+          "op": "replace",
+          "path": "/authorization_evaluations/0/side_effect_intent",
+          "value": "none"
+        },
+        {
+          "op": "replace",
+          "path": "/authorization_evaluations/0/dependent_side_effect_count",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-heterogeneous-clarification-view",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_decision"},
+        {"op": "replace", "path": "/gate/next_action", "value": "clarify"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {
+          "op": "add",
+          "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.user-evidence",
+            "revision": 1,
+            "predecessor_unit_ref": null,
+            "successor_unit_ref": null,
+            "gap_kind": "user_supplied_evidence",
+            "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current",
+            "dependency_ids": [],
+            "value_binding": null,
+            "safe_default_conditions": [],
+            "authorization_id": null,
+            "runtime_disposition": {
+              "resolution_action": "request_input",
+              "defer_effect": "none",
+              "gate_result": "blocked",
+              "blocker": "missing_evidence",
+              "next_action": "clarify",
+              "interaction_kind": "clarification",
+              "interaction_requirement": "required",
+              "interaction_owner": "develop-change",
+              "progress": "await_input"
+            }
+          }
+        },
+        {
+          "op": "add",
+          "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.material-decision",
+            "revision": 1,
+            "predecessor_unit_ref": null,
+            "successor_unit_ref": null,
+            "gap_kind": "material_decision",
+            "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current",
+            "dependency_ids": [],
+            "value_binding": null,
+            "safe_default_conditions": [],
+            "authorization_id": null,
+            "runtime_disposition": {
+              "resolution_action": "request_input",
+              "defer_effect": "none",
+              "gate_result": "blocked",
+              "blocker": "missing_decision",
+              "next_action": "clarify",
+              "interaction_kind": "clarification",
+              "interaction_requirement": "required",
+              "interaction_owner": "develop-change",
+              "progress": "partial_block"
+            }
+          }
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/visible_unit_ids",
+          "value": [
+            "unit.fixture.fact",
+            "unit.fixture.material-decision",
+            "unit.fixture.user-evidence"
+          ]
+        },
+        {
+          "op": "replace",
+          "path": "/frontier/clarification_view",
+          "value": {
+            "round_id": "round.fixture.clarification",
+            "revision": 1,
+            "predecessor_view_ref": null,
+            "transition_cause": "initial_presentation",
+            "view_digest": "f56d95cb065f63224ae0edbd33f7a018e46afba499ab9b279d4a2834bfca926e",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "view_state": "pending",
+            "interaction_owner": "develop-change",
+            "interaction_requirement": "required",
+            "no_answer_disposition": "pending_pause",
+            "renderer_version": "renderer.phase1.v1",
+            "visible_unit_ids": [
+              "unit.fixture.material-decision",
+              "unit.fixture.user-evidence"
+            ],
+            "units": [
+              {
+                "kind": "evidence_request",
+                "unit_id": "unit.fixture.user-evidence",
+                "requested_evidence_ref": "evidence:request.required",
+                "alternative_evidence_refs": ["evidence:request.alternative"],
+                "sensitivity_boundary_ref": "evidence:request.sensitivity"
+              },
+              {
+                "kind": "decision",
+                "unit_id": "unit.fixture.material-decision",
+                "decision_ref": "decision:fixture.material",
+                "options": [
+                  {
+                    "option_id": "option-a",
+                    "label_ref": "label:option.a",
+                    "impact_ref": "impact:option.a"
+                  },
+                  {
+                    "option_id": "option-b",
+                    "label_ref": "label:option.b",
+                    "impact_ref": "impact:option.b"
+                  }
+                ],
+                "recommended_option_id": "option-a"
+              }
+            ],
+            "accepted_shorthand": [
+              {
+                "shorthand_id": "choice-a",
+                "unit_id": "unit.fixture.material-decision",
+                "option_id": "option-a"
+              },
+              {
+                "shorthand_id": "choice-b",
+                "unit_id": "unit.fixture.material-decision",
+                "option_id": "option-b"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-current-required-stale-authorization",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_authorization"},
+        {"op": "replace", "path": "/gate/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/authorizations/0/status", "value": "stale"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/successor_unit_ref",
+          "value": {
+            "id": "unit.fixture.fact",
+            "revision": 2,
+            "digest": "9999999999999999999999999999999999999999999999999999999999999999"
+          }
+        },
+        {
+          "op": "add",
+          "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact",
+            "revision": 2,
+            "predecessor_unit_ref": {
+              "id": "unit.fixture.fact",
+              "revision": 1,
+              "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            "successor_unit_ref": null,
+            "gap_kind": "authorization",
+            "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current",
+            "dependency_ids": [],
+            "value_binding": null,
+            "safe_default_conditions": [],
+            "authorization_id": "authorization.fixture.local-change",
+            "runtime_disposition": {
+              "resolution_action": "request_input",
+              "defer_effect": "none",
+              "gate_result": "blocked",
+              "blocker": "missing_authorization",
+              "next_action": "reauthorize",
+              "interaction_kind": "authorization",
+              "interaction_requirement": "required",
+              "interaction_owner": "develop-change",
+              "progress": "await_input"
+            }
+          }
+        },
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-historical-successor-pair",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "conditional"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {
+          "op": "replace",
+          "path": "/frontier/units/0/successor_unit_ref",
+          "value": {
+            "id": "unit.fixture.fact",
+            "revision": 2,
+            "digest": "7777777777777777777777777777777777777777777777777777777777777777"
+          }
+        },
+        {
+          "op": "add",
+          "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact",
+            "revision": 2,
+            "predecessor_unit_ref": {
+              "id": "unit.fixture.fact",
+              "revision": 1,
+              "digest": "8888888888888888888888888888888888888888888888888888888888888888"
+            },
+            "successor_unit_ref": null,
+            "gap_kind": "discoverable_fact",
+            "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current",
+            "dependency_ids": [],
+            "value_binding": null,
+            "safe_default_conditions": [],
+            "authorization_id": null,
+            "runtime_disposition": {
+              "resolution_action": "investigate",
+              "defer_effect": "none",
+              "gate_result": "conditional",
+              "blocker": "none",
+              "next_action": "continue",
+              "interaction_kind": "none",
+              "interaction_requirement": "none",
+              "interaction_owner": "develop-change",
+              "progress": "continue"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-valid-mixed-true-and-unresolved-axes",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/routing/profile", "value": "architectural"},
+        {"op": "replace", "path": "/routing/profile_status", "value": "provisional"},
+        {"op": "replace", "path": "/routing/profile_checkpoint", "value": "read_only_discovery"},
+        {"op": "replace", "path": "/routing/unresolved_architectural_axes", "value": ["runtime_dependency"]},
+        {"op": "replace", "path": "/routing/architectural_axes/0/state", "value": "true"},
+        {"op": "replace", "path": "/routing/architectural_axes/3/state", "value": "unresolved"},
+        {"op": "replace", "path": "/routing/direct_conditions/1/state", "value": "unresolved"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/change_kind", "value": "dev_test_only"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/production_artifact_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/runtime_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/ci_contract_unchanged", "value": "unresolved"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/deployment_license_security_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/simple_removal_and_existing_validation", "value": "true"},
+        {"op": "replace", "path": "/gate/result", "value": "conditional"},
+        {"op": "replace", "path": "/gate/assumption_effect", "value": "none"},
+        {"op": "replace", "path": "/authorization_evaluations/0/side_effect_intent", "value": "none"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0}
+      ]
+    },
+    {
+      "case_id": "foundation-valid-dev-test-dependency-exception",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "mutations": [
+        {"op": "replace", "path": "/routing/profile", "value": "bounded"},
+        {"op": "replace", "path": "/routing/direct_conditions/3/state", "value": "false"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/change_kind", "value": "dev_test_only"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/production_artifact_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/runtime_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/ci_contract_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/deployment_license_security_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/simple_removal_and_existing_validation", "value": "true"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-runtime-dependency-assessment",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-PROFILE-003"],
+      "mutations": [
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/change_kind", "value": "dev_test_only"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/production_artifact_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/runtime_unchanged", "value": "false"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/ci_contract_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/deployment_license_security_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/simple_removal_and_existing_validation", "value": "true"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-runtime-dependency-evidence-binding",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-PROFILE-003"],
+      "mutations": [
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/evidence_refs", "value": ["evidence:wrong.runtime-dependency"]}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-profile-transition",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-PROFILE-004"],
+      "mutations": [
+        {"op": "replace", "path": "/routing/transition/reason", "value": "route_progress"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-gate-progress",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-GATE-002"],
+      "mutations": [
+        {"op": "replace", "path": "/gate/progress", "value": "await_input"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-frontier-action-state",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-001"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "assumed"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding/kind", "value": "assumption"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-current-material-decision-nonblocking-defer",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-002"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "material_decision"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "deferred"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "defer"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/defer_effect", "value": "nonblocking"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-authorization-generic-evidence-binding",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-001"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-missing-clarification-view",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-004", "FND-GATE-002"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "user_supplied_evidence"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "pending"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "blocked"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/blocker", "value": "missing_evidence"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/next_action", "value": "clarify"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_kind", "value": "clarification"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_requirement", "value": "required"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/progress", "value": "await_input"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-consumed-view-digest",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-004"],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/frontier/clarification_view",
+          "value": {
+            "round_id": "round.fixture.consumed",
+            "revision": 1,
+            "predecessor_view_ref": null,
+            "transition_cause": "response_consumed",
+            "view_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+            "basis_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "view_state": "consumed",
+            "interaction_owner": "develop-change",
+            "interaction_requirement": "required",
+            "no_answer_disposition": "pending_pause",
+            "renderer_version": "renderer.phase1.v1",
+            "visible_unit_ids": ["unit.fixture.ghost"],
+            "units": [
+              {
+                "kind": "decision",
+                "unit_id": "unit.fixture.ghost",
+                "decision_ref": "decision:fixture.ghost",
+                "options": [
+                  {"option_id": "option-a", "label_ref": "label:ghost.a", "impact_ref": "impact:ghost.a"},
+                  {"option_id": "option-b", "label_ref": "label:ghost.b", "impact_ref": "impact:ghost.b"}
+                ],
+                "recommended_option_id": "option-a"
+              }
+            ],
+            "accepted_shorthand": []
+          }
+        }
+      ],
+      "post_bind_mutations": [
+        {"op": "replace", "path": "/frontier/clarification_view/view_digest", "value": "0000000000000000000000000000000000000000000000000000000000000000"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-authorization-frontier-state",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/authorizations/0/status", "value": "stale"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-authorization-binding-reuse",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-003", "FND-AUTH-005"],
+      "mutations": [
+        {"op": "replace", "path": "/authorization_evaluations/0/target_fingerprint", "value": "4444444444444444444444444444444444444444444444444444444444444444"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-authorization-successor-transition",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-004"],
+      "mutations": [
+        {
+          "op": "add",
+          "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.invalid-successor",
+            "revision": 2,
+            "predecessor_authorization_ref": {
+              "id": "authorization.fixture.local-change",
+              "revision": 1,
+              "digest": "5555555555555555555555555555555555555555555555555555555555555555"
+            },
+            "logical_task_id": "task.fixture.direct",
+            "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 2,
+            "authorization_revision": 2,
+            "receipt_revision": 2,
+            "receipt_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "status": "granted",
+            "runtime_eligible": true,
+            "future_only": false,
+            "fixture_only": true
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-primary-route-omitted",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-ROUTE-002"],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/routing/route_plan",
+          "value": ["verify"]
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-scope-expansion-with-allowed-evaluation",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-001", "FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "scope_expansion"},
+        {"op": "replace", "path": "/gate/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "pending"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "blocked"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/blocker", "value": "scope_expansion"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_requirement", "value": "required"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/progress", "value": "partial_block"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-dangling-frontier-authorization-ref",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_authorization"},
+        {"op": "replace", "path": "/gate/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "pending"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.missing"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "blocked"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/blocker", "value": "missing_authorization"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_requirement", "value": "required"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/progress", "value": "partial_block"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-gate-ref-digest",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-GATE-001"],
+      "mutations": [],
+      "post_bind_mutations": [
+        {"op": "replace", "path": "/routing/gate_ref/digest", "value": "0000000000000000000000000000000000000000000000000000000000000000"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-routing-ref-digest",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-ROUTE-001"],
+      "mutations": [],
+      "post_bind_mutations": [
+        {"op": "replace", "path": "/gate/routing_ref/digest", "value": "0000000000000000000000000000000000000000000000000000000000000000"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-authorization-ref-digest",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-001"],
+      "mutations": [],
+      "post_bind_mutations": [
+        {"op": "replace", "path": "/routing/authorization_ref/digest", "value": "0000000000000000000000000000000000000000000000000000000000000000"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-current-grant-marked-future-only",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-002", "FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/checkpoint_relevance", "value": "future_only"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": {"kind": "receipt", "authorization_id": "authorization.fixture.local-change", "receipt_revision": 1, "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333"}},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-unresolved-profile-downshift",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-PROFILE-004"],
+      "mutations": [
+        {"op": "replace", "path": "/routing/profile", "value": "bounded"},
+        {"op": "replace", "path": "/routing/profile_status", "value": "provisional"},
+        {"op": "replace", "path": "/routing/profile_checkpoint", "value": "read_only_discovery"},
+        {"op": "replace", "path": "/routing/unresolved_architectural_axes", "value": ["runtime_dependency"]},
+        {"op": "replace", "path": "/routing/architectural_axes/3/state", "value": "unresolved"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/change_kind", "value": "dev_test_only"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/production_artifact_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/runtime_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/ci_contract_unchanged", "value": "unresolved"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/deployment_license_security_unchanged", "value": "true"},
+        {"op": "replace", "path": "/routing/runtime_dependency_assessment/simple_removal_and_existing_validation", "value": "true"},
+        {"op": "replace", "path": "/routing/direct_conditions/1/state", "value": "unresolved"},
+        {"op": "replace", "path": "/routing/transition/predecessor_routing_ref", "value": {"id": "routing.fixture.predecessor", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"}},
+        {"op": "replace", "path": "/routing/transition/from_route", "value": "change"},
+        {"op": "replace", "path": "/routing/transition/from_profile", "value": "architectural"},
+        {"op": "replace", "path": "/routing/transition/reason", "value": "hard_floor_resolved"},
+        {"op": "replace", "path": "/routing/transition/applied_before_side_effect", "value": true},
+        {"op": "replace", "path": "/gate/result", "value": "conditional"},
+        {"op": "replace", "path": "/authorization_evaluations/0/side_effect_intent", "value": "none"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-never-pending-consumed-view",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-004"],
+      "mutations": [
+        {
+          "op": "replace", "path": "/frontier/clarification_view",
+          "value": {
+            "round_id": "round.fixture.never-pending", "revision": 1,
+            "predecessor_view_ref": null, "transition_cause": "response_consumed",
+            "view_digest": "1111111111111111111111111111111111111111111111111111111111111111",
+            "basis_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "view_state": "consumed", "interaction_owner": "develop-change",
+            "interaction_requirement": "required", "no_answer_disposition": "pending_pause", "renderer_version": "renderer.phase1.v1",
+            "visible_unit_ids": ["unit.fixture.ghost"],
+            "units": [{"kind": "decision", "unit_id": "unit.fixture.ghost", "decision_ref": "decision:fixture.ghost", "options": [{"option_id": "option-a", "label_ref": "label:ghost.a", "impact_ref": "impact:ghost.a"}, {"option_id": "option-b", "label_ref": "label:ghost.b", "impact_ref": "impact:ghost.b"}], "recommended_option_id": "option-a"}],
+            "accepted_shorthand": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-future-stale-authorization-prompt",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-002", "FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/authorizations/0/status", "value": "stale"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "replace", "path": "/authorizations/0/future_only", "value": true},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "future_only", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.local-change",
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_authorization", "next_action": "reauthorize", "interaction_kind": "authorization", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-old-grant-selected-after-stale",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-003", "FND-AUTH-005"],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_authorization"},
+        {"op": "replace", "path": "/gate/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.stale-current", "revision": 2,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.local-change", "revision": 1, "digest": "4444444444444444444444444444444444444444444444444444444444444444"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "stale", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        },
+        {"op": "replace", "path": "/routing/authorization_ref", "value": {"id": "authorization.fixture.stale-current", "revision": 2, "digest": "5555555555555555555555555555555555555555555555555555555555555555"}},
+        {
+          "op": "add", "path": "/authorization_evaluations/-",
+          "value": {
+            "evaluation_id": "authorization-evaluation.fixture.stale-current", "required_capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "selected_authorization_id": "authorization.fixture.stale-current", "side_effect_intent": "none",
+            "derived_result": "blocked_missing_authorization", "next_action": "reauthorize", "dependent_side_effect_count": 0
+          }
+        },
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.stale-current"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.stale-current",
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_authorization", "next_action": "reauthorize", "interaction_kind": "authorization", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-stale-regrant-reuses-old-receipt",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-004"],
+      "mutations": [
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.stale-history-replay", "revision": 2,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.local-change", "revision": 1, "digest": "4444444444444444444444444444444444444444444444444444444444444444"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "stale", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        },
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.stale-replay-grant", "revision": 3,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.stale-history-replay", "revision": 2, "digest": "5555555555555555555555555555555555555555555555555555555555555555"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true
+          }
+        },
+        {"op": "replace", "path": "/routing/authorization_ref", "value": {"id": "authorization.fixture.stale-replay-grant", "revision": 3, "digest": "6666666666666666666666666666666666666666666666666666666666666666"}},
+        {"op": "replace", "path": "/authorization_evaluations/0/selected_authorization_id", "value": "authorization.fixture.stale-replay-grant"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.stale-history-replay"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "resolved_by_evidence",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [],
+            "value_binding": {"kind": "receipt", "authorization_id": "authorization.fixture.stale-replay-grant", "receipt_revision": 1, "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333"},
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.stale-replay-grant",
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "pass", "blocker": "none", "next_action": "continue", "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "continue"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-withdrawn-regrant-reuses-old-receipt",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-004"],
+      "mutations": [
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.withdrawn-history-replay", "revision": 2,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.local-change", "revision": 1, "digest": "4444444444444444444444444444444444444444444444444444444444444444"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "withdrawn", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        },
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.withdrawn-replay-grant", "revision": 3,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.withdrawn-history-replay", "revision": 2, "digest": "5555555555555555555555555555555555555555555555555555555555555555"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true
+          }
+        },
+        {"op": "replace", "path": "/routing/authorization_ref", "value": {"id": "authorization.fixture.withdrawn-replay-grant", "revision": 3, "digest": "6666666666666666666666666666666666666666666666666666666666666666"}},
+        {"op": "replace", "path": "/authorization_evaluations/0/selected_authorization_id", "value": "authorization.fixture.withdrawn-replay-grant"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "superseded"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.withdrawn-history-replay"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "resolved_by_evidence",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [],
+            "value_binding": {"kind": "receipt", "authorization_id": "authorization.fixture.withdrawn-replay-grant", "receipt_revision": 1, "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333"},
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.withdrawn-replay-grant",
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "pass", "blocker": "none", "next_action": "continue", "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "continue"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-future-stale-history-marked-current",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/authorizations/0/status", "value": "stale"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "replace", "path": "/authorizations/0/future_only", "value": true},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "4444444444444444444444444444444444444444444444444444444444444444"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "5555555555555555555555555555555555555555555555555555555555555555"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "deferred",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "future_only", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.local-change",
+            "runtime_disposition": {"resolution_action": "defer", "defer_effect": "nonblocking", "gate_result": "pass", "blocker": "none", "next_action": "continue", "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "continue"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-current-stale-history-marked-future-only",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_authorization"},
+        {"op": "replace", "path": "/gate/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/authorizations/0/status", "value": "stale"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/checkpoint_relevance", "value": "future_only"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "6666666666666666666666666666666666666666666666666666666666666666"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "7777777777777777777777777777777777777777777777777777777777777777"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.local-change",
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_authorization", "next_action": "reauthorize", "interaction_kind": "authorization", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-terminal-view-kind-mismatch",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-004"],
+      "mutations": [
+        {
+          "op": "replace", "path": "/frontier/clarification_view_history",
+          "value": [
+            {
+              "round_id": "round.fixture.kind-mismatch", "revision": 1,
+              "predecessor_view_ref": null, "transition_cause": "initial_presentation",
+              "view_digest": "1111111111111111111111111111111111111111111111111111111111111111",
+              "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "view_state": "pending", "interaction_owner": "develop-change",
+              "interaction_requirement": "required", "no_answer_disposition": "pending_pause",
+              "renderer_version": "renderer.phase1.v1", "visible_unit_ids": ["unit.fixture.fact"],
+              "units": [{"kind": "evidence_request", "unit_id": "unit.fixture.fact", "requested_evidence_ref": "evidence:request.prior", "alternative_evidence_refs": [], "sensitivity_boundary_ref": "evidence:request.sensitivity"}],
+              "accepted_shorthand": []
+            }
+          ]
+        },
+        {
+          "op": "replace", "path": "/frontier/clarification_view",
+          "value": {
+            "round_id": "round.fixture.kind-mismatch", "revision": 2,
+            "predecessor_view_ref": {"id": "round.fixture.kind-mismatch", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
+            "transition_cause": "basis_expired",
+            "view_digest": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "view_state": "expired", "interaction_owner": "develop-change",
+            "interaction_requirement": "required", "no_answer_disposition": "pending_pause",
+            "renderer_version": "renderer.phase1.v1", "visible_unit_ids": ["unit.fixture.fact"],
+            "units": [{"kind": "evidence_request", "unit_id": "unit.fixture.fact", "requested_evidence_ref": "evidence:request.prior", "alternative_evidence_refs": [], "sensitivity_boundary_ref": "evidence:request.sensitivity"}],
+            "accepted_shorthand": []
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-routed-not-granted-without-evaluation",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/authorizations/0/authorization_revision", "value": null},
+        {"op": "replace", "path": "/authorizations/0/receipt_revision", "value": null},
+        {"op": "replace", "path": "/authorizations/0/receipt_fingerprint", "value": null},
+        {"op": "replace", "path": "/authorizations/0/status", "value": "not_granted"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "remove", "path": "/authorization_evaluations/0"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-duplicate-authorization-evaluation-id",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-005"],
+      "mutations": [
+        {
+          "op": "add", "path": "/authorization_evaluations/-",
+          "value": {
+            "evaluation_id": "authorization-evaluation.fixture.local-change",
+            "required_capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "selected_authorization_id": "authorization.fixture.local-change",
+            "side_effect_intent": "dependent", "derived_result": "allowed",
+            "next_action": "continue", "dependent_side_effect_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-duplicate-selected-authorization-evaluation",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-005"],
+      "mutations": [
+        {
+          "op": "add", "path": "/authorization_evaluations/-",
+          "value": {
+            "evaluation_id": "authorization-evaluation.fixture.local-change.second",
+            "required_capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "selected_authorization_id": "authorization.fixture.local-change",
+            "side_effect_intent": "dependent", "derived_result": "allowed",
+            "next_action": "continue", "dependent_side_effect_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-disconnected-authorization-root-replay",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-004"],
+      "mutations": [
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.disconnected-replay", "revision": 1,
+            "predecessor_authorization_ref": null,
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true
+          }
+        },
+        {"op": "replace", "path": "/authorization_evaluations/0/selected_authorization_id", "value": "authorization.fixture.disconnected-replay"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-dependent-clarification-batch",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-004"],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_decision"},
+        {"op": "replace", "path": "/gate/next_action", "value": "clarify"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "user_supplied_evidence"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "pending"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "blocked"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/blocker", "value": "missing_evidence"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/next_action", "value": "clarify"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_kind", "value": "clarification"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_requirement", "value": "required"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/frontier/visible_unit_ids", "value": ["unit.fixture.fact", "unit.fixture.dependent-decision"]},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.dependent-decision", "revision": 1,
+            "predecessor_unit_ref": null, "successor_unit_ref": null,
+            "gap_kind": "material_decision", "state": "pending",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": ["unit.fixture.fact"],
+            "value_binding": null, "safe_default_conditions": [], "authorization_id": null,
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_decision", "next_action": "clarify", "interaction_kind": "clarification", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}
+          }
+        },
+        {
+          "op": "replace", "path": "/frontier/clarification_view",
+          "value": {
+            "round_id": "round.fixture.dependent", "revision": 1,
+            "predecessor_view_ref": null, "transition_cause": "initial_presentation",
+            "view_digest": "1111111111111111111111111111111111111111111111111111111111111111",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "view_state": "pending", "interaction_owner": "develop-change",
+            "interaction_requirement": "required", "no_answer_disposition": "pending_pause",
+            "renderer_version": "renderer.phase1.v1",
+            "visible_unit_ids": ["unit.fixture.fact", "unit.fixture.dependent-decision"],
+            "units": [
+              {"kind": "evidence_request", "unit_id": "unit.fixture.fact", "requested_evidence_ref": "evidence:request.required", "alternative_evidence_refs": [], "sensitivity_boundary_ref": "evidence:request.sensitivity"},
+              {"kind": "decision", "unit_id": "unit.fixture.dependent-decision", "decision_ref": "decision:fixture.dependent", "options": [{"option_id": "option-a", "label_ref": "label:option.a", "impact_ref": "impact:option.a"}, {"option_id": "option-b", "label_ref": "label:option.b", "impact_ref": "impact:option.b"}], "recommended_option_id": "option-a"}
+            ],
+            "accepted_shorthand": [{"shorthand_id": "choice-a", "unit_id": "unit.fixture.dependent-decision", "option_id": "option-a"}]
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-ghost-unit-dependency",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-001"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/dependency_ids", "value": ["unit.fixture.ghost"]}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-self-unit-dependency",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-001"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/dependency_ids", "value": ["unit.fixture.fact"]}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-cyclic-unit-dependency",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-001"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/dependency_ids", "value": ["unit.fixture.second"]},
+        {"op": "replace", "path": "/frontier/visible_unit_ids", "value": ["unit.fixture.fact", "unit.fixture.second"]},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.second", "revision": 1,
+            "predecessor_unit_ref": null, "successor_unit_ref": null,
+            "gap_kind": "discoverable_fact", "state": "resolved_by_evidence",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": ["unit.fixture.fact"],
+            "value_binding": {"kind": "evidence", "ref": "evidence:repo.second"},
+            "safe_default_conditions": [], "authorization_id": null,
+            "runtime_disposition": {"resolution_action": "investigate", "defer_effect": "none", "gate_result": "pass", "blocker": "none", "next_action": "continue", "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "continue"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-current-unit-basis-drift",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-001"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/basis_fingerprint", "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-frontier-basis-drift",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-ROUTE-001", "FND-FRONTIER-001"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/basis_fingerprint", "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-blocked-evaluation-cross-basis",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-003"],
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blocker", "value": "missing_authorization"},
+        {"op": "replace", "path": "/gate/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/gate/progress", "value": "partial_block"},
+        {"op": "replace", "path": "/authorization_evaluations/0/basis_fingerprint", "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "pending"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/gate_result", "value": "blocked"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/blocker", "value": "missing_authorization"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/interaction_requirement", "value": "required"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/progress", "value": "partial_block"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-allowed-authorization-cross-basis",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-003"],
+      "mutations": [
+        {"op": "replace", "path": "/authorizations/0/basis_fingerprint", "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+        {"op": "replace", "path": "/authorization_evaluations/0/basis_fingerprint", "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-current-unit-ghost-predecessor",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-005"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/revision", "value": 2},
+        {
+          "op": "replace", "path": "/frontier/units/0/predecessor_unit_ref",
+          "value": {"id": "unit.fixture.fact", "revision": 1, "digest": "4444444444444444444444444444444444444444444444444444444444444444"}
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-current-unit-dangling-successor",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-005"],
+      "mutations": [
+        {
+          "op": "replace", "path": "/frontier/units/0/successor_unit_ref",
+          "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "5555555555555555555555555555555555555555555555555555555555555555"}
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-current-unit-noninitial-root",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-005"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/revision", "value": 2}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-hidden-missing-authorization-evaluation",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/authorizations/0/authorization_revision", "value": null},
+        {"op": "replace", "path": "/authorizations/0/receipt_revision", "value": null},
+        {"op": "replace", "path": "/authorizations/0/receipt_fingerprint", "value": null},
+        {"op": "replace", "path": "/authorizations/0/status", "value": "not_granted"},
+        {"op": "replace", "path": "/authorizations/0/runtime_eligible", "value": false},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-hidden-scope-expansion-evaluation",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/authorization_evaluations/0/scope_fingerprint", "value": "4444444444444444444444444444444444444444444444444444444444444444"},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_scope_expansion"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-unknown-selected-authorization",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-005", "FND-FRONTIER-006"],
+      "mutations": [
+        {"op": "replace", "path": "/authorization_evaluations/0/selected_authorization_id", "value": "authorization.fixture.unknown"},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0}
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-lineage-wide-receipt-replay",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-004"],
+      "mutations": [
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.replay-stale-a", "revision": 2,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.local-change", "revision": 1, "digest": "4444444444444444444444444444444444444444444444444444444444444444"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "stale", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        },
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.replay-grant-b", "revision": 3,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.replay-stale-a", "revision": 2, "digest": "5555555555555555555555555555555555555555555555555555555555555555"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 2, "authorization_revision": 2, "receipt_revision": 2,
+            "receipt_fingerprint": "7777777777777777777777777777777777777777777777777777777777777777",
+            "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true
+          }
+        },
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.replay-stale-b", "revision": 4,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.replay-grant-b", "revision": 3, "digest": "6666666666666666666666666666666666666666666666666666666666666666"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 2, "authorization_revision": 2, "receipt_revision": 2,
+            "receipt_fingerprint": "7777777777777777777777777777777777777777777777777777777777777777",
+            "status": "stale", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        },
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.replay-grant-a", "revision": 5,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.replay-stale-b", "revision": 4, "digest": "8888888888888888888888888888888888888888888888888888888888888888"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 3, "authorization_revision": 3, "receipt_revision": 3,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true
+          }
+        },
+        {"op": "replace", "path": "/routing/authorization_ref", "value": {"id": "authorization.fixture.replay-grant-a", "revision": 5, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
+        {"op": "replace", "path": "/authorization_evaluations/0/selected_authorization_id", "value": "authorization.fixture.replay-grant-a"},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.replay-stale-a"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+            "successor_unit_ref": {"id": "unit.fixture.fact", "revision": 3, "digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"},
+            "gap_kind": "authorization", "state": "stale",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.replay-stale-b",
+            "runtime_disposition": null
+          }
+        },
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 3,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 2, "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "resolved_by_evidence",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "current", "dependency_ids": [],
+            "value_binding": {"kind": "receipt", "authorization_id": "authorization.fixture.replay-grant-a", "receipt_revision": 3, "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333"},
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.replay-grant-a",
+            "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "pass", "blocker": "none", "next_action": "continue", "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "continue"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-current-stale-reclassified-future-only",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-AUTH-004"],
+      "mutations": [
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.stale-current-history", "revision": 2,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.local-change", "revision": 1, "digest": "4444444444444444444444444444444444444444444444444444444444444444"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "stale", "runtime_eligible": false, "future_only": false, "fixture_only": true
+          }
+        },
+        {
+          "op": "add", "path": "/authorizations/-",
+          "value": {
+            "authorization_id": "authorization.fixture.stale-invalid-future", "revision": 3,
+            "predecessor_authorization_ref": {"id": "authorization.fixture.stale-current-history", "revision": 2, "digest": "5555555555555555555555555555555555555555555555555555555555555555"},
+            "logical_task_id": "task.fixture.direct", "capability": "local_change",
+            "target_fingerprint": "1111111111111111111111111111111111111111111111111111111111111111",
+            "scope_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1,
+            "receipt_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "status": "stale", "runtime_eligible": false, "future_only": true, "fixture_only": true
+          }
+        },
+        {"op": "replace", "path": "/routing/authorization_ref", "value": {"id": "authorization.fixture.stale-invalid-future", "revision": 3, "digest": "6666666666666666666666666666666666666666666666666666666666666666"}},
+        {"op": "replace", "path": "/authorization_evaluations/0/selected_authorization_id", "value": "authorization.fixture.stale-invalid-future"},
+        {"op": "replace", "path": "/authorization_evaluations/0/derived_result", "value": "blocked_missing_authorization"},
+        {"op": "replace", "path": "/authorization_evaluations/0/next_action", "value": "reauthorize"},
+        {"op": "replace", "path": "/authorization_evaluations/0/dependent_side_effect_count", "value": 0},
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/state", "value": "stale"},
+        {"op": "replace", "path": "/frontier/units/0/value_binding", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.stale-current-history"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition", "value": null},
+        {"op": "replace", "path": "/frontier/units/0/successor_unit_ref", "value": {"id": "unit.fixture.fact", "revision": 2, "digest": "7777777777777777777777777777777777777777777777777777777777777777"}},
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 2,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 1, "digest": "8888888888888888888888888888888888888888888888888888888888888888"},
+            "successor_unit_ref": {"id": "unit.fixture.fact", "revision": 3, "digest": "9999999999999999999999999999999999999999999999999999999999999999"},
+            "gap_kind": "authorization", "state": "stale",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "future_only", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.stale-invalid-future",
+            "runtime_disposition": null
+          }
+        },
+        {
+          "op": "add", "path": "/frontier/units/-",
+          "value": {
+            "unit_id": "unit.fixture.fact", "revision": 3,
+            "predecessor_unit_ref": {"id": "unit.fixture.fact", "revision": 2, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "successor_unit_ref": null, "gap_kind": "authorization", "state": "deferred",
+            "basis_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "affected_scope": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "checkpoint_relevance": "future_only", "dependency_ids": [], "value_binding": null,
+            "safe_default_conditions": [], "authorization_id": "authorization.fixture.stale-invalid-future",
+            "runtime_disposition": {"resolution_action": "defer", "defer_effect": "nonblocking", "gate_result": "pass", "blocker": "none", "next_action": "continue", "interaction_kind": "none", "interaction_requirement": "none", "interaction_owner": "develop-change", "progress": "continue"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-resolved-receipt-tuple-mismatch",
+      "expected": "reject",
+      "expected_rule_ids": ["FND-FRONTIER-001"],
+      "mutations": [
+        {"op": "replace", "path": "/frontier/units/0/gap_kind", "value": "authorization"},
+        {"op": "replace", "path": "/frontier/units/0/authorization_id", "value": "authorization.fixture.local-change"},
+        {"op": "replace", "path": "/frontier/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {
+          "op": "replace", "path": "/frontier/units/0/value_binding",
+          "value": {
+            "kind": "receipt",
+            "authorization_id": "authorization.fixture.local-change",
+            "receipt_revision": 1,
+            "receipt_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444"
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-legacy-stage-and-commit-capability",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-AUTH-001"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/authorizations/0/capability",
+          "value": "stage_and_commit"
+        }
+      ]
+    },
+    {
+      "case_id": "foundation-invalid-runtime-activation",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-RUNTIME-001"
+      ],
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/runtime_activation",
+          "value": true
+        }
+      ]
+    }
+  ]
+}

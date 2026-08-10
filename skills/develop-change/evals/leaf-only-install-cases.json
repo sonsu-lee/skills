@@ -1,0 +1,329 @@
+{
+  "schema_version": "phase1-leaf-only-install-cases-v1",
+  "discovery_probe": {
+    "required_for_pass": true,
+    "installed_inventory": {
+      "command": "plugin list --json",
+      "coverage": "installed_plugins_only",
+      "selector_catalog_coverage": "not_observed"
+    },
+    "effective_catalog": {
+      "command": "debug prompt-input",
+      "coverage": "model_visible_skills_instructions",
+      "projection": "exact_skill_id_description_declared_resolved_locator_metadata_policy",
+      "candidate_alias_guard": "declared_resolved_skill_metadata_descendant_graph_plus_inode_closure",
+      "internal_selector_state_coverage": "not_observed"
+    },
+    "codex_executable_identity": {
+      "fields": [
+        "version",
+        "path_digest",
+        "executable_digest"
+      ]
+    }
+  },
+  "contract_bundle": {
+    "schema": {
+      "path": "foundation-contract.schema.json",
+      "sha256": "abc27f0bbc80c1937e13e5b0d04bc73c740a48adba388f339a388dd765d21a84"
+    },
+    "documents": [
+      {
+        "path": "authorization-contract.md",
+        "sha256": "8a9a3d3635f379250b2b61d872869ab8a4d272cb6999121e510e9c6276fe3a88"
+      },
+      {
+        "path": "gate-contract.md",
+        "sha256": "bbd776b3ce49e1c3187687fcb72726965594693b2c08f99cabb7611ffadf3745"
+      },
+      {
+        "path": "routing-contract.md",
+        "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d"
+      }
+    ]
+  },
+  "active_catalog_isolation_cases": [
+    {
+      "case_id": "active-catalog-invalid-candidate-direct",
+      "locator_mode": "direct",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-symlink",
+      "locator_mode": "symlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-hardlink",
+      "locator_mode": "hardlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-fallback",
+      "locator_mode": "fallback",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-metadata_symlink",
+      "locator_mode": "metadata_symlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-nested_reference_symlink",
+      "locator_mode": "nested_reference_symlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-nested_script_symlink",
+      "locator_mode": "nested_script_symlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-nested_asset_hardlink",
+      "locator_mode": "nested_asset_hardlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-nested_directory_symlink_chain",
+      "locator_mode": "nested_directory_symlink_chain",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-nested_directory_hardlink_chain",
+      "locator_mode": "nested_directory_hardlink_chain",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-candidate_intermediate_source_symlink",
+      "locator_mode": "candidate_intermediate_source_symlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-candidate_intermediate_metadata_symlink",
+      "locator_mode": "candidate_intermediate_metadata_symlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-candidate_intermediate_descendant_symlink",
+      "locator_mode": "candidate_intermediate_descendant_symlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-candidate_linked_subtree_hardlink",
+      "locator_mode": "candidate_linked_subtree_hardlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-descendant_symlink_cycle",
+      "locator_mode": "descendant_symlink_cycle",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    },
+    {
+      "case_id": "active-catalog-invalid-candidate-symlink_dotdot_candidate_chain",
+      "locator_mode": "symlink_dotdot_candidate_chain",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-PROJECTION-001"
+      ]
+    }
+  ],
+  "leaf_source": "skills/research",
+  "leaf_id": "research",
+  "plugin_manifest": {
+    "name": "phase1-leaf-only-fixture",
+    "version": "0.0.0-fixture",
+    "skills": "./skills/"
+  },
+  "cases": [
+    {
+      "case_id": "leaf-only-valid-isolated-copy",
+      "expected": "pass",
+      "expected_rule_ids": [],
+      "copy_mode": "copy",
+      "manifest_additions": {},
+      "add_develop_change_skill": false,
+      "contract_mutation": "none",
+      "catalog_mutation": "none",
+      "simulate_projection_drift": false
+    },
+    {
+      "case_id": "leaf-only-invalid-symlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-002"
+      ],
+      "copy_mode": "symlink",
+      "manifest_additions": {},
+      "add_develop_change_skill": false,
+      "contract_mutation": "none",
+      "catalog_mutation": "none",
+      "simulate_projection_drift": false
+    },
+    {
+      "case_id": "leaf-only-invalid-hardlink",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-002"
+      ],
+      "copy_mode": "hardlink",
+      "manifest_additions": {},
+      "add_develop_change_skill": false,
+      "contract_mutation": "none",
+      "catalog_mutation": "none",
+      "simulate_projection_drift": false
+    },
+    {
+      "case_id": "leaf-only-invalid-contract-missing",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-001"
+      ],
+      "copy_mode": "copy",
+      "manifest_additions": {},
+      "add_develop_change_skill": false,
+      "contract_mutation": "missing",
+      "catalog_mutation": "none",
+      "simulate_projection_drift": false
+    },
+    {
+      "case_id": "leaf-only-invalid-contract-drift",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-001"
+      ],
+      "copy_mode": "copy",
+      "manifest_additions": {},
+      "add_develop_change_skill": false,
+      "contract_mutation": "drift",
+      "catalog_mutation": "none",
+      "simulate_projection_drift": false
+    },
+    {
+      "case_id": "leaf-only-invalid-schema-drift",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-001"
+      ],
+      "copy_mode": "copy",
+      "manifest_additions": {},
+      "add_develop_change_skill": false,
+      "contract_mutation": "schema_drift",
+      "catalog_mutation": "none",
+      "simulate_projection_drift": false
+    },
+    {
+      "case_id": "leaf-only-invalid-fallback-root",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-002"
+      ],
+      "copy_mode": "copy",
+      "manifest_additions": {
+        "fallback_skill_roots": [
+          "../active-skills"
+        ]
+      },
+      "add_develop_change_skill": false,
+      "contract_mutation": "none",
+      "catalog_mutation": "none",
+      "simulate_projection_drift": false
+    },
+    {
+      "case_id": "leaf-only-invalid-develop-change-discovered",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-003"
+      ],
+      "copy_mode": "copy",
+      "manifest_additions": {},
+      "add_develop_change_skill": true,
+      "contract_mutation": "none",
+      "catalog_mutation": "none",
+      "simulate_projection_drift": false
+    },
+    {
+      "case_id": "leaf-only-invalid-active-projection-drift",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-004"
+      ],
+      "copy_mode": "copy",
+      "manifest_additions": {},
+      "add_develop_change_skill": false,
+      "contract_mutation": "none",
+      "catalog_mutation": "none",
+      "simulate_projection_drift": true
+    },
+    {
+      "case_id": "leaf-only-invalid-description-only-drift",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-004"
+      ],
+      "copy_mode": "copy",
+      "manifest_additions": {},
+      "add_develop_change_skill": false,
+      "contract_mutation": "none",
+      "catalog_mutation": "description_drift",
+      "simulate_projection_drift": false
+    },
+    {
+      "case_id": "leaf-only-invalid-policy-only-drift",
+      "expected": "reject",
+      "expected_rule_ids": [
+        "FND-INSTALL-004"
+      ],
+      "copy_mode": "copy",
+      "manifest_additions": {},
+      "add_develop_change_skill": false,
+      "contract_mutation": "none",
+      "catalog_mutation": "policy_drift",
+      "simulate_projection_drift": false
+    }
+  ]
+}
