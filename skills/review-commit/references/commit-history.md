@@ -1,4 +1,4 @@
-# Commit History 검토
+# Commit history 검토
 
 이미 생성된 commit 하나 또는 revision range의 메시지, 의미 단위와 증거를 판단할 때 적용한다.
 
