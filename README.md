@@ -8,9 +8,13 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 |---|---|
 | `product-discovery` | 제품 문제와 미해결 결정을 근거 중심으로 탐색합니다. |
 | `to-prd` | 합의된 제품 컨텍스트를 검증 가능한 PRD로 변환합니다. |
-| `write-prd` | 기존 호출을 새 PRD 탐색·변환 흐름으로 연결합니다. 호환용·폐기 예정. |
-| `write-domain-docs` | 용어, 상태, 전이와 비즈니스 규칙을 정리합니다. |
-| `write-adr` | 중요한 아키텍처·기술 결정을 ADR로 작성합니다. |
+| `write-prd` | 기존 호출을 `product-discovery`·`to-prd` 흐름으로 연결합니다. 호환용·폐기 예정. |
+| `domain-modeling` | 용어, 상태, 전이와 비즈니스 규칙을 정본으로 정리합니다. |
+| `write-domain-docs` | 기존 호출을 `domain-modeling` 흐름으로 연결합니다. 호환용·폐기 예정. |
+| `architecture-decisions` | 아직 결론 없는 기술 선택의 대안과 판단 기준을 검토합니다. |
+| `to-adr` | 준비된 아키텍처·기술 결정을 ADR로 변환합니다. |
+| `write-adr` | 기존 호출을 `architecture-decisions`·`to-adr` 흐름으로 연결합니다. 호환용·폐기 예정. |
+| `to-tickets` | 승인된 계획을 의존성이 드러나는 실행 티켓으로 변환합니다. |
 | `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
 | `create-commit` | 변경을 의미 단위로 나누어 커밋합니다. |
 | `create-pull-request` | 변경 범위와 저장소 규칙에 맞는 PR을 만듭니다. |
@@ -39,6 +43,12 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$product-discovery` |
 | 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$product-discovery` |
 | 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:product-discovery` |
+
+`write-prd`, `write-domain-docs`, `write-adr`는 이전 호출을 새 이름으로 연결하는 deprecated 호환 진입점이므로 단독 선택 설치를 지원하지 않습니다. 기존 이름을 계속 사용해야 한다면 독립 스킬 설치에서 다음 companion을 함께 선택하거나 전체 Codex 플러그인을 설치하세요.
+
+- `write-prd`: `product-discovery`, `to-prd`
+- `write-domain-docs`: `domain-modeling`
+- `write-adr`: `architecture-decisions`, `to-adr`
 
 ### 현재 프로젝트에 설치
 
@@ -90,6 +100,9 @@ codex plugin marketplace remove sonsu-skills
 # Codex 플러그인 설치
 $skills:product-discovery로 이 제품 아이디어의 문제와 핵심 결정을 구체화해줘.
 $skills:to-prd로 합의된 제품 컨텍스트를 PRD로 작성해줘.
+$skills:architecture-decisions로 이 기술 선택의 대안과 판단 기준을 검토해줘.
+$skills:to-adr로 내려진 기술 결정을 ADR로 기록해줘.
+$skills:to-tickets로 승인된 계획을 실행 가능한 티켓으로 나눠줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
 $skills:develop-skill로 새 스킬을 만들거나 기존 스킬을 개선해줘.
 $skills:review-dev-resume로 내 개발자 이력서를 검토해줘.
@@ -97,6 +110,9 @@ $skills:review-dev-resume로 내 개발자 이력서를 검토해줘.
 # Codex 독립 스킬 설치
 $product-discovery로 이 제품 아이디어를 구체화해줘.
 $to-prd로 합의된 내용을 PRD로 작성해줘.
+$domain-modeling으로 도메인 용어와 상태 전이를 정리해줘.
+$architecture-decisions로 기술 선택지를 검토해줘.
+$to-adr로 내려진 결정을 ADR로 기록해줘.
 $research로 이 주제를 근거 중심으로 조사해줘.
 $review-dev-resume로 내 개발자 이력서를 검토해줘.
 

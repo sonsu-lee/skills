@@ -78,7 +78,7 @@ superseded_by: []
 
 | 문서 | `status` | `workflow_status` | 의미 |
 |---|---|---|---|
-| PRD | `draft` | `discovery-needed` | 문제·경계·도메인 합의가 부족함 |
+| PRD | `draft` | `discovery-needed` | 기존 문서와의 호환 상태. `to-prd`는 이 상태의 새 문서를 만들지 않고 `product-discovery`로 넘김 |
 | PRD | `draft` | `conditional` | 유용한 초안이나 blocker가 남음 |
 | PRD | `stable` | `approved` | 권한 있는 사람이 제품 합의를 승인함 |
 | PRD | `stable` | `shipped` | 배포·노출 evidence까지 확인됨 |

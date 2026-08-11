@@ -179,7 +179,7 @@
         ]
       },
       "should_trigger": false,
-      "expected_route": "write-domain-docs",
+      "expected_route": "domain-modeling",
       "expected_mode": "route",
       "expected_outcome": "no_prd_mutation",
       "must": [
@@ -209,7 +209,7 @@
         ]
       },
       "should_trigger": false,
-      "expected_route": "write-adr",
+      "expected_route": "to-adr",
       "expected_mode": "route",
       "expected_outcome": "no_prd_mutation",
       "must": [
@@ -244,7 +244,7 @@
         "write_allowlist": []
       },
       "should_trigger": false,
-      "expected_route": "implementation-planning",
+      "expected_route": "to-tickets",
       "expected_mode": "route",
       "expected_outcome": "no_product_doc_created",
       "must": [

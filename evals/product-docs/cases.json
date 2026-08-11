@@ -19,7 +19,7 @@
           "checkpoint": "prd_and_candidates_only"
         },
         {
-          "user": "승인 기록에 따라 환불 가능 기간은 Domain Doc으로, 이벤트 큐 선택은 ADR로 작성하고 세 문서를 서로 연결해줘.",
+          "user": "$domain-modeling으로 승인된 환불 가능 기간을 Domain Doc에 적용하고, $to-adr로 승인된 이벤트 큐 선택을 ADR로 작성해 세 문서를 서로 연결해줘.",
           "checkpoint": "three_docs_after_durable_approval"
         }
       ],
@@ -77,8 +77,8 @@
       "should_trigger": true,
       "expected_skills": [
         "to-prd",
-        "write-domain-docs",
-        "write-adr"
+        "domain-modeling",
+        "to-adr"
       ],
       "expected_outcome": "three_canonical_docs_linked_after_durable_approval",
       "must": [

@@ -38,7 +38,7 @@
 - [Using Architecture Decision Records in Open Source Projects (2023)](https://doi.org/10.1109/ACCESS.2023.3287654)는 921개 GitHub repository의 ADR 사용 양상을 분석했다. repository-local persistence와 template 사용의 실증 관찰로 참고하되 인과 효과로 해석하지 않는다.
 - [One Size Fits All? An Empirical Comparison of ADR Templates (2026)](https://arxiv.org/abs/2604.27333)는 33명과 두 시나리오에서 간결한 Nygard 계열과 구조화된 MADR 계열을 비교했다. 작은 학생 표본이라는 한계가 있어 우열을 일반화하지 않고, 관련 없는 섹션을 제거하는 점진적 template의 보조 근거로 사용한다.
 - [Architecture Decision Records: Adoption, Impact, and Developer Engagement (ICSA 2026)](https://conf.researchr.org/details/icsa-2026/icsa-2026-papers/34/Architecture-Decision-Records-Adoption-Impact-and-Developer-Engagement-in-Open-Sou)는 대규모 오픈소스 표본에서 ADR 개수와 여러 품질 지표의 상관이 대체로 작음을 보고한다. 기록 수를 성공 지표로 보지 않고 중요한 결정의 provenance와 retrieval을 평가한다.
-- [MADR 4.0](https://adr.github.io/madr/)과 [Nygard의 ADR 제안](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)은 한 기록에 한 결정, 맥락·선택·결과, 작은 Markdown 기록, 대체 관계라는 실무 관례를 제공한다. 템플릿과 `write-adr`은 이 범위에 맞춰 아키텍처·기술 결정만 다룬다.
+- [MADR 4.0](https://adr.github.io/madr/)과 [Nygard의 ADR 제안](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)은 한 기록에 한 결정, 맥락·선택·결과, 작은 Markdown 기록, 대체 관계라는 실무 관례를 제공한다. 이 범위는 미해결 선택을 검토하는 `architecture-decisions`와 준비된 결정을 ADR로 기록하는 `to-adr`의 책임 경계를 뒷받침한다.
 
 ## 질문 설계와 앵커링
 

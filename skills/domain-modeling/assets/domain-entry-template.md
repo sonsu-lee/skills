@@ -11,7 +11,7 @@ context: unassigned
 visibility: internal
 publication: exclude
 generated:
-  by: product-docs-write-domain-docs/0.1.0
+  by: product-docs-domain-modeling/0.1.0
   at: "__GENERATED_AT__"
 terms:
   und:
