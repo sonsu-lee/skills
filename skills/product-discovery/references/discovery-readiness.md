@@ -31,6 +31,8 @@ Problem, Outcome, Boundary, Authority, Domain, Scope 중 하나가 불명확하�
 
 추천, 회의 참석, 문서 존재와 코드 구현은 승인 evidence가 아니다.
 
+승인 event의 `approved_revision`은 현재 `packet_revision`과 같아야 하고 승인 scope는 현재 handoff 범위를 포함해야 한다. packet의 claim, decision, scope 또는 rule이 바뀌면 revision을 갱신하고 이전 event는 historical evidence로만 보존한다. 변경된 revision은 새 승인 evidence가 생길 때까지 `approved`가 아니다.
+
 ## Downstream readiness
 
 각 영역을 `not-ready | conditional | ready`로 별도 판정하고 source·claim·decision·open ID를 evidence로 연결한다.

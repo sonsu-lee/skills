@@ -11,8 +11,9 @@ description: "현재 대화, 승인된 discovery packet, 이슈와 기존 문서
 
 - 사용자 명시 호출을 기본으로 한다.
 - 문제, 사용자, 결과, 범위와 핵심 규칙이 준비됐는지 먼저 판정한다.
+- 명시 호출은 readiness gate를 우회하지 않는다.
 - 핵심 결정을 새로 내려야 하면 문서를 만들지 않고 `product-discovery`로 넘긴다.
-- 알려진 open item을 정직하게 표시한 조건부 초안이 유용하면 `draft/conditional`로 만들 수 있다.
+- 최소 제품 컨텍스트가 준비된 뒤 남은 open item을 정직하게 표시한 조건부 초안이 유용하면 `draft/conditional`로 만들 수 있다.
 - 사용자가 쓰기를 요청하지 않았다면 파일을 변경하지 않고 PRD 후보만 제공한다.
 - 여러 기능에서 재사용되는 도메인 정의와 장기 기술 결정은 후보만 남기고 다른 canonical 문서를 수정하지 않는다.
 - 구현 계획, 티켓, 일정과 제품 요구사항을 섞지 않는다.
@@ -41,7 +42,14 @@ description: "현재 대화, 승인된 discovery packet, 이슈와 기존 문서
 - 성공 신호, 수치가 있다면 그 출처
 - 결정권자와 실제 승인 evidence
 
-PRD를 쓰려면 문제·사용자·결과·경계·핵심 규칙을 발명해야 하는 경우 `blocked`로 판정하고 가장 영향이 큰 누락과 `product-discovery` handoff를 제공한다. 누락이 알려진 open item으로 남아도 제품 의도를 왜곡하지 않으면 `conditional`로 계속할 수 있다.
+문제·사용자·결과·경계·핵심 규칙 중 하나라도 PRD를 쓰기 위해 발명해야 하는 경우 `blocked`로 판정한다. 명시적인 `$to-prd` 호출도 이 gate를 바꾸지 않는다. `blocked`이면 새 PRD, 기존 PRD 갱신과 PRD 형태의 proposed artifact를 만들지 말고 다음만 제공한다.
+
+- 판정을 막은 누락과 그 영향
+- 현재 입력에서 안전하게 보존할 수 있는 source locator와 확인된 claim
+- 가장 영향이 큰 다음 결정 하나
+- `product-discovery`로 이어지는 no-write handoff
+
+`conditional`은 문제·사용자·결과·경계·핵심 규칙의 최소 제품 컨텍스트가 이미 근거에 연결되어 있고, 남은 open item을 값으로 채우지 않아도 제품 의도가 유지될 때만 사용한다.
 
 이 gate를 통과한 뒤에만 [Product Docs 문서 계약](references/document-contract.md)과 [PRD quality bar](references/prd-quality-bar.md)를 전부 읽는다.
 
@@ -62,7 +70,7 @@ PRD를 쓰려면 문제·사용자·결과·경계·핵심 규칙을 발명해�
 
 ## 4. 상태와 readiness를 기록한다
 
-- 문제·경계·도메인 합의가 부족하지만 조건부 문서가 유용하면 `status: draft`, `workflow_status: discovery-needed | conditional`이다.
+- 최소 제품 컨텍스트는 준비됐지만 중요한 open item이나 blocker가 남으면 `status: draft`, `workflow_status: conditional`이다.
 - 권한 있는 사람이 제품 합의의 scope와 정확한 revision을 명시적으로 승인했을 때만 `status: stable`, `workflow_status: approved`다.
 - 승인에는 actor, authority source, evidence source, 시점, scope와 현재 revision이 필요하다.
 - 코드와 테스트는 구현 evidence이며 release·exposure evidence 없이는 `shipped`가 아니다.
@@ -81,6 +89,8 @@ PRD를 쓰려면 문제·사용자·결과·경계·핵심 규칙을 발명해�
 LLM 검토 결과를 완전성 증명으로 표현하지 않는다. 실행하지 않은 검증을 완료로 표시하지 않는다.
 
 ## 6. 결과를 인도한다
+
+`blocked`이면 PRD 경로나 revision을 주장하지 않는다. no-write 판정, 보존한 근거, 누락 결정과 `product-discovery` handoff를 먼저 인도한다.
 
 - 생성·갱신한 PRD 경로, revision과 상태
 - 입력에서 보존한 문제, 결과와 범위

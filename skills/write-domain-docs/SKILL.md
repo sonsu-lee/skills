@@ -68,7 +68,7 @@ description: "제품에서 함께 쓰는 용어, 개념, 역할, 상태, 상태 
 - `evolve`: rename, deprecate, merge, split, semantic change를 관리한다.
 - `drift-review`: 코드·테스트·스키마·PRD 변화와 정본의 차이를 점검한다.
 
-사용자가 문서 변경을 요청하지 않았다면 분석과 proposed diff만 제공한다. 기능 요구사항이면 `write-prd`, 아키텍처·기술 선택의 이유를 남기려는 요청이면 `write-adr`로 라우팅한다. 제품·사업·정책 결정 기록은 이 스킬이나 `write-adr`로 보내지 않는다.
+사용자가 문서 변경을 요청하지 않았다면 분석과 proposed diff만 제공한다. 기능 요구사항에서 문제·사용자·결과·범위·핵심 규칙을 더 결정해야 하면 `product-discovery`, 이 컨텍스트가 준비됐고 PRD 산출물을 원하면 `to-prd`로 라우팅한다. 아키텍처·기술 선택의 이유를 남기려는 요청이면 `write-adr`로 라우팅한다. 제품·사업·정책 결정 기록은 이 스킬이나 `write-adr`로 보내지 않는다.
 
 ### 2. Inspect the domain surface
 

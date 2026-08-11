@@ -2,3 +2,5 @@ interface:
   display_name: "Write ADR"
   short_description: "중요한 아키텍처·기술 결정을 근거와 이력에 따라 ADR로 작성"
   default_prompt: "$write-adr로 이 아키텍처 선택의 실제 근거와 결과를 ADR로 남겨줘."
+policy:
+  allow_implicit_invocation: true
