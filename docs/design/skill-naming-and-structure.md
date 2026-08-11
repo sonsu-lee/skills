@@ -131,7 +131,7 @@ skill-name/
 ├── SKILL.md
 ├── agents/
 │   └── openai.yaml
-├── references/     # 필요한 분기에서만 읽는 상세 지침
+├── references/     # 핵심 또는 조건부로 읽는 상세 지침
 ├── scripts/        # 반복되거나 결정론적으로 실행할 작업
 └── assets/         # 결과물에 사용하는 템플릿과 정적 자원
 ```
@@ -143,32 +143,35 @@ skill-name/
 - 모든 호출에서 지켜야 하는 불변 규칙
 - 분기 선택 기준
 - 핵심 워크플로와 권한 경계
-- 필요한 reference의 위치와 정확한 로드 조건
+- 핵심·조건부 reference의 위치와 정확한 로드 조건
 - 관찰 가능한 완료 조건
 
 ### `references/`에 둘 내용
 
+- 모든 호출에 필요하지만 본문에 두기에는 긴 공통 계약과 품질 기준
 - 특정 분기, 제공자나 산출물 형식에만 필요한 규칙
 - 상세 품질 기준과 체크리스트
 - 큰 예시, 스키마와 도메인 지식
 - 선택적 심화 절차
 
-reference는 `SKILL.md`에서 한 단계로 직접 연결한다. 다른 reference를 다시 찾아가야 하는 깊은 구조를 만들지 않는다. 단순히 파일을 옮긴 뒤 모든 호출에서 읽도록 지시하면 컨텍스트 절약으로 보지 않는다.
+핵심 reference는 실제로 모든 호출에 필요한 경우에만 사용하고 `SKILL.md`에서 항상 읽는다고 명시한다. 조건부 reference는 적용 조건과 읽어서 얻어야 할 결과를 포인터에 함께 적는다. 두 유형 모두 `SKILL.md`에서 한 단계로 직접 연결하며, 다른 reference를 다시 찾아가야 하는 깊은 구조를 만들지 않는다. 단순히 파일을 옮긴 뒤 모든 호출에서 읽도록 지시하면 컨텍스트 절약으로 보지 않는다.
 
 ### 공통 계약
 
-여러 스킬이 같은 계약을 사용할 때는 canonical 원본을 한 곳에서 관리한다. 독립 설치를 위해 각 스킬이 self-contained여야 한다면 배포 또는 검증 단계에서 필요한 사본을 생성하고 원본과의 동기화를 검사한다.
+여러 스킬이 같은 계약을 사용할 때는 canonical 원본과 생성·동기화 검사를 두는 방식을 우선한다. 독립 설치를 위해 각 스킬이 self-contained여야 하지만 자동화가 아직 없다면 스킬 로컬 수동 사본 정책을 명시할 수 있다. 이 경우 소비 스킬과 사본 목록을 문서화하고, 계약 변경은 모든 사본을 한 변경에서 함께 갱신·비교하며 자동 동기화된다고 표현하지 않는다.
+
+현재 Product Docs의 `document-contract.md`는 `write-prd`, `write-domain-docs`, `write-adr`가 각각 소유하는 스킬 로컬 수동 사본이다. 세 사본은 동일한 계약을 유지해야 하며 하나를 바꿀 때 나머지 사본과 각 소비 스킬의 평가도 함께 확인한다.
 
 ## 수명 주기
 
 스킬은 안정성과 노출 범위를 구분한다.
 
-- Stable: 정식 설치 대상이며 README와 manifest에 노출한다.
-- Experimental: 동작과 명칭을 검증하는 후보이며 정식 manifest에서 제외한다.
+- Stable: `skills/<name>/SKILL.md`에 두는 정식 설치 대상이며 README와 manifest에 노출한다.
+- Experimental: 동작과 명칭을 검증하는 후보이며 `experimental/<name>/`처럼 플러그인의 `skills/` 루트 밖에 두어 발견과 배포에서 제외한다.
 - Deprecated: 대체 경로와 제거 시점을 안내하는 호환 계층이다.
-- Internal: 배포하지 않는 공통 계약, 생성 도구와 검증 로직이다.
+- Internal: 배포하지 않는 공통 계약, 생성 도구와 검증 로직이다. `skills/` 아래에 둘 때는 발견 가능한 `SKILL.md`를 만들지 않는다.
 
-새 명칭이나 큰 책임 분리는 Experimental에서 검증한 뒤 Stable로 승격한다. 승격할 때 README, plugin manifest, 호출 메타데이터와 eval을 함께 갱신한다.
+현재 plugin manifest는 `skills/` 전체를 발견 대상으로 사용하므로 Experimental 스킬을 이 루트 아래에 두고 README에서만 숨겨서는 안 된다. 새 명칭이나 큰 책임 분리는 비발견 경로의 Experimental에서 검증한 뒤 `skills/`로 옮겨 Stable로 승격한다. 승격할 때 README, plugin manifest, 호출 메타데이터와 eval을 함께 갱신한다.
 
 ## 변경 판단 순서
 
