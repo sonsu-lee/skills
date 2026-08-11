@@ -74,6 +74,22 @@
       ]
     },
     {
+      "id": "recommend-skill-ko-direct-only-resume-review",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$recommend-skill로 개발자 이력서를 읽기 전용으로 검토하려면 어떤 스킬을 써야 하는지 알려줘.",
+      "should_trigger": true,
+      "expected_route": null,
+      "must": [
+        "state_outside_router_scope"
+      ],
+      "must_not": [
+        "recommend_review_dev_resume",
+        "provide_review_dev_resume_invocation",
+        "perform_resume_review"
+      ]
+    },
+    {
       "id": "recommend-skill-near-direct-work",
       "kind": "routing",
       "language": "ko",

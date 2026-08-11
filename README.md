@@ -36,6 +36,8 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | 내려진 기술 결정을 ADR로 남김 | `to-adr` |
 | 승인된 계획을 실행 작업으로 나눔 | `to-tickets` |
 
+`review-dev-resume`는 `recommend-skill`의 추천 대상이 아니며, `$review-dev-resume` 또는 `$skills:review-dev-resume`로 직접 호출할 때만 사용합니다.
+
 ## 명명 및 구조 원칙
 
 - 스킬 하나는 독립적으로 설명할 수 있는 하나의 큰 주제와 책임을 가집니다.

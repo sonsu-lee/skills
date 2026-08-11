@@ -131,6 +131,8 @@
 
 명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터로 검증한다.
 
+`review-dev-resume`는 명시 호출 스킬 중에서도 direct-only로 다룬다. 대표 진입점인 `recommend-skill`의 추천 후보에 포함하지 않고, 사용자가 해당 스킬을 직접 호출한 경우에만 사용한다.
+
 ## 컨텍스트 구조
 
 각 스킬은 다음 구조를 기본으로 한다.
