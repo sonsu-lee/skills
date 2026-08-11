@@ -1767,6 +1767,56 @@
         "amend",
         "rebase"
       ]
+    },
+    {
+      "id": "holdout-candidate-mixed-purpose-file-hunks",
+      "split": "holdout",
+      "language": "en",
+      "prompt": "Audit this proposed commit plan. The same file contains two independent changes; suggest a safe non-overlapping split without staging anything.",
+      "fixture": {
+        "git_state": {
+          "head": "9898989898989898989898989898989898989898",
+          "staged": [
+            "src/settings.ts"
+          ],
+          "unstaged": [],
+          "untracked": []
+        },
+        "diff_hunks": [
+          {
+            "path": "src/settings.ts",
+            "hunk": "@@ -20,6 +20,7 @@",
+            "summary": "add accessible label to the profile control"
+          },
+          {
+            "path": "src/settings.ts",
+            "hunk": "@@ -140,7 +141,9 @@",
+            "summary": "fix unrelated preferences retry race"
+          }
+        ],
+        "proposed_commit_plan": [
+          {
+            "message": "feat(settings): improve profile controls",
+            "paths": [
+              "src/settings.ts"
+            ]
+          }
+        ]
+      },
+      "should_trigger": true,
+      "expected_status": "fail",
+      "must": [
+        "complete_commit_plan",
+        "propose_safe_hunk_boundaries",
+        "semantic_atomicity",
+        "select_candidate_target"
+      ],
+      "must_not": [
+        "assign_whole_file_to_one_unit",
+        "duplicate_whole_file_across_units",
+        "stage",
+        "commit"
+      ]
     }
   ]
 }

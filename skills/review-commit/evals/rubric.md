@@ -37,6 +37,7 @@
 - `complete_commit_plan`: 요청 범위 안의 모든 변경을 정확히 한 계획 단위에 배치한다.
 - `preserve_out_of_scope_changes`: 범위 밖 staged·unstaged·untracked 변경을 commit plan에 넣지 않고 각각 preserved 또는 excluded로 기록한다.
 - `detect_missing_companion_artifacts`: 구현과 저장소 규칙에 필요한 테스트·설정·migration·lockfile·생성물의 누락을 `P1`로 기록하고 commit-ready 판정을 차단한다.
+- `propose_safe_hunk_boundaries`: 한 파일의 독립 변경은 실제 diff에서 겹치지 않는 안전한 hunk scope로 분리하고 파일 전체를 여러 계획 단위에 중복 배치하지 않는다.
 
 ### `history`
 
