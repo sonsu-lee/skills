@@ -1,6 +1,6 @@
 {
   "name": "skills",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "대표 안내와 제품 탐색·문서 변환, 리서치, Git 워크플로, 스킬 제작을 하나의 루트 skills 컬렉션으로 제공하는 개인 Codex 플러그인",
   "author": {
     "name": "sonsu-lee"

@@ -30,7 +30,7 @@ from runtime_projection import (
 
 SCHEMA_VERSION = "phase1-foundation-draft-v1"
 VALIDATOR_ID = "phase1-contract-foundation-validator"
-VALIDATOR_REVISION = 2
+VALIDATOR_REVISION = 3
 ISOLATED_MARKETPLACE = "phase1-leaf-only-marketplace"
 ISOLATED_PLUGIN = "phase1-leaf-only-fixture"
 CONTRACT_ARTIFACTS = (
@@ -119,7 +119,7 @@ def run_json_command(command: list[str], *, cwd: Path) -> tuple[int, dict[str, A
 
 
 def validate_develop_skill(repo: Path) -> dict[str, Any]:
-    """Exercise strict metadata, scaffolding, regressions, and legacy compatibility."""
+    """Exercise strict metadata, scaffolding, regressions, and catalog validation."""
     skill_root = repo / "skills/develop-skill"
     validator = skill_root / "scripts/validate_skill.py"
     scaffold = skill_root / "scripts/scaffold_skill.py"
@@ -149,13 +149,13 @@ def validate_develop_skill(repo: Path) -> dict[str, Any]:
         }
     )
 
-    legacy_results: list[dict[str, Any]] = []
+    catalog_results: list[dict[str, Any]] = []
     for skill_file in sorted((repo / "skills").glob("*/SKILL.md")):
         exit_code, payload = run_json_command(
             [sys.executable, str(validator), str(skill_file.parent), "--json"],
             cwd=repo,
         )
-        legacy_results.append(
+        catalog_results.append(
             {
                 "skill_id": skill_file.parent.name,
                 "passed": exit_code == 0 and payload.get("valid") is True,
@@ -263,17 +263,17 @@ def validate_develop_skill(repo: Path) -> dict[str, Any]:
 
     results.extend(regression_results)
     passed = all(result["passed"] for result in results) and all(
-        result["passed"] for result in legacy_results
+        result["passed"] for result in catalog_results
     )
     return {
         "status": "pass" if passed else "fail",
         "passed_count": sum(result["passed"] for result in results),
         "case_count": len(results),
         "results": results,
-        "default_compatibility": {
-            "passed_count": sum(result["passed"] for result in legacy_results),
-            "skill_count": len(legacy_results),
-            "results": legacy_results,
+        "catalog_validation": {
+            "passed_count": sum(result["passed"] for result in catalog_results),
+            "skill_count": len(catalog_results),
+            "results": catalog_results,
         },
     }
 
@@ -2250,6 +2250,7 @@ def validate_leaf_catalog(repo: Path, catalog: dict[str, Any]) -> dict[str, Any]
                 "declared_resolved_skill_metadata_descendant_graph_plus_inode_closure"
             ),
             "internal_selector_state_coverage": "not_observed",
+            "expected_leaf_implicit_invocation_policy": "explicit_true",
         },
         "codex_executable_identity": {
             "fields": ["version", "path_digest", "executable_digest"],
@@ -2914,7 +2915,9 @@ def run_leaf_case(
                     )
                 if (
                     expected_skills[0]["implicit_invocation_policy"]
-                    != "absent_default"
+                    != catalog["discovery_probe"]["effective_catalog"][
+                        "expected_leaf_implicit_invocation_policy"
+                    ]
                 ):
                     raise LeafProbeInvariantError(
                         "FND-INSTALL-004",

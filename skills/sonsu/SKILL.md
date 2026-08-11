@@ -16,7 +16,6 @@ description: Sonsu Skills에서 현재 목표에 맞는 스킬과 다음 호출�
 - 파일 작성, commit, push, PR 생성, 이슈 발행과 같은 상태 변경을 수행하지 않는다.
 - 요청이 이미 특정 스킬에 정확히 대응하면 불필요한 추가 단계를 만들지 않는다.
 - 입력이 애매할 때만 준비 상태를 가르는 짧은 질문을 하나 제시한다.
-- 폐기 예정인 호환 이름보다 canonical 이름을 안내한다.
 
 ## 선택 기준
 
@@ -44,8 +43,6 @@ description: Sonsu Skills에서 현재 목표에 맞는 스킬과 다음 호출�
 - 핵심 결정과 근거가 준비되었으면 `to-prd`, `to-adr` 또는 `to-tickets`를 추천한다.
 - 대상의 품질만 판정하려면 `review-*`를 추천한다.
 - 실제 Git 상태를 만들려면 사용자의 명시적 요청을 확인한 뒤 `create-*`를 추천한다.
-
-`write-prd`, `write-domain-docs`, `write-adr`가 요청에 등장하면 각각 `to-prd`, `domain-modeling`, `to-adr`를 canonical 경로로 안내한다. 다만 기존 자동화의 호환 호출을 막지는 않는다.
 
 ## 응답 형식
 

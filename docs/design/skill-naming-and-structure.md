@@ -128,7 +128,6 @@
 |---|---|
 | 모델 자동 호출 허용 | `product-discovery`, `domain-modeling`, `architecture-decisions`, `research`, `review-commit`, `review-pr` |
 | 사용자 명시 호출 | `sonsu`, `to-*`, `create-commit`, `create-pull-request`, `develop-skill`, `review-dev-resume` |
-| 호환용 명시 호출 | `write-prd`, `write-domain-docs`, `write-adr` |
 
 명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터로 검증한다.
 
@@ -169,8 +168,6 @@ skill-name/
 ### 공통 계약
 
 여러 스킬이 같은 계약을 사용할 때는 canonical 원본과 생성·동기화 검사를 두는 방식을 우선한다. Stable 스킬은 독립 설치를 위해 self-contained여야 하지만 자동화가 아직 없다면 스킬 로컬 수동 사본 정책을 명시할 수 있다. 이 경우 소비 스킬과 사본 목록을 문서화하고, 계약 변경은 모든 사본을 한 변경에서 함께 갱신·비교하며 자동 동기화된다고 표현하지 않는다.
-
-Deprecated 호환 진입점은 예외다. 호환 진입점은 대체 워크플로를 복제하지 않으며 단독 선택 설치 대상으로 제공하지 않는다. 의존하는 companion 스킬을 `SKILL.md`와 README에 정확히 밝히고, companion이 없으면 실행을 추측하지 않은 채 필요한 설치 조합을 안내한다.
 
 현재 Product Docs의 `document-contract.md`는 `to-prd`, `domain-modeling`, `to-adr`가 각각 소유하는 스킬 로컬 수동 사본이다. 세 사본은 동일한 계약을 유지해야 하며 하나를 바꿀 때 나머지 사본과 각 소비 스킬의 평가도 함께 확인한다.
 
