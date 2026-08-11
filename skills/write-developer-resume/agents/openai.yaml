@@ -1,4 +1,0 @@
-interface:
-  display_name: "Write Developer Resume"
-  short_description: "주장과 근거로 개발자 이력서·경력기술서를 설계하고 검증"
-  default_prompt: "$write-developer-resume를 사용해 개발자 이력서를 주장→근거 구조로 작성하거나 진단하고, 사실성·인지 부하·경력 단계·기술 선택과 검증 근거를 확인해줘."

@@ -1,6 +1,6 @@
 # Sonsu Skills
 
-Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서치, Git 작업, 스킬 제작과 개발자 이력서 작성을 지원하며 Claude Code용 manifest도 함께 제공합니다.
+Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서치, Git 작업, 스킬 제작과 개인 개발자 이력서 검토를 지원하며 Claude Code용 manifest도 함께 제공합니다.
 
 ## 제공 스킬
 
@@ -15,7 +15,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | `review-commit` | 커밋 전 후보 변경과 이미 생성된 커밋 기록을 읽기 전용으로 검토합니다. |
 | `review-pr` | PR의 내용과 merge 준비 상태를 읽기 전용으로 검토합니다. |
 | `develop-skill` | Agent Skill을 생성·수정·검토하고 구조와 행동을 검증합니다. |
-| `write-developer-resume` | 개발자 이력서와 경력기술서를 작성하거나 진단합니다. |
+| `review-dev-resume` | 명시적으로 호출해 내 개발자 이력서와 경력기술서를 검토하거나 재구성합니다. |
 
 ## 명명 규칙
 
@@ -85,10 +85,12 @@ codex plugin marketplace remove sonsu-skills
 $skills:write-prd로 이 아이디어의 PRD를 작성해줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
 $skills:develop-skill로 새 스킬을 만들거나 기존 스킬을 개선해줘.
+$skills:review-dev-resume로 내 개발자 이력서를 검토해줘.
 
 # Codex 독립 스킬 설치
 $write-prd로 이 아이디어의 PRD를 작성해줘.
 $research로 이 주제를 근거 중심으로 조사해줘.
+$review-dev-resume로 내 개발자 이력서를 검토해줘.
 
 # Claude Code
 /skills:create-commit 현재 변경을 의미 단위로 커밋해줘.
