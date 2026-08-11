@@ -78,7 +78,7 @@ Conventional Commits 형식을 사용한다.
 
 ## 4. commit 전 review gate를 실행한다
 
-`review-before-commit`이 사용 가능하면 현재 변경과 계획에 읽기 전용 검사를 적용한다. 사용할 수 없어도 아래 검사를 직접 수행해 gate를 생략하지 않는다.
+`review-commit`이 사용 가능하면 `target_kind: candidate`로 현재 변경과 계획에 읽기 전용 검사를 적용한다. 사용할 수 없어도 아래 검사를 직접 수행해 gate를 생략하지 않는다.
 
 candidate tree를 materialize하거나 index를 쓰기 전에 5절의 전체 hook·alias·maintenance inventory와 trust gate를 먼저 수행한다. 그 전에는 `post-checkout`이나 index write를 일으키지 않는 archive/export/plumbing만 사용할 수 있다.
 
@@ -120,7 +120,7 @@ commit hook이 실패하거나 파일을 수정하면 `--no-verify`로 우회하
 
 ## 6. commit 후 읽기 전용 audit을 수행한다
 
-`review-commits`가 사용 가능하면 생성된 exact SHA 범위에 적용한다. 사용할 수 없어도 아래 검사를 직접 수행한다.
+`review-commit`이 사용 가능하면 `target_kind: history`로 생성된 exact SHA 범위에 적용한다. 사용할 수 없어도 아래 검사를 직접 수행한다.
 
 각 생성 commit에 대해 다음을 확인한다.
 

@@ -1,4 +1,4 @@
-# Uncommitted 변경 검토
+# Commit 후보 검토
 
 아직 commit되지 않은 변경의 범위, 의미 단위와 실행 안전성을 판단할 때 적용한다.
 
@@ -27,7 +27,7 @@
 - 같은 파일의 staged·unstaged hunk를 합쳐서 이미 하나의 candidate라고 가정하지 않는다.
 - 사용자가 지정한 path나 hunk 밖의 변경은 보존 대상으로 표시하되, 계획과 충돌하는 기존 staged 변경은 숨기지 않는다.
 - untracked 파일은 이름만으로 private scratch 또는 누락 구현이라고 단정하지 않는다. 요청 범위에 들어오면 내용을 안전하게 읽고 민감정보를 마스킹한다.
-- commit plan의 각 변경은 정확히 한 단위 또는 명시적 보존 대상에 속해야 한다.
+- 요청 범위 안의 각 변경은 정확히 하나의 commit 단위에 속해야 하고, 범위 밖의 나머지 staged·unstaged·untracked 변경은 명시적 보존 대상으로 기록한다.
 
 ## Commit 단위
 
@@ -35,8 +35,10 @@ PR과 commit은 서로 다른 의미 단위다. 이 스킬은 commit 단위만 �
 
 - 하나의 commit은 header 한 줄로 staged diff 전체를 설명할 수 있어야 한다.
 - 기능과 직접 검증하는 테스트, 필수 문서·migration·lockfile·생성물은 하나의 결과면 함께 둘 수 있다.
+- 구현과 저장소 규칙이 요구하는 테스트·설정·migration·lockfile·생성물이 candidate에 실제로 존재하는지 확인한다. 필요한 companion artifact가 빠졌으면 위치와 근거를 `P1`로 기록하고 commit-ready로 판정하지 않는다.
 - 동작 보존 refactor처럼 독립적으로 검토·되돌릴 가치가 있는 준비 변경만 분리한다.
 - 독립 기능, 별도 버그 수정과 무관한 정리는 분리한다.
+- 한 파일에 독립적인 의미가 섞였으면 diff를 검사해 겹치지 않는 안전한 hunk 경계를 제안한다. 파일 전체를 여러 계획 단위에 반복 배치하지 않으며, 의미나 문맥 의존성 때문에 안전한 경계를 확정할 수 없으면 임의로 나누지 않고 충돌과 영향을 기록한다.
 - 후속 단위가 앞선 단위에 의존하면 순서를 기록한다. 각 commit이 독립적이라고 가장하지 않는다.
 
 ## Conventional Commits
