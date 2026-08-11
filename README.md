@@ -8,12 +8,12 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 |---|---|
 | `product-discovery` | 제품 문제와 미해결 결정을 근거 중심으로 탐색합니다. |
 | `to-prd` | 합의된 제품 컨텍스트를 검증 가능한 PRD로 변환합니다. |
-| `write-prd` | 기존 호출을 새 PRD 탐색·변환 흐름으로 연결합니다. 호환용·폐기 예정. |
+| `write-prd` | 기존 호출을 `product-discovery`·`to-prd` 흐름으로 연결합니다. 호환용·폐기 예정. |
 | `domain-modeling` | 용어, 상태, 전이와 비즈니스 규칙을 정본으로 정리합니다. |
-| `write-domain-docs` | 기존 도메인 문서 호출을 새 모델링 흐름으로 연결합니다. 호환용·폐기 예정. |
+| `write-domain-docs` | 기존 호출을 `domain-modeling` 흐름으로 연결합니다. 호환용·폐기 예정. |
 | `architecture-decisions` | 아직 결론 없는 기술 선택의 대안과 판단 기준을 검토합니다. |
 | `to-adr` | 준비된 아키텍처·기술 결정을 ADR로 변환합니다. |
-| `write-adr` | 기존 ADR 호출을 새 결정·기록 흐름으로 연결합니다. 호환용·폐기 예정. |
+| `write-adr` | 기존 호출을 `architecture-decisions`·`to-adr` 흐름으로 연결합니다. 호환용·폐기 예정. |
 | `to-tickets` | 승인된 계획을 의존성이 드러나는 실행 티켓으로 변환합니다. |
 | `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
 | `create-commit` | 변경을 의미 단위로 나누어 커밋합니다. |
