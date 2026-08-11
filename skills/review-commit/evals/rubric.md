@@ -42,6 +42,7 @@
 
 - `select_history_target`: 기존 commit·revision 요청을 `target_kind: history`로 선택하고 `commit-history.md`만 적용한다.
 - `select_default_history_revision`: revision 없는 branch history 요청은 tracked upstream부터 `HEAD`까지, upstream이 없으면 확인 가능한 local base의 merge base부터 `HEAD`까지로 고정하며 선택 근거와 최신성 한계를 기록한다.
+- `inspect_author_committer_metadata`: 각 full SHA의 parent, author·committer identity·timestamp를 읽고 DCO·trailer·허용 identity 정책과 대조한다.
 - `inspect_each_commit_and_range`: 각 full SHA의 전체 message·diff와 range 누적 diff를 모두 검사한다.
 - `inspect_signature_verification_delegates`, `inspect_signature_trust_inputs`: verifier와 trust root의 origin·trust를 확인하고 비신뢰 대상을 실행·승인하지 않는다.
 - `replacement_message`: 문제가 있는 full SHA별로 원래 의도를 보존한 replacement를 제공한다.

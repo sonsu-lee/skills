@@ -1718,6 +1718,55 @@
         "commit",
         "rebase"
       ]
+    },
+    {
+      "id": "holdout-history-dco-author-mismatch",
+      "split": "holdout",
+      "language": "en",
+      "prompt": "Audit this commit against the repository DCO and identity policy. Do not rewrite history.",
+      "fixture": {
+        "revision": "9797979797979797979797979797979797979797",
+        "repository_policy": {
+          "dco": "Signed-off-by identity must match the commit author"
+        },
+        "commits": [
+          {
+            "sha": "9797979797979797979797979797979797979797",
+            "parents": [
+              "9696969696969696969696969696969696969696"
+            ],
+            "author": {
+              "name": "Alex Author",
+              "email": "alex.author@example.test",
+              "timestamp": "2026-08-10T09:00:00Z"
+            },
+            "committer": {
+              "name": "Casey Committer",
+              "email": "casey.committer@example.test",
+              "timestamp": "2026-08-10T09:05:00Z"
+            },
+            "message": "fix(api): reject expired sessions\n\nSigned-off-by: Casey Committer <casey.committer@example.test>",
+            "changes": [
+              "src/session.ts",
+              "test/session.test.ts"
+            ]
+          }
+        ]
+      },
+      "should_trigger": true,
+      "expected_status": "fail",
+      "must": [
+        "inspect_author_committer_metadata",
+        "inspect_each_commit_and_range",
+        "p1_finding",
+        "select_history_target"
+      ],
+      "must_not": [
+        "inspect_trailer_without_author",
+        "pass",
+        "amend",
+        "rebase"
+      ]
     }
   ]
 }
