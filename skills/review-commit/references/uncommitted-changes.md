@@ -27,7 +27,7 @@
 - 같은 파일의 staged·unstaged hunk를 합쳐서 이미 하나의 candidate라고 가정하지 않는다.
 - 사용자가 지정한 path나 hunk 밖의 변경은 보존 대상으로 표시하되, 계획과 충돌하는 기존 staged 변경은 숨기지 않는다.
 - untracked 파일은 이름만으로 private scratch 또는 누락 구현이라고 단정하지 않는다. 요청 범위에 들어오면 내용을 안전하게 읽고 민감정보를 마스킹한다.
-- commit plan의 각 변경은 정확히 한 단위 또는 명시적 보존 대상에 속해야 한다.
+- 요청 범위 안의 각 변경은 정확히 하나의 commit 단위에 속해야 하고, 범위 밖의 나머지 staged·unstaged·untracked 변경은 명시적 보존 대상으로 기록한다.
 
 ## Commit 단위
 

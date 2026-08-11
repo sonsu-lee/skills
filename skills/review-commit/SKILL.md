@@ -48,7 +48,7 @@ Commit 생성 전 후보 변경이나 이미 생성된 commit history가 저장�
 - 파일 종류가 아니라 함께 승인하고 되돌릴 하나의 의미를 기준으로 원자성을 판정한다.
 - 구현과 직접 검증하는 테스트·필수 문서·migration·생성물은 같은 결과면 함께 둘 수 있다.
 - 독립적으로 배포·revert할 변경, 무관한 정리와 별도 버그 수정은 분리한다.
-- `candidate`는 모든 변경을 빠짐·중복 없이 commit plan에 배치하고, `history`는 각 commit과 range 누적 결과를 모두 판정한다.
+- `candidate`는 요청 범위 안의 모든 변경만 빠짐·중복 없이 commit plan에 배치하고, 범위 밖 staged·unstaged·untracked 변경은 preserved 또는 excluded로 기록한다. `history`는 각 commit과 range 누적 결과를 모두 판정한다.
 - header는 `<type>[optional scope][!]: <description>` 형식의 영어 한 줄이며 type·scope·body·footer·breaking 표기가 실제 변경과 저장소 규칙에 맞아야 한다.
 - 기존 검사 결과는 exact candidate tree 또는 commit SHA와 연결될 때만 증거로 사용한다.
 - credential, 개인정보, 예상 밖 binary·submodule·대용량 생성물을 확인한다.

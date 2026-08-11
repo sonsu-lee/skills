@@ -1629,6 +1629,47 @@
         "fetch",
         "rebase"
       ]
+    },
+    {
+      "id": "holdout-candidate-preserve-out-of-scope-changes",
+      "split": "holdout",
+      "language": "en",
+      "prompt": "Review only src/auth.ts as a commit candidate. Preserve every other worktree change and do not stage or commit anything.",
+      "fixture": {
+        "requested_scope": [
+          "src/auth.ts"
+        ],
+        "git_state": {
+          "head": "9595959595959595959595959595959595959595",
+          "staged": [
+            "src/auth.ts"
+          ],
+          "unstaged": [
+            "README.md"
+          ],
+          "untracked": [
+            "notes/private.txt"
+          ]
+        },
+        "diff_summary": {
+          "src/auth.ts": "reject expired challenges",
+          "README.md": "unrelated documentation draft",
+          "notes/private.txt": "out-of-scope private scratch file"
+        }
+      },
+      "should_trigger": true,
+      "must": [
+        "complete_commit_plan",
+        "inspect_all_worktree_states",
+        "preserve_out_of_scope_changes",
+        "select_candidate_target"
+      ],
+      "must_not": [
+        "include_out_of_scope_in_commit_plan",
+        "expose_private_content",
+        "stage",
+        "commit"
+      ]
     }
   ]
 }
