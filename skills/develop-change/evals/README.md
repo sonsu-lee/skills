@@ -3,7 +3,7 @@
 이 검증은 네 가지를 확인한다.
 
 1. routing, gate, frontier, authorization 계약의 valid/invalid 사례가 예상한 `FND-*` 규칙과 일치하는가
-2. `develop-skill`의 한국어 메타데이터, scaffold, strict validation과 기존 스킬 호환성이 유지되는가
+2. `develop-skill`의 한국어 메타데이터, scaffold, strict validation과 설치 가능한 스킬 검증이 유지되는가
 3. 공통 계약을 포함한 leaf 하나가 격리된 Codex 환경에서 실제로 발견되는가
 4. 검사 전후 active plugin, 설정, hook, catalog와 Codex 실행 파일이 바뀌지 않았는가
 

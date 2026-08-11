@@ -1,9 +1,13 @@
 {
   "develop_skill": {
     "case_count": 5,
-    "default_compatibility": {
-      "passed_count": 11,
+    "catalog_validation": {
+      "passed_count": 14,
       "results": [
+        {
+          "passed": true,
+          "skill_id": "architecture-decisions"
+        },
         {
           "passed": true,
           "skill_id": "create-commit"
@@ -18,15 +22,23 @@
         },
         {
           "passed": true,
+          "skill_id": "domain-modeling"
+        },
+        {
+          "passed": true,
+          "skill_id": "product-discovery"
+        },
+        {
+          "passed": true,
           "skill_id": "research"
         },
         {
           "passed": true,
-          "skill_id": "review-before-commit"
+          "skill_id": "review-commit"
         },
         {
           "passed": true,
-          "skill_id": "review-commits"
+          "skill_id": "review-dev-resume"
         },
         {
           "passed": true,
@@ -34,22 +46,22 @@
         },
         {
           "passed": true,
-          "skill_id": "write-adr"
+          "skill_id": "sonsu"
         },
         {
           "passed": true,
-          "skill_id": "write-developer-resume"
+          "skill_id": "to-adr"
         },
         {
           "passed": true,
-          "skill_id": "write-domain-docs"
+          "skill_id": "to-prd"
         },
         {
           "passed": true,
-          "skill_id": "write-prd"
+          "skill_id": "to-tickets"
         }
       ],
-      "skill_count": 11
+      "skill_count": 14
     },
     "passed_count": 5,
     "results": [
@@ -1126,7 +1138,7 @@
     "results": [
       {
         "case_id": "leaf-only-valid-isolated-copy",
-        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [],
@@ -1155,7 +1167,7 @@
       },
       {
         "case_id": "leaf-only-invalid-hardlink",
-        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1171,7 +1183,7 @@
       },
       {
         "case_id": "leaf-only-invalid-contract-missing",
-        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1187,7 +1199,7 @@
       },
       {
         "case_id": "leaf-only-invalid-contract-drift",
-        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1203,7 +1215,7 @@
       },
       {
         "case_id": "leaf-only-invalid-schema-drift",
-        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1219,7 +1231,7 @@
       },
       {
         "case_id": "leaf-only-invalid-fallback-root",
-        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1251,7 +1263,7 @@
       },
       {
         "case_id": "leaf-only-invalid-active-projection-drift",
-        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1267,7 +1279,7 @@
       },
       {
         "case_id": "leaf-only-invalid-description-only-drift",
-        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1283,7 +1295,7 @@
       },
       {
         "case_id": "leaf-only-invalid-policy-only-drift",
-        "effective_catalog_digest": "7fcd671239e6d9e918ceda7531fb9555a2e109231901936d0ec593bb91a7ca8a",
+        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1301,8 +1313,8 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244",
-    "before_digest": "4d05cba75c55859d0e07022cfd77ac98b4353683a0a67689bf84eea1f9656244",
+    "after_digest": "e1fb563fc667ffb4a3b5493248dc89f613391a9616352eace44f96a5a5e31bdc",
+    "before_digest": "e1fb563fc667ffb4a3b5493248dc89f613391a9616352eace44f96a5a5e31bdc",
     "binding": {
       "component_path_binding_digest": "decdb26452d015493397111d2691007c58ad0048d387ccf010654b5ad72501e4",
       "hook_binding": "exact_codex_home_hooks_json",
@@ -1320,13 +1332,13 @@
     },
     "components": [
       {
-        "digest": "8866b55ead68af212078faa953763bcc12f2b157687b5bc22d6a9af8363ed91f",
-        "entry_count": 186,
+        "digest": "9e55520c9a0b2de0eb7101873d899f4cd8479f8c234bcdfa828ff1634ca5eb33",
+        "entry_count": 255,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "416d11ae6f820cccaceb5c725f51f0a28a15ecf6ab0c4cd05205843afb70f1bb",
+        "digest": "8c875421edc0351f984235c64fded7f882cd3eec0b58cb7806ae01fee67fc6a6",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"
@@ -1351,16 +1363,16 @@
       }
     ],
     "effective_skill_catalog": {
-      "after_count": 33,
-      "after_digest": "180afd84e31052c424fd3eb6c06d1c3043afb44816b7b5d09b20ec2eaf3f162e",
-      "before_count": 33,
-      "before_digest": "180afd84e31052c424fd3eb6c06d1c3043afb44816b7b5d09b20ec2eaf3f162e",
+      "after_count": 25,
+      "after_digest": "913aac81604e07db1d12a209c139f35109e77c63408b1d41046bfc7b5352eaff",
+      "before_count": 25,
+      "before_digest": "913aac81604e07db1d12a209c139f35109e77c63408b1d41046bfc7b5352eaff",
       "candidate_source_isolation": {
         "candidate_alias_count": 0,
-        "catalog_record_count": 33,
+        "catalog_record_count": 25,
         "descendant_symlink_count": 0,
-        "regular_descendant_count": 422,
-        "resolved_source_root_count": 58,
+        "regular_descendant_count": 379,
+        "resolved_source_root_count": 44,
         "verified": true
       },
       "candidate_source_isolation_equal": true,
@@ -1389,6 +1401,6 @@
   "status": "pass",
   "validator": {
     "id": "phase1-contract-foundation-validator",
-    "revision": 2
+    "revision": 3
   }
 }

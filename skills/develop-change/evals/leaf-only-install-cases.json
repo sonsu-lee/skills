@@ -12,7 +12,8 @@
       "coverage": "model_visible_skills_instructions",
       "projection": "exact_skill_id_description_declared_resolved_locator_metadata_policy",
       "candidate_alias_guard": "declared_resolved_skill_metadata_descendant_graph_plus_inode_closure",
-      "internal_selector_state_coverage": "not_observed"
+      "internal_selector_state_coverage": "not_observed",
+      "expected_leaf_implicit_invocation_policy": "explicit_true"
     },
     "codex_executable_identity": {
       "fields": [
