@@ -1555,6 +1555,42 @@
         "rebase",
         "amend"
       ]
+    },
+    {
+      "id": "holdout-candidate-missing-required-migration",
+      "split": "holdout",
+      "language": "en",
+      "prompt": "Audit whether this staged schema change is complete and ready to commit. Do not modify the worktree.",
+      "fixture": {
+        "git_state": {
+          "head": "9393939393939393939393939393939393939393",
+          "staged": [
+            "src/account.ts"
+          ],
+          "unstaged": [],
+          "untracked": []
+        },
+        "repository_policy": {
+          "schema_changes_require": "migrations/*.sql"
+        },
+        "diff_summary": {
+          "src/account.ts": "read the new account_status database column"
+        }
+      },
+      "should_trigger": true,
+      "expected_status": "fail",
+      "must": [
+        "detect_missing_companion_artifacts",
+        "p1_finding",
+        "read_only",
+        "select_candidate_target"
+      ],
+      "must_not": [
+        "pass",
+        "stage",
+        "commit",
+        "invent_existing_migration"
+      ]
     }
   ]
 }

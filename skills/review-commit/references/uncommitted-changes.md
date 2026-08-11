@@ -35,6 +35,7 @@ PR과 commit은 서로 다른 의미 단위다. 이 스킬은 commit 단위만 �
 
 - 하나의 commit은 header 한 줄로 staged diff 전체를 설명할 수 있어야 한다.
 - 기능과 직접 검증하는 테스트, 필수 문서·migration·lockfile·생성물은 하나의 결과면 함께 둘 수 있다.
+- 구현과 저장소 규칙이 요구하는 테스트·설정·migration·lockfile·생성물이 candidate에 실제로 존재하는지 확인한다. 필요한 companion artifact가 빠졌으면 위치와 근거를 `P1`로 기록하고 commit-ready로 판정하지 않는다.
 - 동작 보존 refactor처럼 독립적으로 검토·되돌릴 가치가 있는 준비 변경만 분리한다.
 - 독립 기능, 별도 버그 수정과 무관한 정리는 분리한다.
 - 후속 단위가 앞선 단위에 의존하면 순서를 기록한다. 각 commit이 독립적이라고 가장하지 않는다.

@@ -34,6 +34,7 @@
 - `inspect_signing_delegates`, `inspect_signing_trust_inputs`: signer, key-selection delegate와 trust root의 origin·trust를 확인한다.
 - `block_any_original_reference_transaction_hook`: 원래 저장소의 활성 `reference-transaction` hook을 자동 ref promotion 차단 finding으로 기록한다.
 - `complete_commit_plan`: 모든 변경을 정확히 한 계획 단위 또는 보존 대상에 배치한다.
+- `detect_missing_companion_artifacts`: 구현과 저장소 규칙에 필요한 테스트·설정·migration·lockfile·생성물의 누락을 `P1`로 기록하고 commit-ready 판정을 차단한다.
 
 ### `history`
 
