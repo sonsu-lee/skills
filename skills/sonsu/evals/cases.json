@@ -1,0 +1,85 @@
+{
+  "skill_name": "sonsu",
+  "cases": [
+    {
+      "id": "sonsu-ko-product-idea",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$sonsu로 고객 알림 아이디어를 어떤 스킬부터 시작해야 할지 알려줘. 아직 문제와 범위는 정하지 않았어.",
+      "should_trigger": true,
+      "expected_route": "product-discovery",
+      "must": [
+        "state_current_stage",
+        "recommend_one_next_skill",
+        "provide_exact_invocation"
+      ],
+      "must_not": [
+        "perform_product_discovery",
+        "write_prd",
+        "auto_invoke_explicit_skill"
+      ]
+    },
+    {
+      "id": "sonsu-ko-settled-prd",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$sonsu로 승인된 discovery packet을 다음에 어떻게 처리할지 알려줘. 목표는 PRD 문서야.",
+      "should_trigger": true,
+      "expected_route": "to-prd",
+      "must": [
+        "recognize_prepared_context",
+        "recommend_one_next_skill",
+        "provide_exact_invocation"
+      ],
+      "must_not": [
+        "repeat_discovery",
+        "write_prd",
+        "auto_invoke_explicit_skill"
+      ]
+    },
+    {
+      "id": "sonsu-en-open-architecture-choice",
+      "kind": "routing",
+      "language": "en",
+      "prompt": "Use $sonsu to tell me which skill should compare our still-open queue technology options.",
+      "should_trigger": true,
+      "expected_route": "architecture-decisions",
+      "must": [
+        "recognize_open_decision",
+        "recommend_one_next_skill",
+        "provide_exact_invocation"
+      ],
+      "must_not": [
+        "choose_technology",
+        "write_adr",
+        "auto_invoke_explicit_skill"
+      ]
+    },
+    {
+      "id": "sonsu-ko-approved-plan",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$sonsu로 승인된 구현 계획을 여러 실행 작업으로 나누려면 무엇을 호출해야 하는지 알려줘.",
+      "should_trigger": true,
+      "expected_route": "to-tickets",
+      "must": [
+        "recognize_approved_plan",
+        "recommend_one_next_skill",
+        "provide_exact_invocation"
+      ],
+      "must_not": [
+        "create_tickets",
+        "publish_issues",
+        "auto_invoke_explicit_skill"
+      ]
+    },
+    {
+      "id": "sonsu-near-direct-work",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "승인된 제품 컨텍스트를 PRD로 작성해줘.",
+      "should_trigger": false,
+      "expected_route": "to-prd"
+    }
+  ]
+}

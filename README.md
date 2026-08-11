@@ -6,6 +6,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 | 스킬 | 설명 |
 |---|---|
+| `sonsu` | 현재 목표와 준비 상태에 맞는 다음 스킬과 호출 방법을 안내합니다. |
 | `product-discovery` | 제품 문제와 미해결 결정을 근거 중심으로 탐색합니다. |
 | `to-prd` | 합의된 제품 컨텍스트를 검증 가능한 PRD로 변환합니다. |
 | `write-prd` | 기존 호출을 `product-discovery`·`to-prd` 흐름으로 연결합니다. 호환용·폐기 예정. |
@@ -22,6 +23,21 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | `review-pr` | PR의 내용과 merge 준비 상태를 읽기 전용으로 검토합니다. |
 | `develop-skill` | Agent Skill을 생성·수정·검토하고 구조와 행동을 검증합니다. |
 | `review-dev-resume` | 명시적으로 호출해 내 개발자 이력서와 경력기술서를 읽기 전용으로 진단합니다. |
+
+## 워크플로 선택
+
+어떤 스킬부터 사용할지 모르면 `$sonsu`를 명시적으로 호출합니다. `sonsu`는 전문 작업이나 상태 변경을 대신 수행하지 않고, 현재 단계에 맞는 다음 스킬 하나와 정확한 호출 예시를 안내합니다.
+
+| 현재 상태 | 다음 스킬 |
+|---|---|
+| 제품 문제나 범위 결정이 열려 있음 | `product-discovery` |
+| 제품 컨텍스트가 합의되어 PRD가 필요함 | `to-prd` |
+| 도메인 용어·상태·업무 규칙을 정리함 | `domain-modeling` |
+| 기술 선택의 대안과 판단 기준이 열려 있음 | `architecture-decisions` |
+| 내려진 기술 결정을 ADR로 남김 | `to-adr` |
+| 승인된 계획을 실행 작업으로 나눔 | `to-tickets` |
+
+`write-prd`, `write-domain-docs`, `write-adr`는 기존 호출 호환을 위해 explicit-only로 유지합니다. 새 요청에는 각각 `to-prd`, `domain-modeling`, `to-adr`를 우선 사용합니다.
 
 ## 명명 및 구조 원칙
 
@@ -40,9 +56,9 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 | 목적 | 설치 방식 | 적용 범위 | Codex 호출 형식 |
 |---|---|---|---|
-| 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$product-discovery` |
-| 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$product-discovery` |
-| 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:product-discovery` |
+| 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$sonsu` |
+| 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$sonsu` |
+| 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:sonsu` |
 
 `write-prd`, `write-domain-docs`, `write-adr`는 이전 호출을 새 이름으로 연결하는 deprecated 호환 진입점이므로 단독 선택 설치를 지원하지 않습니다. 기존 이름을 계속 사용해야 한다면 독립 스킬 설치에서 다음 companion을 함께 선택하거나 전체 Codex 플러그인을 설치하세요.
 
@@ -98,6 +114,7 @@ codex plugin marketplace remove sonsu-skills
 
 ```text
 # Codex 플러그인 설치
+$skills:sonsu로 이 작업에 맞는 다음 스킬을 찾아줘.
 $skills:product-discovery로 이 제품 아이디어의 문제와 핵심 결정을 구체화해줘.
 $skills:to-prd로 합의된 제품 컨텍스트를 PRD로 작성해줘.
 $skills:architecture-decisions로 이 기술 선택의 대안과 판단 기준을 검토해줘.
@@ -108,6 +125,7 @@ $skills:develop-skill로 새 스킬을 만들거나 기존 스킬을 개선해�
 $skills:review-dev-resume로 내 개발자 이력서를 검토해줘.
 
 # Codex 독립 스킬 설치
+$sonsu로 이 작업에 맞는 다음 스킬을 찾아줘.
 $product-discovery로 이 제품 아이디어를 구체화해줘.
 $to-prd로 합의된 내용을 PRD로 작성해줘.
 $domain-modeling으로 도메인 용어와 상태 전이를 정리해줘.
@@ -131,6 +149,7 @@ $review-dev-resume로 내 개발자 이력서를 검토해줘.
 Claude Code에서는 저장소 루트에서 플러그인을 직접 불러오고 manifest를 검증할 수 있습니다.
 
 ```bash
+python3 scripts/validate_skill_catalog.py
 claude --plugin-dir .
 claude plugin validate . --strict
 ```
@@ -155,8 +174,10 @@ API 키 값은 출력하거나 저장소에 커밋하지 마세요.
 
 ```text
 skills/          # 스킬 본문, 참고 자료, 템플릿과 평가 fixture
+  develop-change # 배포하지 않는 내부 개발·검증 기반
 evals/           # 스킬 간 회귀 평가
 docs/            # 설계 및 연구 문서
+scripts/         # 저장소 단위 결정론적 검증기
 .agents/plugins/ # Codex marketplace catalog
 .codex-plugin/   # Codex manifest
 .claude-plugin/  # Claude Code manifest

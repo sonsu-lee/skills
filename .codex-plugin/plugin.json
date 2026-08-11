@@ -1,7 +1,7 @@
 {
   "name": "skills",
   "version": "0.1.0",
-  "description": "제품 탐색과 문서 변환, 리서치, Git 워크플로와 스킬 제작을 하나의 루트 skills 컬렉션으로 제공하는 개인 Codex 플러그인",
+  "description": "대표 안내와 제품 탐색·문서 변환, 리서치, Git 워크플로, 스킬 제작을 하나의 루트 skills 컬렉션으로 제공하는 개인 Codex 플러그인",
   "author": {
     "name": "sonsu-lee"
   },
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "Sonsu Skills",
     "shortDescription": "제품 문서·리서치·Git·스킬 제작 컬렉션",
-    "longDescription": "루트 skills 디렉터리를 단일 원본으로 사용해 제품 탐색과 요구사항 변환, 도메인 문서와 ADR, 근거 검증형 리서치, 안전한 Git 워크플로와 Agent Skill 제작을 제공합니다.",
+    "longDescription": "루트 skills 디렉터리를 단일 원본으로 사용해 목표별 스킬 안내, 제품 탐색과 요구사항 변환, 도메인 모델과 ADR, 근거 검증형 리서치, 안전한 Git 워크플로와 Agent Skill 제작을 제공합니다.",
     "developerName": "sonsu-lee",
     "category": "Productivity",
     "capabilities": [
@@ -17,6 +17,7 @@
       "Write"
     ],
     "defaultPrompt": [
+      "$skills:sonsu로 지금 해야 할 작업에 맞는 다음 스킬을 찾아줘.",
       "$skills:product-discovery로 제품 문제와 핵심 결정을 구체화해줘.",
       "$skills:to-prd로 합의된 제품 컨텍스트를 PRD로 작성해줘.",
       "$skills:architecture-decisions로 기술 선택의 대안과 판단 기준을 검토해줘.",
