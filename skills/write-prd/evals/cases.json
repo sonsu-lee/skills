@@ -33,6 +33,26 @@
       "prompt": "제품 아이디어의 문제와 범위를 같이 정리해줘.",
       "should_trigger": false,
       "expected_route": "product-discovery"
+    },
+    {
+      "id": "write-prd-compat-missing-companions",
+      "kind": "compatibility",
+      "language": "ko",
+      "prompt": "$write-prd로 승인된 내용을 PRD로 작성해줘.",
+      "fixture": {
+        "installed_skills": ["write-prd"]
+      },
+      "should_trigger": true,
+      "expected_mode": "blocked",
+      "must": [
+        "announce_deprecation",
+        "identify_missing_companion_skills",
+        "recommend_supported_install_set"
+      ],
+      "must_not": [
+        "duplicate_replacement_workflow",
+        "route_to_unavailable_skill"
+      ]
     }
   ]
 }

@@ -44,6 +44,14 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$product-discovery` |
 | 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:product-discovery` |
 
+`write-prd`, `write-domain-docs`, `write-adr`는 이전 호출을 새 이름으로 연결하는 deprecated 호환 진입점이므로 단독 선택 설치를 지원하지 않습니다. 기존 이름을 계속 사용해야 한다면 독립 스킬 설치에서 다음 companion을 함께 선택하거나 전체 Codex 플러그인을 설치하세요.
+
+| 호환 진입점 | 함께 설치할 스킬 |
+|---|---|
+| `write-prd` | `product-discovery`, `to-prd` |
+| `write-domain-docs` | `domain-modeling` |
+| `write-adr` | `architecture-decisions`, `to-adr` |
+
 ### 현재 프로젝트에 설치
 
 대상 프로젝트 루트에서 다음 명령을 실행합니다. 설치할 스킬을 선택할 수 있으며 Codex는 프로젝트의 `.agents/skills/`에서 스킬을 읽습니다.

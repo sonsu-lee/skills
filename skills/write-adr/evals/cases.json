@@ -23,6 +23,25 @@
       "prompt": "아직 결론 없는 기술 선택지를 비교해줘.",
       "should_trigger": false,
       "expected_route": "architecture-decisions"
+    },
+    {
+      "id": "write-adr-compat-missing-companions",
+      "kind": "compatibility",
+      "prompt": "$write-adr로 승인된 기술 결정을 ADR로 기록해줘.",
+      "fixture": {
+        "installed_skills": ["write-adr"]
+      },
+      "should_trigger": true,
+      "expected_mode": "blocked",
+      "must": [
+        "announce_deprecation",
+        "identify_missing_companion_skills",
+        "recommend_supported_install_set"
+      ],
+      "must_not": [
+        "duplicate_replacement_workflow",
+        "route_to_unavailable_skill"
+      ]
     }
   ]
 }
