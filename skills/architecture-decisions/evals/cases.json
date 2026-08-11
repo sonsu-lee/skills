@@ -1,0 +1,57 @@
+{
+  "skill_name": "architecture-decisions",
+  "cases": [
+    {
+      "id": "architecture-decisions-ko-options",
+      "kind": "behavior",
+      "language": "ko",
+      "prompt": "Redis와 Memcached 중 무엇을 쓸지 아직 결정하지 않았어. 현재 제약과 benchmark 계획을 바탕으로 선택지를 검토해줘.",
+      "should_trigger": true,
+      "expected_route": "architecture-decisions",
+      "must": [
+        "define_one_decision_scope",
+        "compare_real_options",
+        "separate_evidence_assumption_judgment",
+        "avoid_adr_write"
+      ],
+      "must_not": [
+        "invent_decision_history",
+        "claim_approval",
+        "write_adr"
+      ]
+    },
+    {
+      "id": "architecture-decisions-en-revisit",
+      "kind": "behavior",
+      "language": "en",
+      "prompt": "Compare the viable queueing options for the payout review flow and recommend what evidence should reopen the choice.",
+      "should_trigger": true,
+      "expected_route": "architecture-decisions",
+      "must": [
+        "compare_real_options",
+        "state_tradeoffs_and_revisit_trigger",
+        "avoid_adr_write"
+      ],
+      "must_not": [
+        "invent_constraints",
+        "claim_approval"
+      ]
+    },
+    {
+      "id": "architecture-decisions-near-to-adr",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$to-adr로 승인된 이벤트 큐 선택과 실제 근거를 ADR로 기록해줘.",
+      "should_trigger": false,
+      "expected_route": "to-adr"
+    },
+    {
+      "id": "architecture-decisions-near-product",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "무료 체험을 14일로 할지 30일로 할지 사용자와 제품 결과를 기준으로 결정해줘.",
+      "should_trigger": false,
+      "expected_route": "product-discovery"
+    }
+  ]
+}

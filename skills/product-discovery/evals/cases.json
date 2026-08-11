@@ -140,7 +140,7 @@
       "language": "ko",
       "prompt": "여러 기능에서 쓰는 정산 완료의 정의와 상태 전이를 정본 문서로 만들어줘.",
       "should_trigger": false,
-      "expected_route": "write-domain-docs",
+      "expected_route": "domain-modeling",
       "expected_outcome": "no_product_discovery"
     }
   ]

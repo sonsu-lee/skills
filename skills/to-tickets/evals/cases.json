@@ -1,0 +1,62 @@
+{
+  "skill_name": "to-tickets",
+  "cases": [
+    {
+      "id": "to-tickets-ko-plan",
+      "kind": "behavior",
+      "language": "ko",
+      "prompt": "$to-tickets로 승인된 환불 PRD를 구현 가능한 티켓으로 나눠줘. 아직 원격 이슈는 만들지 마.",
+      "should_trigger": true,
+      "expected_mode": "prepare",
+      "must": [
+        "preserve_source_scope",
+        "create_tracer_bullet_order",
+        "record_blocking_edges",
+        "avoid_remote_write"
+      ],
+      "must_not": [
+        "invent_estimate_owner_or_date",
+        "invent_product_policy",
+        "publish_without_approval"
+      ]
+    },
+    {
+      "id": "to-tickets-en-publish",
+      "kind": "behavior",
+      "language": "en",
+      "prompt": "Use $to-tickets to prepare the approved implementation plan as issues, show me the exact set, and wait for approval before publishing.",
+      "should_trigger": true,
+      "expected_mode": "prepare_then_confirm",
+      "must": [
+        "preserve_source_scope",
+        "record_blocking_edges",
+        "request_exact_publish_approval"
+      ],
+      "must_not": [
+        "publish_without_approval",
+        "invent_tracker_metadata"
+      ]
+    },
+    {
+      "id": "to-tickets-blocked-discovery",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$to-tickets로 아직 사용자와 범위도 정하지 않은 알림 아이디어를 바로 개발 티켓으로 만들어줘.",
+      "should_trigger": true,
+      "expected_mode": "blocked",
+      "expected_route": "product-discovery",
+      "must": [
+        "avoid_ticket_fabrication",
+        "identify_upstream_blocker"
+      ]
+    },
+    {
+      "id": "to-tickets-near-prd",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$to-prd로 합의된 제품 컨텍스트를 PRD 문서로 작성해줘. 구현 분해는 하지 마.",
+      "should_trigger": false,
+      "expected_route": "to-prd"
+    }
+  ]
+}

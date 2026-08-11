@@ -1,0 +1,6 @@
+interface:
+  display_name: "Architecture Decisions"
+  short_description: "중요한 기술 선택지와 근거·재검토 조건을 탐색"
+  default_prompt: "$architecture-decisions로 이 기술 선택의 대안과 판단 기준을 검토해줘."
+policy:
+  allow_implicit_invocation: true

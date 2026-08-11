@@ -1,0 +1,6 @@
+interface:
+  display_name: "Domain Modeling"
+  short_description: "도메인 용어·규칙·상태를 근거와 이력으로 정비"
+  default_prompt: "$domain-modeling으로 도메인 용어와 상태 변화를 정리해줘."
+policy:
+  allow_implicit_invocation: true
