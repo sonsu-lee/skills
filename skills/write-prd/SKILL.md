@@ -1,6 +1,6 @@
 ---
 name: write-prd
-description: "기존 write-prd 호출을 위한 deprecated 호환 진입점이다. 사용자가 $write-prd를 명시적으로 호출한 경우에만 제품 탐색은 product-discovery로, 합의된 컨텍스트의 PRD 변환은 to-prd로 연결한다. 일반 PRD·제품 요구사항 요청에는 자동 사용하지 않으며 새 구현은 product-discovery 또는 to-prd를 사용한다."
+description: "기존 write-prd 호출을 위한 deprecated 호환 진입점이다. 사용자가 $write-prd를 명시적으로 호출한 경우에만 제품 탐색은 product-discovery로, 합의된 컨텍스트의 PRD 변환은 to-prd로 연결한다. 일반 PRD·제품 요구사항 요청이나 다른 스킬의 라우팅 대상으로 사용하지 않으며 새 구현은 product-discovery 또는 to-prd를 사용한다."
 ---
 
 # Write PRD 호환 진입점
