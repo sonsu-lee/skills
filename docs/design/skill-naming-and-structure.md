@@ -122,6 +122,16 @@
 
 호출 정책은 런타임별 메타데이터에서 관리한다. `SKILL.md` frontmatter에는 canonical `name`과 `description`만 둔다.
 
+### 현재 호출 분류
+
+| 호출 방식 | 스킬 |
+|---|---|
+| 모델 자동 호출 허용 | `product-discovery`, `domain-modeling`, `architecture-decisions`, `research`, `review-commit`, `review-pr` |
+| 사용자 명시 호출 | `sonsu`, `to-*`, `create-commit`, `create-pull-request`, `develop-skill`, `review-dev-resume` |
+| 호환용 명시 호출 | `write-prd`, `write-domain-docs`, `write-adr` |
+
+명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터로 검증한다.
+
 ## 컨텍스트 구조
 
 각 스킬은 다음 구조를 기본으로 한다.
@@ -200,3 +210,5 @@ Deprecated 호환 진입점은 예외다. 호환 진입점은 대체 워크플�
 - 사용자 명시 호출과 모델 자동 호출이 의도대로 구분되는가?
 - README, manifest와 런타임 메타데이터가 같은 스킬 목록을 설명하는가?
 - 기존 사용자를 위한 호환 또는 폐기 경로가 정의되어 있는가?
+
+저장소의 공개 카탈로그, 호출 정책, README 행과 상대 링크의 기본 정합성은 `python3 scripts/validate_skill_catalog.py`로 검사한다. `skills/develop-change/`는 배포하지 않는 내부 개발 기반이므로 installable skill 목록에서 제외한다.

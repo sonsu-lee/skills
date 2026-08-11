@@ -52,7 +52,7 @@
     {
       "id": "ko-explicit-review-only",
       "language": "ko",
-      "prompt": "$develop-skill로 기존 write-prd 스킬의 구조와 트리거 평가를 검토만 해줘. 파일은 수정하지 마.",
+      "prompt": "$develop-skill로 기존 to-prd 스킬의 구조와 트리거 평가를 검토만 해줘. 파일은 수정하지 마.",
       "should_trigger": true,
       "expected_route": "review",
       "must": [
