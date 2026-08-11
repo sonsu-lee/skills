@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -21,7 +22,16 @@ CODEX_PLUGIN_MANIFEST = ROOT / ".codex-plugin" / "plugin.json"
 CLAUDE_PLUGIN_MANIFEST = ROOT / ".claude-plugin" / "plugin.json"
 INTERNAL_SKILL_DIRS = {"develop-change"}
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-VERSION_PATTERN = re.compile(r"^(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)$")
+VERSION_PATTERN = re.compile(
+    r"^(?:0|[1-9][0-9]*)\."
+    r"(?:0|[1-9][0-9]*)\."
+    r"(?:0|[1-9][0-9]*)"
+    r"(?:-(?:"
+    r"(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)"
+    r"(?:\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*"
+    r"))?"
+    r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$"
+)
 FRONTMATTER_PATTERN = re.compile(r"\A---\n(.*?)\n---(?:\n|\Z)", re.DOTALL)
 MARKDOWN_LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 
@@ -34,6 +44,18 @@ def load_yaml(path: Path, errors: list[str]) -> dict:
         return {}
     if not isinstance(value, dict):
         errors.append(f"{path.relative_to(ROOT)}: YAML 루트는 mapping이어야 합니다.")
+        return {}
+    return value
+
+
+def load_json(path: Path, errors: list[str]) -> dict:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"{path.relative_to(ROOT)}: JSON을 읽을 수 없습니다: {exc}")
+        return {}
+    if not isinstance(value, dict):
+        errors.append(f"{path.relative_to(ROOT)}: JSON 루트는 object여야 합니다.")
         return {}
     return value
 
@@ -138,8 +160,8 @@ def validate_skill(skill_dir: Path, readme_text: str, errors: list[str]) -> None
 
 
 def validate_plugin_manifests(errors: list[str]) -> None:
-    codex_manifest = load_yaml(CODEX_PLUGIN_MANIFEST, errors)
-    claude_manifest = load_yaml(CLAUDE_PLUGIN_MANIFEST, errors)
+    codex_manifest = load_json(CODEX_PLUGIN_MANIFEST, errors)
+    claude_manifest = load_json(CLAUDE_PLUGIN_MANIFEST, errors)
 
     for path, manifest in (
         (CODEX_PLUGIN_MANIFEST, codex_manifest),
