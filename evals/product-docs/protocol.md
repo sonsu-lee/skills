@@ -8,7 +8,7 @@
 
 - 대상 호스트의 manifest: `.codex-plugin/plugin.json` 또는 `.claude-plugin/plugin.json`
 - 선택 대상들의 `SKILL.md`, `agents/`, `assets/`, `references/`
-- 선택한 각 Product Docs 스킬의 `references/document-contract.md`
+- 문서를 쓰는 각 Product Docs 스킬의 `references/document-contract.md`
 - 현재 user step과 그 시점의 fixture repository
 
 다음은 runtime snapshot에서 제외한다.

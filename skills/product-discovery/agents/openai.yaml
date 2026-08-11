@@ -1,0 +1,6 @@
+interface:
+  display_name: "Product Discovery"
+  short_description: "제품 문제와 미해결 결정을 근거 중심으로 탐색"
+  default_prompt: "$product-discovery로 이 제품 아이디어의 문제와 핵심 결정을 구체화해줘."
+policy:
+  allow_implicit_invocation: true

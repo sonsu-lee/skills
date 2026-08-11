@@ -6,7 +6,9 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 | 스킬 | 설명 |
 |---|---|
-| `write-prd` | 인터뷰를 통해 제품 요구사항 문서를 작성합니다. |
+| `product-discovery` | 제품 문제와 미해결 결정을 근거 중심으로 탐색합니다. |
+| `to-prd` | 합의된 제품 컨텍스트를 검증 가능한 PRD로 변환합니다. |
+| `write-prd` | 기존 호출을 새 PRD 탐색·변환 흐름으로 연결합니다. 호환용·폐기 예정. |
 | `write-domain-docs` | 용어, 상태, 전이와 비즈니스 규칙을 정리합니다. |
 | `write-adr` | 중요한 아키텍처·기술 결정을 ADR로 작성합니다. |
 | `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
@@ -34,9 +36,9 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 | 목적 | 설치 방식 | 적용 범위 | Codex 호출 형식 |
 |---|---|---|---|
-| 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$write-prd` |
-| 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$write-prd` |
-| 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:write-prd` |
+| 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$product-discovery` |
+| 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$product-discovery` |
+| 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:product-discovery` |
 
 ### 현재 프로젝트에 설치
 
@@ -46,7 +48,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 npx skills add sonsu-lee/skills --agent codex
 ```
 
-이 방식은 해당 프로젝트에만 스킬을 적용하려는 경우에 적합합니다. 설치한 스킬은 플러그인 네임스페이스 없이 `$write-prd`, `$research`처럼 호출합니다.
+이 방식은 해당 프로젝트에만 스킬을 적용하려는 경우에 적합합니다. 설치한 스킬은 플러그인 네임스페이스 없이 `$product-discovery`, `$research`처럼 호출합니다.
 
 ### 모든 프로젝트에 독립 스킬로 설치
 
@@ -86,13 +88,15 @@ codex plugin marketplace remove sonsu-skills
 
 ```text
 # Codex 플러그인 설치
-$skills:write-prd로 이 아이디어의 PRD를 작성해줘.
+$skills:product-discovery로 이 제품 아이디어의 문제와 핵심 결정을 구체화해줘.
+$skills:to-prd로 합의된 제품 컨텍스트를 PRD로 작성해줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
 $skills:develop-skill로 새 스킬을 만들거나 기존 스킬을 개선해줘.
 $skills:review-dev-resume로 내 개발자 이력서를 검토해줘.
 
 # Codex 독립 스킬 설치
-$write-prd로 이 아이디어의 PRD를 작성해줘.
+$product-discovery로 이 제품 아이디어를 구체화해줘.
+$to-prd로 합의된 내용을 PRD로 작성해줘.
 $research로 이 주제를 근거 중심으로 조사해줘.
 $review-dev-resume로 내 개발자 이력서를 검토해줘.
 

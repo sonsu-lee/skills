@@ -15,7 +15,7 @@
       "prompt": "PRD를 먼저 만들고 승인된 후보만 Domain Doc과 ADR로 옮기는 전체 흐름",
       "steps": [
         {
-          "user": "환불 셀프서비스 PRD만 먼저 작성해줘. ‘환불 가능 기간’이라는 공통 용어와 동기 처리 대신 이벤트 큐를 쓰는 아키텍처 선택은 후보로 표시하되 Domain Doc과 ADR은 아직 건드리지 마.",
+          "user": "$to-prd로 환불 셀프서비스 PRD만 먼저 작성해줘. ‘환불 가능 기간’이라는 공통 용어와 동기 처리 대신 이벤트 큐를 쓰는 아키텍처 선택은 후보로 표시하되 Domain Doc과 ADR은 아직 건드리지 마.",
           "checkpoint": "prd_and_candidates_only"
         },
         {
@@ -76,7 +76,7 @@
       },
       "should_trigger": true,
       "expected_skills": [
-        "write-prd",
+        "to-prd",
         "write-domain-docs",
         "write-adr"
       ],

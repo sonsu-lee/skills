@@ -11,7 +11,7 @@ revision: null
 visibility: internal
 publication: exclude
 generated:
-  by: product-docs-write-prd/0.1.0
+  by: product-docs-to-prd/0.1.0
   at: "__GENERATED_AT__"
 sources: []
 related: []

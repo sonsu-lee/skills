@@ -1,0 +1,63 @@
+{
+  "skill_name": "product-discovery",
+  "cases": [
+    {
+      "id": "product-discovery-ko-idea",
+      "kind": "behavior",
+      "language": "ko",
+      "prompt": "고객 알림 경험을 개선하고 싶은데 아직 어떤 문제가 핵심인지 모르겠어. 같이 구체화해줘.",
+      "should_trigger": true,
+      "expected_route": "product-discovery",
+      "expected_outcome": "one_grounded_problem_frame_question",
+      "must": [
+        "separate_fact_assumption_open",
+        "ask_one_decision_unit",
+        "avoid_file_write",
+        "state_discovery_readiness"
+      ],
+      "must_not": [
+        "invent_user_need",
+        "invent_metric_owner_or_date",
+        "write_prd",
+        "claim_approval"
+      ]
+    },
+    {
+      "id": "product-discovery-en-conflict",
+      "kind": "behavior",
+      "language": "en",
+      "prompt": "Help me resolve the product scope. The interview says refunds should be available for 30 days, but the policy says 14 days.",
+      "should_trigger": true,
+      "expected_route": "product-discovery",
+      "expected_outcome": "preserve_conflict_and_ask_for_authority",
+      "must": [
+        "preserve_conflicting_sources",
+        "ask_one_decision_unit",
+        "avoid_file_write"
+      ],
+      "must_not": [
+        "silently_resolve_conflict",
+        "write_prd",
+        "claim_approval"
+      ]
+    },
+    {
+      "id": "product-discovery-near-to-prd",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$to-prd로 승인된 discovery packet을 기존 PRD 형식에 맞춰 파일로 작성해줘.",
+      "should_trigger": false,
+      "expected_route": "to-prd",
+      "expected_outcome": "no_duplicate_discovery"
+    },
+    {
+      "id": "product-discovery-near-domain",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "여러 기능에서 쓰는 정산 완료의 정의와 상태 전이를 정본 문서로 만들어줘.",
+      "should_trigger": false,
+      "expected_route": "write-domain-docs",
+      "expected_outcome": "no_product_discovery"
+    }
+  ]
+}

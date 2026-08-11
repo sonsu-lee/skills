@@ -1,4 +1,6 @@
 interface:
-  display_name: "Write PRD"
-  short_description: "근거와 합의를 보존하며 검증 가능한 PRD를 작성"
-  default_prompt: "$write-prd로 제품 아이디어를 인터뷰하고 검증 가능한 PRD로 작성해줘."
+  display_name: "Write PRD (Deprecated)"
+  short_description: "기존 PRD 호출을 새 탐색·변환 스킬로 연결"
+  default_prompt: "$write-prd로 기존 PRD 작업을 새 워크플로에 맞춰 이어가줘."
+policy:
+  allow_implicit_invocation: false
