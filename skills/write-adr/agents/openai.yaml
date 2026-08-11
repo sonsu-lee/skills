@@ -1,6 +1,0 @@
-interface:
-  display_name: "Write ADR (Deprecated)"
-  short_description: "기존 ADR 호출을 기술 결정·기록 스킬로 연결"
-  default_prompt: "$write-adr로 기존 ADR 작업을 새 결정·기록 흐름에 맞춰 이어가줘."
-policy:
-  allow_implicit_invocation: false

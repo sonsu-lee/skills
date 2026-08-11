@@ -1,6 +1,0 @@
-interface:
-  display_name: "Write Domain Docs (Deprecated)"
-  short_description: "기존 도메인 문서 호출을 새 모델링 스킬로 연결"
-  default_prompt: "$write-domain-docs로 기존 도메인 문서 작업을 새 흐름에 맞춰 이어가줘."
-policy:
-  allow_implicit_invocation: false

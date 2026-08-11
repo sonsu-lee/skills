@@ -1,6 +1,0 @@
-interface:
-  display_name: "Write PRD (Deprecated)"
-  short_description: "기존 PRD 호출을 새 탐색·변환 스킬로 연결"
-  default_prompt: "$write-prd로 기존 PRD 작업을 새 워크플로에 맞춰 이어가줘."
-policy:
-  allow_implicit_invocation: false

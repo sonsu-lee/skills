@@ -17,9 +17,11 @@ except ImportError as exc:  # pragma: no cover - environment setup failure
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
 README = ROOT / "README.md"
+CODEX_PLUGIN_MANIFEST = ROOT / ".codex-plugin" / "plugin.json"
+CLAUDE_PLUGIN_MANIFEST = ROOT / ".claude-plugin" / "plugin.json"
 INTERNAL_SKILL_DIRS = {"develop-change"}
-DEPRECATED_SKILLS = {"write-prd", "write-domain-docs", "write-adr"}
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+VERSION_PATTERN = re.compile(r"^(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)$")
 FRONTMATTER_PATTERN = re.compile(r"\A---\n(.*?)\n---(?:\n|\Z)", re.DOTALL)
 MARKDOWN_LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 
@@ -120,13 +122,10 @@ def validate_skill(skill_dir: Path, readme_text: str, errors: list[str]) -> None
         errors.append(
             f"{metadata_path.relative_to(ROOT)}: policy.allow_implicit_invocation boolean이 필요합니다."
         )
-    elif (name.startswith("to-") or name in DEPRECATED_SKILLS or name == "sonsu") and policy[
+    elif (name.startswith("to-") or name == "sonsu") and policy[
         "allow_implicit_invocation"
     ]:
         errors.append(f"{metadata_path.relative_to(ROOT)}: {name}은 explicit-only여야 합니다.")
-
-    if name in DEPRECATED_SKILLS and "deprecated" not in str(description).lower():
-        errors.append(f"{skill_file.relative_to(ROOT)}: deprecated 상태와 대체 경로를 설명해야 합니다.")
 
     readme_row = re.compile(rf"^\| `{re.escape(str(name))}` \|", re.MULTILINE)
     readme_row_count = len(readme_row.findall(readme_text))
@@ -138,10 +137,34 @@ def validate_skill(skill_dir: Path, readme_text: str, errors: list[str]) -> None
     check_relative_links(skill_dir, skill_text, errors)
 
 
+def validate_plugin_manifests(errors: list[str]) -> None:
+    codex_manifest = load_yaml(CODEX_PLUGIN_MANIFEST, errors)
+    claude_manifest = load_yaml(CLAUDE_PLUGIN_MANIFEST, errors)
+
+    for path, manifest in (
+        (CODEX_PLUGIN_MANIFEST, codex_manifest),
+        (CLAUDE_PLUGIN_MANIFEST, claude_manifest),
+    ):
+        version = manifest.get("version")
+        if not isinstance(version, str) or not VERSION_PATTERN.fullmatch(version):
+            errors.append(
+                f"{path.relative_to(ROOT)}: version은 정식 SemVer 형식이어야 합니다."
+            )
+
+    if codex_manifest.get("name") != claude_manifest.get("name"):
+        errors.append("Codex와 Claude plugin manifest의 name이 다릅니다.")
+    if codex_manifest.get("version") != claude_manifest.get("version"):
+        errors.append("Codex와 Claude plugin manifest의 version이 다릅니다.")
+    if codex_manifest.get("skills") != "./skills/":
+        errors.append(".codex-plugin/plugin.json: skills는 ./skills/여야 합니다.")
+
+
 def main() -> int:
     errors: list[str] = []
     readme_text = README.read_text(encoding="utf-8")
     installable: list[Path] = []
+
+    validate_plugin_manifests(errors)
 
     for child in sorted(path for path in SKILLS_DIR.iterdir() if path.is_dir()):
         if (child / "SKILL.md").is_file():
