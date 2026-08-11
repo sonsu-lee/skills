@@ -21,6 +21,7 @@
 | `semantic_atomicity` | 함께 승인·revert할 하나의 의미를 기준으로 commit 단위를 판정 |
 | `corrected_artifacts` | 원래 diff·body·footer를 보존하고 누락·중복 없는 구체적 계획과 메시지를 제공 |
 | `record_unverified` | 확인하지 못한 증거의 이유와 영향을 통과로 숨기지 않음 |
+| `separate_dual_target_results` | candidate와 history를 함께 요청하면 target별 complete schema 문서를 분리하고 snapshot·status·finding을 합치지 않음 |
 
 ## target별 assertion
 

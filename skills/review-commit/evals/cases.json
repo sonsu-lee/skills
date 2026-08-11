@@ -1670,6 +1670,54 @@
         "stage",
         "commit"
       ]
+    },
+    {
+      "id": "holdout-dual-candidate-and-history-results",
+      "split": "holdout",
+      "language": "en",
+      "prompt": "Audit both my current uncommitted candidate and the last existing commit. Keep their snapshots and conclusions separate, and do not modify anything.",
+      "fixture": {
+        "candidate": {
+          "git_state": {
+            "head": "9696969696969696969696969696969696969696",
+            "staged": [
+              "src/cache.ts"
+            ],
+            "unstaged": [],
+            "untracked": []
+          },
+          "diff_summary": {
+            "src/cache.ts": "add cache invalidation"
+          }
+        },
+        "history": {
+          "revision": "9696969696969696969696969696969696969696",
+          "commits": [
+            {
+              "sha": "9696969696969696969696969696969696969696",
+              "message": "fix(cache): prevent stale reads",
+              "changes": [
+                "src/cache.ts",
+                "test/cache.test.ts"
+              ]
+            }
+          ]
+        }
+      },
+      "should_trigger": true,
+      "must": [
+        "read_only",
+        "select_candidate_target",
+        "select_history_target",
+        "separate_dual_target_results"
+      ],
+      "must_not": [
+        "merge_target_snapshots",
+        "single_shared_status",
+        "stage",
+        "commit",
+        "rebase"
+      ]
     }
   ]
 }

@@ -18,7 +18,7 @@ Commit 생성 전 후보 변경이나 이미 생성된 commit history가 저장�
 
 - 상위 workflow가 `target_kind`를 지정했으면 그 값을 보존한다.
 - 대상이 명확하면 mode를 다시 묻지 않는다.
-- 두 대상을 모두 요청했으면 snapshot과 결론을 섞지 말고 각각 검토한다.
+- 두 대상을 모두 요청했으면 각각의 reference와 snapshot을 독립적으로 적용하고, 요청 순서대로 완전한 결과 문서 두 개를 출력한다.
 - 선택하지 않은 reference는 읽지 않는다.
 
 ## 불변 조건
@@ -68,6 +68,8 @@ Commit 생성 전 후보 변경이나 이미 생성된 commit history가 저장�
 - `pass`: finding과 실질적인 `unverified`가 없음
 
 ## 5. 결과를 출력한다
+
+아래 schema는 target 하나의 완전한 결과다. `candidate`와 `history`를 모두 검토할 때는 이 schema를 target마다 한 번씩 채우고 YAML document separator `---`로 구분한다. 두 target의 `status`, `scope`, `findings`, `corrected_artifacts`, `unverified`를 공통 scalar나 하나의 snapshot으로 합치지 않는다.
 
 ```yaml
 status: pass | pass_with_warnings | fail
