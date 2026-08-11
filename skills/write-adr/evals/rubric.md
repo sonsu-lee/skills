@@ -3,7 +3,7 @@
 ## Protocol
 
 - 공통 격리·stepwise·security 규칙은 `../../../evals/product-docs/protocol.md`, 공통 assertion은 `../../../evals/product-docs/README.md`를 따른다.
-- Routing 평가는 세 Product Docs 스킬의 descriptions를 함께 제공한다.
+- Routing 평가는 manifest에서 발견 가능한 모든 installable skill의 `name`과 `description`을 함께 제공한다.
 - 행동 평가는 고정 clock의 깨끗한 임시 저장소에서 baseline과 with-skill을 쌍으로 실행한다.
 - `steps`가 있으면 user step마다 실제 실행하고 status transition과 file snapshot을 checkpoint별로 검사한다. 마지막 승인 전의 accepted 또는 old-record superseded 표시는 실패다.
 - 실행자는 현재 user step과 필요한 fixture만 보고 assertions, oracle, 다음 step, 기대 결과는 evaluator만 본다.

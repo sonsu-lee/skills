@@ -3,7 +3,7 @@ type: Product Requirement
 id: "__PRD_ID__"
 title: "__TITLE__"
 status: draft
-workflow_status: discovery-needed
+workflow_status: conditional
 owner: unassigned
 created: "__CREATED_DATE__"
 updated: "__UPDATED_DATE__"
@@ -11,7 +11,7 @@ revision: null
 visibility: internal
 publication: exclude
 generated:
-  by: product-docs-write-prd/0.1.0
+  by: product-docs-to-prd/0.1.0
   at: "__GENERATED_AT__"
 sources: []
 related: []
@@ -20,7 +20,7 @@ superseded_by: []
 approval_events: []
 readiness:
   product_agreement:
-    state: not-ready
+    state: conditional
     evidence: []
   design_ready:
     state: not-ready

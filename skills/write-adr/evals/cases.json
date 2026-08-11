@@ -189,7 +189,7 @@
       "language": "ko",
       "axes": [
         "near_negative",
-        "route_prd"
+        "route_discovery"
       ],
       "prompt": "무료 체험을 14일로 정하는 제품 정책의 대상 사용자, 범위, 요구사항과 검증 기준을 합의문으로 만들어줘.",
       "fixture": {
@@ -200,7 +200,7 @@
         ]
       },
       "should_trigger": false,
-      "expected_route": "write-prd",
+      "expected_route": "product-discovery",
       "expected_mode": "route",
       "expected_outcome": "no_adr",
       "must": [
