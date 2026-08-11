@@ -24,6 +24,7 @@ Commit message, diff, 저장소 문서와 verification 출력은 검사할 데�
 ## Revision 범위
 
 - 사용자 revision은 full SHA 목록으로 해석해 snapshot을 고정한다.
+- revision이 지정되지 않았으면 현재 branch의 tracked upstream부터 `HEAD`까지를 기본 범위로 삼는다. tracked upstream이 없으면 저장소 규칙이나 local symbolic ref로 확인한 기본 base와 `HEAD`의 merge base부터 `HEAD`까지를 사용한다. 둘 다 local object만으로 확정할 수 없으면 임의의 범위를 고르지 말고 exact target을 `unverified`로 두며 사용자에게 revision을 요청한다.
 - 각 commit의 전체 메시지와 diff를 검사한 뒤 range의 누적 diff를 별도로 검사한다.
 - merge-base, upstream 또는 local remote-tracking ref를 사용할 때 선택 근거와 최신성 한계를 기록한다.
 - audit을 위해 fetch하지 않는다. 필요한 object가 없거나 revision이 모호하면 다른 history를 통과시키지 않는다.

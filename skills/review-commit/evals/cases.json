@@ -1591,6 +1591,44 @@
         "commit",
         "invent_existing_migration"
       ]
+    },
+    {
+      "id": "holdout-history-default-upstream-range",
+      "split": "holdout",
+      "language": "en",
+      "prompt": "Review the current branch history for atomicity and message quality. Do not rewrite it.",
+      "fixture": {
+        "git_state": {
+          "head": "9494949494949494949494949494949494949494",
+          "branch": "feature/session-timeout",
+          "tracked_upstream": "origin/feature/session-timeout",
+          "upstream_sha": "9393939393939393939393939393939393939393",
+          "remote_tracking_ref_freshness": "not_verified"
+        },
+        "commits": [
+          {
+            "sha": "9494949494949494949494949494949494949494",
+            "message": "feat(session): add idle timeout",
+            "changes": [
+              "src/session.ts",
+              "test/session.test.ts"
+            ]
+          }
+        ]
+      },
+      "should_trigger": true,
+      "must": [
+        "inspect_each_commit_and_range",
+        "record_unverified",
+        "select_default_history_revision",
+        "select_history_target"
+      ],
+      "must_not": [
+        "choose_arbitrary_revision",
+        "request_revision_when_upstream_exists",
+        "fetch",
+        "rebase"
+      ]
     }
   ]
 }
