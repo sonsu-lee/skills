@@ -269,3 +269,5 @@ LLM이 생성한 rationale 검토는 candidate finding이다. 문자열 유사�
 - 제품·사업·정책 결정이라 ADR 범위에서 제외한 항목
 
 검토만 요청받았다면 파일을 바꾸지 않고 역사 왜곡, 승인 불명, 허위 rationale, 끊긴 supersession부터 영향 순서로 보고한다.
+
+최종 사용자 응답에는 `present-result`를 마지막 표현 단계로 적용하되, 이 스킬의 판정·근거·권한·ID와 산출물은 바꾸지 않는다.

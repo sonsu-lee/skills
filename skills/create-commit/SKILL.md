@@ -135,3 +135,5 @@ commit hook이 실패하거나 파일을 수정하면 `--no-verify`로 우회하
 문제를 발견해도 자동 amend, reset 또는 rebase하지 않는다. 수정된 메시지·분할안을 제시하고, history 변경은 사용자의 명시적 요청을 받는다.
 
 최종 응답에는 내부 `request_mode: plan | message_only | create`와 `outcome: planned | drafted | created | created_multiple | partially_created | blocked | failed | recovered`에 맞는 결론, 생성된 commit별 짧은 SHA와 제목, 수행한 검증, 남은 변경과 미확인 사항을 간결하게 보고한다. 계획만 요청받았다면 계획과 정확한 메시지 후보만 제공한다. push나 PR이 생성됐다고 암시하지 않는다.
+
+최종 사용자 응답에는 `present-result`를 마지막 표현 단계로 적용하되, 이 스킬의 판정·근거·권한·ID와 산출물은 바꾸지 않는다.

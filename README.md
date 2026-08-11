@@ -14,6 +14,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | `to-adr` | 준비된 아키텍처·기술 결정을 ADR로 변환합니다. |
 | `to-tickets` | 승인된 계획을 의존성이 드러나는 실행 티켓으로 변환합니다. |
 | `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
+| `present-result` | 전문 결과의 의미를 유지하면서 결론·영향·다음 행동을 쉬운 말로 전달합니다. |
 | `create-commit` | 변경을 의미 단위로 나누어 커밋합니다. |
 | `create-pull-request` | 변경 범위와 저장소 규칙에 맞는 PR을 만듭니다. |
 | `review-commit` | 커밋 전 후보 변경과 이미 생성된 커밋 기록을 읽기 전용으로 검토합니다. |
@@ -27,6 +28,8 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 `0.3.0`부터 대표 진입점의 호출 이름이 `$sonsu`에서 `$recommend-skill`로 변경되었습니다. 기존 프롬프트나 자동화에서도 호출 이름을 함께 변경해야 합니다.
 
+전문 스킬의 최종 사용자 응답에는 `present-result`가 마지막 표현 단계로 적용됩니다. 원본 PRD·ADR·코드·티켓과 상태·ID·근거는 바꾸지 않고, 결론과 실제 영향, 다음 행동을 쉬운 말로 먼저 전달합니다. 독립 스킬 설치에서 이 공통 전달 단계를 사용하려면 작업 스킬과 `present-result`를 함께 선택합니다.
+
 | 현재 상태 | 다음 스킬 |
 |---|---|
 | 제품 문제나 범위 결정이 열려 있음 | `product-discovery` |
@@ -35,6 +38,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | 기술 선택의 대안과 판단 기준이 열려 있음 | `architecture-decisions` |
 | 내려진 기술 결정을 ADR로 남김 | `to-adr` |
 | 승인된 계획을 실행 작업으로 나눔 | `to-tickets` |
+| 이미 나온 전문 결과를 쉽게 풀어 전달함 | `present-result` |
 
 `review-dev-resume`는 `recommend-skill`의 추천 대상이 아니며, `$review-dev-resume` 또는 `$skills:review-dev-resume`로 직접 호출할 때만 사용합니다.
 
@@ -114,6 +118,7 @@ $skills:architecture-decisions로 이 기술 선택의 대안과 판단 기준�
 $skills:to-adr로 내려진 기술 결정을 ADR로 기록해줘.
 $skills:to-tickets로 승인된 계획을 실행 가능한 티켓으로 나눠줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
+$skills:present-result로 위 결과를 의미를 유지하면서 이해하기 쉽게 정리해줘.
 $skills:develop-skill로 새 스킬을 만들거나 기존 스킬을 개선해줘.
 $skills:review-dev-resume로 내 개발자 이력서를 검토해줘.
 
@@ -125,6 +130,7 @@ $domain-modeling으로 도메인 용어와 상태 전이를 정리해줘.
 $architecture-decisions로 기술 선택지를 검토해줘.
 $to-adr로 내려진 결정을 ADR로 기록해줘.
 $research로 이 주제를 근거 중심으로 조사해줘.
+$present-result로 위 결과를 이해하기 쉽게 정리해줘.
 $review-dev-resume로 내 개발자 이력서를 검토해줘.
 
 # Claude Code

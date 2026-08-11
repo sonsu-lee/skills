@@ -86,6 +86,7 @@
 - `product-discovery`
 - `domain-modeling`
 - `architecture-decisions`
+- `present-result`
 
 이 계층은 모델이 요청 문맥에 따라 자동으로 선택하거나 명시 호출 스킬이 조합할 수 있다. description에는 무엇을 하는지뿐 아니라 언제 사용하고 언제 사용하지 않는지를 구체적으로 기록한다.
 
@@ -126,12 +127,18 @@
 
 | 호출 방식 | 스킬 |
 |---|---|
-| 모델 자동 호출 허용 | `product-discovery`, `domain-modeling`, `architecture-decisions`, `research`, `review-commit`, `review-pr` |
+| 모델 자동 호출 허용 | `product-discovery`, `domain-modeling`, `architecture-decisions`, `research`, `present-result`, `review-commit`, `review-pr` |
 | 사용자 명시 호출 | `recommend-skill`, `to-*`, `create-commit`, `create-pull-request`, `develop-skill`, `review-dev-resume` |
 
 명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터로 검증한다.
 
 `review-dev-resume`는 명시 호출 스킬 중에서도 direct-only로 다룬다. 대표 진입점인 `recommend-skill`의 추천 후보에 포함하지 않고, 사용자가 해당 스킬을 직접 호출한 경우에만 사용한다.
+
+### 최종 표현 단계
+
+설치 대상 전문 스킬은 최종 사용자 응답을 만들 때 `present-result`를 마지막 표현 단계로 사용한다. 세부 표현 규칙은 `present-result`가 한곳에서 소유하고, 소비 스킬은 판정·근거·권한·ID와 원본 산출물을 바꾸지 않는 연결 규칙만 둔다.
+
+`present-result`는 도메인 결과를 다시 판단하거나 원본 파일을 수정하지 않는다. 상태 코드와 전문용어의 실제 의미를 쉬운 말로 설명하고 결론·영향·다음 행동을 먼저 배치한다. 독립 설치에서 이 스킬이 함께 설치되지 않으면 공통 표현 단계를 보장할 수 없으므로 README에서 함께 선택하도록 안내한다.
 
 ## 컨텍스트 구조
 

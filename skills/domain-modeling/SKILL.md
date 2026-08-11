@@ -214,3 +214,5 @@ LLM 검토는 finding 후보이며 정본 오류 판정이 아니다.
 - PRD, `architecture-decisions` 또는 `to-adr`로 넘길 아키텍처 결정 후보
 
 다른 문서군은 이 스킬로 수정하지 않는다. 사용자가 함께 승인한 경우 orchestration layer가 companion skill을 별도로 적용한다. OpenWiki는 정본 변경 후 별도 생성 작업으로 갱신한다.
+
+최종 사용자 응답에는 `present-result`를 마지막 표현 단계로 적용하되, 이 스킬의 판정·근거·권한·ID와 산출물은 바꾸지 않는다.

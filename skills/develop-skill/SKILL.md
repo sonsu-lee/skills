@@ -112,3 +112,5 @@ python3 "$SKILL_DIR/scripts/validate_skill.py" <skill-directory> \
 - `항상`, `절대`, `반드시`는 실제 불변 조건에만 쓴다.
 - 도메인 작업을 대신 수행하거나 완성된 스킬을 설치하는 데 이 스킬을 사용하지 않는다.
 - 이 스킬 자체는 명시적 `$develop-skill` 호출만 허용한다.
+
+최종 사용자 응답에는 `present-result`를 마지막 표현 단계로 적용하되, 이 스킬의 판정·근거·권한·ID와 산출물은 바꾸지 않는다.

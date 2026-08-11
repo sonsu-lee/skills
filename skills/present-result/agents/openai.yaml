@@ -1,0 +1,6 @@
+interface:
+  display_name: "Present Result"
+  short_description: "전문 결과를 의미 보존하며 쉬운 말로 최종 전달"
+  default_prompt: "$present-result로 위 결과를 핵심 의미를 유지하면서 이해하기 쉽게 정리해줘."
+policy:
+  allow_implicit_invocation: true

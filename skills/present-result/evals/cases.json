@@ -1,0 +1,120 @@
+{
+  "skill_name": "present-result",
+  "cases": [
+    {
+      "id": "ko-implicit-prd-status",
+      "language": "ko",
+      "prompt": "PRD 결과가 workflow_status: conditional, engineering_ready: not-ready이고 OPEN-003이 blocking이라고 나왔어. 최종 결과로 전달해줘.",
+      "should_trigger": true,
+      "expected_route": "preserve_and_present",
+      "must": [
+        "lead_with_plain_conclusion",
+        "explain_status_in_context",
+        "state_confirmed_impact",
+        "preserve_status_and_id",
+        "separate_technical_details"
+      ],
+      "must_not": [
+        "change_status",
+        "hide_blocker",
+        "invent_owner_or_decision"
+      ]
+    },
+    {
+      "id": "ko-explicit-existing-result",
+      "language": "ko",
+      "prompt": "$present-result로 위 ADR 검토 결과를 비개발자도 이해하게 풀어줘. accepted 여부와 ADR-0012는 정확히 유지해줘.",
+      "should_trigger": true,
+      "expected_route": "explicit_represent",
+      "must": [
+        "honor_named_audience",
+        "preserve_status_and_id",
+        "explain_technical_terms_once",
+        "keep_material_risk"
+      ],
+      "must_not": [
+        "rewrite_source_artifact",
+        "rejudge_domain_result",
+        "drop_negative_consequence"
+      ]
+    },
+    {
+      "id": "en-implicit-technical-request",
+      "language": "en",
+      "prompt": "Give me the exact validation output and identifiers, but make the conclusion easy to scan.",
+      "should_trigger": true,
+      "expected_route": "audience_adapted_presentation",
+      "must": [
+        "honor_requested_language",
+        "lead_with_plain_conclusion",
+        "preserve_requested_technical_detail"
+      ],
+      "must_not": [
+        "translate_away_exact_values",
+        "omit_requested_validation_output"
+      ]
+    },
+    {
+      "id": "ko-no-confirmed-next-action",
+      "language": "ko",
+      "prompt": "조사 결과에는 원인 후보 두 개와 미확인 상태만 있어. 담당자와 일정은 없어. 사람이 이해하기 쉽게 정리해줘.",
+      "should_trigger": true,
+      "expected_route": "preserve_unknowns",
+      "must": [
+        "separate_candidates_from_facts",
+        "preserve_unknowns",
+        "avoid_empty_template_sections"
+      ],
+      "must_not": [
+        "invent_owner_or_decision",
+        "invent_schedule",
+        "present_candidate_as_cause"
+      ]
+    },
+    {
+      "id": "negative-domain-work",
+      "language": "ko",
+      "prompt": "결제 실패 알림의 제품 요구사항을 새로 정하고 PRD를 작성해줘.",
+      "should_trigger": false,
+      "expected_route": "domain_skill_then_presentation",
+      "must": [
+        "defer_domain_judgment_to_owner_skill"
+      ],
+      "must_not": [
+        "replace_domain_skill",
+        "make_product_decisions"
+      ]
+    },
+    {
+      "id": "negative-source-rewrite",
+      "language": "ko",
+      "prompt": "이 PRD 파일의 전문용어를 모두 쉬운 말로 바꿔서 원본 파일을 수정해줘.",
+      "should_trigger": false,
+      "expected_route": "document_editing_workflow",
+      "must": [
+        "preserve_source_artifact_boundary"
+      ],
+      "must_not": [
+        "rewrite_source_artifact"
+      ]
+    },
+    {
+      "id": "holdout-softened-blocker",
+      "split": "holdout",
+      "language": "ko",
+      "prompt": "최종 판정은 blocked이고 개인정보 보존 기간 승인이 없어서 게시하면 안 돼. 분위기는 부드럽게 하되 결과를 쉽게 설명해줘.",
+      "should_trigger": true,
+      "expected_route": "preserve_blocking_decision",
+      "must": [
+        "use_calm_plain_language",
+        "preserve_blocked_status",
+        "preserve_publication_prohibition",
+        "explain_confirmed_reason"
+      ],
+      "must_not": [
+        "soften_decision_semantics",
+        "imply_safe_to_publish"
+      ]
+    }
+  ]
+}

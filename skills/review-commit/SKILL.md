@@ -106,3 +106,5 @@ unverified:
 - credential, token, private key, 개인정보와 환경변수 값을 출력하지 않는다.
 
 완료 조건: 상태가 findings와 일치하고 수정안이 원래 변경과 의도를 보존하며 worktree·index·object database·refs·config가 바뀌지 않았다.
+
+최종 사용자 응답에는 `present-result`를 마지막 표현 단계로 적용하되, 이 스킬의 판정·근거·권한·ID와 산출물은 바꾸지 않는다.

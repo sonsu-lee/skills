@@ -239,3 +239,5 @@ push 또는 PR 생성 명령이 timeout, 연결 종료나 malformed response로 
 - 해결되지 않은 finding, 인증·환경 미확인 또는 다음 사용자 결정
 
 내부 review trace, credential 식별자와 불필요한 계정 정보는 출력하지 않는다. 실행하지 않은 push, PR 생성 또는 merge를 완료했다고 말하지 않는다.
+
+최종 사용자 응답에는 `present-result`를 마지막 표현 단계로 적용하되, 이 스킬의 판정·근거·권한·ID와 산출물은 바꾸지 않는다.

@@ -29,6 +29,7 @@ description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 
 | 기술 결정이 내려져 ADR로 기록하려 함 | `to-adr` |
 | 승인된 계획을 의존성이 보이는 실행 작업으로 나누려 함 | `to-tickets` |
 | 여러 출처의 조사, 비교, 교차검증이 필요함 | `research` |
+| 이미 나온 전문 결과를 의미를 유지하며 쉽게 풀어 전달함 | `present-result` |
 | 현재 변경을 의미 단위 commit으로 생성함 | `create-commit` |
 | base/head 변경을 PR로 준비하거나 생성함 | `create-pull-request` |
 | commit 후보나 기존 commit을 읽기 전용으로 검토함 | `review-commit` |
@@ -62,3 +63,5 @@ description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 
 추천: product-discovery — PRD 변환 전에 핵심 결정을 닫아야 합니다.
 호출 예시: $product-discovery로 결제 실패 알림의 범위와 성공 기준을 구체화해줘.
 ```
+
+최종 사용자 응답에는 `present-result`를 마지막 표현 단계로 적용하되, 이 스킬의 판정·근거·권한·호출 예시는 바꾸지 않는다.

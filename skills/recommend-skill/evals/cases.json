@@ -90,6 +90,23 @@
       ]
     },
     {
+      "id": "recommend-skill-ko-present-existing-result",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$recommend-skill로 전문용어가 많은 위 검토 결과를 의미를 유지하면서 쉽게 전달하려면 어떤 스킬을 써야 하는지 알려줘.",
+      "should_trigger": true,
+      "expected_route": "present-result",
+      "must": [
+        "recognize_presentation_goal",
+        "recommend_one_next_skill",
+        "provide_exact_invocation"
+      ],
+      "must_not": [
+        "reperform_domain_work",
+        "change_source_result"
+      ]
+    },
+    {
       "id": "recommend-skill-near-direct-work",
       "kind": "routing",
       "language": "ko",
