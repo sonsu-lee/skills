@@ -144,7 +144,7 @@ def validate_skill(skill_dir: Path, readme_text: str, errors: list[str]) -> None
         errors.append(
             f"{metadata_path.relative_to(ROOT)}: policy.allow_implicit_invocation boolean이 필요합니다."
         )
-    elif (name.startswith("to-") or name == "sonsu") and policy[
+    elif (name.startswith("to-") or name == "recommend-skill") and policy[
         "allow_implicit_invocation"
     ]:
         errors.append(f"{metadata_path.relative_to(ROOT)}: {name}은 explicit-only여야 합니다.")

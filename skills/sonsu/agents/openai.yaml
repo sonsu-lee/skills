@@ -1,6 +1,0 @@
-interface:
-  display_name: "Sonsu"
-  short_description: "목표에 맞는 Sonsu Skills 워크플로와 다음 호출을 안내"
-  default_prompt: "$sonsu로 지금 해야 할 작업에 맞는 스킬을 찾아줘."
-policy:
-  allow_implicit_invocation: false

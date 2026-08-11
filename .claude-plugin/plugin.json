@@ -1,7 +1,7 @@
 {
   "name": "skills",
   "displayName": "Sonsu Skills",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "제품 문서, 리서치, Git 워크플로와 스킬 제작을 하나의 skills 컬렉션으로 제공하는 개인 Claude Code 플러그인",
   "author": {
     "name": "sonsu-lee"

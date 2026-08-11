@@ -1,12 +1,12 @@
 {
   "schema_version": "phase1-slice-result-v1",
-  "manifest_id": "369bb25a26ee70adcf24a86db9d74fcb1988e783a4e074cfe0e3a656e6796a40",
+  "manifest_id": "2ca003b490b1ffb7505ebb81859e1b95eadca6ce096338e6f4faf7c03a327ecc",
   "slice_id": "phase1-contract-foundation",
   "predecessor_slice_result_manifest_id": null,
   "artifacts": [
     {
       "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-      "sha256": "80c12ff32e9bcf4581902b15c322b3b60cbd35c1f36b77d55607e5fd262ae7f1",
+      "sha256": "553f0f04d13cbc071c27156195763acb4a9a9d20107aa1764ad0bf4f204cca63",
       "role": "validation_report"
     },
     {
@@ -91,7 +91,7 @@
   ],
   "fixture_report": {
     "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-    "sha256": "80c12ff32e9bcf4581902b15c322b3b60cbd35c1f36b77d55607e5fd262ae7f1"
+    "sha256": "553f0f04d13cbc071c27156195763acb4a9a9d20107aa1764ad0bf4f204cca63"
   },
   "validator": {
     "id": "phase1-contract-foundation-validator",
@@ -100,7 +100,7 @@
     "result": "pass"
   },
   "runtime_projection": {
-    "before_digest": "e1fb563fc667ffb4a3b5493248dc89f613391a9616352eace44f96a5a5e31bdc",
-    "after_digest": "e1fb563fc667ffb4a3b5493248dc89f613391a9616352eace44f96a5a5e31bdc"
+    "before_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803",
+    "after_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803"
   }
 }
