@@ -158,5 +158,5 @@
 - [OpenAI: Skills](https://developers.openai.com/plugins/concepts/skills)
 - [OpenAI: Prompting](https://learn.chatgpt.com/docs/prompting)
 - [OpenAI: Latest model prompting best practices](https://developers.openai.com/api/docs/guides/latest-model#prompting-best-practices)
-- [Matt Pocock: writing-great-skills](https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-great-skills)
+- [Matt Pocock: writing-for-agents](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md)
 - [Agent Skills Best Practices](https://agentskills.io/skill-creation/best-practices)

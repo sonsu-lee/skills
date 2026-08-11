@@ -82,5 +82,5 @@
 - [Agent Skills Specification](https://agentskills.io/specification)
 - [Agent Skills Best Practices](https://agentskills.io/skill-creation/best-practices)
 - [Obra Superpowers: writing-skills](https://github.com/obra/superpowers/tree/main/skills/writing-skills)
-- [Matt Pocock: writing-great-skills](https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-great-skills)
+- [Matt Pocock: writing-for-agents](https://github.com/mattpocock/skills/blob/main/docs/productivity/writing-for-agents.md)
 - [GBSOSS: skill-from-masters](https://github.com/GBSOSS/skill-from-masters)
