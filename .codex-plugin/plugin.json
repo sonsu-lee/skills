@@ -1,6 +1,6 @@
 {
   "name": "skills",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "대표 안내와 제품 탐색·문서 변환, 리서치, Git 워크플로, 스킬 제작을 하나의 루트 skills 컬렉션으로 제공하는 개인 Codex 플러그인",
   "author": {
     "name": "sonsu-lee"
@@ -17,7 +17,7 @@
       "Write"
     ],
     "defaultPrompt": [
-      "$skills:sonsu로 지금 해야 할 작업에 맞는 다음 스킬을 찾아줘.",
+      "$skills:recommend-skill로 지금 해야 할 작업에 맞는 다음 스킬을 찾아줘.",
       "$skills:product-discovery로 제품 문제와 핵심 결정을 구체화해줘.",
       "$skills:to-prd로 합의된 제품 컨텍스트를 PRD로 작성해줘.",
       "$skills:architecture-decisions로 기술 선택의 대안과 판단 기준을 검토해줘.",

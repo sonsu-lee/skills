@@ -1,9 +1,9 @@
 ---
-name: sonsu
-description: Sonsu Skills에서 현재 목표에 맞는 스킬과 다음 호출을 안내한다. 사용자가 어떤 스킬부터 써야 할지 모르거나 제품 탐색·문서 변환·기술 결정·Git 작업 사이의 순서를 고를 때 명시적으로 호출한다. 전문 작업을 직접 수행하거나 다른 explicit-only 스킬을 자동 실행하는 용도로는 사용하지 않는다.
+name: recommend-skill
+description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 스킬 하나와 정확한 호출 방법을 추천한다. 사용자가 어떤 스킬부터 써야 할지 모르거나 제품 탐색·문서 변환·기술 결정·Git 작업 사이의 순서를 고를 때 명시적으로 호출한다. 전문 작업을 직접 수행하거나 다른 explicit-only 스킬을 자동 실행하는 용도로는 사용하지 않는다.
 ---
 
-# Sonsu
+# Recommend Skill
 
 ## 목적
 

@@ -30,6 +30,10 @@
         },
         {
           "passed": true,
+          "skill_id": "recommend-skill"
+        },
+        {
+          "passed": true,
           "skill_id": "research"
         },
         {
@@ -43,10 +47,6 @@
         {
           "passed": true,
           "skill_id": "review-pr"
-        },
-        {
-          "passed": true,
-          "skill_id": "sonsu"
         },
         {
           "passed": true,
@@ -1138,7 +1138,7 @@
     "results": [
       {
         "case_id": "leaf-only-valid-isolated-copy",
-        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
+        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [],
@@ -1167,7 +1167,7 @@
       },
       {
         "case_id": "leaf-only-invalid-hardlink",
-        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
+        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1183,7 +1183,7 @@
       },
       {
         "case_id": "leaf-only-invalid-contract-missing",
-        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
+        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1199,7 +1199,7 @@
       },
       {
         "case_id": "leaf-only-invalid-contract-drift",
-        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
+        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1215,7 +1215,7 @@
       },
       {
         "case_id": "leaf-only-invalid-schema-drift",
-        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
+        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1231,7 +1231,7 @@
       },
       {
         "case_id": "leaf-only-invalid-fallback-root",
-        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
+        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1263,7 +1263,7 @@
       },
       {
         "case_id": "leaf-only-invalid-active-projection-drift",
-        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
+        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1279,7 +1279,7 @@
       },
       {
         "case_id": "leaf-only-invalid-description-only-drift",
-        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
+        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1295,7 +1295,7 @@
       },
       {
         "case_id": "leaf-only-invalid-policy-only-drift",
-        "effective_catalog_digest": "676823f6dee889e3626f70bb4f82ca0ed3515f4dfaea69b2adfd3cb356c62ea5",
+        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1313,32 +1313,32 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "e1fb563fc667ffb4a3b5493248dc89f613391a9616352eace44f96a5a5e31bdc",
-    "before_digest": "e1fb563fc667ffb4a3b5493248dc89f613391a9616352eace44f96a5a5e31bdc",
+    "after_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803",
+    "before_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803",
     "binding": {
-      "component_path_binding_digest": "decdb26452d015493397111d2691007c58ad0048d387ccf010654b5ad72501e4",
+      "component_path_binding_digest": "7c336f03498ceb256eea8b5242547721784c8efb5e85ce6d1edcf082452d7628",
       "hook_binding": "exact_codex_home_hooks_json",
       "inventory_coverage": "installed_plugins_only",
       "plugin_id": "skills@sonsu-skills",
-      "plugin_version": "0.1.0",
+      "plugin_version": "0.2.0",
       "selector_catalog_coverage": "not_observed",
       "verified": true
     },
     "codex_executable_identity": {
       "after_equal": true,
-      "executable_digest": "ae1d3ffe6d48aec6a4dc3f50e7eb8e0d11962485a6a9406c5a7012139383da02",
-      "path_digest": "0e4d20588e253a702163ddee5f839f46468664a773eaf41a07e86746f55d98ce",
-      "version": "codex-cli 0.146.0"
+      "executable_digest": "19c4f144c5226a9f17c58e6f0fa854843b0f77a6eb420f40e2745a12f10f5d37",
+      "path_digest": "738f2bdc833c49efb2202b91cc9b2a64e65402746b79b2846b70f8934dd61445",
+      "version": "codex-cli 0.147.0"
     },
     "components": [
       {
-        "digest": "9e55520c9a0b2de0eb7101873d899f4cd8479f8c234bcdfa828ff1634ca5eb33",
-        "entry_count": 255,
+        "digest": "e17bd53483e37d33292e0d5541d6254f0b22d9375142b2feedc8d717d4e497df",
+        "entry_count": 236,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "8c875421edc0351f984235c64fded7f882cd3eec0b58cb7806ae01fee67fc6a6",
+        "digest": "b3d548596c2d49bbd65a2d5cb0367882907a6967418f37d2a849e067b0d1fcd2",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"
@@ -1364,9 +1364,9 @@
     ],
     "effective_skill_catalog": {
       "after_count": 25,
-      "after_digest": "913aac81604e07db1d12a209c139f35109e77c63408b1d41046bfc7b5352eaff",
+      "after_digest": "b80b7822df7d313e4f9f67150bf1abf22e99ebb189b3bcd6a09cef4f8b972462",
       "before_count": 25,
-      "before_digest": "913aac81604e07db1d12a209c139f35109e77c63408b1d41046bfc7b5352eaff",
+      "before_digest": "b80b7822df7d313e4f9f67150bf1abf22e99ebb189b3bcd6a09cef4f8b972462",
       "candidate_source_isolation": {
         "candidate_alias_count": 0,
         "catalog_record_count": 25,
@@ -1387,9 +1387,9 @@
     "equal": true,
     "installed_plugin_inventory": {
       "after_count": 12,
-      "after_digest": "68b7aef089c62d3758b5e925604130da037518b29f320a13e9fd16bb3edae27c",
+      "after_digest": "aaebdd109a4b215f0e6c105df2deb85b5fcac523208eab8bfe24a4b7feee299b",
       "before_count": 12,
-      "before_digest": "68b7aef089c62d3758b5e925604130da037518b29f320a13e9fd16bb3edae27c",
+      "before_digest": "aaebdd109a4b215f0e6c105df2deb85b5fcac523208eab8bfe24a4b7feee299b",
       "coverage": "installed_plugins_only",
       "equal": true,
       "observer_kind": "sandboxed_read_only_active_inventory",

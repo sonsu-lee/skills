@@ -1,0 +1,6 @@
+interface:
+  display_name: "Sonsu Skill Guide"
+  short_description: "현재 목표에 맞는 다음 스킬과 정확한 호출 방법을 추천"
+  default_prompt: "$recommend-skill로 지금 해야 할 작업에 맞는 스킬을 찾아줘."
+policy:
+  allow_implicit_invocation: false

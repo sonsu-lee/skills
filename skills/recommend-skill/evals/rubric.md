@@ -1,4 +1,4 @@
-# Sonsu Evaluation Rubric
+# Recommend Skill Evaluation Rubric
 
 - 현재 목표와 입력의 준비 상태를 먼저 판별한다.
 - 가장 작은 다음 스킬 하나와 선택 이유를 안내한다.

@@ -127,7 +127,7 @@
 | 호출 방식 | 스킬 |
 |---|---|
 | 모델 자동 호출 허용 | `product-discovery`, `domain-modeling`, `architecture-decisions`, `research`, `review-commit`, `review-pr` |
-| 사용자 명시 호출 | `sonsu`, `to-*`, `create-commit`, `create-pull-request`, `develop-skill`, `review-dev-resume` |
+| 사용자 명시 호출 | `recommend-skill`, `to-*`, `create-commit`, `create-pull-request`, `develop-skill`, `review-dev-resume` |
 
 명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터로 검증한다.
 

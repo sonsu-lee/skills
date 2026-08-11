@@ -6,7 +6,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 | 스킬 | 설명 |
 |---|---|
-| `sonsu` | 현재 목표와 준비 상태에 맞는 다음 스킬과 호출 방법을 안내합니다. |
+| `recommend-skill` | 현재 목표와 준비 상태에 맞는 다음 스킬과 호출 방법을 추천합니다. |
 | `product-discovery` | 제품 문제와 미해결 결정을 근거 중심으로 탐색합니다. |
 | `to-prd` | 합의된 제품 컨텍스트를 검증 가능한 PRD로 변환합니다. |
 | `domain-modeling` | 용어, 상태, 전이와 비즈니스 규칙을 정본으로 정리합니다. |
@@ -23,7 +23,9 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 ## 워크플로 선택
 
-어떤 스킬부터 사용할지 모르면 `$sonsu`를 명시적으로 호출합니다. `sonsu`는 전문 작업이나 상태 변경을 대신 수행하지 않고, 현재 단계에 맞는 다음 스킬 하나와 정확한 호출 예시를 안내합니다.
+어떤 스킬부터 사용할지 모르면 `$recommend-skill`을 명시적으로 호출합니다. `recommend-skill`은 전문 작업이나 상태 변경을 대신 수행하지 않고, 현재 단계에 맞는 다음 스킬 하나와 정확한 호출 예시를 안내합니다.
+
+`0.3.0`부터 대표 진입점의 호출 이름이 `$sonsu`에서 `$recommend-skill`로 변경되었습니다. 기존 프롬프트나 자동화에서도 호출 이름을 함께 변경해야 합니다.
 
 | 현재 상태 | 다음 스킬 |
 |---|---|
@@ -51,9 +53,9 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 | 목적 | 설치 방식 | 적용 범위 | Codex 호출 형식 |
 |---|---|---|---|
-| 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$sonsu` |
-| 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$sonsu` |
-| 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:sonsu` |
+| 현재 프로젝트에서만 사용 | 독립 스킬 설치 | 현재 프로젝트의 `.agents/skills/` | `$recommend-skill` |
+| 모든 프로젝트에서 사용 | 독립 스킬 전역 설치 | 현재 사용자 | `$recommend-skill` |
+| 플러그인 묶음과 네임스페이스 사용 | Codex 플러그인 설치 | 현재 사용자 | `$skills:recommend-skill` |
 
 ### 현재 프로젝트에 설치
 
@@ -103,7 +105,7 @@ codex plugin marketplace remove sonsu-skills
 
 ```text
 # Codex 플러그인 설치
-$skills:sonsu로 이 작업에 맞는 다음 스킬을 찾아줘.
+$skills:recommend-skill로 이 작업에 맞는 다음 스킬을 찾아줘.
 $skills:product-discovery로 이 제품 아이디어의 문제와 핵심 결정을 구체화해줘.
 $skills:to-prd로 합의된 제품 컨텍스트를 PRD로 작성해줘.
 $skills:architecture-decisions로 이 기술 선택의 대안과 판단 기준을 검토해줘.
@@ -114,7 +116,7 @@ $skills:develop-skill로 새 스킬을 만들거나 기존 스킬을 개선해�
 $skills:review-dev-resume로 내 개발자 이력서를 검토해줘.
 
 # Codex 독립 스킬 설치
-$sonsu로 이 작업에 맞는 다음 스킬을 찾아줘.
+$recommend-skill로 이 작업에 맞는 다음 스킬을 찾아줘.
 $product-discovery로 이 제품 아이디어를 구체화해줘.
 $to-prd로 합의된 내용을 PRD로 작성해줘.
 $domain-modeling으로 도메인 용어와 상태 전이를 정리해줘.
