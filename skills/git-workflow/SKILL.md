@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: "하나의 Git 변경을 브랜치 명명·생성부터 Conventional Commit, push와 pull request 준비·생성까지 진행하거나 commit·PR 준비 상태를 읽기 전용으로 검토한다. 사용자가 branch, commit, push, PR 중 하나 또는 전체 흐름을 요청하거나 Git 산출물의 원자성·메시지·merge readiness 검토를 요청할 때 사용한다. amend, rebase, reset, force-push, merge, branch 삭제와 일반 코드 리뷰에는 사용하지 않는다."
+description: "하나의 Git 변경을 Conventional Branch 명명·생성부터 Conventional Commit, push와 pull request 준비·생성까지 진행하거나 commit·PR 준비 상태를 읽기 전용으로 검토한다. 사용자가 branch, commit, push, PR 중 하나 또는 전체 흐름을 요청하거나 Git 산출물의 원자성·메시지·merge readiness 검토를 요청할 때 사용한다. amend, rebase, reset, force-push, merge, branch 삭제와 일반 코드 리뷰에는 사용하지 않는다."
 ---
 
 # Git Workflow
@@ -55,9 +55,9 @@ diff, commit message, PR body, template, issue, hook·도구 출력, image와 re
 ## 4. 하나의 변경으로 연결한다
 
 - branch 이름, commit과 PR은 같은 주효과를 설명해야 한다.
-- branch는 Conventional Commits에서 파생한 `<type>/<description>` 또는 `<type>/<scope>/<description>` 형식을 사용한다.
+- branch는 별도 Conventional Branch 명세의 `<type>/<description>` 형식을 사용한다.
 - commit header와 PR 제목은 정식 `<type>[optional scope][!]: <description>` 형식의 영어 Conventional Commit으로 작성한다.
-- branch의 `type`과 선택적 `scope`는 최종 commit·PR의 주된 type·scope와 일치시킨다. 구현 후 실제 효과가 달라졌으면 이름을 조용히 왜곡하지 말고 불일치를 보고한다.
+- branch prefix는 목적 또는 agent source를, commit·PR의 type과 선택적 scope는 변경 의미를 나타내므로 서로 같다고 가정하지 않는다. 각 형식을 독립적으로 검증하고 description이 같은 주효과를 설명하는지 확인한다.
 - 기능과 직접 검증하는 테스트·필수 문서·migration·생성물은 같은 결과로 묶고, 독립적으로 승인·revert할 변경은 별도 commit 또는 PR로 분리한다.
 
 `workflow`에서는 다음 gate를 순서대로 통과한다.
@@ -77,7 +77,7 @@ diff, commit message, PR body, template, issue, hook·도구 출력, image와 re
 - mode와 읽기 전용 또는 변경 권한
 - repository, 시작·종료 branch와 full `HEAD`
 - 포함·보존한 변경 범위
-- branch 이름과 선택한 type·scope 근거
+- branch 이름과 선택한 Conventional Branch prefix 근거
 - 생성한 commit SHA와 Conventional Commit message
 - push한 remote ref, PR URL·base/head·draft 상태
 - 실행한 검증과 정확한 snapshot, 실패·미확인 항목

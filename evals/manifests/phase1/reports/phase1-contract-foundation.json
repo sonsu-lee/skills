@@ -1301,14 +1301,14 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "0036e510f2b4d3caabb5f507d1543db837418f69d6026b9a0b9c700f8c1e7c4a",
-    "before_digest": "0036e510f2b4d3caabb5f507d1543db837418f69d6026b9a0b9c700f8c1e7c4a",
+    "after_digest": "4fc2e1d136ec4a665e183160f2514058acea37a6f0296747fce02261400709d5",
+    "before_digest": "4fc2e1d136ec4a665e183160f2514058acea37a6f0296747fce02261400709d5",
     "binding": {
-      "component_path_binding_digest": "f25b17ed39ecb2fddaf04fed25223e08a71a9f88ecc78376a9e67e7bb53e28c9",
+      "component_path_binding_digest": "40d5d0658aacc448c6f34108853d5bc63559a6be12dd38e91c80b735c3e973d0",
       "hook_binding": "exact_codex_home_hooks_json",
       "inventory_coverage": "installed_plugins_only",
       "plugin_id": "skills@sonsu-skills",
-      "plugin_version": "0.3.0",
+      "plugin_version": "0.4.0",
       "selector_catalog_coverage": "not_observed",
       "verified": true
     },
@@ -1320,8 +1320,8 @@
     },
     "components": [
       {
-        "digest": "3ee51f60fd5da769c881c448d539b3c1d220f14bd69e2cab3ebcf438d82caf9b",
-        "entry_count": 236,
+        "digest": "d33701c6c6cba6951888830a08310434e39ae73e947d09f17a2ec5d91a564a47",
+        "entry_count": 225,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
@@ -1351,16 +1351,16 @@
       }
     ],
     "effective_skill_catalog": {
-      "after_count": 25,
-      "after_digest": "5a42dd0aa037e60888941677f343e618a8740255a6edb2ab53dd78ac1af6ffc9",
-      "before_count": 25,
-      "before_digest": "5a42dd0aa037e60888941677f343e618a8740255a6edb2ab53dd78ac1af6ffc9",
+      "after_count": 23,
+      "after_digest": "e9f5fcf5429ef961bd58431ac44b58a4b8d15f0dac1f15ae4cecb94c55697dea",
+      "before_count": 23,
+      "before_digest": "e9f5fcf5429ef961bd58431ac44b58a4b8d15f0dac1f15ae4cecb94c55697dea",
       "candidate_source_isolation": {
         "candidate_alias_count": 0,
-        "catalog_record_count": 25,
+        "catalog_record_count": 23,
         "descendant_symlink_count": 0,
-        "regular_descendant_count": 379,
-        "resolved_source_root_count": 44,
+        "regular_descendant_count": 365,
+        "resolved_source_root_count": 40,
         "verified": true
       },
       "candidate_source_isolation_equal": true,
@@ -1375,9 +1375,9 @@
     "equal": true,
     "installed_plugin_inventory": {
       "after_count": 12,
-      "after_digest": "428f3974381290ee8a42b05c65dc703b9961f4e18e463e8d5e8c95f57cd8cb7d",
+      "after_digest": "11803816522b1a16bb228310511fc88bbc9c5f4680657c3cae16ec080e9f1b9b",
       "before_count": 12,
-      "before_digest": "428f3974381290ee8a42b05c65dc703b9961f4e18e463e8d5e8c95f57cd8cb7d",
+      "before_digest": "11803816522b1a16bb228310511fc88bbc9c5f4680657c3cae16ec080e9f1b9b",
       "coverage": "installed_plugins_only",
       "equal": true,
       "observer_kind": "sandboxed_read_only_active_inventory",

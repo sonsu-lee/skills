@@ -21,7 +21,7 @@
       "prompt": "$git-workflow로 origin/main에서 이 auth 기능용 branch만 만들어줘. commit이나 push는 하지 마.",
       "should_trigger": true,
       "expected_modes": ["branch"],
-      "must": ["explicit_base", "create_branch_only", "no_commit", "no_push"]
+      "must": ["explicit_base", "conventional_branch", "codex_source_prefix", "create_branch_only", "no_commit", "no_push"]
     },
     {
       "id": "ko-commit-only",
@@ -62,9 +62,17 @@
       "must": ["read_only", "inspect_remote_pr", "determine_merge_mode"]
     },
     {
-      "id": "holdout-nonconventional-existing-branch",
+      "id": "holdout-valid-purpose-existing-branch",
       "split": "holdout",
       "prompt": "$git-workflow로 지금 feature/foo 브랜치의 변경을 PR로 올려줘. 기존 브랜치는 아직 publish하지 않았어.",
+      "should_trigger": true,
+      "expected_modes": ["pull-request"],
+      "must": ["accept_conventional_branch", "no_implicit_rename"]
+    },
+    {
+      "id": "holdout-nonconventional-existing-branch",
+      "split": "holdout",
+      "prompt": "$git-workflow로 지금 refactor/git-workflow/consolidate-skills 브랜치의 변경을 PR로 올려줘. 기존 브랜치는 아직 publish하지 않았어.",
       "should_trigger": true,
       "expected_modes": ["pull-request"],
       "must": ["report_branch_mismatch", "no_implicit_rename"]
