@@ -14,7 +14,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | `to-adr` | 준비된 아키텍처·기술 결정을 ADR로 변환합니다. |
 | `to-tickets` | 승인된 계획을 의존성이 드러나는 실행 티켓으로 변환합니다. |
 | `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
-| `git-workflow` | 브랜치 명명부터 Conventional Commit, PR 생성과 읽기 전용 검토까지 하나의 흐름으로 관리합니다. |
+| `git-workflow` | Conventional Branch 명명부터 Conventional Commit, PR 생성과 읽기 전용 검토까지 하나의 흐름으로 관리합니다. |
 | `develop-skill` | Agent Skill을 생성·수정·검토하고 구조와 행동을 검증합니다. |
 | `review-dev-resume` | 명시적으로 호출해 내 개발자 이력서와 경력기술서를 읽기 전용으로 진단합니다. |
 
@@ -25,6 +25,8 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 `0.3.0`부터 대표 진입점의 호출 이름이 `$sonsu`에서 `$recommend-skill`로 변경되었습니다. 기존 프롬프트나 자동화에서도 호출 이름을 함께 변경해야 합니다.
 
 `0.4.0`부터 Git 진입점은 `$git-workflow` 하나로 통합되었습니다. 기존 `$create-commit`, `$create-pull-request`, `$review-commit`, `$review-pr` 호출은 `$git-workflow`와 요청할 mode로 바꿔야 합니다.
+
+`0.4.1`부터 branch 이름은 별도 Conventional Branch 1.1.0 명세를 따릅니다. commit message와 PR 제목은 계속 Conventional Commits 형식을 사용합니다.
 
 | 현재 상태 | 다음 스킬 |
 |---|---|
@@ -143,18 +145,17 @@ $review-dev-resume로 내 개발자 이력서를 검토해줘.
 
 ## Git 워크플로와 브랜치 이름
 
-`git-workflow`는 branch, commit과 PR이 같은 주효과를 설명하도록 연결합니다. commit message와 PR 제목은 정식 Conventional Commit 형식을 사용하고, branch는 Git ref에 맞춘 파생 형식을 사용합니다.
+`git-workflow`는 branch, commit과 PR이 같은 주효과를 설명하도록 연결하되 이름 형식은 독립적으로 검증합니다. branch는 [Conventional Branch 1.1.0](https://conventionalbranch.org/), commit message와 PR 제목은 [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)을 사용합니다.
 
 ```text
 # branch
 <type>/<description>
-<type>/<scope>/<description>
 
 # commit과 PR 제목
 <type>[optional scope][!]: <description>
 ```
 
-예를 들어 branch가 `refactor/git-workflow/consolidate-skills`이면 commit과 PR 제목은 `refactor(git-workflow)!: consolidate Git skills`처럼 작성할 수 있습니다. 기본 type은 `feat`, `fix`, `refactor`, `perf`, `test`, `docs`, `style`, `build`, `ci`, `chore`, `revert`이며 더 구체적인 저장소 규칙이 있으면 그 규칙을 우선합니다.
+Conventional Branch의 purpose prefix는 `feature`·`feat`, `bugfix`·`fix`, `hotfix`, `release`, `chore`이며 agent source prefix는 `ai`, `copilot`, `cursor`, `claude`, `codex`입니다. 예를 들어 Codex가 만든 branch는 `codex/adopt-conventional-branch`, commit과 PR 제목은 `fix(git-workflow): adopt Conventional Branch naming`처럼 작성할 수 있습니다. branch prefix는 source를, commit type과 scope는 변경 의미를 나타낼 수 있으므로 서로 같을 필요는 없습니다. 더 구체적인 저장소 규칙이 있으면 그 규칙을 우선합니다.
 
 이름·메시지·계획·검토 요청은 읽기 전용입니다. branch 생성, commit, push와 PR 생성은 사용자가 해당 동작 또는 전체 흐름을 명시적으로 요청한 경우에만 수행합니다.
 
