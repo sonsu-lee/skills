@@ -143,11 +143,11 @@ PULL_REQUEST_TEMPLATE/*.txt
 
 - 파일명과 `.md`·`.txt` 확장자는 대소문자를 구분하지 않고 찾는다.
 - 현재 저장소에 해당 template이 없으면 repository owner의 공개 `.github` 저장소에 적용되는 default community health PR template을 같은 우선순위로 읽기 전용 확인한다. 호스트가 지원하는 내부·조직 기본 template이 별도로 노출되면 그 effective template도 확인한다.
-- 단일 template이면 제목, 순서와 checklist를 보존한다.
+- 단일 template이면 별도 형식 확인 없이 선택하고 제목, 순서와 checklist를 보존한다.
 - 복수 template이면 변경 유형과 저장소 지침에 맞는 것을 선택한다.
 - 선택이 결과를 실질적으로 바꾸고 기준이 없으면 사용자에게 선택을 요청한다.
 - 수행하지 않은 검증을 완료로 표시하지 않는다.
-- 저장소 template과 effective owner default가 모두 없을 때만 아래 기본 형식을 사용한다.
+- 저장소 template과 effective owner default가 모두 없을 때만 아래 fallback 형식을 제시한다. 현재 요청이나 대화에서 사용자가 이미 지정·승인한 형식이 아니면 구조와 각 절의 목적을 보여주고 확인받기 전에는 본문 확정, audit와 원격 쓰기를 진행하지 않는다.
 - owner default 접근이 불가능하면 “template 없음”으로 확정하지 말고 `unverified`로 기록한다. 준비 결과에는 fallback을 후보로 제시할 수 있지만, template 준수가 요청된 실제 PR 생성은 effective template을 확인할 때까지 중단한다.
 
 ```markdown
@@ -157,12 +157,18 @@ PULL_REQUEST_TEMPLATE/*.txt
 
 ## Changes
 
-- <key implementation details>
+- <review-relevant behavior, API, or configuration changes>
 
 ## Verification
 
-- <checks performed and results>
+- `<check>` — <result>
+
+## Notes
+
+- <actual risks, migration, compatibility, or follow-up; omit this section when none>
 ```
+
+`Summary`에는 무엇을 왜 바꿨는지, `Changes`에는 판단에 필요한 변화만 적는다. `Notes`는 실제 위험, migration, 호환성 또는 후속 작업이 있을 때만 포함한다. 검사를 실행하지 않았다면 `Not run — <reason>`으로 기록한다.
 
 ### Before/After screenshot
 

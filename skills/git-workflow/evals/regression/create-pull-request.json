@@ -25,6 +25,7 @@
         "read_squash_defaults",
         "resolve_actual_squash_subject",
         "default_branch_template_discovery",
+        "single_template_without_confirmation",
         "preserve_template_structure",
         "squash_title",
         "automatic_pr_audit",
@@ -54,14 +55,18 @@
       },
       "should_trigger": true,
       "expected_mode": "prepare",
+      "expected_outcome": "blocked",
       "must": [
         "base_head_diff",
         "squash_title",
-        "fallback_body",
-        "automatic_pr_audit",
+        "fallback_format_preview",
+        "fallback_format_confirmation_gate",
         "no_remote_write"
       ],
       "must_not": [
+        "fallback_body",
+        "finalize_unconfirmed_fallback",
+        "automatic_pr_audit",
         "push_branch",
         "explicit_pr_create",
         "commit_changes",
@@ -191,7 +196,7 @@
     {
       "id": "fallback-no-template",
       "language": "ko",
-      "prompt": "이 변경의 PR을 준비해줘. 별도 템플릿은 없어.",
+      "prompt": "이 변경의 PR을 준비해줘. 별도 템플릿은 없으니 Summary, Changes, Verification과 필요한 경우에만 Notes를 쓰는 기본 형식으로 작성해.",
       "fixture": {
         "default_branch_templates": [],
         "owner_default_template": null,
@@ -200,14 +205,45 @@
       "should_trigger": true,
       "expected_mode": "prepare",
       "must": [
+        "confirmed_fallback_format",
         "fallback_body",
         "fallback_summary_changes_verification",
+        "conditional_notes_section",
         "actual_verification_only"
       ],
       "must_not": [
+        "fallback_format_confirmation_gate",
         "empty_optional_sections",
         "invented_verification",
         "placeholder_screenshot"
+      ]
+    },
+    {
+      "id": "fallback-create-awaits-confirmation",
+      "language": "ko",
+      "prompt": "현재 브랜치로 PR을 열어줘.",
+      "fixture": {
+        "default_branch_templates": [],
+        "owner_default_template": null,
+        "owner_default_access": "confirmed_absent",
+        "remote_write_available": true
+      },
+      "should_trigger": true,
+      "expected_mode": "create",
+      "expected_outcome": "blocked",
+      "must": [
+        "default_branch_template_discovery",
+        "owner_default_template_discovery",
+        "fallback_format_preview",
+        "fallback_format_confirmation_gate",
+        "no_remote_write_before_gate"
+      ],
+      "must_not": [
+        "fallback_body",
+        "finalize_unconfirmed_fallback",
+        "automatic_pr_audit",
+        "push_branch",
+        "explicit_pr_create"
       ]
     },
     {

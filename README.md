@@ -147,6 +147,8 @@ $review-dev-resume로 내 개발자 이력서를 검토해줘.
 
 `git-workflow`는 branch, commit과 PR이 같은 주효과를 설명하도록 연결하되 이름 형식은 독립적으로 검증합니다. branch는 [Conventional Branch 1.1.0](https://conventionalbranch.org/), commit message와 PR 제목은 [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)을 사용합니다.
 
+PR 본문은 기본 브랜치의 저장소 템플릿, repository owner의 기본 `.github` 템플릿 순으로 사용합니다. 적용할 템플릿이 하나면 그대로 따르고, 복수 후보가 모호하면 선택을 요청합니다. 템플릿이 없으면 `Summary`, `Changes`, `Verification`과 필요한 경우에만 `Notes`를 포함하는 fallback 형식을 먼저 보여주고 확인받은 뒤 작성합니다. 실행하지 않은 검증은 이유와 함께 표시하며 빈 선택 절은 남기지 않습니다.
+
 ```text
 # branch
 <type>/<description>
