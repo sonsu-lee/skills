@@ -1,6 +1,0 @@
-interface:
-  display_name: "Review Pull Request"
-  short_description: "PR 또는 생성 전 제목·본문의 merge 준비 상태를 검토"
-  default_prompt: "$review-pr을 사용해 이 PR 또는 생성 전 제목·본문 후보의 전체 변경과 merge 준비 상태를 검토하고 수정안을 제안해줘."
-policy:
-  allow_implicit_invocation: true

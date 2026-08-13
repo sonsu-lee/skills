@@ -109,10 +109,10 @@ gh auth status --active --hostname <remote-host>
 
 실패 뒤 remote ref SHA와 같은 repository, base, head의 기존 PR을 bounded reconciliation으로 조회한다. 이미 존재하면 다시 생성하지 말고 head SHA, 제목, 본문과 draft 상태를 원래 감사된 입력과 대조한다. ambiguous create는 최초 request가 terminal이고 같은 idempotency key를 재사용할 수 있거나 provider가 미생성을 확정한 경우에만 최대 한 번 재시도한다. 조회에 아직 보이지 않는다는 사실만으로 재시도하지 않는다.
 
-## 스킬별 권한
+## mode별 권한
 
-- `create-commit`: 원래 commit이 요청됐고 대상 저장소, `HEAD`, index tree, staged 범위, message, 명령 인자와 안전한 hook·signing·content-processing inventory가 모두 사전 기록과 같을 때만 외부 commit 재시도를 수행할 수 있다.
-- `create-pull-request`: 원래 push/PR 생성이 요청됐고 remote ref, 기존 PR과 안전한 hook·transport·credential inventory 확인 후에만 외부 재시도를 수행할 수 있다.
+- `commit`: 원래 commit이 요청됐고 대상 저장소, `HEAD`, index tree, staged 범위, message, 명령 인자와 안전한 hook·signing·content-processing inventory가 모두 사전 기록과 같을 때만 외부 commit 재시도를 수행할 수 있다.
+- `pull-request`: 원래 push/PR 생성이 요청됐고 remote ref, 기존 PR과 안전한 hook·transport·credential inventory 확인 후에만 외부 재시도를 수행할 수 있다.
 - `review-commit`, `review-pr`: 허용된 읽기 진단까지만 수행하며 commit, push, PR 생성·수정을 재시도하지 않는다.
 
 ## 금지되는 fallback

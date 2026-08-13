@@ -14,7 +14,7 @@
 - 여러 스킬이 같은 전문 능력을 재사용한다.
 - 다음 단계의 지침이 미리 보이면 모델이 순서를 건너뛰거나 너무 일찍 실행할 수 있다.
 - 특정 작업 경로에서만 필요한 규칙이 다른 경로의 컨텍스트를 계속 차지한다.
-- 읽기 전용 검토와 외부 상태를 변경하는 실행처럼 권한 경계가 다르다.
+- 읽기 전용 검토와 외부 상태를 변경하는 실행처럼 권한 경계가 다르다. 단, 하나의 end-to-end 사용자 목표를 같은 진입점에서 수행해야 한다면 mode별 명시적 권한 gate와 조건부 reference로 경계를 분리할 수 있다.
 
 ### 이름은 실제 행동을 설명한다
 
@@ -58,8 +58,7 @@
 
 예시:
 
-- `create-commit`
-- `create-pull-request`
+- `git-workflow`
 - `develop-skill`
 
 기존 이름을 짧게 만들더라도 권한이나 결과가 불명확해지면 유지한다. 이름 단축은 역할 분리와 별개의 변경으로 다룬다.
@@ -70,11 +69,11 @@
 
 예시:
 
-- `review-commit`
-- `review-pr`
 - `review-dev-resume`
 
 검토 결과를 바탕으로 실제 수정까지 수행한다면 동일한 스킬에 암묵적으로 포함하지 않는다. 별도 변경 스킬로 전환하거나 사용자에게 다음 행동을 제안한다.
+
+`git-workflow`처럼 하나의 수명 주기를 통합한 스킬은 이름 대신 mode와 요청 동사로 읽기 전용 검토와 상태 변경을 구분한다. 이 경우 review mode는 독립 schema와 무변경 gate를 유지하고, 쓰기 mode의 권한으로 암묵적으로 승격되지 않는다.
 
 ### 전문 능력 이름: 재사용 가능한 판단과 탐색
 
@@ -126,8 +125,8 @@
 
 | 호출 방식 | 스킬 |
 |---|---|
-| 모델 자동 호출 허용 | `product-discovery`, `domain-modeling`, `architecture-decisions`, `research`, `review-commit`, `review-pr` |
-| 사용자 명시 호출 | `recommend-skill`, `to-*`, `create-commit`, `create-pull-request`, `develop-skill`, `review-dev-resume` |
+| 모델 자동 호출 허용 | `product-discovery`, `domain-modeling`, `architecture-decisions`, `research` |
+| 사용자 명시 호출 | `recommend-skill`, `to-*`, `git-workflow`, `develop-skill`, `review-dev-resume` |
 
 명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터로 검증한다.
 
@@ -204,7 +203,7 @@ skill-name/
 - 이름만 보고 주된 행동과 결과를 예측할 수 있는가?
 - description이 다른 스킬과의 경계를 구체적으로 설명하는가?
 - 스킬 하나가 독립적으로 설명 가능한 큰 책임 하나만 가지는가?
-- 읽기 전용 작업과 상태 변경 작업이 분리되어 있는가?
+- 읽기 전용 작업과 상태 변경 작업이 별도 스킬 또는 명시적인 mode·권한 gate로 분리되어 있는가?
 - 보통 경로에서 필요하지 않은 reference를 읽지 않는가?
 - 사용자 명시 호출과 모델 자동 호출이 의도대로 구분되는가?
 - README, manifest와 런타임 메타데이터가 같은 스킬 목록을 설명하는가?

@@ -31,7 +31,7 @@
 
 ## Commit 단위
 
-PR과 commit은 서로 다른 의미 단위다. 이 스킬은 commit 단위만 판단한다.
+PR과 commit은 서로 다른 의미 단위다. 이 review mode는 commit 단위만 판단한다.
 
 - 하나의 commit은 header 한 줄로 staged diff 전체를 설명할 수 있어야 한다.
 - 기능과 직접 검증하는 테스트, 필수 문서·migration·lockfile·생성물은 하나의 결과면 함께 둘 수 있다.

@@ -2,19 +2,11 @@
   "develop_skill": {
     "case_count": 5,
     "catalog_validation": {
-      "passed_count": 14,
+      "passed_count": 11,
       "results": [
         {
           "passed": true,
           "skill_id": "architecture-decisions"
-        },
-        {
-          "passed": true,
-          "skill_id": "create-commit"
-        },
-        {
-          "passed": true,
-          "skill_id": "create-pull-request"
         },
         {
           "passed": true,
@@ -23,6 +15,10 @@
         {
           "passed": true,
           "skill_id": "domain-modeling"
+        },
+        {
+          "passed": true,
+          "skill_id": "git-workflow"
         },
         {
           "passed": true,
@@ -38,15 +34,7 @@
         },
         {
           "passed": true,
-          "skill_id": "review-commit"
-        },
-        {
-          "passed": true,
           "skill_id": "review-dev-resume"
-        },
-        {
-          "passed": true,
-          "skill_id": "review-pr"
         },
         {
           "passed": true,
@@ -61,7 +49,7 @@
           "skill_id": "to-tickets"
         }
       ],
-      "skill_count": 14
+      "skill_count": 11
     },
     "passed_count": 5,
     "results": [
@@ -1313,14 +1301,14 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803",
-    "before_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803",
+    "after_digest": "0036e510f2b4d3caabb5f507d1543db837418f69d6026b9a0b9c700f8c1e7c4a",
+    "before_digest": "0036e510f2b4d3caabb5f507d1543db837418f69d6026b9a0b9c700f8c1e7c4a",
     "binding": {
-      "component_path_binding_digest": "7c336f03498ceb256eea8b5242547721784c8efb5e85ce6d1edcf082452d7628",
+      "component_path_binding_digest": "f25b17ed39ecb2fddaf04fed25223e08a71a9f88ecc78376a9e67e7bb53e28c9",
       "hook_binding": "exact_codex_home_hooks_json",
       "inventory_coverage": "installed_plugins_only",
       "plugin_id": "skills@sonsu-skills",
-      "plugin_version": "0.2.0",
+      "plugin_version": "0.3.0",
       "selector_catalog_coverage": "not_observed",
       "verified": true
     },
@@ -1332,13 +1320,13 @@
     },
     "components": [
       {
-        "digest": "e17bd53483e37d33292e0d5541d6254f0b22d9375142b2feedc8d717d4e497df",
+        "digest": "3ee51f60fd5da769c881c448d539b3c1d220f14bd69e2cab3ebcf438d82caf9b",
         "entry_count": 236,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "b3d548596c2d49bbd65a2d5cb0367882907a6967418f37d2a849e067b0d1fcd2",
+        "digest": "bca2701fa6ab77fc35c7c05235e9f4b15c848b30b7691ef76ab8949a446bfde7",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"
@@ -1364,9 +1352,9 @@
     ],
     "effective_skill_catalog": {
       "after_count": 25,
-      "after_digest": "b80b7822df7d313e4f9f67150bf1abf22e99ebb189b3bcd6a09cef4f8b972462",
+      "after_digest": "5a42dd0aa037e60888941677f343e618a8740255a6edb2ab53dd78ac1af6ffc9",
       "before_count": 25,
-      "before_digest": "b80b7822df7d313e4f9f67150bf1abf22e99ebb189b3bcd6a09cef4f8b972462",
+      "before_digest": "5a42dd0aa037e60888941677f343e618a8740255a6edb2ab53dd78ac1af6ffc9",
       "candidate_source_isolation": {
         "candidate_alias_count": 0,
         "catalog_record_count": 25,
@@ -1387,9 +1375,9 @@
     "equal": true,
     "installed_plugin_inventory": {
       "after_count": 12,
-      "after_digest": "aaebdd109a4b215f0e6c105df2deb85b5fcac523208eab8bfe24a4b7feee299b",
+      "after_digest": "428f3974381290ee8a42b05c65dc703b9961f4e18e463e8d5e8c95f57cd8cb7d",
       "before_count": 12,
-      "before_digest": "aaebdd109a4b215f0e6c105df2deb85b5fcac523208eab8bfe24a4b7feee299b",
+      "before_digest": "428f3974381290ee8a42b05c65dc703b9961f4e18e463e8d5e8c95f57cd8cb7d",
       "coverage": "installed_plugins_only",
       "equal": true,
       "observer_kind": "sandboxed_read_only_active_inventory",

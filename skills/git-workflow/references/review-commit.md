@@ -1,9 +1,4 @@
----
-name: review-commit
-description: "아직 commit되지 않은 staged·unstaged·untracked 변경과 commit plan·message 후보, 또는 이미 생성된 commit·revision range의 메시지·의미적 원자성·누적 history를 읽기 전용으로 검토한다. Commit 전 review·audit·preflight·check와 기존 commit/history 검토 요청에 사용한다. 실제 stage·commit, history rewrite, pull request 검토와 일반 코드 리뷰에는 사용하지 않는다."
----
-
-# Review Commit
+# Commit review
 
 Commit 생성 전 후보 변경이나 이미 생성된 commit history가 저장소 규칙에 맞고 하나의 의미 단위로 구성됐는지 검토한다. 문제를 고친 계획과 메시지는 제안만 하며 Git 상태나 history를 바꾸지 않는다.
 
@@ -13,8 +8,8 @@ Commit 생성 전 후보 변경이나 이미 생성된 commit history가 저장�
 
 | `target_kind` | 선택 기준 | reference |
 | --- | --- | --- |
-| `candidate` | commit 전 worktree·index, staged·unstaged·untracked 변경, commit plan·message 후보 | [Commit 후보 검토](references/uncommitted-changes.md) |
-| `history` | 이미 생성된 commit, full SHA, revision range, branch history | [Commit history 검토](references/commit-history.md) |
+| `candidate` | commit 전 worktree·index, staged·unstaged·untracked 변경, commit plan·message 후보 | [Commit 후보 검토](uncommitted-changes.md) |
+| `history` | 이미 생성된 commit, full SHA, revision range, branch history | [Commit history 검토](commit-history.md) |
 
 - 상위 workflow가 `target_kind`를 지정했으면 그 값을 보존한다.
 - 대상이 명확하면 mode를 다시 묻지 않는다.
