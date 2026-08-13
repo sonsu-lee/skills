@@ -29,10 +29,7 @@ description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 
 | 기술 결정이 내려져 ADR로 기록하려 함 | `to-adr` |
 | 승인된 계획을 의존성이 보이는 실행 작업으로 나누려 함 | `to-tickets` |
 | 여러 출처의 조사, 비교, 교차검증이 필요함 | `research` |
-| 현재 변경을 의미 단위 commit으로 생성함 | `create-commit` |
-| base/head 변경을 PR로 준비하거나 생성함 | `create-pull-request` |
-| commit 후보나 기존 commit을 읽기 전용으로 검토함 | `review-commit` |
-| PR 또는 생성 전 PR 설명의 merge 준비 상태를 검토함 | `review-pr` |
+| branch 명명·생성, commit, push, PR 준비·생성 또는 Git 산출물 검토 | `git-workflow` |
 | 스킬을 생성·수정·검토하고 평가함 | `develop-skill` |
 
 ## 경계 판정
@@ -41,8 +38,8 @@ description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 
 
 - 결정이 열려 있으면 `product-discovery` 또는 `architecture-decisions`를 추천한다.
 - 핵심 결정과 근거가 준비되었으면 `to-prd`, `to-adr` 또는 `to-tickets`를 추천한다.
-- commit 또는 PR의 품질만 판정하려면 각각 `review-commit` 또는 `review-pr`를 추천한다.
-- 실제 Git 상태를 만들려면 사용자의 명시적 요청을 확인한 뒤 `create-*`를 추천한다.
+- Git 산출물의 품질만 판정하려면 `git-workflow`의 읽기 전용 review mode를 추천한다.
+- branch, commit, push 또는 PR처럼 실제 Git 상태를 만들려면 사용자의 명시적 요청을 확인한 뒤 `git-workflow`를 추천한다.
 
 요청이 direct-only 스킬에만 해당하면 라우팅 범위 밖이라고만 안내하고, 해당 스킬의 이름이나 호출 예시를 반환하지 않는다.
 
