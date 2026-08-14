@@ -30,6 +30,8 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 `0.4.1`부터 branch 이름은 별도 Conventional Branch 1.1.0 명세를 따릅니다. commit message와 PR 제목은 계속 Conventional Commits 형식을 사용합니다.
 
+`0.5.0`부터 `git-workflow`, `to-*`와 다른 전문 스킬은 목표가 자연어 요청에 명확하면 이름을 직접 쓰지 않아도 자동으로 선택될 수 있습니다. `recommend-skill`, `develop-skill`과 `review-dev-resume`는 계속 명시적으로 호출합니다.
+
 | 현재 상태 | 다음 스킬 |
 |---|---|
 | 제품 문제나 범위 결정이 열려 있음 | `product-discovery` |
