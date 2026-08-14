@@ -7,7 +7,7 @@
 평가 runner는 대상 agent에게 다음만 제공한다.
 
 - 대상 호스트의 manifest: `.codex-plugin/plugin.json` 또는 `.claude-plugin/plugin.json`
-- routing 단계에서 manifest로 발견 가능한 모든 installable skill의 `name`과 `description`
+- routing 단계에서 manifest로 발견 가능한 모든 installable skill의 `name`·`description`과 `agents/openai.yaml`의 `policy.allow_implicit_invocation`
 - 선택 대상들의 `SKILL.md`, `agents/`, `assets/`, `references/`
 - 문서를 쓰는 각 Product Docs 스킬의 `references/document-contract.md`
 - 현재 user step과 그 시점의 fixture repository
@@ -21,7 +21,7 @@
 
 trace에서 agent가 원본 eval path를 읽지 않았는지 확인한다. 진짜 release holdout은 이 plugin 밖의 private suite에 보관하고, canary와 injection 위치는 실행 시 생성한다.
 
-routing 실행 전 manifest에서 installable skill을 열거하고, runner가 agent에게 제공한 `name`·`description` 집합과 정확히 일치하는지 검사한다. 누락·중복·임의 축약은 실패이며, 선택 전에는 어떤 skill의 본문이나 resource도 제공하지 않는다.
+routing 실행 전 manifest에서 installable skill을 열거하고, runner가 agent에게 제공한 `name`·`description`·`policy.allow_implicit_invocation` 집합과 정확히 일치하는지 검사한다. 누락·중복·임의 축약은 실패이며, 선택 전에는 어떤 skill의 본문이나 resource도 제공하지 않는다.
 
 ## Stepwise multi-turn
 

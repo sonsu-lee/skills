@@ -14,7 +14,7 @@
         "scaffold_new_target_only",
         "author_korean_canonical",
         "generate_lean_interface_metadata",
-        "declare_explicit_invocation_policy",
+        "declare_invocation_policy",
         "run_scaffold_and_strict_validation",
         "apply_shared_development_core",
         "validate_structure_and_behavior"
@@ -124,16 +124,18 @@
       ]
     },
     {
-      "id": "negative-implicit-development",
+      "id": "ko-implicit-update",
       "language": "ko",
       "prompt": "기존 research 스킬의 트리거를 넓히고 평가도 다시 실행해줘.",
-      "should_trigger": false,
-      "expected_route": "built_in_skill_creator_or_other_explicit_workflow",
+      "should_trigger": true,
+      "expected_route": "update",
       "must": [
-        "respect_explicit_only_policy"
+        "respect_implicit_invocation_policy",
+        "classify_update",
+        "validate_existing_new_and_holdout_cases"
       ],
       "must_not": [
-        "implicit_develop_skill_activation"
+        "route_to_domain_task"
       ]
     },
     {

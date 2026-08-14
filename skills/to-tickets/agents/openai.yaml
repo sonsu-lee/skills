@@ -3,4 +3,4 @@ interface:
   short_description: "승인된 계획을 의존성이 드러나는 실행 티켓으로 변환"
   default_prompt: "$to-tickets로 승인된 계획을 실행 가능한 티켓으로 나눠줘."
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true

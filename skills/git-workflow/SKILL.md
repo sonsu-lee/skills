@@ -5,7 +5,7 @@ description: "하나의 Git 변경을 Conventional Branch 명명·생성부터 C
 
 # Git Workflow
 
-하나의 변경을 branch, commit과 pull request로 이어지는 검토 가능한 Git 결과로 만든다. 사용자는 `$git-workflow` 하나만 호출하며, 요청한 단계와 권한에 맞는 reference만 읽는다.
+하나의 변경을 branch, commit과 pull request로 이어지는 검토 가능한 Git 결과로 만든다. 사용자가 스킬 이름을 직접 호출하거나 Git 작업을 자연어로 요청하면, 요청한 단계와 권한에 맞는 reference만 읽는다.
 
 ## 1. 모드를 고른다
 
@@ -25,6 +25,8 @@ description: "하나의 Git 변경을 Conventional Branch 명명·생성부터 C
 요청이 명확하면 mode를 다시 묻지 않는다. 한 요청에 여러 단계가 있으면 `branch → commit → pull-request` 순서로 진행하고, 각 단계의 완료 상태를 다음 단계의 입력으로 고정한다.
 
 ## 2. 권한 경계를 고정한다
+
+스킬의 자동 활성화는 Git 상태 변경 권한이 아니다. 아래 표의 동작을 사용자가 요청에서 명시한 경우에만 해당 변경을 수행한다.
 
 | 요청 | 허용되는 변경 |
 | --- | --- |
