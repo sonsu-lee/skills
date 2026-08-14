@@ -13,7 +13,7 @@
 ## Deterministic checks
 
 1. `cases.json` 객체와 `cases` 배열이 파싱되고 `skill_name`이 일치하며 ID가 유일한지 검사한다.
-2. routing trace의 skill `name`·`description` 집합이 manifest에서 발견한 모든 installable skill과 정확히 일치하는지 검사한다.
+2. routing trace의 skill `name`·`description`·`policy.allow_implicit_invocation` 집합이 manifest에서 발견한 모든 installable skill과 정확히 일치하는지 검사한다.
 3. `write_allowlist` 밖의 생성·수정·삭제가 없는지 검사한다.
 4. 같은 입력을 두 번 실행해 새 ID나 중복 PRD가 생기지 않는지 검사한다.
 5. frontmatter의 `type`, `id`, `title`, `status`, `workflow_status`, 날짜, `sources`, `related`, lifecycle links, visibility·publication, approval events, readiness와 날짜·ID·파일명 정합성을 검사한다.
