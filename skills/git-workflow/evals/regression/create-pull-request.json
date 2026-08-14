@@ -1583,7 +1583,7 @@
       "id": "holdout-verified-merge-time-signing-path",
       "split": "holdout",
       "language": "en",
-      "prompt": "Open this merge-commit PR; the final history must remain fully signed.",
+      "prompt": "Open this merge-commit PR; the final history must remain fully signed. No PR template applies, so use the approved fallback with Summary, Changes, Verification, and optional Notes.",
       "fixture": {
         "repository": "org/repo",
         "default_branch": "main",
@@ -1619,7 +1619,7 @@
           "reject stale cursors and cover the regression"
         ],
         "proposed_pr_title": "fix(api): reject stale cursors",
-        "proposed_pr_body": "## Summary\n- Reject stale cursors\n\n## Verification\n- Not run (fixture)",
+        "proposed_pr_body": "## Summary\n- Reject stale cursors\n\n## Changes\n- Reject stale cursors and cover the regression\n\n## Verification\n- Not run — fixture only",
         "repository_template": null,
         "owner_default_template": null,
         "owner_default_access": "confirmed_absent",
@@ -1631,6 +1631,11 @@
       "expected_merge_mode": "preserve-commits",
       "expected_merge_support": "supported",
       "must": [
+        "confirmed_fallback_format",
+        "fallback_body",
+        "fallback_summary_changes_verification",
+        "conditional_notes_section",
+        "actual_verification_only",
         "merge_mode_resolution",
         "read_merge_commit_defaults",
         "preserve_commits_audit",
@@ -1641,6 +1646,8 @@
         "explicit_pr_create"
       ],
       "must_not": [
+        "fallback_format_confirmation_gate",
+        "empty_optional_sections",
         "claim_source_signatures_cover_new_commit",
         "silent_mode_switch",
         "duplicate_pr"
@@ -1893,7 +1900,7 @@
       "id": "holdout-verified-squash-signing-path",
       "split": "holdout",
       "language": "en",
-      "prompt": "Open this squash PR; the final history must remain fully signed.",
+      "prompt": "Open this squash PR; the final history must remain fully signed. No PR template applies, so use the approved fallback with Summary, Changes, Verification, and optional Notes.",
       "fixture": {
         "repository": "org/repo",
         "default_branch": "main",
@@ -1928,7 +1935,7 @@
           "reject stale cursors and cover the regression"
         ],
         "proposed_pr_title": "fix(api): reject stale cursors",
-        "proposed_pr_body": "## Summary\n- Reject stale cursors\n\n## Verification\n- Not run (fixture)",
+        "proposed_pr_body": "## Summary\n- Reject stale cursors\n\n## Changes\n- Reject stale cursors and cover the regression\n\n## Verification\n- Not run — fixture only",
         "repository_template": null,
         "owner_default_template": null,
         "owner_default_access": "confirmed_absent",
@@ -1940,6 +1947,11 @@
       "expected_merge_mode": "squash",
       "expected_merge_support": "supported",
       "must": [
+        "confirmed_fallback_format",
+        "fallback_body",
+        "fallback_summary_changes_verification",
+        "conditional_notes_section",
+        "actual_verification_only",
         "merge_mode_resolution",
         "read_squash_defaults",
         "final_signature_state",
@@ -1949,6 +1961,8 @@
         "explicit_pr_create"
       ],
       "must_not": [
+        "fallback_format_confirmation_gate",
+        "empty_optional_sections",
         "claim_source_signatures_cover_new_commit",
         "silent_mode_switch",
         "duplicate_pr"
@@ -2010,7 +2024,7 @@
       "id": "holdout-valid-single-commit-squash-title-source",
       "split": "holdout",
       "language": "ko",
-      "prompt": "유효한 한 커밋 브랜치로 기본 squash PR을 열어줘.",
+      "prompt": "유효한 한 커밋 브랜치로 기본 squash PR을 열어줘. PR 템플릿은 없으니 Summary, Changes, Verification과 필요한 경우에만 Notes를 쓰는 fallback 형식을 승인할게.",
       "fixture": {
         "repository": "org/repo",
         "default_branch": "main",
@@ -2039,7 +2053,7 @@
           "add passkey sign-in and its regression coverage"
         ],
         "proposed_pr_title": "feat(auth): add passkey sign-in",
-        "proposed_pr_body": "## Summary\n- Add passkey sign-in\n\n## Verification\n- Not run (fixture)",
+        "proposed_pr_body": "## Summary\n- Add passkey sign-in\n\n## Changes\n- Add passkey sign-in and its regression coverage\n\n## Verification\n- Not run — fixture only",
         "repository_template": null,
         "owner_default_template": null,
         "owner_default_access": "confirmed_absent",
@@ -2051,6 +2065,11 @@
       "expected_merge_mode": "squash",
       "expected_merge_support": "supported",
       "must": [
+        "confirmed_fallback_format",
+        "fallback_body",
+        "fallback_summary_changes_verification",
+        "conditional_notes_section",
+        "actual_verification_only",
         "merge_mode_resolution",
         "read_squash_defaults",
         "resolve_actual_squash_subject",
@@ -2060,6 +2079,8 @@
         "explicit_pr_create"
       ],
       "must_not": [
+        "fallback_format_confirmation_gate",
+        "empty_optional_sections",
         "approve_bad_single_commit_squash_subject",
         "claim_pr_title_is_final_without_setting",
         "rewrite_commits",
@@ -2071,7 +2092,7 @@
       "id": "holdout-verified-rebase-signing-path",
       "split": "holdout",
       "language": "en",
-      "prompt": "Open this rebase-merge PR; the rewritten final commits must remain fully signed.",
+      "prompt": "Open this rebase-merge PR; the rewritten final commits must remain fully signed. No PR template applies, so use the approved fallback with Summary, Changes, Verification, and optional Notes.",
       "fixture": {
         "repository": "org/repo",
         "default_branch": "main",
@@ -2105,7 +2126,7 @@
           "reject stale cursors and cover the regression"
         ],
         "proposed_pr_title": "fix(api): reject stale cursors",
-        "proposed_pr_body": "## Summary\n- Reject stale cursors\n\n## Verification\n- Not run (fixture)",
+        "proposed_pr_body": "## Summary\n- Reject stale cursors\n\n## Changes\n- Reject stale cursors and cover the regression\n\n## Verification\n- Not run — fixture only",
         "repository_template": null,
         "owner_default_template": null,
         "owner_default_access": "confirmed_absent",
@@ -2117,6 +2138,11 @@
       "expected_merge_mode": "preserve-commits",
       "expected_merge_support": "supported",
       "must": [
+        "confirmed_fallback_format",
+        "fallback_body",
+        "fallback_summary_changes_verification",
+        "conditional_notes_section",
+        "actual_verification_only",
         "merge_mode_resolution",
         "rebase_history_semantics",
         "preserve_commits_audit",
@@ -2129,6 +2155,8 @@
         "explicit_pr_create"
       ],
       "must_not": [
+        "fallback_format_confirmation_gate",
+        "empty_optional_sections",
         "claim_rebase_preserves_signatures",
         "claim_source_signatures_cover_new_commit",
         "rewrite_commits",
@@ -2140,7 +2168,7 @@
       "id": "holdout-valid-merge-message-blank-defaults",
       "split": "holdout",
       "language": "mixed",
-      "prompt": "기본 MERGE_MESSAGE 제목과 빈 merge body가 허용되는 merge-commit PR을 열어줘.",
+      "prompt": "기본 MERGE_MESSAGE 제목과 빈 merge body가 허용되는 merge-commit PR을 열어줘. PR 템플릿은 없으니 Summary, Changes, Verification과 필요한 경우에만 Notes를 쓰는 fallback 형식을 승인할게.",
       "fixture": {
         "repository": "org/repo",
         "default_branch": "main",
@@ -2178,7 +2206,7 @@
           "bound request retries and cover the retry limit"
         ],
         "proposed_pr_title": "fix(api): bound request retries",
-        "proposed_pr_body": "## Summary\n- Bound request retries\n\n## Verification\n- Not run (fixture)",
+        "proposed_pr_body": "## Summary\n- Bound request retries\n\n## Changes\n- Bound request retries and cover the retry limit\n\n## Verification\n- Not run — fixture only",
         "repository_template": null,
         "owner_default_template": null,
         "owner_default_access": "confirmed_absent",
@@ -2190,6 +2218,11 @@
       "expected_merge_mode": "preserve-commits",
       "expected_merge_support": "supported",
       "must": [
+        "confirmed_fallback_format",
+        "fallback_body",
+        "fallback_summary_changes_verification",
+        "conditional_notes_section",
+        "actual_verification_only",
         "merge_mode_resolution",
         "read_merge_commit_defaults",
         "resolve_actual_merge_commit_message",
@@ -2202,6 +2235,8 @@
         "explicit_pr_create"
       ],
       "must_not": [
+        "fallback_format_confirmation_gate",
+        "empty_optional_sections",
         "claim_pr_title_as_final_commit",
         "claim_source_signatures_cover_new_commit",
         "rewrite_commits",
