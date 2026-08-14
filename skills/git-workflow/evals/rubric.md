@@ -4,7 +4,7 @@
 
 ## 평가 절차
 
-1. trigger 평가는 frontmatter `description`만 제공한다.
+1. trigger 평가는 frontmatter `name`·`description`과 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 제공한다.
 2. 행동 평가는 `SKILL.md`, 선택한 mode의 direct reference와 fixture만 제공한다.
 3. 실행 전후 branch, `HEAD`, index, worktree, refs, object database, config와 원격 상태를 기록한다.
 4. 읽기 전용 mode에서는 모든 local·remote 상태가 같아야 한다.
@@ -17,6 +17,7 @@
 | 범주 | 통과 조건 |
 | --- | --- |
 | `single_entry_point` | branch·commit·PR·Git review 요청을 `git-workflow` 하나가 받고 올바른 mode만 선택 |
+| `implicit_invocation_policy` | `allow_implicit_invocation: true`이며 스킬 이름 없는 직접 Git 요청에서도 선택 |
 | `conditional_references` | 선택한 mode에 필요한 direct reference만 읽고 인접 mode 절차를 미리 실행하지 않음 |
 | `authorization_boundary` | prepare·plan·review는 읽기 전용이고 명시된 쓰기 단계만 실행 |
 | `conventional_branch` | 별도 Conventional Branch 명세의 trunk 또는 `<type>/<description>` 형식과 repository 규칙을 모두 적용 |
@@ -33,6 +34,7 @@
 ## 필수 gate
 
 - 한국어·영어·혼합 branch, commit, PR과 review 사례에서 요청한 mode를 선택한다.
+- 명시적 `$git-workflow` 호출과 스킬 이름 없는 Git 작업 요청을 모두 선택하고, 구현-only와 일반 코드 리뷰에서는 호출하지 않는다.
 - 전체 workflow는 `branch → commit → pull-request` 순서를 지키고 각 단계의 exact 결과를 다음 입력으로 사용한다.
 - branch 이름은 Conventional Branch, commit·PR은 Conventional Commits로 구분한다.
 - Conventional Branch는 `<type>/<description>` 두 segment만 허용하고, purpose prefix와 agent source prefix 및 trunk branch를 명세대로 판정한다.

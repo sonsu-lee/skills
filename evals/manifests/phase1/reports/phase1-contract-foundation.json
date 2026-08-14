@@ -1301,14 +1301,14 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "4fc2e1d136ec4a665e183160f2514058acea37a6f0296747fce02261400709d5",
-    "before_digest": "4fc2e1d136ec4a665e183160f2514058acea37a6f0296747fce02261400709d5",
+    "after_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d",
+    "before_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d",
     "binding": {
-      "component_path_binding_digest": "40d5d0658aacc448c6f34108853d5bc63559a6be12dd38e91c80b735c3e973d0",
+      "component_path_binding_digest": "c0876169e7365f24f93f6e58cfd4a3835e06440dba18f24950892bcb4eaeda6e",
       "hook_binding": "exact_codex_home_hooks_json",
       "inventory_coverage": "installed_plugins_only",
       "plugin_id": "skills@sonsu-skills",
-      "plugin_version": "0.4.0",
+      "plugin_version": "0.4.1",
       "selector_catalog_coverage": "not_observed",
       "verified": true
     },
@@ -1320,13 +1320,13 @@
     },
     "components": [
       {
-        "digest": "d33701c6c6cba6951888830a08310434e39ae73e947d09f17a2ec5d91a564a47",
+        "digest": "eb5872bc5e83f369776d7998a2782f7fd528e5fac96bdb61f55e62aa9d5fa3f7",
         "entry_count": 225,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "bca2701fa6ab77fc35c7c05235e9f4b15c848b30b7691ef76ab8949a446bfde7",
+        "digest": "f41ffcf199a416524a9f8e097fb5fafd57537eaf4908c504e604445da50456f3",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"
@@ -1352,9 +1352,9 @@
     ],
     "effective_skill_catalog": {
       "after_count": 23,
-      "after_digest": "e9f5fcf5429ef961bd58431ac44b58a4b8d15f0dac1f15ae4cecb94c55697dea",
+      "after_digest": "3a02e2d19b6a5b5e6bd49cff1eba06c82cd59914c0fdd8631eeedcf68e620c6a",
       "before_count": 23,
-      "before_digest": "e9f5fcf5429ef961bd58431ac44b58a4b8d15f0dac1f15ae4cecb94c55697dea",
+      "before_digest": "3a02e2d19b6a5b5e6bd49cff1eba06c82cd59914c0fdd8631eeedcf68e620c6a",
       "candidate_source_isolation": {
         "candidate_alias_count": 0,
         "catalog_record_count": 23,
@@ -1375,9 +1375,9 @@
     "equal": true,
     "installed_plugin_inventory": {
       "after_count": 12,
-      "after_digest": "11803816522b1a16bb228310511fc88bbc9c5f4680657c3cae16ec080e9f1b9b",
+      "after_digest": "54818079b3284ae46d1d04561a1d137b910e5a8bca0ec431bc36efa24bc832ae",
       "before_count": 12,
-      "before_digest": "11803816522b1a16bb228310511fc88bbc9c5f4680657c3cae16ec080e9f1b9b",
+      "before_digest": "54818079b3284ae46d1d04561a1d137b910e5a8bca0ec431bc36efa24bc832ae",
       "coverage": "installed_plugins_only",
       "equal": true,
       "observer_kind": "sandboxed_read_only_active_inventory",

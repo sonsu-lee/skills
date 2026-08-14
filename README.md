@@ -22,11 +22,15 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 어떤 스킬부터 사용할지 모르면 `$recommend-skill`을 명시적으로 호출합니다. `recommend-skill`은 전문 작업이나 상태 변경을 대신 수행하지 않고, 현재 단계에 맞는 다음 스킬 하나와 정확한 호출 예시를 안내합니다.
 
+`recommend-skill`, `develop-skill`과 `review-dev-resume`를 제외한 전문 스킬은 목표가 자연어 요청에 명확하면 이름을 직접 쓰지 않아도 자동으로 선택될 수 있습니다. 자동 선택은 파일, Git 또는 외부 시스템 변경 권한이 아니며, 각 스킬은 사용자가 요청한 동작과 내부 승인 gate 안에서만 상태를 바꿉니다.
+
 `0.3.0`부터 대표 진입점의 호출 이름이 `$sonsu`에서 `$recommend-skill`로 변경되었습니다. 기존 프롬프트나 자동화에서도 호출 이름을 함께 변경해야 합니다.
 
 `0.4.0`부터 Git 진입점은 `$git-workflow` 하나로 통합되었습니다. 기존 `$create-commit`, `$create-pull-request`, `$review-commit`, `$review-pr` 호출은 `$git-workflow`와 요청할 mode로 바꿔야 합니다.
 
 `0.4.1`부터 branch 이름은 별도 Conventional Branch 1.1.0 명세를 따릅니다. commit message와 PR 제목은 계속 Conventional Commits 형식을 사용합니다.
+
+`0.5.0`부터 `git-workflow`, `to-*`와 다른 전문 스킬은 목표가 자연어 요청에 명확하면 이름을 직접 쓰지 않아도 자동으로 선택될 수 있습니다. `recommend-skill`, `develop-skill`과 `review-dev-resume`는 계속 명시적으로 호출합니다.
 
 | 현재 상태 | 다음 스킬 |
 |---|---|
@@ -159,7 +163,7 @@ PR 본문은 기본 브랜치의 저장소 템플릿, repository owner의 기본
 
 Conventional Branch의 purpose prefix는 `feature`·`feat`, `bugfix`·`fix`, `hotfix`, `release`, `chore`이며 agent source prefix는 `ai`, `copilot`, `cursor`, `claude`, `codex`입니다. 예를 들어 Codex가 만든 branch는 `codex/adopt-conventional-branch`, commit과 PR 제목은 `fix(git-workflow): adopt Conventional Branch naming`처럼 작성할 수 있습니다. branch prefix는 source를, commit type과 scope는 변경 의미를 나타낼 수 있으므로 서로 같을 필요는 없습니다. 더 구체적인 저장소 규칙이 있으면 그 규칙을 우선합니다.
 
-이름·메시지·계획·검토 요청은 읽기 전용입니다. branch 생성, commit, push와 PR 생성은 사용자가 해당 동작 또는 전체 흐름을 명시적으로 요청한 경우에만 수행합니다.
+이름·메시지·계획·검토 요청은 읽기 전용입니다. `git-workflow`는 Git 작업 요청에서 자동으로 선택될 수 있지만, branch 생성, commit, push와 PR 생성은 사용자가 해당 동작 또는 전체 흐름을 명시적으로 요청한 경우에만 수행합니다.
 
 ## 로컬 확인
 

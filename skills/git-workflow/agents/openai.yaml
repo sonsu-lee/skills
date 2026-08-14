@@ -3,4 +3,4 @@ interface:
   short_description: "Conventional Branch부터 Commit과 PR까지 하나의 흐름으로 관리"
   default_prompt: "$git-workflow를 사용해 이 변경의 브랜치 이름을 정하고 의미 단위로 커밋한 뒤 draft PR을 생성하고 결과를 검증해줘."
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true

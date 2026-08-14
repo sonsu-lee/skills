@@ -24,7 +24,7 @@
       "id": "to-tickets-en-publish",
       "kind": "behavior",
       "language": "en",
-      "prompt": "Use $to-tickets to prepare the approved implementation plan as issues, show me the exact set, and wait for approval before publishing.",
+      "prompt": "Prepare the approved implementation plan as issues, show me the exact set, and wait for approval before publishing.",
       "should_trigger": true,
       "expected_mode": "prepare_then_confirm",
       "must": [
@@ -41,7 +41,7 @@
       "id": "to-tickets-blocked-discovery",
       "kind": "routing",
       "language": "ko",
-      "prompt": "$to-tickets로 아직 사용자와 범위도 정하지 않은 알림 아이디어를 바로 개발 티켓으로 만들어줘.",
+      "prompt": "아직 사용자와 범위도 정하지 않은 알림 아이디어를 바로 개발 티켓으로 만들어줘.",
       "should_trigger": true,
       "expected_mode": "blocked",
       "expected_route": "product-discovery",

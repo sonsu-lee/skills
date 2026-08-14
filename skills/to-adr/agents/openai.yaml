@@ -3,4 +3,4 @@ interface:
   short_description: "내려진 기술 결정을 근거와 이력을 갖춘 ADR로 변환"
   default_prompt: "$to-adr로 확정된 아키텍처 결정을 ADR로 기록해줘."
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true

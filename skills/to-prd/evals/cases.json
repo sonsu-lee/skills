@@ -64,7 +64,7 @@
         "approved_input",
         "confirmed_metric"
       ],
-      "prompt": "Use $to-prd to turn the approved discovery packet into a product requirements spec. Preserve the approved target exactly and show which downstream teams are still only conditionally ready.",
+      "prompt": "Turn the approved discovery packet into a product requirements spec. Preserve the approved target exactly and show which downstream teams are still only conditionally ready.",
       "fixture": {
         "clock": "2026-08-02",
         "repo_files": [
@@ -267,7 +267,7 @@
         "update",
         "decision_invalidation"
       ],
-      "prompt": "$to-prd로 기존 환불 PRD를 갱신해줘. 인터뷰에는 30일이라고 쓰여 있지만 정본 정책은 14일이야. 어느 쪽이 맞는지는 아직 확인 못했어.",
+      "prompt": "기존 환불 PRD를 갱신해줘. 인터뷰에는 30일이라고 쓰여 있지만 정본 정책은 14일이야. 어느 쪽이 맞는지는 아직 확인 못했어.",
       "fixture": {
         "clock": "2026-08-02",
         "repo_files": [
@@ -391,7 +391,7 @@
           "docs/product/prds/**"
         ]
       },
-      "should_trigger": false,
+      "should_trigger": true,
       "expected_route": "product-discovery",
       "expected_mode": "route",
       "allowed_outcomes": [

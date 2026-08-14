@@ -27,7 +27,7 @@
 | `scaffold_new_target_only`, `patch_without_scaffolding` | 새 대상에만 스캐폴더를 사용하고 기존 대상은 필요한 파일만 수정 |
 | `author_korean_canonical` | 별도 언어 지시가 없는 생성 사례에서 본문·description·UI 메타데이터를 한국어 canonical 원문으로 작성하고 식별자·경로·schema key는 ASCII로 유지 |
 | `generate_lean_interface_metadata` | display name·25~64자 기능 요약·명시적 `$skill-name`을 포함한 한 문장의 대표 `default_prompt`를 중복 설명 없이 생성 |
-| `declare_explicit_invocation_policy` | 생성본에 `policy.allow_implicit_invocation` boolean을 명시하고, 독립 outcome·트리거 평가 근거가 없는 meta·고영향·명시 전용 스킬은 `false`로 유지 |
+| `declare_invocation_policy` | 생성본에 `policy.allow_implicit_invocation` boolean을 명시하고, 자동 활성화와 상태 변경 권한을 분리하며, 독립 outcome·트리거 평가 근거가 없거나 direct-only인 스킬은 `false`로 유지 |
 | `run_scaffold_and_strict_validation` | 실제 스캐폴더로 새 target을 만든 뒤 `SKILL.md` 본문을 완성하고 strict invocation-policy 검증을 통과시켜 실행 명령·결과를 보고 |
 | `resolve_target_before_edit`, `ask_smallest_material_question`, `avoid_outcome_changing_assumption` | 수정 대상을 확정하고 결과를 바꾸는 최소 공백만 질문 |
 | `resolve_authoritative_source`, `distinguish_cache_from_source` | 설치 캐시·배포물과 authoring source를 구분해 권위 있는 소스를 수정 |
@@ -47,7 +47,7 @@
 
 ## 금지 assertion
 
-- `implicit_develop_skill_activation`, `develop_skill_activation`: 명시 호출이 없는데 이 스킬을 활성화
+- `implicit_develop_skill_activation`, `develop_skill_activation`: 명시 호출 없는 요청, 일반 도메인 작업이나 설치 요청에서 이 스킬을 활성화
 - `modify_unrelated_existing_skill`, `modify_skill_source`: 요청 범위 밖 스킬 소스를 변경
 - `mutate_review_target`, `expand_review_into_update`: 읽기 전용 검토를 수정으로 확장
 - `guess_update_target`, `edit_first_similar_skill`: 수정 대상을 근거 없이 선택
@@ -74,7 +74,7 @@
 ## 필수 gate
 
 - `CREATE`, `UPDATE`, `REVIEW`가 같은 개발 코어를 사용하고 초기화·보존·권한 경계만 모드별로 다르다.
-- 생성 사례는 중복 스킬과 독립 목표 결합 없이 새 대상만 만들고, 한국어 canonical·lean UI 메타데이터·명시적 invocation policy를 실제 scaffold·strict validator로 검증한다.
+- 생성 사례는 중복 스킬과 독립 목표 결합 없이 새 대상만 만들고, 한국어 canonical·lean UI 메타데이터·명시적인 invocation policy 필드를 실제 scaffold·strict validator로 검증한다.
 - strict validator regression은 정상 explicit policy를 통과시키고 malformed YAML과 semantic shadow를 각각 지정 오류로 거절한다.
 - 수정 사례는 권위 있는 소스에서 기존 성공 계약을 보존하고 새 목표를 개선한다.
 - 검토 사례는 파일 무변경과 근거 기반 진단을 모두 충족한다.

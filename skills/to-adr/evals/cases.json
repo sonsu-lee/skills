@@ -74,7 +74,7 @@
         "rationale",
         "retrospective"
       ],
-      "prompt": "Use $to-adr so future teams can recover the trade-off between the two databases actually discussed, why Postgres was recommended, and what would make us reconsider.",
+      "prompt": "Write an ADR so future teams can recover the trade-off between the two databases actually discussed, why Postgres was recommended, and what would make us reconsider.",
       "fixture": {
         "clock": "2026-08-02",
         "repo_files": [
@@ -391,7 +391,7 @@
         "no_hallucination",
         "one_decision"
       ],
-      "prompt": "$to-adr로 queue 선택의 역사를 복원 가능한 만큼 기록해줘. 우리가 queue를 쓰기로 한 것 같지만 이유, alternatives, 승인자는 몰라.",
+      "prompt": "queue 선택의 역사를 ADR로 복원 가능한 만큼 기록해줘. 우리가 queue를 쓰기로 한 것 같지만 이유, alternatives, 승인자는 몰라.",
       "fixture": {
         "clock": "2026-08-02",
         "repo_files": [],

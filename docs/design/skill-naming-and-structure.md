@@ -97,7 +97,7 @@
 - 제공 스킬이 많아 사용자가 첫 진입점을 고르기 어렵다.
 - 일반적인 동사형 이름으로는 컬렉션 안내 역할을 충분히 표현하기 어렵다.
 - 안내 결과와 실제 수행 스킬의 책임이 겹치지 않는다.
-- explicit-only 스킬을 자동으로 실행할 수 있다고 오해시키지 않는다.
+- direct-only 스킬을 자동으로 실행할 수 있다고 오해시키지 않는다.
 
 ## 호출 방식
 
@@ -105,16 +105,18 @@
 
 ### 사용자 명시 호출
 
-사용자가 작업 단계나 외부 상태 변경을 명확히 선택해야 하는 명령과 워크플로에 사용한다.
+개인정보, 특수 계약이나 항상 함께 제공되는 스킬과의 트리거 충돌 때문에 일반 자연어 요청과 분리해야 하는 direct-only 작업에 사용한다.
 
 - 이름과 짧은 설명만으로 결과를 예측할 수 있어야 한다.
 - 다른 스킬을 조합하는 얇은 진입점으로 유지한다.
-- push, commit, 문서 게시처럼 사용자 의도가 중요한 작업은 명시 호출과 별도 권한 검사를 우선한다.
+- 스킬 이름의 명시 호출은 해당 스킬을 선택할 뿐, 파일·Git·외부 상태 변경 권한을 자동으로 부여하지 않는다.
 
 ### 모델 자동 호출
 
 현재 요청에서 필요성을 판단할 수 있고 여러 흐름에서 재사용되는 전문 능력에 사용한다.
 
+- branch·commit·문서 작성처럼 사용자가 원하는 결과가 요청에 명확하면 고영향 작업도 자동 활성화할 수 있다.
+- 자동 활성화와 상태 변경 권한을 분리하고, 쓰기·게시·외부 전송은 해당 동작에 대한 사용자 요청과 스킬 내부 gate로 통제한다.
 - frontmatter의 `description`에 긍정·부정 트리거를 함께 기록한다.
 - 항상 로드되는 메타데이터가 불필요하게 길어지지 않게 한다.
 - 사용자-facing 워크플로의 규칙을 중복하지 않고 한 곳에서 제공한다.
@@ -125,10 +127,10 @@
 
 | 호출 방식 | 스킬 |
 |---|---|
-| 모델 자동 호출 허용 | `product-discovery`, `domain-modeling`, `architecture-decisions`, `research` |
-| 사용자 명시 호출 | `recommend-skill`, `to-*`, `git-workflow`, `develop-skill`, `review-dev-resume` |
+| 모델 자동 호출 허용 | `product-discovery`, `to-prd`, `domain-modeling`, `architecture-decisions`, `to-adr`, `to-tickets`, `research`, `git-workflow` |
+| 사용자 명시 호출 | `recommend-skill`, `develop-skill`, `review-dev-resume` |
 
-명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터로 검증한다.
+사용자 명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터와 카탈로그 검증기로 확인한다.
 
 `review-dev-resume`는 명시 호출 스킬 중에서도 direct-only로 다룬다. 대표 진입점인 `recommend-skill`의 추천 후보에 포함하지 않고, 사용자가 해당 스킬을 직접 호출한 경우에만 사용한다.
 
