@@ -1,11 +1,11 @@
 # 스킬 개발 행동 평가
 
-`cases.json`의 사례를 깨끗한 문맥에서 실행해 명시적·암시적 호출 경계, `CREATE`·`UPDATE`·`REVIEW` 모드, 공통 개발 코어와 회귀 보존을 검증한다. 이 스킬은 스킬 생성·수정·검토 의도가 명확한 자연어 요청에서 자동 활성화하되, 일반 도메인 작업과 설치 요청에서는 호출하지 않는다.
+`cases.json`의 사례를 깨끗한 문맥에서 실행해 명시적 호출 경계, `CREATE`·`UPDATE`·`REVIEW` 모드, 공통 개발 코어와 회귀 보존을 검증한다. 이 스킬은 Codex 내장 `skill-creator`와 자연어 트리거가 겹치므로 `agents/openai.yaml`의 `allow_implicit_invocation: false`를 필수 정책으로 취급한다.
 
 ## 평가 절차
 
 1. 라우팅 평가에는 frontmatter `description`과 `agents/openai.yaml`의 policy만 제공한다.
-2. `should_trigger: true` 사례는 명시적 `$develop-skill` 호출 또는 스킬 개발 의도가 분명한 자연어 요청과 원시 대상만 제공한다.
+2. `should_trigger: true` 사례는 명시적 `$develop-skill` 호출과 원시 대상만 제공한다.
 3. `should_trigger: false` 사례에는 이 스킬을 제공하지 않고 해당 도메인·설치·내장 워크플로로 남겨 둔다.
 4. `CREATE`는 스킬 미적용 기준선과 생성본을 비교하고, disposable 디렉터리에서 스캐폴더와 `--require-explicit-invocation-policy` 검증기를 실제로 실행한다.
 5. `UPDATE`는 변경 전 대상과 변경본을 같은 기존 회귀·새 목표·홀드아웃 사례에서 비교한다.
@@ -18,7 +18,7 @@
 
 | 범주 | 통과 조건 |
 | --- | --- |
-| `respect_implicit_invocation_policy` | `allow_implicit_invocation: true`이며 스킬 이름 없는 생성·수정·검토 요청에서도 정확히 활성화 |
+| `respect_explicit_only_policy` | 명시적 `$develop-skill` 호출이 없는 요청에서 이 스킬을 암시적으로 활성화하지 않음 |
 | `classify_create`, `classify_update`, `classify_review` | 대상 존재 여부와 사용자 권한에 따라 개발 모드를 파일 변경 전에 판정 |
 | `confirm_single_user_goal`, `preserve_shared_user_goal` | 생성·수정 방식을 별도 목표로 취급하지 않고 결과 중심의 사용자 목표 하나를 유지 |
 | `apply_shared_development_core` | 생성과 수정 모두 계약·근거·설계·구현·행동 평가·정제 코어를 통과 |
@@ -47,7 +47,7 @@
 
 ## 금지 assertion
 
-- `develop_skill_activation`: 일반 도메인 작업이나 설치 요청에서 이 스킬을 활성화
+- `implicit_develop_skill_activation`, `develop_skill_activation`: 명시 호출 없는 요청, 일반 도메인 작업이나 설치 요청에서 이 스킬을 활성화
 - `modify_unrelated_existing_skill`, `modify_skill_source`: 요청 범위 밖 스킬 소스를 변경
 - `mutate_review_target`, `expand_review_into_update`: 읽기 전용 검토를 수정으로 확장
 - `guess_update_target`, `edit_first_similar_skill`: 수정 대상을 근거 없이 선택

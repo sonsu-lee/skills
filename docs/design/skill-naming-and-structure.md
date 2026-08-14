@@ -105,7 +105,7 @@
 
 ### 사용자 명시 호출
 
-개인정보나 특수 계약 때문에 일반 자연어 요청과 분리해야 하는 direct-only 작업에 사용한다.
+개인정보, 특수 계약이나 항상 함께 제공되는 스킬과의 트리거 충돌 때문에 일반 자연어 요청과 분리해야 하는 direct-only 작업에 사용한다.
 
 - 이름과 짧은 설명만으로 결과를 예측할 수 있어야 한다.
 - 다른 스킬을 조합하는 얇은 진입점으로 유지한다.
@@ -127,8 +127,8 @@
 
 | 호출 방식 | 스킬 |
 |---|---|
-| 모델 자동 호출 허용 | `product-discovery`, `to-prd`, `domain-modeling`, `architecture-decisions`, `to-adr`, `to-tickets`, `research`, `git-workflow`, `develop-skill` |
-| 사용자 명시 호출 | `recommend-skill`, `review-dev-resume` |
+| 모델 자동 호출 허용 | `product-discovery`, `to-prd`, `domain-modeling`, `architecture-decisions`, `to-adr`, `to-tickets`, `research`, `git-workflow` |
+| 사용자 명시 호출 | `recommend-skill`, `develop-skill`, `review-dev-resume` |
 
 사용자 명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터와 카탈로그 검증기로 확인한다.
 

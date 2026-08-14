@@ -23,7 +23,7 @@ CLAUDE_PLUGIN_MANIFEST = ROOT / ".claude-plugin" / "plugin.json"
 INTERNAL_SKILL_DIRS = {"develop-change"}
 IMPLICIT_INVOCATION_POLICY = {
     "architecture-decisions": True,
-    "develop-skill": True,
+    "develop-skill": False,
     "domain-modeling": True,
     "git-workflow": True,
     "product-discovery": True,
