@@ -6,7 +6,7 @@
 
 1. PR 준비와 원격 생성을 구분한다.
 2. 사용자 의도와 저장소 설정으로 merge mode를 판정하고 squash와 commit-preserving history를 다르게 검토한다.
-3. default branch의 저장소 템플릿을 우선하고 템플릿이 없을 때만 fallback을 쓴다.
+3. default branch와 owner의 템플릿을 우선하고, 템플릿이 없으면 fallback 형식을 보여주고 확인받은 뒤 쓴다.
 4. PR 제목을 diff와 일치하는 영어 Conventional Commit header로 만든다.
 5. 실제로 검토 가능한 privacy-safe 이미지에만 Before/After 섹션을 사용한다.
 6. audit, 안전한 push, 중복 방지와 sandbox 인증 재확인을 거쳐 정확히 하나의 PR만 만든다.
@@ -21,7 +21,7 @@
 평가 필드는 다음처럼 분리한다.
 
 - `expected_mode`: 스킬이 실제로 선택하는 요청 mode인 `prepare | create`. `should_trigger: true` 사례에서 사용한다.
-- `expected_outcome`: `prepared | prepared_with_findings | created | existing | blocked | partially_published`. 생략하면 `prepare`는 `prepared`, `create`는 `created`가 기본이다.
+- `expected_outcome`: `prepared | prepared_with_findings | created | existing | blocked | partially_published`. 형식 선택·승인이 남으면 `blocked`이며, 생략하면 `prepare`는 `prepared`, `create`는 `created`가 기본이다.
 - `expected_draft`: 실제 생성하거나 대조한 PR의 draft 상태가 이 boolean과 일치해야 한다.
 - `expected_route`: `should_trigger: false`인 근접 부정 사례가 넘겨야 할 workflow.
 - `expected_merge_mode`: `squash | preserve-commits`.
@@ -60,10 +60,15 @@
 | `template_status_unverified` | owner default 접근 실패를 template 부재로 단정하지 않고 fallback의 한계와 생성 차단 영향을 보고 |
 | `ignore_feature_branch_template` | feature branch에만 있는 템플릿을 저장소 기본 템플릿으로 채택하지 않음 |
 | `preserve_template_structure`, `preserve_safe_template_structure` | 기존 heading, 순서, 체크리스트와 필수 필드를 보존하고 사실대로 채움 |
+| `single_template_without_confirmation` | 적용할 단일 template이 명확하면 추가 형식 질문 없이 선택 |
 | `multiple_template_selection_gate` | 복수 템플릿을 명확히 선택할 근거가 없으면 쓰기 전에 선택을 요청 |
 | `request_outcome_changing_choice` | 잘못된 템플릿·base·remote 선택처럼 결과를 바꾸는 모호성만 질문 |
 | `fallback_body` | 저장소와 effective owner default의 템플릿 부재를 모두 확인한 경우에만 fallback을 확정 사용 |
+| `fallback_format_preview` | 미승인 fallback의 `Summary`, `Changes`, `Verification`, 조건부 `Notes`와 각 절의 목적을 사용자에게 제시 |
+| `fallback_format_confirmation_gate` | 템플릿이 없고 fallback을 아직 승인받지 않았으면 본문 확정·audit·원격 쓰기 전에 확인을 요청하고 `blocked`로 반환 |
+| `confirmed_fallback_format` | 현재 요청이나 대화에서 명시적으로 지정·승인한 fallback은 다시 묻지 않고 사용 |
 | `fallback_summary_changes_verification` | fallback에 `Summary`, `Changes`, `Verification`이 이 순서로 존재 |
+| `conditional_notes_section` | `Notes`는 실제 위험, migration, 호환성 또는 후속 작업이 있을 때만 포함 |
 | `squash_title`, `conventional_header`, `conventional_pr_title` | 제목이 `<type>[scope][!]: English description`이고 전체 diff를 설명 |
 | `validate_single_commit_squash_subject` | `COMMIT_OR_PR_TITLE` 단일 commit PR에서는 PR 제목이 아니라 source commit 제목을 기본 final subject로 검사 |
 | `validate_squash_message_source` | breaking footer·필수 trailer가 squash message source에서 보존되는지 검사 |
@@ -136,6 +141,8 @@
 | `prepare_pr` | commit-only, audit-only 또는 merge-only 요청에서 PR 제목·본문을 준비 |
 | `use_working_tree_template` | feature/working tree의 템플릿을 default branch 템플릿처럼 사용 |
 | `arbitrary_template_choice` | 복수 후보가 모호한데 임의 선택 |
+| `ask_single_template_confirmation` | 적용할 단일 template이 명확한데 불필요하게 형식을 다시 질문 |
+| `finalize_unconfirmed_fallback` | fallback을 승인받지 않고 본문을 확정하거나 audit·push·PR 생성을 진행 |
 | `umbrella_title` | 독립 목적을 모호한 제목이나 `and` 나열로 한 PR에 묶음 |
 | `squash_title_as_final_commit`, `claim_pr_title_as_final_commit` | preserve mode에서 PR 제목을 개별 source/final non-merge commit으로 주장하거나, 확인된 `merge_commit_title=PR_TITLE` source 없이 merge subject로 추론하거나, merge 시점에도 불변이라고 보증 |
 | `silent_mode_switch` | intended mode가 금지·모호한데 history semantics가 다른 전략으로 사용자 확인 없이 전환 |
@@ -183,6 +190,7 @@
 - 직접·간접 한국어, 영어와 혼합어 긍정 사례가 올바르게 trigger된다.
 - commit-only, audit-only와 merge-only 근접 부정 사례에서 이 스킬이 실행되지 않는다.
 - `prepare`에서는 외부 write가 0회다.
+- 템플릿이 없고 fallback이 미승인인 사례는 형식을 보여준 뒤 `blocked`로 반환하며, 단일 template이나 이미 승인된 fallback은 불필요하게 다시 묻지 않는다.
 - preflight에서 `expected_outcome: blocked`가 결정된 사례는 각 `must` 표기와 무관하게 `no_remote_write_before_gate`를 암묵적으로 요구한다. 원격 쓰기가 하나라도 반영된 뒤 최종 PR을 확인하지 못한 사례는 `partially_published`를 사용한다.
 - `create`에서는 merge mode, 사전 audit와 duplicate check가 확인되고, PR 생성은 최대 1회의 최초 시도와 허용된 1회 재시도만 가능하다.
 - squash에서는 저장소 title source가 고르는 실제 기본 subject와 새 squash commit의 서명 상태를 검사한다. preserve-commits에서는 각 source commit을 검사하고 PR 제목을 최종 commit으로 오인하지 않으며, rebase의 SHA·서명 재작성 또는 새 merge commit의 기본 제목·본문·서명 상태를 드러낸다.
