@@ -1,0 +1,103 @@
+{
+  "activation": "active",
+  "case_count": 17,
+  "case_results": [
+    {
+      "id": "user-named-compatible-skill-wins-over-generic",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "complementary-skills-compose",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "project-rule-conflict-rejects-user-skill",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "incompatible-skill-falls-back",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "planned-capability-is-not-a-selected-skill",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "equal-material-conflict-blocks",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "irrelevant-skill-is-not-loaded",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "repository-skill-wins-over-installed-peer",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "no-side-effect-needs-no-capability",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "local-change-with-exact-grant-passes",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "git-capabilities-are-independent",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "scope-change-invalidates-existing-grant",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "explicit-invocation-is-not-authorization",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "complete-minimal-handoff",
+      "kind": "handoff",
+      "status": "pass"
+    },
+    {
+      "id": "verification-cannot-be-both-passed-and-not-run",
+      "kind": "handoff",
+      "status": "pass"
+    },
+    {
+      "id": "stale-capability-cannot-drive-next-effect",
+      "kind": "handoff",
+      "status": "pass"
+    },
+    {
+      "id": "secret-looking-value-is-rejected",
+      "kind": "handoff",
+      "status": "pass"
+    }
+  ],
+  "findings": [],
+  "passed_case_count": 17,
+  "schema_version": "develop-change-orchestration-report-v1",
+  "source_digests": {
+    "skills/develop-change/evals/orchestration-cases.json": "792eb5b153b3195d893872d598e78856a241678f3a154a5c66cce03e41d0b826",
+    "skills/develop-change/references/handoff-contract.md": "1cb8d2676c9a91927949a2b18dd04f39ef09b2ce8002d49e87fee503540101a1",
+    "skills/develop-change/references/orchestration-contract.md": "371fe3772207ef4a963c418c1a628789d2980f0741e28e86b72c76ef4011ff3c",
+    "skills/develop-change/references/orchestration-contract.schema.json": "589b7f0d6f75a07007ba8a86efd3553342d1b6b330e11dea4d898224f0a025e6",
+    "skills/develop-change/references/skill-resolution-contract.md": "ff3af3ed3eb052913240d8a7ff8d5b1e7cca240ac05c6d0ec954786a6486e7ef",
+    "skills/develop-change/scripts/validate_orchestration.py": "cad17f617dcd2d5328b7dd8f75a5bf6303e9d9a8402be23de1bde5633095bb6f"
+  },
+  "status": "pass"
+}
