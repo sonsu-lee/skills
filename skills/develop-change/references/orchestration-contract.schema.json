@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sonsu:skills:develop-change:orchestration:v1",
+  "title": "develop-change orchestration record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "objective",
+    "route_plan",
+    "profile",
+    "gate",
+    "skill_resolution",
+    "authorization",
+    "verification",
+    "handoff"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "develop-change-orchestration-v1"
+    },
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "finish_line"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1},
+        "finish_line": {"type": "string", "minLength": 1}
+      }
+    },
+    "route_plan": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "understand",
+          "shape",
+          "decide",
+          "design",
+          "diagnose",
+          "change",
+          "verify",
+          "deliver",
+          "operate",
+          "evolve"
+        ]
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "confidence"],
+      "properties": {
+        "level": {"enum": ["direct", "bounded", "architectural"]},
+        "confidence": {"enum": ["confirmed", "provisional"]}
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["result", "blockers"],
+      "properties": {
+        "result": {"enum": ["pass", "conditional", "blocked"]},
+        "blockers": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "skill_resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["selected", "planned_capabilities", "fallback"],
+      "properties": {
+        "selected": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/selectedSkill"}
+        },
+        "planned_capabilities": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/plannedCapability"}
+        },
+        "fallback": {"type": ["string", "null"]}
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": {
+        "enum": [
+          "not_applicable",
+          "not_granted",
+          "granted",
+          "denied",
+          "withdrawn",
+          "stale",
+          "consumed"
+        ]
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "failed", "not_run"],
+      "properties": {
+        "passed": {"type": "array", "items": {"type": "string"}},
+        "failed": {"type": "array", "items": {"type": "string"}},
+        "not_run": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["completed_phase", "artifacts", "next_action"],
+      "properties": {
+        "completed_phase": {
+          "enum": [
+            "understand",
+            "shape",
+            "decide",
+            "design",
+            "diagnose",
+            "change",
+            "verify",
+            "deliver",
+            "operate",
+            "evolve"
+          ]
+        },
+        "artifacts": {"type": "array", "items": {"type": "string"}},
+        "next_action": {"type": ["string", "null"]}
+      }
+    }
+  },
+  "$defs": {
+    "selectedSkill": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["skill_id", "source", "decision", "reason"],
+      "properties": {
+        "skill_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "source": {"enum": ["user_named", "repository", "installed"]},
+        "decision": {"enum": ["selected", "composed", "rejected", "blocked"]},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "plannedCapability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability_id", "status"],
+      "properties": {
+        "capability_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "status": {"const": "planned"}
+      }
+    }
+  }
+}
