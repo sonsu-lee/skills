@@ -1,6 +1,6 @@
 # 공통 authorization 계약
 
-적용 상태: 저장소 계약 초안. 현재 runtime에서는 사용하지 않는다.
+적용 상태: `develop-change`의 활성 공통 계약.
 
 Authorization은 **어떤 행동을, 어느 대상과 범위에, 어떤 근거로 해도 되는지**를 적은 한 장짜리 허가다.
 
@@ -94,6 +94,4 @@ Authorization은 **어떤 행동을, 어느 대상과 범위에, 어떤 근거�
 
 ## 기계 계약
 
-정확한 record identity, revision, predecessor, target/scope/basis fingerprint, request·authorization·receipt tuple, canonical digest와 evaluation/frontier binding은 [foundation-contract.schema.json](./foundation-contract.schema.json)의 `authorization` 정의 및 validator가 소유한다.
-
-이 draft의 receipt와 hash는 fixture 전용이다. 실제 grant, Git 동작, 외부 쓰기, telemetry, rollout, trust root 또는 runtime epoch를 만들지 않는다. `develop-change/SKILL.md`, plugin manifest와 active configuration도 이 slice에서 만들거나 바꾸지 않는다 (`FND-RUNTIME-001`).
+정확한 record identity, revision, predecessor와 Phase 1 검증 기준은 [foundation-contract.schema.json](./foundation-contract.schema.json)의 `authorization` 정의에 보존한다. Fixture의 receipt와 hash는 실제 grant가 아니며, 활성 실행에서도 사용자의 현재 요청과 exact capability 판정만 side effect를 허용한다.

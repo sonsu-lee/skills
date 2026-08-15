@@ -74,6 +74,24 @@
       ]
     },
     {
+      "id": "recommend-skill-ko-end-to-end-change",
+      "kind": "routing",
+      "language": "ko",
+      "prompt": "$recommend-skill로 기존 API를 수정하고 회귀 테스트한 뒤 Draft PR까지 한 흐름으로 진행하려면 무엇을 호출해야 하는지 알려줘.",
+      "should_trigger": true,
+      "expected_route": "develop-change",
+      "must": [
+        "recognize_end_to_end_change",
+        "recommend_one_next_skill",
+        "provide_exact_invocation"
+      ],
+      "must_not": [
+        "modify_code",
+        "create_pull_request",
+        "auto_invoke_explicit_skill"
+      ]
+    },
+    {
       "id": "recommend-skill-ko-direct-only-resume-review",
       "kind": "routing",
       "language": "ko",

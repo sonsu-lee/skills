@@ -20,11 +20,12 @@ SKILLS_DIR = ROOT / "skills"
 README = ROOT / "README.md"
 CODEX_PLUGIN_MANIFEST = ROOT / ".codex-plugin" / "plugin.json"
 CLAUDE_PLUGIN_MANIFEST = ROOT / ".claude-plugin" / "plugin.json"
-INTERNAL_SKILL_DIRS = {"develop-change"}
+INTERNAL_SKILL_DIRS: set[str] = set()
 PRESENTATION_GATE_SKILL = "present-result"
 PRESENTATION_FALLBACK_MARKER = "독립 설치에서 사용할 수 없으면"
 IMPLICIT_INVOCATION_POLICY = {
     "architecture-decisions": True,
+    "develop-change": False,
     "develop-skill": False,
     "domain-modeling": True,
     "git-workflow": True,

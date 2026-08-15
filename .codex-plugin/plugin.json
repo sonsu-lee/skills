@@ -1,15 +1,15 @@
 {
   "name": "skills",
-  "version": "0.6.0",
-  "description": "대표 안내와 제품 탐색·문서 변환, 리서치, 쉬운 결과 전달, Git 워크플로, 스킬 제작을 하나의 루트 skills 컬렉션으로 제공하는 개인 Codex 플러그인",
+  "version": "0.7.0",
+  "description": "소프트웨어 변경 오케스트레이션과 제품 탐색·문서 변환, 리서치, 쉬운 결과 전달, Git 워크플로, 스킬 제작을 하나의 루트 skills 컬렉션으로 제공하는 개인 Codex 플러그인",
   "author": {
     "name": "sonsu-lee"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Sonsu Skills",
-    "shortDescription": "제품 문서·리서치·쉬운 결과 전달·Git 컬렉션",
-    "longDescription": "루트 skills 디렉터리를 단일 원본으로 사용해 목표별 스킬 안내, 제품 탐색과 요구사항 변환, 도메인 모델과 ADR, 근거 검증형 리서치, 의미 보존형 쉬운 결과 전달, 안전한 Git 워크플로와 Agent Skill 제작을 제공합니다.",
+    "shortDescription": "변경 오케스트레이션·제품 문서·리서치·쉬운 결과 전달·Git 컬렉션",
+    "longDescription": "루트 skills 디렉터리를 단일 원본으로 사용해 소프트웨어 변경 오케스트레이션, 목표별 스킬 안내, 제품 탐색과 요구사항 변환, 도메인 모델과 ADR, 근거 검증형 리서치, 의미 보존형 쉬운 결과 전달, 안전한 Git 워크플로와 Agent Skill 제작을 제공합니다.",
     "developerName": "sonsu-lee",
     "category": "Productivity",
     "capabilities": [
@@ -17,14 +17,9 @@
       "Write"
     ],
     "defaultPrompt": [
+      "$skills:develop-change로 이 변경을 구현·검증하고 Draft PR까지 진행해줘.",
       "$skills:recommend-skill로 지금 해야 할 작업에 맞는 다음 스킬을 찾아줘.",
-      "$skills:product-discovery로 제품 문제와 핵심 결정을 구체화해줘.",
-      "$skills:to-prd로 합의된 제품 컨텍스트를 PRD로 작성해줘.",
-      "$skills:architecture-decisions로 기술 선택의 대안과 판단 기준을 검토해줘.",
-      "$skills:to-tickets로 승인된 계획을 실행 티켓으로 나눠줘.",
-      "$skills:research로 이 주제를 근거 중심으로 조사해줘.",
-      "$skills:present-result로 위 결과를 의미를 유지하면서 이해하기 쉽게 정리해줘.",
-      "$skills:git-workflow로 변경에 맞는 브랜치를 만들고 의미 단위로 커밋한 뒤 draft PR을 생성해줘."
+      "$skills:product-discovery로 제품 문제와 핵심 결정을 구체화해줘."
     ]
   }
 }

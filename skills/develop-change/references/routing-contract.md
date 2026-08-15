@@ -1,6 +1,6 @@
 # 공통 routing 계약
 
-적용 상태: 저장소 계약 초안. 현재 runtime에서는 사용하지 않는다.
+적용 상태: `develop-change`의 활성 공통 계약.
 
 Routing은 **지금 무슨 일을 하는지**와 **얼마나 조심해서 해야 하는지**를 정한다.
 
@@ -96,6 +96,4 @@ Runtime dependency가 dev/test 전용이라는 이유만으로 자동으로 작�
 
 ## 기계 계약
 
-정확한 enum, 필드, revision, evidence reference, canonical digest와 전이 조건은 [foundation-contract.schema.json](./foundation-contract.schema.json)의 `routing` 정의와 validator가 소유한다. Routing·gate·authorization reference는 exact ID/revision/digest로 서로 결박한다.
-
-이 초안은 schema·fixture·validator 입력일 뿐 current skill catalog나 runtime을 바꾸지 않는다. `develop-change/SKILL.md` 생성과 invocation·task·leaf·effect·rollout 계약은 이 PR의 범위 밖이다 (`FND-RUNTIME-001`).
+정확한 enum과 전이 조건의 Phase 1 기준은 [foundation-contract.schema.json](./foundation-contract.schema.json)의 `routing` 정의에 보존한다. 활성 오케스트레이션 record는 [orchestration-contract.schema.json](./orchestration-contract.schema.json)을 사용하며, routing·gate·authorization의 의미를 임의로 다시 정의하지 않는다.

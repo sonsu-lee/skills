@@ -29,6 +29,7 @@ description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 
 | 기술 결정이 내려져 ADR로 기록하려 함 | `to-adr` |
 | 승인된 계획을 의존성이 보이는 실행 작업으로 나누려 함 | `to-tickets` |
 | 여러 출처의 조사, 비교, 교차검증이 필요함 | `research` |
+| 하나의 소프트웨어 변경을 이해·설계·구현·검증·전달까지 이어서 진행하려 함 | `develop-change` |
 | 이미 나온 전문 결과를 의미를 유지하며 쉽게 풀어 전달함 | `present-result` |
 | branch 명명·생성, commit, push, PR 준비·생성 또는 Git 산출물 검토 | `git-workflow` |
 | 스킬을 생성·수정·검토하고 평가함 | `develop-skill` |
@@ -41,6 +42,7 @@ description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 
 - 핵심 결정과 근거가 준비되었으면 `to-prd`, `to-adr` 또는 `to-tickets`를 추천한다.
 - Git 산출물의 품질만 판정하려면 `git-workflow`의 읽기 전용 review mode를 추천한다.
 - branch, commit, push 또는 PR처럼 실제 Git 상태를 만들려면 사용자의 명시적 요청을 확인한 뒤 `git-workflow`를 추천한다.
+- 구현부터 테스트와 전달까지 여러 단계를 하나의 요청으로 진행하려면 명시 호출인 `develop-change`를 추천한다. 단일 Git 작업만 필요하면 `git-workflow`를 추천한다.
 
 요청이 direct-only 스킬에만 해당하면 라우팅 범위 밖이라고만 안내하고, 해당 스킬의 이름이나 호출 예시를 반환하지 않는다.
 

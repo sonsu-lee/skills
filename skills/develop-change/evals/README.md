@@ -1,4 +1,6 @@
-# Foundation validation
+# Phase 1 foundation validation (historical)
+
+이 문서는 `develop-change` 활성화 전 foundation snapshot의 재현 절차다. 활성 `SKILL.md`가 존재하는 `0.6.0` 이후 branch에서는 조기 발견 실패 조건이 의도적으로 맞지 않으므로 현재 상태 검증에 사용하지 않는다. 활성 상태는 `python3 skills/develop-change/scripts/validate_orchestration.py --activation active`로 확인한다.
 
 이 검증은 네 가지를 확인한다.
 
