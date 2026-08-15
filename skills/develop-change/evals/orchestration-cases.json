@@ -1,0 +1,370 @@
+{
+  "schema_version": "develop-change-orchestration-evals-v1",
+  "planned_capabilities": [
+    "typescript-javascript-practices",
+    "frontend-framework-practices",
+    "database-orm-practices",
+    "testing-quality-practices",
+    "security-operations-practices"
+  ],
+  "resolution_cases": [
+    {
+      "id": "user-named-compatible-skill-wins-over-generic",
+      "candidates": [
+        {
+          "skill_id": "typescript-house-style",
+          "source": "user_named",
+          "responsibility": "typescript",
+          "specificity": 2,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "house-style"
+        },
+        {
+          "skill_id": "generic-typescript",
+          "source": "installed",
+          "responsibility": "typescript",
+          "specificity": 4,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "generic"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["typescript-house-style"],
+        "rejected": [
+          {"skill_id": "generic-typescript", "reason": "superseded"}
+        ],
+        "fallback": null,
+        "blocker": null
+      }
+    },
+    {
+      "id": "complementary-skills-compose",
+      "candidates": [
+        {
+          "skill_id": "architecture-decisions",
+          "source": "repository",
+          "responsibility": "architecture",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "decision-tradeoffs"
+        },
+        {
+          "skill_id": "research",
+          "source": "repository",
+          "responsibility": "evidence",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "source-verification"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["architecture-decisions", "research"],
+        "rejected": [],
+        "fallback": null,
+        "blocker": null
+      }
+    },
+    {
+      "id": "project-rule-conflict-rejects-user-skill",
+      "candidates": [
+        {
+          "skill_id": "custom-database-rules",
+          "source": "user_named",
+          "responsibility": "database",
+          "specificity": 4,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": true,
+          "guidance_key": "custom-db"
+        },
+        {
+          "skill_id": "repository-database-rules",
+          "source": "repository",
+          "responsibility": "database",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "repository-db"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["repository-database-rules"],
+        "rejected": [
+          {"skill_id": "custom-database-rules", "reason": "project_rule_conflict"}
+        ],
+        "fallback": null,
+        "blocker": null
+      }
+    },
+    {
+      "id": "incompatible-skill-falls-back",
+      "candidates": [
+        {
+          "skill_id": "legacy-orm-practices",
+          "source": "installed",
+          "responsibility": "database",
+          "specificity": 4,
+          "available": true,
+          "compatible": false,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "legacy-orm"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": [],
+        "rejected": [
+          {"skill_id": "legacy-orm-practices", "reason": "incompatible"}
+        ],
+        "fallback": "official_documentation_and_base_capability",
+        "blocker": null
+      }
+    },
+    {
+      "id": "planned-capability-is-not-a-selected-skill",
+      "planned_capability": "database-orm-practices",
+      "candidates": [],
+      "expected": {
+        "status": "pass",
+        "selected": [],
+        "rejected": [],
+        "fallback": "official_documentation_and_base_capability",
+        "blocker": null
+      }
+    },
+    {
+      "id": "equal-material-conflict-blocks",
+      "candidates": [
+        {
+          "skill_id": "database-transactions-a",
+          "source": "installed",
+          "responsibility": "database",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "transaction-per-request"
+        },
+        {
+          "skill_id": "database-transactions-b",
+          "source": "installed",
+          "responsibility": "database",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "transaction-per-operation"
+        }
+      ],
+      "expected": {
+        "status": "blocked",
+        "selected": [],
+        "rejected": [],
+        "fallback": null,
+        "blocker": "unresolved_material_conflict:database:database-transactions-a,database-transactions-b"
+      }
+    },
+    {
+      "id": "irrelevant-skill-is-not-loaded",
+      "candidates": [
+        {
+          "skill_id": "frontend-framework-rules",
+          "source": "repository",
+          "responsibility": "frontend",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": false,
+          "project_rule_conflict": false,
+          "guidance_key": "frontend"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": [],
+        "rejected": [
+          {"skill_id": "frontend-framework-rules", "reason": "irrelevant"}
+        ],
+        "fallback": "official_documentation_and_base_capability",
+        "blocker": null
+      }
+    },
+    {
+      "id": "repository-skill-wins-over-installed-peer",
+      "candidates": [
+        {
+          "skill_id": "repository-testing-rules",
+          "source": "repository",
+          "responsibility": "testing",
+          "specificity": 2,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "repository-testing"
+        },
+        {
+          "skill_id": "generic-testing-rules",
+          "source": "installed",
+          "responsibility": "testing",
+          "specificity": 4,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "generic-testing"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["repository-testing-rules"],
+        "rejected": [
+          {"skill_id": "generic-testing-rules", "reason": "superseded"}
+        ],
+        "fallback": null,
+        "blocker": null
+      }
+    }
+  ],
+  "authorization_cases": [
+    {
+      "id": "no-side-effect-needs-no-capability",
+      "requested_effects": [],
+      "authorization": {},
+      "scope_changed": false,
+      "expected": {"gate": "pass", "blocker": null}
+    },
+    {
+      "id": "local-change-with-exact-grant-passes",
+      "requested_effects": ["local_change"],
+      "authorization": {"local_change": "granted"},
+      "scope_changed": false,
+      "expected": {"gate": "pass", "blocker": null}
+    },
+    {
+      "id": "git-capabilities-are-independent",
+      "requested_effects": ["stage", "commit", "push", "pr_create"],
+      "authorization": {
+        "stage": "granted",
+        "commit": "granted",
+        "push": "not_granted",
+        "pr_create": "not_granted"
+      },
+      "scope_changed": false,
+      "expected": {
+        "gate": "blocked",
+        "blocker": "missing_authorization:pr_create,push"
+      }
+    },
+    {
+      "id": "scope-change-invalidates-existing-grant",
+      "requested_effects": ["local_change"],
+      "authorization": {"local_change": "granted"},
+      "scope_changed": true,
+      "expected": {"gate": "blocked", "blocker": "scope_expansion"}
+    },
+    {
+      "id": "explicit-invocation-is-not-authorization",
+      "requested_effects": ["local_change"],
+      "authorization": {},
+      "scope_changed": false,
+      "expected": {
+        "gate": "blocked",
+        "blocker": "missing_authorization:local_change"
+      }
+    }
+  ],
+  "handoff_cases": [
+    {
+      "id": "complete-minimal-handoff",
+      "record": {
+        "objective": "기능을 구현하고 검증한다",
+        "scope": "src와 관련 테스트",
+        "completed_phase": "verify",
+        "decisions": [],
+        "artifacts": ["src/example.ts"],
+        "skill_resolution": "프로젝트 규칙과 기본 구현 능력",
+        "authorization": {"local_change": "consumed"},
+        "verification": {
+          "passed": ["npm test -- example"],
+          "not_run": []
+        },
+        "blockers": [],
+        "next_action": "결과를 사용자에게 전달"
+      },
+      "expected_rules": []
+    },
+    {
+      "id": "verification-cannot-be-both-passed-and-not-run",
+      "record": {
+        "objective": "기능을 검증한다",
+        "scope": "관련 테스트",
+        "completed_phase": "verify",
+        "decisions": [],
+        "artifacts": [],
+        "skill_resolution": "기본 구현 능력",
+        "authorization": {},
+        "verification": {
+          "passed": ["npm test"],
+          "not_run": ["npm test"]
+        },
+        "blockers": [],
+        "next_action": null
+      },
+      "expected_rules": ["HANDOFF-004"]
+    },
+    {
+      "id": "stale-capability-cannot-drive-next-effect",
+      "record": {
+        "objective": "변경을 전달한다",
+        "scope": "현재 branch",
+        "completed_phase": "verify",
+        "decisions": [],
+        "artifacts": [],
+        "skill_resolution": "git-workflow",
+        "authorization": {"stage": "stale"},
+        "verification": {"passed": [], "not_run": []},
+        "blockers": ["stage 재승인 필요"],
+        "next_action": "stage 실행"
+      },
+      "expected_rules": ["HANDOFF-002"]
+    },
+    {
+      "id": "secret-looking-value-is-rejected",
+      "record": {
+        "objective": "secret=fixture-not-a-real-secret 값을 handoff에 복사",
+        "scope": "API 테스트",
+        "completed_phase": "understand",
+        "decisions": [],
+        "artifacts": [],
+        "skill_resolution": "기본 구현 능력",
+        "authorization": {},
+        "verification": {"passed": [], "not_run": []},
+        "blockers": [],
+        "next_action": null
+      },
+      "expected_rules": ["HANDOFF-005"]
+    }
+  ]
+}
