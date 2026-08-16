@@ -1,15 +1,15 @@
 {
   "name": "skills",
-  "version": "0.5.0",
-  "description": "대표 안내와 제품 탐색·문서 변환, 리서치, Git 워크플로, 스킬 제작을 하나의 루트 skills 컬렉션으로 제공하는 개인 Codex 플러그인",
+  "version": "0.6.0",
+  "description": "대표 안내와 제품 탐색·문서 변환, 리서치, 쉬운 결과 전달, Git 워크플로, 스킬 제작을 하나의 루트 skills 컬렉션으로 제공하는 개인 Codex 플러그인",
   "author": {
     "name": "sonsu-lee"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Sonsu Skills",
-    "shortDescription": "제품 문서·리서치·Git·스킬 제작 컬렉션",
-    "longDescription": "루트 skills 디렉터리를 단일 원본으로 사용해 목표별 스킬 안내, 제품 탐색과 요구사항 변환, 도메인 모델과 ADR, 근거 검증형 리서치, 안전한 Git 워크플로와 Agent Skill 제작을 제공합니다.",
+    "shortDescription": "제품 문서·리서치·쉬운 결과 전달·Git 컬렉션",
+    "longDescription": "루트 skills 디렉터리를 단일 원본으로 사용해 목표별 스킬 안내, 제품 탐색과 요구사항 변환, 도메인 모델과 ADR, 근거 검증형 리서치, 의미 보존형 쉬운 결과 전달, 안전한 Git 워크플로와 Agent Skill 제작을 제공합니다.",
     "developerName": "sonsu-lee",
     "category": "Productivity",
     "capabilities": [
@@ -23,6 +23,7 @@
       "$skills:architecture-decisions로 기술 선택의 대안과 판단 기준을 검토해줘.",
       "$skills:to-tickets로 승인된 계획을 실행 티켓으로 나눠줘.",
       "$skills:research로 이 주제를 근거 중심으로 조사해줘.",
+      "$skills:present-result로 위 결과를 의미를 유지하면서 이해하기 쉽게 정리해줘.",
       "$skills:git-workflow로 변경에 맞는 브랜치를 만들고 의미 단위로 커밋한 뒤 draft PR을 생성해줘."
     ]
   }

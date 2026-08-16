@@ -21,12 +21,15 @@ README = ROOT / "README.md"
 CODEX_PLUGIN_MANIFEST = ROOT / ".codex-plugin" / "plugin.json"
 CLAUDE_PLUGIN_MANIFEST = ROOT / ".claude-plugin" / "plugin.json"
 INTERNAL_SKILL_DIRS = {"develop-change"}
+PRESENTATION_GATE_SKILL = "present-result"
+PRESENTATION_FALLBACK_MARKER = "독립 설치에서 사용할 수 없으면"
 IMPLICIT_INVOCATION_POLICY = {
     "architecture-decisions": True,
     "develop-skill": False,
     "domain-modeling": True,
     "git-workflow": True,
     "product-discovery": True,
+    "present-result": True,
     "recommend-skill": False,
     "research": True,
     "review-dev-resume": False,
@@ -165,6 +168,15 @@ def validate_skill(skill_dir: Path, readme_text: str, errors: list[str]) -> None
                 f"{metadata_path.relative_to(ROOT)}: allow_implicit_invocation은 "
                 f"{expected_policy}여야 합니다."
             )
+
+    if name != PRESENTATION_GATE_SKILL and f"`{PRESENTATION_GATE_SKILL}`" not in skill_text:
+        errors.append(
+            f"{skill_file.relative_to(ROOT)}: 최종 사용자 응답에 {PRESENTATION_GATE_SKILL} 연결 규칙이 필요합니다."
+        )
+    if name != PRESENTATION_GATE_SKILL and PRESENTATION_FALLBACK_MARKER not in skill_text:
+        errors.append(
+            f"{skill_file.relative_to(ROOT)}: {PRESENTATION_GATE_SKILL}가 없는 독립 설치용 최소 대체 규칙이 필요합니다."
+        )
 
     readme_row = re.compile(rf"^\| `{re.escape(str(name))}` \|", re.MULTILINE)
     readme_row_count = len(readme_row.findall(readme_text))
