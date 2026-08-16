@@ -14,7 +14,7 @@
         "scaffold_new_target_only",
         "author_korean_canonical",
         "generate_lean_interface_metadata",
-        "declare_explicit_invocation_policy",
+        "declare_invocation_policy",
         "run_scaffold_and_strict_validation",
         "apply_shared_development_core",
         "validate_structure_and_behavior"

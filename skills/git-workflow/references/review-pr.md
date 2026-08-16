@@ -1,15 +1,10 @@
----
-name: review-pr
-description: "기존 pull request 또는 생성 전 PR 제목·본문 후보가 하나의 결과로 merge될 준비가 됐는지 읽기 전용으로 검토한다. PR review, audit, preflight, readiness check 요청에 사용한다. 일반 코드 리뷰, 구현 결함 탐색, PR 생성·수정·병합에는 사용하지 않는다."
----
-
-# Pull Request Review
+# Pull request review
 
 Pull request가 저장소 규칙에 맞고 하나의 결과로 안전하게 merge될 준비가 되었는지 검토한다. 문제를 고친 산출물은 제안만 하며 로컬·원격 상태를 바꾸지 않는다.
 
 ## 불변 조건
 
-- 시작할 때 스킬 로컬 [Pull request 준비 상태](references/pull-request-readiness.md)를 전부 읽고 저장소의 명시적 규칙과 함께 적용한다.
+- 시작할 때 [Pull request 준비 상태](pull-request-readiness.md)를 전부 읽고 저장소의 명시적 규칙과 함께 적용한다.
 - `fetch`, `push`, PR 생성·수정·병합, commit·rebase·설정 변경을 수행하지 않는다.
 - 테스트·formatter처럼 worktree, cache, lockfile 또는 외부 상태를 바꿀 수 있는 명령을 자동 실행하지 않는다. 기존 check 결과와 로그는 읽을 수 있다.
 - Git read는 non-refresh·no-lazy-fetch 경로를 사용하고 pager, optional fsmonitor, external diff/textconv와 비신뢰 실행 위임을 차단한다.
@@ -142,7 +137,7 @@ unverified:
 - template와 문제가 없는 body/footer는 보존한다.
 - 문제가 없으면 빈 `findings`를 명시하고 산출물을 불필요하게 다시 쓰지 않는다.
 
-원격 조회 실패가 실제 미인증인지 sandbox 격리인지 불명확할 때만 [원격 검증 재확인](references/remote-verification.md)을 읽는다. 허용되는 호스트에서 동일 host에 대한 최소 읽기 전용 진단을 최대 한 번 수행하며 로그인·token 조회·계정 전환·권한 갱신은 하지 않는다.
+원격 조회 실패가 실제 미인증인지 sandbox 격리인지 불명확할 때만 [원격 검증 재확인](remote-verification.md)을 읽는다. 허용되는 호스트에서 동일 host에 대한 최소 읽기 전용 진단을 최대 한 번 수행하며 로그인·token 조회·계정 전환·권한 갱신은 하지 않는다.
 
 완료 조건: 상태가 findings와 일치하고 수정안이 PR 의도를 보존하며 로컬·원격 상태가 바뀌지 않았다. `pr-artifacts` 결과는 원격 PR이 존재하거나 최신 상태라고 표현하지 않는다.
 

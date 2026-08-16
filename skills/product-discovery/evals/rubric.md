@@ -3,7 +3,7 @@
 ## Protocol
 
 - 공통 격리·stepwise·security 규칙은 `../../../evals/product-docs/protocol.md`, 공통 assertion은 `../../../evals/product-docs/README.md`를 따른다.
-- Routing에는 manifest에서 발견 가능한 모든 installable skill의 `name`과 `description`을 제공하고, 선택된 스킬의 본문과 resource만 routing 이후에 제공한다.
+- Routing에는 manifest에서 발견 가능한 모든 installable skill의 `name`·`description`과 `policy.allow_implicit_invocation`을 제공하고, 선택된 스킬의 본문과 resource만 routing 이후에 제공한다.
 
 ## Routing
 

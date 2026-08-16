@@ -23,6 +23,20 @@ CLAUDE_PLUGIN_MANIFEST = ROOT / ".claude-plugin" / "plugin.json"
 INTERNAL_SKILL_DIRS = {"develop-change"}
 PRESENTATION_GATE_SKILL = "present-result"
 PRESENTATION_FALLBACK_MARKER = "독립 설치에서 사용할 수 없으면"
+IMPLICIT_INVOCATION_POLICY = {
+    "architecture-decisions": True,
+    "develop-skill": False,
+    "domain-modeling": True,
+    "git-workflow": True,
+    "product-discovery": True,
+    "present-result": True,
+    "recommend-skill": False,
+    "research": True,
+    "review-dev-resume": False,
+    "to-adr": True,
+    "to-prd": True,
+    "to-tickets": True,
+}
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 VERSION_PATTERN = re.compile(
     r"^(?:0|[1-9][0-9]*)\."
@@ -146,14 +160,14 @@ def validate_skill(skill_dir: Path, readme_text: str, errors: list[str]) -> None
         errors.append(
             f"{metadata_path.relative_to(ROOT)}: policy.allow_implicit_invocation boolean이 필요합니다."
         )
-    elif (name.startswith("to-") or name == "recommend-skill") and policy[
-        "allow_implicit_invocation"
-    ]:
-        errors.append(f"{metadata_path.relative_to(ROOT)}: {name}은 explicit-only여야 합니다.")
-    elif name == PRESENTATION_GATE_SKILL and not policy["allow_implicit_invocation"]:
-        errors.append(
-            f"{metadata_path.relative_to(ROOT)}: {name}은 자동 최종 표현을 위해 implicit invocation을 허용해야 합니다."
-        )
+    elif isinstance(name, str) and name in IMPLICIT_INVOCATION_POLICY:
+        actual_policy = policy["allow_implicit_invocation"]
+        expected_policy = IMPLICIT_INVOCATION_POLICY[name]
+        if actual_policy != expected_policy:
+            errors.append(
+                f"{metadata_path.relative_to(ROOT)}: allow_implicit_invocation은 "
+                f"{expected_policy}여야 합니다."
+            )
 
     if name != PRESENTATION_GATE_SKILL and f"`{PRESENTATION_GATE_SKILL}`" not in skill_text:
         errors.append(
@@ -216,6 +230,11 @@ def main() -> int:
 
     documented_names = set(re.findall(r"^\| `([a-z0-9-]+)` \|", readme_text, re.MULTILINE))
     installable_names = {skill_dir.name for skill_dir in installable}
+    policy_names = set(IMPLICIT_INVOCATION_POLICY)
+    for missing_name in sorted(installable_names - policy_names):
+        errors.append(f"scripts/validate_skill_catalog.py: 호출 정책이 없습니다: {missing_name}")
+    for stale_name in sorted(policy_names - installable_names):
+        errors.append(f"scripts/validate_skill_catalog.py: 설치 대상이 아닌 호출 정책입니다: {stale_name}")
     for stale_name in sorted(documented_names - installable_names):
         errors.append(f"README.md: 설치 대상이 아닌 카탈로그 행이 있습니다: {stale_name}")
 

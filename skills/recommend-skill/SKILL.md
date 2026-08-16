@@ -1,6 +1,6 @@
 ---
 name: recommend-skill
-description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 스킬 하나와 정확한 호출 방법을 추천한다. 사용자가 어떤 스킬부터 써야 할지 모르거나 제품 탐색·문서 변환·기술 결정·Git 작업 사이의 순서를 고를 때 명시적으로 호출한다. 전문 작업을 직접 수행하거나 다른 explicit-only 스킬을 자동 실행하는 용도로는 사용하지 않는다.
+description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 스킬 하나와 정확한 호출 방법을 추천한다. 사용자가 어떤 스킬부터 써야 할지 모르거나 제품 탐색·문서 변환·기술 결정·Git 작업 사이의 순서를 고를 때 명시적으로 호출한다. 전문 작업을 직접 수행하거나 추천한 스킬을 대신 실행하는 용도로는 사용하지 않는다.
 ---
 
 # Recommend Skill
@@ -12,7 +12,7 @@ description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 
 ## 불변 규칙
 
 - 현재 단계에서 필요한 다음 스킬 하나를 우선 추천한다.
-- 명시 호출이 필요한 스킬을 대신 실행하거나 자동으로 이어서 호출하지 않는다.
+- 추천한 스킬을 대신 실행하거나 자동으로 이어서 호출하지 않는다.
 - `review-dev-resume`는 direct-only 스킬이므로 추천, 반환 또는 호출 예시에 포함하지 않는다.
 - 파일 작성, commit, push, PR 생성, 이슈 발행과 같은 상태 변경을 수행하지 않는다.
 - 요청이 이미 특정 스킬에 정확히 대응하면 불필요한 추가 단계를 만들지 않는다.
@@ -30,10 +30,7 @@ description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 
 | 승인된 계획을 의존성이 보이는 실행 작업으로 나누려 함 | `to-tickets` |
 | 여러 출처의 조사, 비교, 교차검증이 필요함 | `research` |
 | 이미 나온 전문 결과를 의미를 유지하며 쉽게 풀어 전달함 | `present-result` |
-| 현재 변경을 의미 단위 commit으로 생성함 | `create-commit` |
-| base/head 변경을 PR로 준비하거나 생성함 | `create-pull-request` |
-| commit 후보나 기존 commit을 읽기 전용으로 검토함 | `review-commit` |
-| PR 또는 생성 전 PR 설명의 merge 준비 상태를 검토함 | `review-pr` |
+| branch 명명·생성, commit, push, PR 준비·생성 또는 Git 산출물 검토 | `git-workflow` |
 | 스킬을 생성·수정·검토하고 평가함 | `develop-skill` |
 
 ## 경계 판정
@@ -42,8 +39,8 @@ description: Sonsu Skills에서 현재 목표와 준비 상태에 맞는 다음 
 
 - 결정이 열려 있으면 `product-discovery` 또는 `architecture-decisions`를 추천한다.
 - 핵심 결정과 근거가 준비되었으면 `to-prd`, `to-adr` 또는 `to-tickets`를 추천한다.
-- commit 또는 PR의 품질만 판정하려면 각각 `review-commit` 또는 `review-pr`를 추천한다.
-- 실제 Git 상태를 만들려면 사용자의 명시적 요청을 확인한 뒤 `create-*`를 추천한다.
+- Git 산출물의 품질만 판정하려면 `git-workflow`의 읽기 전용 review mode를 추천한다.
+- branch, commit, push 또는 PR처럼 실제 Git 상태를 만들려면 사용자의 명시적 요청을 확인한 뒤 `git-workflow`를 추천한다.
 
 요청이 direct-only 스킬에만 해당하면 라우팅 범위 밖이라고만 안내하고, 해당 스킬의 이름이나 호출 예시를 반환하지 않는다.
 

@@ -2,19 +2,11 @@
   "develop_skill": {
     "case_count": 5,
     "catalog_validation": {
-      "passed_count": 14,
+      "passed_count": 11,
       "results": [
         {
           "passed": true,
           "skill_id": "architecture-decisions"
-        },
-        {
-          "passed": true,
-          "skill_id": "create-commit"
-        },
-        {
-          "passed": true,
-          "skill_id": "create-pull-request"
         },
         {
           "passed": true,
@@ -23,6 +15,10 @@
         {
           "passed": true,
           "skill_id": "domain-modeling"
+        },
+        {
+          "passed": true,
+          "skill_id": "git-workflow"
         },
         {
           "passed": true,
@@ -38,15 +34,7 @@
         },
         {
           "passed": true,
-          "skill_id": "review-commit"
-        },
-        {
-          "passed": true,
           "skill_id": "review-dev-resume"
-        },
-        {
-          "passed": true,
-          "skill_id": "review-pr"
         },
         {
           "passed": true,
@@ -61,7 +49,7 @@
           "skill_id": "to-tickets"
         }
       ],
-      "skill_count": 14
+      "skill_count": 11
     },
     "passed_count": 5,
     "results": [
@@ -1313,14 +1301,14 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803",
-    "before_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803",
+    "after_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d",
+    "before_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d",
     "binding": {
-      "component_path_binding_digest": "7c336f03498ceb256eea8b5242547721784c8efb5e85ce6d1edcf082452d7628",
+      "component_path_binding_digest": "c0876169e7365f24f93f6e58cfd4a3835e06440dba18f24950892bcb4eaeda6e",
       "hook_binding": "exact_codex_home_hooks_json",
       "inventory_coverage": "installed_plugins_only",
       "plugin_id": "skills@sonsu-skills",
-      "plugin_version": "0.2.0",
+      "plugin_version": "0.4.1",
       "selector_catalog_coverage": "not_observed",
       "verified": true
     },
@@ -1332,13 +1320,13 @@
     },
     "components": [
       {
-        "digest": "e17bd53483e37d33292e0d5541d6254f0b22d9375142b2feedc8d717d4e497df",
-        "entry_count": 236,
+        "digest": "eb5872bc5e83f369776d7998a2782f7fd528e5fac96bdb61f55e62aa9d5fa3f7",
+        "entry_count": 225,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "b3d548596c2d49bbd65a2d5cb0367882907a6967418f37d2a849e067b0d1fcd2",
+        "digest": "f41ffcf199a416524a9f8e097fb5fafd57537eaf4908c504e604445da50456f3",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"
@@ -1363,16 +1351,16 @@
       }
     ],
     "effective_skill_catalog": {
-      "after_count": 25,
-      "after_digest": "b80b7822df7d313e4f9f67150bf1abf22e99ebb189b3bcd6a09cef4f8b972462",
-      "before_count": 25,
-      "before_digest": "b80b7822df7d313e4f9f67150bf1abf22e99ebb189b3bcd6a09cef4f8b972462",
+      "after_count": 23,
+      "after_digest": "3a02e2d19b6a5b5e6bd49cff1eba06c82cd59914c0fdd8631eeedcf68e620c6a",
+      "before_count": 23,
+      "before_digest": "3a02e2d19b6a5b5e6bd49cff1eba06c82cd59914c0fdd8631eeedcf68e620c6a",
       "candidate_source_isolation": {
         "candidate_alias_count": 0,
-        "catalog_record_count": 25,
+        "catalog_record_count": 23,
         "descendant_symlink_count": 0,
-        "regular_descendant_count": 379,
-        "resolved_source_root_count": 44,
+        "regular_descendant_count": 365,
+        "resolved_source_root_count": 40,
         "verified": true
       },
       "candidate_source_isolation_equal": true,
@@ -1387,9 +1375,9 @@
     "equal": true,
     "installed_plugin_inventory": {
       "after_count": 12,
-      "after_digest": "aaebdd109a4b215f0e6c105df2deb85b5fcac523208eab8bfe24a4b7feee299b",
+      "after_digest": "54818079b3284ae46d1d04561a1d137b910e5a8bca0ec431bc36efa24bc832ae",
       "before_count": 12,
-      "before_digest": "aaebdd109a4b215f0e6c105df2deb85b5fcac523208eab8bfe24a4b7feee299b",
+      "before_digest": "54818079b3284ae46d1d04561a1d137b910e5a8bca0ec431bc36efa24bc832ae",
       "coverage": "installed_plugins_only",
       "equal": true,
       "observer_kind": "sandboxed_read_only_active_inventory",

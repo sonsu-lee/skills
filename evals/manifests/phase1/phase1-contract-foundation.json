@@ -1,12 +1,12 @@
 {
   "schema_version": "phase1-slice-result-v1",
-  "manifest_id": "2ca003b490b1ffb7505ebb81859e1b95eadca6ce096338e6f4faf7c03a327ecc",
+  "manifest_id": "70ef4716c97799296d9767889c030d4df404664c1624cf74a5e448aea0119fc6",
   "slice_id": "phase1-contract-foundation",
   "predecessor_slice_result_manifest_id": null,
   "artifacts": [
     {
       "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-      "sha256": "553f0f04d13cbc071c27156195763acb4a9a9d20107aa1764ad0bf4f204cca63",
+      "sha256": "eb3ba5bdf28b85b08a5f0051b62474758c68ed0f9eeba8e1cc35aa4adfdf2c99",
       "role": "validation_report"
     },
     {
@@ -56,7 +56,7 @@
     },
     {
       "path": "skills/develop-skill/SKILL.md",
-      "sha256": "e5499e71878733fbc2812f0650987a17556b15b66cbf01a721820ed4f1b3a0e9",
+      "sha256": "ead50ac6506be6738bd8e1ed662822271c27fdfed95bce4077db79349aee13ce",
       "role": "skill_contract"
     },
     {
@@ -66,12 +66,12 @@
     },
     {
       "path": "skills/develop-skill/evals/cases.json",
-      "sha256": "214542dc2ad37d5fb0336532f75a845172f67bbf71624f1e2ecfb9020eb96ac0",
+      "sha256": "8cd02a941393901d67d382aad3e9965736ddd8cb8993286f489e4e20eb477fb9",
       "role": "regression_catalog"
     },
     {
       "path": "skills/develop-skill/evals/rubric.md",
-      "sha256": "8e5aebc9494a7a3652761f60e013bf5f60625a095b8e8b9b225fc432986b0607",
+      "sha256": "e839af8a5257a5b0ae0476e82bb86860b9f69e1024a30fb631e9719ceadace58",
       "role": "evaluation_rubric"
     },
     {
@@ -91,7 +91,7 @@
   ],
   "fixture_report": {
     "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-    "sha256": "553f0f04d13cbc071c27156195763acb4a9a9d20107aa1764ad0bf4f204cca63"
+    "sha256": "eb3ba5bdf28b85b08a5f0051b62474758c68ed0f9eeba8e1cc35aa4adfdf2c99"
   },
   "validator": {
     "id": "phase1-contract-foundation-validator",
@@ -100,7 +100,7 @@
     "result": "pass"
   },
   "runtime_projection": {
-    "before_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803",
-    "after_digest": "c215ca9727685ba44be9a92e4d513a925fbdeb2db9e9c9f76c4f4d502bbcf803"
+    "before_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d",
+    "after_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d"
   }
 }

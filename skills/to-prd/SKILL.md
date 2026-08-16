@@ -1,6 +1,6 @@
 ---
 name: to-prd
-description: "현재 대화, 승인된 discovery packet, 이슈와 기존 문서에 이미 합의된 제품 컨텍스트를 검증 가능한 PRD로 새로 작성하거나 갱신한다. 사용자가 $to-prd를 명시적으로 호출해 준비된 요구사항을 PRD·product requirements·product spec 산출물로 변환해 달라고 할 때 사용한다. 문제 탐색, 인터뷰, 새로운 제품 결정, 도메인 정본, ADR 또는 구현 티켓 작성에는 사용하지 않는다."
+description: "현재 대화, 승인된 discovery packet, 이슈와 기존 문서에 이미 합의된 제품 컨텍스트를 검증 가능한 PRD로 새로 작성하거나 갱신한다. 사용자가 준비된 요구사항을 PRD·product requirements·product spec 산출물로 변환해 달라고 요청할 때 사용한다. 문제 탐색, 인터뷰, 새로운 제품 결정, 도메인 정본, ADR 또는 구현 티켓 작성에는 사용하지 않는다."
 ---
 
 # To PRD
@@ -9,9 +9,9 @@ description: "현재 대화, 승인된 discovery packet, 이슈와 기존 문서
 
 ## 계약
 
-- 사용자 명시 호출을 기본으로 한다.
+- PRD 작성·갱신 의도가 요청에서 명확해야 한다. 스킬 이름을 직접 호출할 필요는 없다.
 - 문제, 사용자, 결과, 범위와 핵심 규칙이 준비됐는지 먼저 판정한다.
-- 명시 호출은 readiness gate를 우회하지 않는다.
+- 명시 호출이나 자동 활성화는 readiness gate를 우회하지 않는다.
 - 핵심 결정을 새로 내려야 하면 문서를 만들지 않고 `product-discovery`로 넘긴다.
 - 최소 제품 컨텍스트가 준비된 뒤 남은 open item을 정직하게 표시한 조건부 초안이 유용하면 `draft/conditional`로 만들 수 있다.
 - 사용자가 쓰기를 요청하지 않았다면 파일을 변경하지 않고 PRD 후보만 제공한다.
@@ -42,7 +42,7 @@ description: "현재 대화, 승인된 discovery packet, 이슈와 기존 문서
 - 성공 신호, 수치가 있다면 그 출처
 - 결정권자와 실제 승인 evidence
 
-문제·사용자·결과·경계·핵심 규칙 중 하나라도 PRD를 쓰기 위해 발명해야 하는 경우 `blocked`로 판정한다. 명시적인 `$to-prd` 호출도 이 gate를 바꾸지 않는다. `blocked`이면 새 PRD, 기존 PRD 갱신과 PRD 형태의 proposed artifact를 만들지 말고 다음만 제공한다.
+문제·사용자·결과·경계·핵심 규칙 중 하나라도 PRD를 쓰기 위해 발명해야 하는 경우 `blocked`로 판정한다. 호출 방식은 이 gate를 바꾸지 않는다. `blocked`이면 새 PRD, 기존 PRD 갱신과 PRD 형태의 proposed artifact를 만들지 말고 다음만 제공한다.
 
 - 판정을 막은 누락과 그 영향
 - 현재 입력에서 안전하게 보존할 수 있는 source locator와 확인된 claim
