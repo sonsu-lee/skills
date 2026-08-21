@@ -252,6 +252,44 @@ def validate_gate(gate: dict[str, Any]) -> bool:
     return bool(blockers)
 
 
+def validate_profile(profile: dict[str, Any]) -> bool:
+    if set(profile) != {"level", "confidence"}:
+        return False
+    level = profile.get("level")
+    confidence = profile.get("confidence")
+    if level not in {"direct", "bounded", "architectural"}:
+        return False
+    if confidence not in {"confirmed", "provisional"}:
+        return False
+    return level != "direct" or confidence == "confirmed"
+
+
+def validate_skill_resolution(record: dict[str, Any]) -> bool:
+    if set(record) != {"status", "decisions", "planned_capabilities", "fallback"}:
+        return False
+    status = record.get("status")
+    decisions = record.get("decisions")
+    planned = record.get("planned_capabilities")
+    fallback = record.get("fallback")
+    if status not in {"pass", "blocked"}:
+        return False
+    if not isinstance(decisions, list) or not isinstance(planned, list):
+        return False
+    if fallback is not None and not isinstance(fallback, str):
+        return False
+    for decision in decisions:
+        if not isinstance(decision, dict):
+            return False
+        disposition = decision.get("decision")
+        if disposition not in {"selected", "composed", "rejected", "blocked"}:
+            return False
+        if disposition in {"selected", "composed"} and decision.get("compatible") is not True:
+            return False
+    if any(decision.get("decision") == "blocked" for decision in decisions):
+        return status == "blocked"
+    return True
+
+
 def _walk_strings(value: Any) -> Iterable[str]:
     if isinstance(value, str):
         yield value
@@ -287,13 +325,8 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
         findings.add("HANDOFF-001")
 
     skill_resolution = record.get("skill_resolution")
-    if (
-        not isinstance(skill_resolution, dict)
-        or set(skill_resolution)
-        != {"status", "decisions", "planned_capabilities", "fallback"}
-        or skill_resolution.get("status") not in {"pass", "blocked"}
-        or not isinstance(skill_resolution.get("decisions"), list)
-        or not isinstance(skill_resolution.get("planned_capabilities"), list)
+    if not isinstance(skill_resolution, dict) or not validate_skill_resolution(
+        skill_resolution
     ):
         findings.add("HANDOFF-001")
 
@@ -427,6 +460,49 @@ def validate_contract_sources(root: Path, findings: list[str]) -> None:
     )
     if authorization_statuses != AUTHORIZATION_STATES:
         findings.append("authorization_status_mismatch")
+    profile_constraints = schema.get("properties", {}).get("profile", {}).get("allOf", [])
+    if not any(
+        constraint.get("if", {}).get("properties", {}).get("level", {}).get("const")
+        == "direct"
+        and constraint.get("then", {})
+        .get("properties", {})
+        .get("confidence", {})
+        .get("const")
+        == "confirmed"
+        for constraint in profile_constraints
+    ):
+        findings.append("direct_profile_must_be_confirmed")
+    resolution_constraints = (
+        schema.get("$defs", {}).get("skillResolution", {}).get("allOf", [])
+    )
+    if not any(
+        constraint.get("then", {})
+        .get("properties", {})
+        .get("status", {})
+        .get("const")
+        == "blocked"
+        for constraint in resolution_constraints
+    ):
+        findings.append("blocked_decision_status_constraint_missing")
+    decision_constraints = (
+        schema.get("$defs", {}).get("skillDecision", {}).get("allOf", [])
+    )
+    if not any(
+        set(
+            constraint.get("if", {})
+            .get("properties", {})
+            .get("decision", {})
+            .get("enum", [])
+        )
+        == {"selected", "composed"}
+        and constraint.get("then", {})
+        .get("properties", {})
+        .get("compatible", {})
+        .get("const")
+        is True
+        for constraint in decision_constraints
+    ):
+        findings.append("selected_skill_compatibility_constraint_missing")
 
 
 def validate_activation(root: Path, requested: str) -> tuple[str, list[str]]:
@@ -517,6 +593,24 @@ def run_validation(root: Path, activation: str) -> dict[str, Any]:
         if status == "fail":
             findings.append(f"gate:{case.get('id')}:expectation_mismatch")
         case_results.append({"id": case["id"], "kind": "gate", "status": status})
+
+    for case in cases.get("profile_cases", []):
+        actual = validate_profile(case.get("profile", {}))
+        status = "pass" if actual is case.get("expected_valid") else "fail"
+        if status == "fail":
+            findings.append(f"profile:{case.get('id')}:expectation_mismatch")
+        case_results.append({"id": case["id"], "kind": "profile", "status": status})
+
+    for case in cases.get("skill_resolution_cases", []):
+        actual = validate_skill_resolution(case.get("record", {}))
+        status = "pass" if actual is case.get("expected_valid") else "fail"
+        if status == "fail":
+            findings.append(
+                f"skill_resolution:{case.get('id')}:expectation_mismatch"
+            )
+        case_results.append(
+            {"id": case["id"], "kind": "skill_resolution", "status": status}
+        )
 
     for case in cases.get("handoff_cases", []):
         actual = validate_handoff(case.get("record", {}))

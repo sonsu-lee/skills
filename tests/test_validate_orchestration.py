@@ -120,6 +120,34 @@ class GateTest(unittest.TestCase):
                 )
 
 
+class ProfileTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.cases = orchestration.load_json(orchestration.CASES_PATH)
+
+    def test_profile_fixtures_match(self) -> None:
+        for case in self.cases["profile_cases"]:
+            with self.subTest(case=case["id"]):
+                self.assertIs(
+                    orchestration.validate_profile(case["profile"]),
+                    case["expected_valid"],
+                )
+
+
+class SkillResolutionTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.cases = orchestration.load_json(orchestration.CASES_PATH)
+
+    def test_skill_resolution_fixtures_match(self) -> None:
+        for case in self.cases["skill_resolution_cases"]:
+            with self.subTest(case=case["id"]):
+                self.assertIs(
+                    orchestration.validate_skill_resolution(case["record"]),
+                    case["expected_valid"],
+                )
+
+
 class ActivationTest(unittest.TestCase):
     def test_auto_detects_inactive_fixture(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

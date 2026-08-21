@@ -7,6 +7,7 @@
 - 프로젝트 규칙 충돌, 비호환 후보와 planned capability의 제외
 - 명시 호출과 side effect authorization의 분리
 - pass·conditional·blocked gate와 blocker 조합
+- direct profile의 confirmed 제한과 스킬 결정 aggregate·호환성 제약
 - compact handoff의 완료·검증·비밀정보 경계
 - `develop-change`의 inactive/active discovery 상태
 

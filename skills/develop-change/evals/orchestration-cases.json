@@ -353,6 +353,65 @@
       "expected_valid": false
     }
   ],
+  "profile_cases": [
+    {
+      "id": "direct-confirmed-is-valid",
+      "profile": {"level": "direct", "confidence": "confirmed"},
+      "expected_valid": true
+    },
+    {
+      "id": "direct-provisional-is-invalid",
+      "profile": {"level": "direct", "confidence": "provisional"},
+      "expected_valid": false
+    },
+    {
+      "id": "bounded-provisional-is-valid",
+      "profile": {"level": "bounded", "confidence": "provisional"},
+      "expected_valid": true
+    }
+  ],
+  "skill_resolution_cases": [
+    {
+      "id": "compatible-selected-skill-is-valid",
+      "record": {
+        "status": "pass",
+        "decisions": [{"decision": "selected", "compatible": true}],
+        "planned_capabilities": [],
+        "fallback": null
+      },
+      "expected_valid": true
+    },
+    {
+      "id": "blocked-decision-cannot-pass",
+      "record": {
+        "status": "pass",
+        "decisions": [{"decision": "blocked", "compatible": true}],
+        "planned_capabilities": [],
+        "fallback": null
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "blocked-decision-with-blocked-status-is-valid",
+      "record": {
+        "status": "blocked",
+        "decisions": [{"decision": "blocked", "compatible": true}],
+        "planned_capabilities": [],
+        "fallback": null
+      },
+      "expected_valid": true
+    },
+    {
+      "id": "incompatible-selected-skill-is-invalid",
+      "record": {
+        "status": "pass",
+        "decisions": [{"decision": "selected", "compatible": false}],
+        "planned_capabilities": [],
+        "fallback": null
+      },
+      "expected_valid": false
+    }
+  ],
   "handoff_cases": [
     {
       "id": "complete-minimal-handoff",
