@@ -28,7 +28,7 @@ Authorization은 **어떤 행동을, 어느 대상과 범위에, 어떤 근거�
 
 특히 Git 작업은 다음처럼 나뉜다.
 
-- `branch_create`: 승인된 이름과 시작점으로 로컬 branch ref를 만들며, checkout까지 포함할지는 target에 명시한다.
+- `branch_create`: 승인된 이름과 시작점으로 로컬 branch ref만 만든다. checkout은 포함하지 않으며 별도 `branch_switch` grant가 필요하다.
 - `branch_switch`: 승인된 기존 branch로 working tree와 `HEAD`를 전환한다.
 - `stage`: 승인된 파일의 exact bytes를 Git index에 올린다.
 - `commit`: 이미 검증된 exact index tree로 commit을 만들고 branch ref를 이동한다.

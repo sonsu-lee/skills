@@ -42,7 +42,18 @@
       "properties": {
         "level": {"enum": ["direct", "bounded", "architectural"]},
         "confidence": {"enum": ["confirmed", "provisional"]}
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"level": {"const": "direct"}},
+            "required": ["level"]
+          },
+          "then": {
+            "properties": {"confidence": {"const": "confirmed"}}
+          }
+        }
+      ]
     },
     "gate": {"$ref": "#/$defs/gate"},
     "skill_resolution": {"$ref": "#/$defs/skillResolution"},
@@ -158,7 +169,25 @@
           "items": {"$ref": "#/$defs/plannedCapability"}
         },
         "fallback": {"type": ["string", "null"]}
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decisions": {
+                "contains": {
+                  "properties": {"decision": {"const": "blocked"}},
+                  "required": ["decision"]
+                }
+              }
+            },
+            "required": ["decisions"]
+          },
+          "then": {
+            "properties": {"status": {"const": "blocked"}}
+          }
+        }
+      ]
     },
     "skillDecision": {
       "type": "object",
@@ -198,7 +227,20 @@
           "items": {"$ref": "#/$defs/route"}
         },
         "effect_boundary": {"type": "string", "minLength": 1}
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decision": {"enum": ["selected", "composed"]}
+            },
+            "required": ["decision"]
+          },
+          "then": {
+            "properties": {"compatible": {"const": true}}
+          }
+        }
+      ]
     },
     "plannedCapability": {
       "type": "object",

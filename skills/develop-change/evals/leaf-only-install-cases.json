@@ -26,12 +26,12 @@
   "contract_bundle": {
     "schema": {
       "path": "foundation-contract.schema.json",
-      "sha256": "abc27f0bbc80c1937e13e5b0d04bc73c740a48adba388f339a388dd765d21a84"
+      "sha256": "d3af4ea3a8285cccdef68944c5dfdb79fbd0a498dfdb542210718853f038685e"
     },
     "documents": [
       {
         "path": "authorization-contract.md",
-        "sha256": "8a9a3d3635f379250b2b61d872869ab8a4d272cb6999121e510e9c6276fe3a88"
+        "sha256": "3c24d9efd871c375b171a4b3542dd7e63ec7740a204005f38354937b003f4284"
       },
       {
         "path": "gate-contract.md",

@@ -30,7 +30,7 @@ from runtime_projection import (
 
 SCHEMA_VERSION = "phase1-foundation-draft-v1"
 VALIDATOR_ID = "phase1-contract-foundation-validator"
-VALIDATOR_REVISION = 3
+VALIDATOR_REVISION = 4
 ISOLATED_MARKETPLACE = "phase1-leaf-only-marketplace"
 ISOLATED_PLUGIN = "phase1-leaf-only-fixture"
 CONTRACT_ARTIFACTS = (
