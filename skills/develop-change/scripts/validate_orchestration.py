@@ -97,6 +97,8 @@ REQUIRED_HANDOFF_FIELDS = {
     "completed_phase",
     "decisions",
     "artifacts",
+    "profile",
+    "foundation_binding",
     "skill_resolution",
     "authorization",
     "verification",
@@ -329,6 +331,28 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
         findings.add("HANDOFF-001")
     if not isinstance(record.get("artifacts"), list):
         findings.add("HANDOFF-001")
+    profile = record.get("profile")
+    if (
+        not isinstance(profile, dict)
+        or set(profile) != {"level", "confidence"}
+        or profile.get("level") not in {"direct", "bounded", "architectural"}
+        or profile.get("confidence") not in {"confirmed", "provisional"}
+    ):
+        findings.add("HANDOFF-001")
+    foundation_binding = record.get("foundation_binding")
+    if not isinstance(foundation_binding, dict) or set(foundation_binding) != {
+        "gate_ref",
+        "frontier_ref",
+    }:
+        findings.add("HANDOFF-001")
+    else:
+        for identity_ref in foundation_binding.values():
+            if not isinstance(identity_ref, dict) or set(identity_ref) != {
+                "id",
+                "revision",
+                "digest",
+            }:
+                findings.add("HANDOFF-001")
 
     skill_resolution = record.get("skill_resolution")
     if not isinstance(skill_resolution, dict) or not validate_skill_resolution(
