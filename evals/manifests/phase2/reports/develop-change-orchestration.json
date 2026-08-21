@@ -208,7 +208,7 @@
     "skills/develop-change/references/orchestration-contract.md": "ab3a0cc95c1b6b39c49b8b07b58cb83fc1107254d255db99fa8e8d105b10e7ed",
     "skills/develop-change/references/orchestration-contract.schema.json": "dd97040387691fd8ef0abe5854afd0c9931e49d2a00d89a1d09bfea80f7f7664",
     "skills/develop-change/references/skill-resolution-contract.md": "86e74e8d56d9ff1a439d766738177795ce92e18e72803621f2ccf7882c060908",
-    "skills/develop-change/scripts/validate_orchestration.py": "946715d6c7fd8f69d4cdbcfebe58128e21df8fdbfe6ee6aa3ca38fc5a4896737",
+    "skills/develop-change/scripts/validate_orchestration.py": "d730f8745cf9994b9c4508d222dca5c175859d076ab7c058ceca6a8c4b67a016",
     "skills/develop-change/scripts/validate_orchestration_record.py": "73c6154672db5bb0cfc56e7f0e62b5fe6070c8af11a40d669c7e6beee3820f4f"
   },
   "status": "pass"

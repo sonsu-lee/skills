@@ -1,6 +1,6 @@
 {
   "schema_version": "develop-change-orchestration-manifest-v1",
-  "activation_commit": "d0ebbf617b92aa260fd04d72a4035c1f29a1a1a3",
+  "activation_commit": "2685f9d200e8ab704ba582e659ec03829c6289aa",
   "activation_contract": {
     "plugin_version": "0.7.0",
     "skill_name": "develop-change",
@@ -9,7 +9,7 @@
   },
   "report": {
     "path": "evals/manifests/phase2/reports/develop-change-orchestration.json",
-    "sha256": "282259682a9873ce8ee605943350de13eb1e291a60d3be6bfd9200d62354a227",
+    "sha256": "63952a4af1e91343552438a840490e17ff2d9d0c87446464271990bbbe2fbbf5",
     "schema_version": "develop-change-orchestration-report-v1",
     "status": "pass",
     "case_count": 39,
