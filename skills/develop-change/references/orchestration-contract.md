@@ -40,6 +40,20 @@
 6. 전달이 요청되었으면 branch 생성·전환을 포함한 Git capability를 각각 확인한 뒤 `git-workflow`를 적용한다.
 7. [handoff-contract.md](./handoff-contract.md)의 compact handoff를 갱신한다.
 
+## 기계 검증
+
+`orchestration-contract.schema.json`은 구조, route·profile·gate 조건과 blocker 결박을 검증한다. JSON Schema가 표현하지 못하는 다음 교차 필드 규칙은 `validate_orchestration_record.py`가 소유한다.
+
+- `skill_resolution.decisions`의 `skill_id`는 한 번만 나타난다.
+- handoff의 objective, scope, decisions, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
+
+효과 실행이나 handoff 재개 전에는 schema 검증과 semantic validator를 모두 통과해야 한다. validator 회귀 사례는 다음 명령으로 확인한다.
+
+```bash
+python3 skills/develop-change/scripts/validate_orchestration_record.py \
+  --cases skills/develop-change/evals/orchestration-record-cases.json
+```
+
 ## 완료 조건
 
 - 요청된 종료 지점까지의 route가 완료되었거나 정확한 blocker가 기록되었다.

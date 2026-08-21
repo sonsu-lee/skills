@@ -28,6 +28,7 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 - 경로·명령·PR URL처럼 재개에 필요한 식별자는 정확히 남긴다 (`HANDOFF-003`).
 - 검증하지 않은 내용을 완료로 표현하지 않는다 (`HANDOFF-004`).
 - 비밀정보, 토큰, 전체 로그와 불필요한 대화 원문은 포함하지 않는다 (`HANDOFF-005`).
+- orchestration record 안에 함께 저장할 때 objective, scope, decisions, skill resolution, authorization, verification과 blocker는 최상위 현재 상태와 동일해야 한다 (`HANDOFF-002`).
 
 ## 최소 예시
 

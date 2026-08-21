@@ -141,7 +141,7 @@
         </mxCell>
         <mxCell id="e_p5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#36B37E;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="phase_diagnose" target="phase_change"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e_p6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#36B37E;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="phase_change" target="phase_verify"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_p7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6554C0;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="phase_verify" target="phase_deliver"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_p7" value="전달 요청 시" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6554C0;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;fontColor=#403294;" edge="1" parent="1" source="phase_verify" target="phase_deliver"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e_resolution_conflict" value="material conflict" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#DE350B;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;fontColor=#BF2600;" edge="1" parent="1" source="resolution_note" target="conflict_note"><mxGeometry relative="1" as="geometry"/></mxCell>
 
         <mxCell id="e_shape_discovery" value="필요할 때" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6554C0;dashed=1;endArrow=open;endFill=0;fontSize=10;fontColor=#403294;" edge="1" parent="1" source="phase_shape" target="skill_discovery"><mxGeometry relative="1" as="geometry"/></mxCell>

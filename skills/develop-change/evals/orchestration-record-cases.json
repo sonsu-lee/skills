@@ -1,0 +1,197 @@
+{
+  "schema_version": "develop-change-orchestration-record-evals-v1",
+  "base_record": {
+    "contract_version": "develop-change-orchestration-v1",
+    "objective": {
+      "summary": "기능 구현",
+      "finish_line": "검증 결과 전달"
+    },
+    "scope": {
+      "include": ["src", "관련 테스트"],
+      "exclude": []
+    },
+    "decisions": [],
+    "primary_route": "change",
+    "route_plan": ["understand", "design", "change", "verify"],
+    "profile": {
+      "level": "bounded",
+      "confidence": "confirmed"
+    },
+    "gate": {
+      "result": "pass",
+      "blockers": [],
+      "assumptions": []
+    },
+    "skill_resolution": {
+      "status": "pass",
+      "decisions": [
+        {
+          "skill_id": "repository-typescript",
+          "source": "repository",
+          "decision": "selected",
+          "reason": "프로젝트 규칙",
+          "responsibility": "typescript",
+          "specificity": 4,
+          "compatible": true,
+          "required_tools": [],
+          "applies_to_routes": ["change"],
+          "effect_boundary": "src"
+        }
+      ],
+      "planned_capabilities": [],
+      "fallback": null
+    },
+    "authorization": [],
+    "verification": {
+      "passed": [],
+      "failed": [],
+      "not_run": ["구현 전"]
+    },
+    "handoff": {
+      "objective": {
+        "summary": "기능 구현",
+        "finish_line": "검증 결과 전달"
+      },
+      "scope": {
+        "include": ["src", "관련 테스트"],
+        "exclude": []
+      },
+      "completed_phase": "design",
+      "decisions": [],
+      "artifacts": [],
+      "skill_resolution": {
+        "status": "pass",
+        "decisions": [
+          {
+            "skill_id": "repository-typescript",
+            "source": "repository",
+            "decision": "selected",
+            "reason": "프로젝트 규칙",
+            "responsibility": "typescript",
+            "specificity": 4,
+            "compatible": true,
+            "required_tools": [],
+            "applies_to_routes": ["change"],
+            "effect_boundary": "src"
+          }
+        ],
+        "planned_capabilities": [],
+        "fallback": null
+      },
+      "authorization": [],
+      "verification": {
+        "passed": [],
+        "failed": [],
+        "not_run": ["구현 전"]
+      },
+      "blockers": [],
+      "next_action": "change 수행"
+    }
+  },
+  "cases": [
+    {
+      "id": "consistent-record-passes",
+      "mutations": [],
+      "expected_rules": []
+    },
+    {
+      "id": "primary-route-must-be-planned",
+      "mutations": [
+        {"op": "replace", "path": "/route_plan", "value": ["verify"]}
+      ],
+      "expected_rules": ["ORCH-002"]
+    },
+    {
+      "id": "conditional-requires-supported-assumption",
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "conditional"}
+      ],
+      "expected_rules": ["FND-GATE-002"]
+    },
+    {
+      "id": "supported-conditional-passes",
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "conditional"},
+        {
+          "op": "replace",
+          "path": "/gate/assumptions",
+          "value": [
+            {
+              "summary": "기존 테스트 명령 유지",
+              "basis_refs": ["README.md#test"],
+              "validation": "변경 후 같은 명령을 실행한다"
+            }
+          ]
+        }
+      ],
+      "expected_rules": []
+    },
+    {
+      "id": "blocked-resolution-blocks-gate",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/status", "value": "blocked"},
+        {"op": "replace", "path": "/handoff/skill_resolution/status", "value": "blocked"}
+      ],
+      "expected_rules": ["ORCH-002"]
+    },
+    {
+      "id": "provisional-profile-cannot-pass",
+      "mutations": [
+        {"op": "replace", "path": "/profile/confidence", "value": "provisional"}
+      ],
+      "expected_rules": ["FND-PROFILE-001"]
+    },
+    {
+      "id": "skill-id-is-unique",
+      "mutations": [
+        {
+          "op": "append",
+          "path": "/skill_resolution/decisions",
+          "value": {
+            "skill_id": "repository-typescript",
+            "source": "installed",
+            "decision": "rejected",
+            "reason": "중복 후보",
+            "responsibility": "typescript",
+            "specificity": 2,
+            "compatible": true,
+            "required_tools": [],
+            "applies_to_routes": ["change"],
+            "effect_boundary": "src"
+          }
+        },
+        {
+          "op": "append",
+          "path": "/handoff/skill_resolution/decisions",
+          "value": {
+            "skill_id": "repository-typescript",
+            "source": "installed",
+            "decision": "rejected",
+            "reason": "중복 후보",
+            "responsibility": "typescript",
+            "specificity": 2,
+            "compatible": true,
+            "required_tools": [],
+            "applies_to_routes": ["change"],
+            "effect_boundary": "src"
+          }
+        }
+      ],
+      "expected_rules": ["RESOLVE-004"]
+    },
+    {
+      "id": "handoff-scope-matches-current-state",
+      "mutations": [
+        {"op": "replace", "path": "/handoff/scope/include", "value": ["deprecated"]}
+      ],
+      "expected_rules": ["HANDOFF-002"]
+    },
+    {
+      "id": "handoff-blockers-match-current-gate",
+      "mutations": [
+        {"op": "replace", "path": "/handoff/blockers", "value": ["stale blocker"]}
+      ],
+      "expected_rules": ["HANDOFF-002"]
+    }
+  ]
+}
