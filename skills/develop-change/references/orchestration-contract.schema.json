@@ -13,6 +13,7 @@
     "route_plan",
     "profile",
     "gate",
+    "foundation_binding",
     "skill_resolution",
     "authorization",
     "verification",
@@ -56,6 +57,7 @@
       ]
     },
     "gate": {"$ref": "#/$defs/gate"},
+    "foundation_binding": {"$ref": "#/$defs/foundationBinding"},
     "skill_resolution": {"$ref": "#/$defs/skillResolution"},
     "authorization": {"$ref": "#/$defs/authorizationSnapshot"},
     "verification": {"$ref": "#/$defs/verification"},
@@ -271,6 +273,19 @@
         "validation": {"type": "string", "minLength": 1}
       }
     },
+    "foundationBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_ref", "frontier_ref"],
+      "properties": {
+        "gate_ref": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
+        },
+        "frontier_ref": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
+        }
+      }
+    },
     "skillResolution": {
       "type": "object",
       "additionalProperties": false,
@@ -469,6 +484,8 @@
         "completed_phase",
         "decisions",
         "artifacts",
+        "profile",
+        "foundation_binding",
         "skill_resolution",
         "authorization",
         "verification",
@@ -488,6 +505,16 @@
           "uniqueItems": true,
           "items": {"type": "string", "minLength": 1}
         },
+        "profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["level", "confidence"],
+          "properties": {
+            "level": {"enum": ["direct", "bounded", "architectural"]},
+            "confidence": {"enum": ["confirmed", "provisional"]}
+          }
+        },
+        "foundation_binding": {"$ref": "#/$defs/foundationBinding"},
         "skill_resolution": {"$ref": "#/$defs/skillResolution"},
         "authorization": {"$ref": "#/$defs/authorizationSnapshot"},
         "verification": {"$ref": "#/$defs/verification"},

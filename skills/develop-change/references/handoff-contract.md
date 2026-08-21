@@ -13,6 +13,8 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 | `completed_phase` | 마지막으로 완료한 route |
 | `decisions` | 확정된 중요한 선택, 근거와 재검토 조건 |
 | `artifacts` | 생성·변경한 파일, 문서, commit 또는 PR의 식별자 |
+| `profile` | 현재 direct/bounded/architectural level과 confirmed/provisional 상태 |
+| `foundation_binding` | current gate와 decision frontier의 exact identity reference |
 | `skill_resolution` | 선택·조합·제외·fallback한 전문 스킬과 이유 |
 | `authorization` | 현재 capability 상태와 더 이상 재사용할 수 없는 grant |
 | `verification` | 실행한 검사, 결과와 실행하지 못한 검사 |
@@ -28,7 +30,7 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 - 경로·명령·PR URL처럼 재개에 필요한 식별자는 정확히 남긴다 (`HANDOFF-003`).
 - 검증하지 않은 내용을 완료로 표현하지 않는다 (`HANDOFF-004`).
 - 비밀정보, 토큰, 전체 로그와 불필요한 대화 원문은 포함하지 않는다 (`HANDOFF-005`).
-- orchestration record 안에 함께 저장할 때 objective, scope, decisions, skill resolution, authorization, verification과 blocker는 최상위 현재 상태와 동일해야 한다 (`HANDOFF-002`).
+- orchestration record 안에 함께 저장할 때 objective, scope, decisions, profile, foundation binding, skill resolution, authorization, verification과 blocker는 최상위 현재 상태와 동일해야 한다 (`HANDOFF-002`).
 
 ## 최소 예시
 
@@ -50,6 +52,18 @@ decisions:
     reconsider_when: 공개 API version이 바뀔 때
 artifacts:
   - src/payments/error.ts
+profile:
+  level: bounded
+  confidence: confirmed
+foundation_binding:
+  gate_ref:
+    id: gate.payment-alert
+    revision: 2
+    digest: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  frontier_ref:
+    id: frontier.payment-alert
+    revision: 3
+    digest: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 skill_resolution:
   status: pass
   decisions: []

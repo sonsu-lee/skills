@@ -22,6 +22,18 @@
       "blockers": [],
       "assumptions": []
     },
+    "foundation_binding": {
+      "gate_ref": {
+        "id": "gate.fixture",
+        "revision": 1,
+        "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "frontier_ref": {
+        "id": "frontier.fixture",
+        "revision": 1,
+        "digest": "2222222222222222222222222222222222222222222222222222222222222222"
+      }
+    },
     "skill_resolution": {
       "status": "pass",
       "decisions": [
@@ -59,6 +71,22 @@
       "completed_phase": "design",
       "decisions": [],
       "artifacts": [],
+      "profile": {
+        "level": "bounded",
+        "confidence": "confirmed"
+      },
+      "foundation_binding": {
+        "gate_ref": {
+          "id": "gate.fixture",
+          "revision": 1,
+          "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "frontier_ref": {
+          "id": "frontier.fixture",
+          "revision": 1,
+          "digest": "2222222222222222222222222222222222222222222222222222222222222222"
+        }
+      },
       "skill_resolution": {
         "status": "pass",
         "decisions": [
@@ -99,6 +127,7 @@
       "mutations": [
         {"op": "replace", "path": "/route_plan", "value": ["verify"]}
       ],
+      "expected_schema_valid": false,
       "expected_rules": ["ORCH-002"]
     },
     {
@@ -106,6 +135,7 @@
       "mutations": [
         {"op": "replace", "path": "/gate/result", "value": "conditional"}
       ],
+      "expected_schema_valid": false,
       "expected_rules": ["FND-GATE-002"]
     },
     {
@@ -132,13 +162,16 @@
         {"op": "replace", "path": "/skill_resolution/status", "value": "blocked"},
         {"op": "replace", "path": "/handoff/skill_resolution/status", "value": "blocked"}
       ],
+      "expected_schema_valid": false,
       "expected_rules": ["ORCH-002"]
     },
     {
       "id": "provisional-profile-cannot-pass",
       "mutations": [
-        {"op": "replace", "path": "/profile/confidence", "value": "provisional"}
+        {"op": "replace", "path": "/profile/confidence", "value": "provisional"},
+        {"op": "replace", "path": "/handoff/profile/confidence", "value": "provisional"}
       ],
+      "expected_schema_valid": false,
       "expected_rules": ["FND-PROFILE-001"]
     },
     {
@@ -192,6 +225,83 @@
         {"op": "replace", "path": "/handoff/blockers", "value": ["stale blocker"]}
       ],
       "expected_rules": ["HANDOFF-002"]
+    },
+    {
+      "id": "handoff-profile-matches-current-state",
+      "mutations": [
+        {"op": "replace", "path": "/handoff/profile/level", "value": "architectural"}
+      ],
+      "expected_rules": ["HANDOFF-002"]
+    },
+    {
+      "id": "same-responsibility-requires-composition",
+      "mutations": [
+        {
+          "op": "append",
+          "path": "/skill_resolution/decisions",
+          "value": {
+            "skill_id": "installed-typescript",
+            "source": "installed",
+            "decision": "selected",
+            "reason": "추가 지침",
+            "responsibility": "typescript",
+            "specificity": 2,
+            "compatible": true,
+            "required_tools": [],
+            "applies_to_routes": ["change"],
+            "effect_boundary": "src"
+          }
+        },
+        {
+          "op": "append",
+          "path": "/handoff/skill_resolution/decisions",
+          "value": {
+            "skill_id": "installed-typescript",
+            "source": "installed",
+            "decision": "selected",
+            "reason": "추가 지침",
+            "responsibility": "typescript",
+            "specificity": 2,
+            "compatible": true,
+            "required_tools": [],
+            "applies_to_routes": ["change"],
+            "effect_boundary": "src"
+          }
+        }
+      ],
+      "expected_rules": ["RESOLVE-005"]
+    },
+    {
+      "id": "active-skill-applies-to-current-route",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["verify"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["verify"]}
+      ],
+      "expected_rules": ["RESOLVE-003"]
+    },
+    {
+      "id": "input-schema-rejects-missing-required-state",
+      "mutations": [
+        {"op": "remove", "path": "/foundation_binding"}
+      ],
+      "expected_schema_valid": false,
+      "expected_rules": ["HANDOFF-002"]
+    },
+    {
+      "id": "scope-include-exclude-are-disjoint",
+      "mutations": [
+        {"op": "replace", "path": "/scope/exclude", "value": ["src"]},
+        {"op": "replace", "path": "/handoff/scope/exclude", "value": ["src"]}
+      ],
+      "expected_rules": ["ORCH-001"]
+    },
+    {
+      "id": "verification-results-are-disjoint",
+      "mutations": [
+        {"op": "replace", "path": "/verification/failed", "value": ["구현 전"]},
+        {"op": "replace", "path": "/handoff/verification/failed", "value": ["구현 전"]}
+      ],
+      "expected_rules": ["HANDOFF-004"]
     }
   ]
 }

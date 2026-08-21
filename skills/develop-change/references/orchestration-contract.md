@@ -45,7 +45,10 @@
 `orchestration-contract.schema.json`은 구조, route·profile·gate 조건과 blocker 결박을 검증한다. JSON Schema가 표현하지 못하는 다음 교차 필드 규칙은 `validate_orchestration_record.py`가 소유한다.
 
 - `skill_resolution.decisions`의 `skill_id`는 한 번만 나타난다.
-- handoff의 objective, scope, decisions, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
+- 같은 responsibility의 활성 스킬은 모두 `composed`로 명시하지 않는 한 하나만 `selected`한다.
+- `selected`와 `composed` 스킬은 현재 `primary_route`를 적용 범위에 포함한다.
+- scope의 include/exclude와 verification의 passed/failed/not_run은 서로 겹치지 않는다.
+- handoff의 objective, scope, decisions, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
 
 효과 실행이나 handoff 재개 전에는 schema 검증과 semantic validator를 모두 통과해야 한다. validator 회귀 사례는 다음 명령으로 확인한다.
 
