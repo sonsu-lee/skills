@@ -11,6 +11,8 @@ import sys
 from pathlib import Path
 from typing import Any, Iterable
 
+from validate_orchestration_record import run_cases as run_record_cases
+
 try:
     import yaml
 except ImportError as exc:  # pragma: no cover - environment setup failure
@@ -551,6 +553,9 @@ def run_validation(root: Path, activation: str) -> dict[str, Any]:
     findings: list[str] = []
     validate_contract_sources(root, findings)
     cases_path = root / "skills/develop-change/evals/orchestration-cases.json"
+    record_cases_path = (
+        root / "skills/develop-change/evals/orchestration-record-cases.json"
+    )
     cases = load_json(cases_path)
     planned = set(cases.get("planned_capabilities", []))
     if planned != PLANNED_CAPABILITIES:
@@ -619,15 +624,31 @@ def run_validation(root: Path, activation: str) -> dict[str, Any]:
             findings.append(f"handoff:{case.get('id')}:expectation_mismatch")
         case_results.append({"id": case["id"], "kind": "handoff", "status": status})
 
+    record_report = run_record_cases(record_cases_path)
+    for result in record_report["cases"]:
+        if result["status"] == "fail":
+            findings.append(
+                f"orchestration_record:{result['id']}:expectation_mismatch"
+            )
+        case_results.append(
+            {
+                "id": result["id"],
+                "kind": "orchestration_record",
+                "status": result["status"],
+            }
+        )
+
     actual_activation, activation_findings = validate_activation(root, activation)
     findings.extend(activation_findings)
     source_paths = (
         cases_path,
+        record_cases_path,
         root / "skills/develop-change/references/orchestration-contract.schema.json",
         root / "skills/develop-change/references/orchestration-contract.md",
         root / "skills/develop-change/references/skill-resolution-contract.md",
         root / "skills/develop-change/references/handoff-contract.md",
         root / "skills/develop-change/scripts/validate_orchestration.py",
+        root / "skills/develop-change/scripts/validate_orchestration_record.py",
     )
     source_digests = {
         path.relative_to(root).as_posix(): sha256_bytes(path.read_bytes())
