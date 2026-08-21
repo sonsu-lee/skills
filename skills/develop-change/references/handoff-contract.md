@@ -19,6 +19,8 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 | `blockers` | 다음 효과를 막는 현재 frontier unit |
 | `next_action` | 다음 한 단계와 재개 조건 |
 
+`authorization`은 capability 이름과 상태만 복사하지 않는다. 각 항목에 current authorization record의 식별자와 target·scope·basis fingerprint, `runtime_eligible`을 함께 남긴다. 기록에 없는 capability는 승인되지 않은 것으로 취급한다.
+
 ## 갱신 규칙
 
 - phase가 끝나거나 scope, decision, authorization, skill resolution이 바뀌면 successor를 만든다 (`HANDOFF-001`).
@@ -30,24 +32,36 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 ## 최소 예시
 
 ```yaml
-objective: 결제 실패 알림을 구현하고 Draft PR까지 전달
+objective:
+  summary: 결제 실패 알림 구현
+  finish_line: Draft PR 전달
 scope:
-  include: API 오류 분류, UI 알림, 회귀 테스트
-  exclude: 결제 제공자 변경
+  include:
+    - API 오류 분류
+    - UI 알림
+    - 회귀 테스트
+  exclude:
+    - 결제 제공자 변경
 completed_phase: verify
 decisions:
-  - 기존 error code를 공개 계약으로 유지
+  - summary: 기존 error code를 공개 계약으로 유지
+    reason: 기존 클라이언트 호환성을 보존한다
+    reconsider_when: 공개 API version이 바뀔 때
 artifacts:
   - src/payments/error.ts
 skill_resolution:
-  selected: []
+  status: pass
+  decisions: []
+  planned_capabilities: []
   fallback: 프로젝트 규칙과 기본 TypeScript 구현 능력
-authorization:
-  local_change: consumed
-  pr_create: granted
+authorization: []
 verification:
-  passed: npm test -- payments
-  not_run: 전체 e2e는 로컬 제공자 부재
-blockers: []
-next_action: git-workflow로 Draft PR 생성
+  passed:
+    - npm test -- payments
+  failed: []
+  not_run:
+    - 전체 e2e는 로컬 제공자 부재
+blockers:
+  - branch_create·branch_switch·stage·commit·push·pr_create 권한 없음
+next_action: 필요한 Git capability 재승인 요청
 ```

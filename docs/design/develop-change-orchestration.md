@@ -86,7 +86,7 @@ $develop-change로 목표와 종료 지점 요청
 명시 호출은 오케스트레이션과 필요한 companion skill 적용에 대한 선택일 뿐 다음 권한을 만들지 않는다.
 
 - 파일 또는 영속 문서 쓰기
-- stage, commit, push, PR 생성
+- branch 생성·전환, stage, commit, push, PR 생성
 - 외부 시스템 쓰기
 - rebase, merge, history rewrite
 
@@ -98,7 +98,7 @@ $develop-change로 목표와 종료 지점 요청
 
 1. 오케스트레이션·스킬 해석·handoff 계약과 구조도
 2. 계약 검증기와 경합 평가 케이스
-3. `develop-change` 스킬 활성화와 플러그인 `0.6.0`
+3. `develop-change` 스킬 활성화와 플러그인 `0.7.0`
 4. 활성 상태 통합 검증 증적
 
 각 PR은 바로 아래 PR만 base로 두며, activation 이전 PR은 공개 스킬 카탈로그를 바꾸지 않는다.

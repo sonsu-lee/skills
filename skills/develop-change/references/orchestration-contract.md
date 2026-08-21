@@ -37,7 +37,7 @@
 3. [authorization-contract.md](./authorization-contract.md)를 읽어 현재 단계에 필요한 capability만 확인한다.
 4. [skill-resolution-contract.md](./skill-resolution-contract.md)에 따라 전문 스킬을 선택·조합하거나 fallback을 정한다.
 5. 승인된 범위에서 변경하고 저장소가 제공하는 가장 좁은 검증부터 실행한다.
-6. 전달이 요청되었으면 Git capability를 각각 확인한 뒤 `git-workflow`를 적용한다.
+6. 전달이 요청되었으면 branch 생성·전환을 포함한 Git capability를 각각 확인한 뒤 `git-workflow`를 적용한다.
 7. [handoff-contract.md](./handoff-contract.md)의 compact handoff를 갱신한다.
 
 ## 완료 조건

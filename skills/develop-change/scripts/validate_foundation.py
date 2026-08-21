@@ -57,7 +57,7 @@ DIRECT_CONDITIONS = {
 PER_TASK_CAPABILITIES = {
     "local_change", "working_artifact_write", "temporary_work_state",
     "workspace_cleanup", "durable_document_write", "durable_document_content",
-    "stage", "commit", "push", "pr_create", "merge", "rebase",
+    "branch_create", "branch_switch", "stage", "commit", "push", "pr_create", "merge", "rebase",
     "history_rewrite", "destructive_local", "external_write", "scope_expansion",
 }
 HISTORICAL_STATES = {"stale", "superseded"}

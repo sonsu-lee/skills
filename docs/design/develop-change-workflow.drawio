@@ -91,7 +91,7 @@
         <mxCell id="consent" value="&lt;b&gt;Orchestration consent&lt;/b&gt;&lt;br&gt;$develop-change 호출로 companion skill 적용 동의&lt;br&gt;&lt;font color=&quot;#BF2600&quot;&gt;side effect 권한은 아님&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFEBE6;strokeColor=#DE350B;strokeWidth=2;fontColor=#BF2600;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
           <mxGeometry x="100" y="800" width="310" height="110" as="geometry"/>
         </mxCell>
-        <mxCell id="auth_gate" value="&lt;b&gt;Capability별 권한&lt;/b&gt;&lt;br&gt;local change · 문서 쓰기 · stage · commit&lt;br&gt;push · PR create를 각각 확인" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF0B3;strokeColor=#FF8B00;strokeWidth=2;fontColor=#974F0C;fontSize=13;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+        <mxCell id="auth_gate" value="&lt;b&gt;Capability별 권한&lt;/b&gt;&lt;br&gt;local change · 문서 쓰기 · branch 생성/전환&lt;br&gt;stage · commit · push · PR create를 각각 확인" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF0B3;strokeColor=#FF8B00;strokeWidth=2;fontColor=#974F0C;fontSize=13;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
           <mxGeometry x="465" y="790" width="250" height="130" as="geometry"/>
         </mxCell>
         <mxCell id="base_agent" value="&lt;b&gt;Codex/Claude 기본 작업 능력&lt;/b&gt;&lt;br&gt;코드 탐색 · 구현 · 테스트 작성&lt;br&gt;저장소 AGENTS.md/CLAUDE.md 우선" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#E3FCEF;strokeColor=#36B37E;strokeWidth=2;fontColor=#006644;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
@@ -131,6 +131,14 @@
         <mxCell id="e_p2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2684FF;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="phase_shape" target="phase_decide"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e_p3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2684FF;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="phase_decide" target="phase_design"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e_p4" value="버그이면" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#FF991F;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;fontColor=#974F0C;" edge="1" parent="1" source="phase_design" target="phase_diagnose"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_p4_feature" value="일반 기능" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#36B37E;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;fontColor=#006644;" edge="1" parent="1" source="phase_design" target="phase_change">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1015" y="235"/>
+              <mxPoint x="1195" y="235"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
         <mxCell id="e_p5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#36B37E;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="phase_diagnose" target="phase_change"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e_p6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#36B37E;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="phase_change" target="phase_verify"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e_p7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6554C0;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="phase_verify" target="phase_deliver"><mxGeometry relative="1" as="geometry"/></mxCell>

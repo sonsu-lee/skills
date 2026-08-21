@@ -21,20 +21,22 @@ Authorization은 **어떤 행동을, 어느 대상과 범위에, 어떤 근거�
 | --- | --- |
 | 로컬 작업 | `local_change`, `working_artifact_write`, `temporary_work_state`, `workspace_cleanup`, `destructive_local`, `scope_expansion` |
 | 문서 | `durable_document_write`, `durable_document_content` |
-| Git·GitHub | `stage`, `commit`, `push`, `pr_create`, `merge`, `rebase`, `history_rewrite` |
+| Git·GitHub | `branch_create`, `branch_switch`, `stage`, `commit`, `push`, `pr_create`, `merge`, `rebase`, `history_rewrite` |
 | 외부 시스템 | `external_write` |
 
 하나를 승인해도 다른 하나는 승인되지 않는다 (`FND-AUTH-001`).
 
 특히 Git 작업은 다음처럼 나뉜다.
 
+- `branch_create`: 승인된 이름과 시작점으로 로컬 branch ref를 만들며, checkout까지 포함할지는 target에 명시한다.
+- `branch_switch`: 승인된 기존 branch로 working tree와 `HEAD`를 전환한다.
 - `stage`: 승인된 파일의 exact bytes를 Git index에 올린다.
 - `commit`: 이미 검증된 exact index tree로 commit을 만들고 branch ref를 이동한다.
 - `push`: 승인된 commit range를 remote에 보낸다.
 - `pr_create`: 승인된 head/base로 PR을 만든다.
 - `merge`, `rebase`, `history_rewrite`: 각각 별도 행동이다.
 
-따라서 `commit`은 staging을 포함하지 않고, `PR을 만든다`는 말도 push·merge까지 자동으로 포함하지 않는다. `scope_expansion`은 새 범위를 논의할 수 있다는 뜻일 뿐 그 범위를 수정할 권한은 아니다.
+따라서 branch 생성은 전환 권한을 자동으로 포함하지 않고, `commit`은 staging을 포함하지 않으며, `PR을 만든다`는 말도 push·merge까지 자동으로 포함하지 않는다. `scope_expansion`은 새 범위를 논의할 수 있다는 뜻일 뿐 그 범위를 수정할 권한은 아니다.
 
 ## 상태
 
@@ -54,7 +56,7 @@ Authorization은 **어떤 행동을, 어느 대상과 범위에, 어떤 근거�
 ### 수정은 승인됐지만 PR은 승인되지 않은 경우
 
 - `local_change: granted`
-- `stage / commit / push / pr_create: not_granted`
+- `branch_create / branch_switch / stage / commit / push / pr_create: not_granted`
 - 할 일: 파일을 수정하고 로컬 검증까지만 한다.
 - 하지 않을 일: index, commit, remote를 건드리지 않는다.
 
@@ -75,7 +77,7 @@ Authorization은 **어떤 행동을, 어느 대상과 범위에, 어떤 근거�
 - `answer / review / diagnose`: read-only다. 별도 요청 없이 fix하지 않는다.
 - `change / build / fix`: 명시된 범위의 비파괴적 local change와 필요한 local validation까지만 허용할 수 있다. 더 좁은 contract allowlist가 있으면 그것이 우선한다.
 - `plan / design`: 승인된 temporary working root의 artifact·state만 다룬다. repository나 canonical 문서 쓰기로 넓히지 않는다.
-- canonical 문서 쓰기, 내용 승인, stage, commit, push, PR, merge, rebase, history rewrite는 각각 따로 본다.
+- canonical 문서 쓰기, 내용 승인, branch 생성·전환, stage, commit, push, PR, merge, rebase, history rewrite는 각각 따로 본다.
 
 ## 꼭 지킬 경계
 
