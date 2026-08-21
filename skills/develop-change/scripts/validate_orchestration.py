@@ -26,7 +26,9 @@ CONTRACT_PATHS = (
     SKILL_ROOT / "references" / "skill-resolution-contract.md",
     SKILL_ROOT / "references" / "handoff-contract.md",
 )
-VALID_SKILL_ID = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+VALID_SKILL_ID = re.compile(
+    r"^[a-z0-9]+(?:-[a-z0-9]+)*(?::[a-z0-9]+(?:-[a-z0-9]+)*)?$"
+)
 SECRET_PATTERN = re.compile(
     r"(?:api[_-]?key|token|secret)=[A-Za-z0-9_-]{12,}", re.IGNORECASE
 )
@@ -37,6 +39,46 @@ PLANNED_CAPABILITIES = {
     "database-orm-practices",
     "testing-quality-practices",
     "security-operations-practices",
+}
+ROUTES = {
+    "understand",
+    "shape",
+    "decide",
+    "design",
+    "diagnose",
+    "change",
+    "verify",
+    "deliver",
+    "operate",
+    "evolve",
+}
+CAPABILITIES = {
+    "local_change",
+    "working_artifact_write",
+    "temporary_work_state",
+    "workspace_cleanup",
+    "durable_document_write",
+    "durable_document_content",
+    "branch_create",
+    "branch_switch",
+    "stage",
+    "commit",
+    "push",
+    "pr_create",
+    "merge",
+    "rebase",
+    "history_rewrite",
+    "destructive_local",
+    "external_write",
+    "scope_expansion",
+}
+AUTHORIZATION_STATES = {
+    "not_applicable",
+    "not_granted",
+    "granted",
+    "denied",
+    "withdrawn",
+    "stale",
 }
 REQUIRED_RULE_IDS = {
     *(f"ORCH-{number:03d}" for number in range(1, 9)),
@@ -54,6 +96,15 @@ REQUIRED_HANDOFF_FIELDS = {
     "verification",
     "blockers",
     "next_action",
+}
+REQUIRED_AUTHORIZATION_FIELDS = {
+    "capability",
+    "authorization_ref",
+    "target_fingerprint",
+    "scope_fingerprint",
+    "basis_fingerprint",
+    "status",
+    "runtime_eligible",
 }
 
 
@@ -164,6 +215,16 @@ def resolve_candidates(case: dict[str, Any], planned: set[str]) -> dict[str, Any
 def evaluate_authorization(case: dict[str, Any]) -> dict[str, str | None]:
     requested = set(case.get("requested_effects", []))
     authorization = case.get("authorization", {})
+    unknown_effects = requested - CAPABILITIES
+    unknown_authorizations = set(authorization) - CAPABILITIES
+    if unknown_effects or unknown_authorizations:
+        unknown = sorted(unknown_effects | unknown_authorizations)
+        raise ValueError(f"unknown capability: {','.join(unknown)}")
+    invalid_states = {
+        state for state in authorization.values() if state not in AUTHORIZATION_STATES
+    }
+    if invalid_states:
+        raise ValueError(f"unknown authorization state: {sorted(invalid_states)!r}")
     if case.get("scope_changed") and requested:
         return {"gate": "blocked", "blocker": "scope_expansion"}
     missing = sorted(
@@ -175,6 +236,20 @@ def evaluate_authorization(case: dict[str, Any]) -> dict[str, str | None]:
             "blocker": f"missing_authorization:{','.join(missing)}",
         }
     return {"gate": "pass", "blocker": None}
+
+
+def validate_gate(gate: dict[str, Any]) -> bool:
+    result = gate.get("result")
+    blockers = gate.get("blockers")
+    if result not in {"pass", "conditional", "blocked"}:
+        return False
+    if not isinstance(blockers, list) or any(
+        not isinstance(blocker, str) or not blocker for blocker in blockers
+    ):
+        return False
+    if result in {"pass", "conditional"}:
+        return not blockers
+    return bool(blockers)
 
 
 def _walk_strings(value: Any) -> Iterable[str]:
@@ -192,18 +267,85 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
     findings: set[str] = set()
     if set(record) != REQUIRED_HANDOFF_FIELDS:
         findings.add("HANDOFF-001")
+
+    objective = record.get("objective")
+    if not isinstance(objective, dict) or set(objective) != {"summary", "finish_line"}:
+        findings.add("HANDOFF-001")
+    scope = record.get("scope")
+    if (
+        not isinstance(scope, dict)
+        or set(scope) != {"include", "exclude"}
+        or not isinstance(scope.get("include"), list)
+        or not isinstance(scope.get("exclude"), list)
+    ):
+        findings.add("HANDOFF-001")
+    if record.get("completed_phase") not in ROUTES:
+        findings.add("HANDOFF-001")
+    if not isinstance(record.get("decisions"), list):
+        findings.add("HANDOFF-001")
+    if not isinstance(record.get("artifacts"), list):
+        findings.add("HANDOFF-001")
+
+    skill_resolution = record.get("skill_resolution")
+    if (
+        not isinstance(skill_resolution, dict)
+        or set(skill_resolution)
+        != {"status", "decisions", "planned_capabilities", "fallback"}
+        or skill_resolution.get("status") not in {"pass", "blocked"}
+        or not isinstance(skill_resolution.get("decisions"), list)
+        or not isinstance(skill_resolution.get("planned_capabilities"), list)
+    ):
+        findings.add("HANDOFF-001")
+
     verification = record.get("verification", {})
+    if not isinstance(verification, dict) or set(verification) != {
+        "passed",
+        "failed",
+        "not_run",
+    }:
+        findings.add("HANDOFF-001")
+        verification = {}
     passed = set(verification.get("passed", []))
+    failed = set(verification.get("failed", []))
     not_run = set(verification.get("not_run", []))
-    if passed & not_run:
+    if (passed & failed) or (passed & not_run) or (failed & not_run):
         findings.add("HANDOFF-004")
-    authorization = record.get("authorization", {})
+
+    authorization = record.get("authorization", [])
+    authorization_by_capability: dict[str, dict[str, Any]] = {}
+    if not isinstance(authorization, list):
+        findings.add("HANDOFF-001")
+        authorization = []
+    for item in authorization:
+        if not isinstance(item, dict) or set(item) != REQUIRED_AUTHORIZATION_FIELDS:
+            findings.add("HANDOFF-001")
+            continue
+        capability = item.get("capability")
+        state = item.get("status")
+        runtime_eligible = item.get("runtime_eligible")
+        if capability not in CAPABILITIES or state not in AUTHORIZATION_STATES:
+            findings.add("HANDOFF-002")
+            continue
+        if capability in authorization_by_capability:
+            findings.add("HANDOFF-002")
+        if runtime_eligible is not (state == "granted"):
+            findings.add("HANDOFF-002")
+        authorization_by_capability[capability] = item
+
     next_action = record.get("next_action")
     if isinstance(next_action, str):
         normalized = next_action.lower()
-        for capability, state in authorization.items():
-            if capability in normalized and state not in {"granted", "consumed"}:
+        for capability in CAPABILITIES:
+            if capability not in normalized:
+                continue
+            current = authorization_by_capability.get(capability)
+            if not current or not current["runtime_eligible"]:
                 findings.add("HANDOFF-002")
+    elif next_action is not None:
+        findings.add("HANDOFF-001")
+
+    if not isinstance(record.get("blockers"), list):
+        findings.add("HANDOFF-001")
     if any(SECRET_PATTERN.search(value) for value in _walk_strings(record)):
         findings.add("HANDOFF-005")
     return sorted(findings)
@@ -246,6 +388,45 @@ def validate_contract_sources(root: Path, findings: list[str]) -> None:
     )
     if planned_status != "planned":
         findings.append("invalid_planned_capability_status")
+    required = set(schema.get("required", []))
+    expected_required = {
+        "objective",
+        "scope",
+        "decisions",
+        "primary_route",
+        "route_plan",
+        "profile",
+        "gate",
+        "skill_resolution",
+        "authorization",
+        "verification",
+        "handoff",
+    }
+    if not expected_required.issubset(required):
+        findings.append("orchestration_schema_required_fields_missing")
+    handoff_required = set(
+        schema.get("$defs", {}).get("handoff", {}).get("required", [])
+    )
+    if handoff_required != REQUIRED_HANDOFF_FIELDS:
+        findings.append("handoff_schema_required_fields_mismatch")
+    skill_required = set(
+        schema.get("$defs", {}).get("skillDecision", {}).get("required", [])
+    )
+    if not {
+        "responsibility",
+        "applies_to_routes",
+        "effect_boundary",
+    }.issubset(skill_required):
+        findings.append("skill_decision_scope_missing")
+    authorization_statuses = set(
+        schema.get("$defs", {})
+        .get("authorizationSummary", {})
+        .get("properties", {})
+        .get("status", {})
+        .get("enum", [])
+    )
+    if authorization_statuses != AUTHORIZATION_STATES:
+        findings.append("authorization_status_mismatch")
 
 
 def validate_activation(root: Path, requested: str) -> tuple[str, list[str]]:
@@ -313,11 +494,29 @@ def run_validation(root: Path, activation: str) -> dict[str, Any]:
         case_results.append({"id": case["id"], "kind": "resolution", "status": status})
 
     for case in cases.get("authorization_cases", []):
-        actual = evaluate_authorization(case)
+        try:
+            actual = evaluate_authorization(case)
+        except (TypeError, ValueError) as exc:
+            findings.append(f"authorization:{case.get('id')}:{exc}")
+            case_results.append(
+                {
+                    "id": str(case.get("id")),
+                    "kind": "authorization",
+                    "status": "fail",
+                }
+            )
+            continue
         status = "pass" if actual == case.get("expected") else "fail"
         if status == "fail":
             findings.append(f"authorization:{case.get('id')}:expectation_mismatch")
         case_results.append({"id": case["id"], "kind": "authorization", "status": status})
+
+    for case in cases.get("gate_cases", []):
+        actual = validate_gate(case.get("gate", {}))
+        status = "pass" if actual is case.get("expected_valid") else "fail"
+        if status == "fail":
+            findings.append(f"gate:{case.get('id')}:expectation_mismatch")
+        case_results.append({"id": case["id"], "kind": "gate", "status": status})
 
     for case in cases.get("handoff_cases", []):
         actual = validate_handoff(case.get("record", {}))

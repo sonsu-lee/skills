@@ -245,6 +245,29 @@
         "fallback": null,
         "blocker": null
       }
+    },
+    {
+      "id": "namespaced-installed-skill-is-supported",
+      "candidates": [
+        {
+          "skill_id": "skills:git-workflow",
+          "source": "installed",
+          "responsibility": "git-delivery",
+          "specificity": 4,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "git-workflow"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["skills:git-workflow"],
+        "rejected": [],
+        "fallback": null,
+        "blocker": null
+      }
     }
   ],
   "authorization_cases": [
@@ -293,21 +316,68 @@
         "gate": "blocked",
         "blocker": "missing_authorization:local_change"
       }
+    },
+    {
+      "id": "branch-create-and-switch-are-independent",
+      "requested_effects": ["branch_create", "branch_switch"],
+      "authorization": {
+        "branch_create": "granted",
+        "branch_switch": "not_granted"
+      },
+      "scope_changed": false,
+      "expected": {
+        "gate": "blocked",
+        "blocker": "missing_authorization:branch_switch"
+      }
+    }
+  ],
+  "gate_cases": [
+    {
+      "id": "pass-has-no-blocker",
+      "gate": {"result": "pass", "blockers": []},
+      "expected_valid": true
+    },
+    {
+      "id": "pass-cannot-hide-blocker",
+      "gate": {"result": "pass", "blockers": ["missing_authorization"]},
+      "expected_valid": false
+    },
+    {
+      "id": "conditional-cannot-hide-blocker",
+      "gate": {"result": "conditional", "blockers": ["missing_decision"]},
+      "expected_valid": false
+    },
+    {
+      "id": "blocked-requires-current-blocker",
+      "gate": {"result": "blocked", "blockers": []},
+      "expected_valid": false
     }
   ],
   "handoff_cases": [
     {
       "id": "complete-minimal-handoff",
       "record": {
-        "objective": "기능을 구현하고 검증한다",
-        "scope": "src와 관련 테스트",
+        "objective": {
+          "summary": "기능 구현",
+          "finish_line": "검증 결과 전달"
+        },
+        "scope": {
+          "include": ["src", "관련 테스트"],
+          "exclude": []
+        },
         "completed_phase": "verify",
         "decisions": [],
         "artifacts": ["src/example.ts"],
-        "skill_resolution": "프로젝트 규칙과 기본 구현 능력",
-        "authorization": {"local_change": "consumed"},
+        "skill_resolution": {
+          "status": "pass",
+          "decisions": [],
+          "planned_capabilities": [],
+          "fallback": "프로젝트 규칙과 기본 구현 능력"
+        },
+        "authorization": [],
         "verification": {
           "passed": ["npm test -- example"],
+          "failed": [],
           "not_run": []
         },
         "blockers": [],
@@ -318,15 +388,27 @@
     {
       "id": "verification-cannot-be-both-passed-and-not-run",
       "record": {
-        "objective": "기능을 검증한다",
-        "scope": "관련 테스트",
+        "objective": {
+          "summary": "기능 검증",
+          "finish_line": "검증 결과 전달"
+        },
+        "scope": {
+          "include": ["관련 테스트"],
+          "exclude": []
+        },
         "completed_phase": "verify",
         "decisions": [],
         "artifacts": [],
-        "skill_resolution": "기본 구현 능력",
-        "authorization": {},
+        "skill_resolution": {
+          "status": "pass",
+          "decisions": [],
+          "planned_capabilities": [],
+          "fallback": "기본 구현 능력"
+        },
+        "authorization": [],
         "verification": {
           "passed": ["npm test"],
+          "failed": [],
           "not_run": ["npm test"]
         },
         "blockers": [],
@@ -337,14 +419,39 @@
     {
       "id": "stale-capability-cannot-drive-next-effect",
       "record": {
-        "objective": "변경을 전달한다",
-        "scope": "현재 branch",
+        "objective": {
+          "summary": "변경 전달",
+          "finish_line": "Draft PR 생성"
+        },
+        "scope": {
+          "include": ["현재 branch"],
+          "exclude": []
+        },
         "completed_phase": "verify",
         "decisions": [],
         "artifacts": [],
-        "skill_resolution": "git-workflow",
-        "authorization": {"stage": "stale"},
-        "verification": {"passed": [], "not_run": []},
+        "skill_resolution": {
+          "status": "pass",
+          "decisions": [],
+          "planned_capabilities": [],
+          "fallback": null
+        },
+        "authorization": [
+          {
+            "capability": "stage",
+            "authorization_ref": {
+              "id": "authorization.fixture.stage",
+              "revision": 1,
+              "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "target_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "scope_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+            "status": "stale",
+            "runtime_eligible": false
+          }
+        ],
+        "verification": {"passed": [], "failed": [], "not_run": []},
         "blockers": ["stage 재승인 필요"],
         "next_action": "stage 실행"
       },
@@ -353,14 +460,25 @@
     {
       "id": "secret-looking-value-is-rejected",
       "record": {
-        "objective": "secret=fixture-not-a-real-secret 값을 handoff에 복사",
-        "scope": "API 테스트",
+        "objective": {
+          "summary": "secret=fixture-not-a-real-secret 값을 handoff에 복사",
+          "finish_line": "조사 결과 전달"
+        },
+        "scope": {
+          "include": ["API 테스트"],
+          "exclude": []
+        },
         "completed_phase": "understand",
         "decisions": [],
         "artifacts": [],
-        "skill_resolution": "기본 구현 능력",
-        "authorization": {},
-        "verification": {"passed": [], "not_run": []},
+        "skill_resolution": {
+          "status": "pass",
+          "decisions": [],
+          "planned_capabilities": [],
+          "fallback": "기본 구현 능력"
+        },
+        "authorization": [],
+        "verification": {"passed": [], "failed": [], "not_run": []},
         "blockers": [],
         "next_action": null
       },

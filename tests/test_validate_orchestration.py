@@ -50,6 +50,17 @@ class ResolutionTest(unittest.TestCase):
                 case, orchestration.PLANNED_CAPABILITIES
             )
 
+    def test_namespaced_plugin_skill_id_is_supported(self) -> None:
+        case = next(
+            case
+            for case in self.cases["resolution_cases"]
+            if case["id"] == "namespaced-installed-skill-is-supported"
+        )
+        self.assertEqual(
+            orchestration.resolve_candidates(case, orchestration.PLANNED_CAPABILITIES),
+            case["expected"],
+        )
+
 
 class AuthorizationTest(unittest.TestCase):
     def test_invocation_does_not_grant_local_change(self) -> None:
@@ -67,6 +78,46 @@ class AuthorizationTest(unittest.TestCase):
                 "blocker": "missing_authorization:local_change",
             },
         )
+
+    def test_unknown_capability_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "unknown capability"):
+            orchestration.evaluate_authorization(
+                {
+                    "requested_effects": ["totally_unknown_capability"],
+                    "authorization": {
+                        "totally_unknown_capability": "granted"
+                    },
+                    "scope_changed": False,
+                }
+            )
+
+
+class HandoffTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.cases = orchestration.load_json(orchestration.CASES_PATH)
+
+    def test_handoff_fixtures_match(self) -> None:
+        for case in self.cases["handoff_cases"]:
+            with self.subTest(case=case["id"]):
+                self.assertEqual(
+                    orchestration.validate_handoff(case["record"]),
+                    case["expected_rules"],
+                )
+
+
+class GateTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.cases = orchestration.load_json(orchestration.CASES_PATH)
+
+    def test_gate_fixtures_match(self) -> None:
+        for case in self.cases["gate_cases"]:
+            with self.subTest(case=case["id"]):
+                self.assertIs(
+                    orchestration.validate_gate(case["gate"]),
+                    case["expected_valid"],
+                )
 
 
 class ActivationTest(unittest.TestCase):
