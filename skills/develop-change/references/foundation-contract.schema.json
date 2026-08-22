@@ -1039,6 +1039,8 @@
         "workspace_cleanup",
         "durable_document_write",
         "durable_document_content",
+        "branch_create",
+        "branch_switch",
         "stage",
         "commit",
         "push",

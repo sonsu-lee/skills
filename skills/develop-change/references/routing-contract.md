@@ -38,6 +38,8 @@ Routing은 방향만 정한다. 파일 변경, commit, push 같은 권한은 주
 
 보통은 `diagnose → change → verify`, `design → change → verify → deliver`처럼 흐른다. 이 순서는 자동 권한 사슬이 아니다. 예를 들어 진단을 마쳤다고 수정해도 되는 것은 아니고, 검증을 마쳤다고 push해도 되는 것도 아니다 (`FND-ROUTE-002`).
 
+`route_plan`은 위 표의 단계 순서를 유지하면서 필요 없는 route만 생략한다. 완료한 단계로 되돌아가는 순서나 `verify → change`처럼 역전된 계획은 새 계획과 handoff로 다시 기록한다.
+
 ## Profile: 얼마나 조심할 일인가
 
 작은 일을 크게 만들지 말고, 큰 일을 작은 일처럼 취급하지도 않는다.
@@ -55,6 +57,7 @@ Routing은 방향만 정한다. 파일 변경, commit, push 같은 권한은 주
 - 하나라도 `true`이면 `architectural`이다.
 - `true`는 없지만 모르는 축이 있으면, 읽기 전용 조사 중에는 `bounded / provisional`로 진행할 수 있다.
 - 결정·설계 확정·로컬 변경·외부 효과 직전까지 모르는 축이 남으면 `architectural / provisional`로 올리고 gate를 다시 본다.
+- `primary_route: change`에서 profile이 `provisional`이면 gate를 `blocked`로 두고 미확정 축을 먼저 해소한다 (`FND-PROFILE-004`).
 - 모든 축이 `false`이고 아래 direct 조건이 전부 맞을 때만 `direct / confirmed`다.
 
 Direct 조건은 결과가 정확함, 구조적 미확정 없음, 단일 로컬 효과 경계, 기존 의미를 보존하는 기계적 변경, 쉬운 복구, 좁고 즉시 가능한 검증, rollout·migration·운영 없음이다 (`FND-PROFILE-001`, `FND-PROFILE-002`).

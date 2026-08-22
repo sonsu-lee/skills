@@ -2,7 +2,7 @@
   "develop_skill": {
     "case_count": 5,
     "catalog_validation": {
-      "passed_count": 11,
+      "passed_count": 12,
       "results": [
         {
           "passed": true,
@@ -19,6 +19,10 @@
         {
           "passed": true,
           "skill_id": "git-workflow"
+        },
+        {
+          "passed": true,
+          "skill_id": "present-result"
         },
         {
           "passed": true,
@@ -49,7 +53,7 @@
           "skill_id": "to-tickets"
         }
       ],
-      "skill_count": 11
+      "skill_count": 12
     },
     "passed_count": 5,
     "results": [
@@ -1096,24 +1100,24 @@
       "supported": true
     },
     "contract_bundle": {
-      "bundle_digest": "2b3ab8d87a96de5c294ac00920fd364f876dec55e8c9d755a80619373ffa28f0",
+      "bundle_digest": "15fa1ccfa16d3374ea9e92da2314676180885c14b143a343d09aed68d284d353",
       "documents": [
         {
           "path": "authorization-contract.md",
-          "sha256": "8a9a3d3635f379250b2b61d872869ab8a4d272cb6999121e510e9c6276fe3a88"
+          "sha256": "a960d7553c1c885097ae0811825196a7ebfb2fdb875af516f704369ee32618fa"
         },
         {
           "path": "gate-contract.md",
-          "sha256": "bbd776b3ce49e1c3187687fcb72726965594693b2c08f99cabb7611ffadf3745"
+          "sha256": "c0f26a013d65d08d9f2539d73c6e85907816e7c650d944b387abd534d8b76506"
         },
         {
           "path": "routing-contract.md",
-          "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d"
+          "sha256": "c3fab90bdf95e6836131180540d3234933799bd639b752a0ad3a839db512e995"
         }
       ],
       "schema": {
         "path": "foundation-contract.schema.json",
-        "sha256": "abc27f0bbc80c1937e13e5b0d04bc73c740a48adba388f339a388dd765d21a84"
+        "sha256": "d3af4ea3a8285cccdef68944c5dfdb79fbd0a498dfdb542210718853f038685e"
       }
     },
     "discovery_coverage": "installed_plugins_only",
@@ -1126,7 +1130,7 @@
     "results": [
       {
         "case_id": "leaf-only-valid-isolated-copy",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [],
@@ -1155,7 +1159,7 @@
       },
       {
         "case_id": "leaf-only-invalid-hardlink",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1171,7 +1175,7 @@
       },
       {
         "case_id": "leaf-only-invalid-contract-missing",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1187,7 +1191,7 @@
       },
       {
         "case_id": "leaf-only-invalid-contract-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1203,7 +1207,7 @@
       },
       {
         "case_id": "leaf-only-invalid-schema-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1219,7 +1223,7 @@
       },
       {
         "case_id": "leaf-only-invalid-fallback-root",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1251,7 +1255,7 @@
       },
       {
         "case_id": "leaf-only-invalid-active-projection-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1267,7 +1271,7 @@
       },
       {
         "case_id": "leaf-only-invalid-description-only-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1283,7 +1287,7 @@
       },
       {
         "case_id": "leaf-only-invalid-policy-only-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1301,32 +1305,32 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d",
-    "before_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d",
+    "after_digest": "4536e290c78791fa60d1d808c361a7c8f5a779f6d856d5e8dd93dedeca130438",
+    "before_digest": "4536e290c78791fa60d1d808c361a7c8f5a779f6d856d5e8dd93dedeca130438",
     "binding": {
-      "component_path_binding_digest": "c0876169e7365f24f93f6e58cfd4a3835e06440dba18f24950892bcb4eaeda6e",
+      "component_path_binding_digest": "db0fd53f88e694db0b3e6e0f2c6d7fcf11199170d8e2e3ab4bfd51f60ca0b650",
       "hook_binding": "exact_codex_home_hooks_json",
       "inventory_coverage": "installed_plugins_only",
       "plugin_id": "skills@sonsu-skills",
-      "plugin_version": "0.4.1",
+      "plugin_version": "0.6.0",
       "selector_catalog_coverage": "not_observed",
       "verified": true
     },
     "codex_executable_identity": {
       "after_equal": true,
-      "executable_digest": "19c4f144c5226a9f17c58e6f0fa854843b0f77a6eb420f40e2745a12f10f5d37",
-      "path_digest": "738f2bdc833c49efb2202b91cc9b2a64e65402746b79b2846b70f8934dd61445",
-      "version": "codex-cli 0.147.0"
+      "executable_digest": "b0308517b20543012fa2171aa3d46ce455a7456c4eb2a552ab9468ba4eeb1e50",
+      "path_digest": "290116c5142b48f6cd2b749d8bdefe141a83c182acb65f2bb804825c3173c580",
+      "version": "codex-cli 0.148.0"
     },
     "components": [
       {
-        "digest": "eb5872bc5e83f369776d7998a2782f7fd528e5fac96bdb61f55e62aa9d5fa3f7",
-        "entry_count": 225,
+        "digest": "eec45483fcce11f3f737823b781137e2552208b022e4015a9ed838bd4a5a21dc",
+        "entry_count": 232,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "f41ffcf199a416524a9f8e097fb5fafd57537eaf4908c504e604445da50456f3",
+        "digest": "a58de0e0aaab86970aa37e3be136727b9e8fe613cc327d490ceaa1eda6470ae7",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"
@@ -1351,16 +1355,16 @@
       }
     ],
     "effective_skill_catalog": {
-      "after_count": 23,
-      "after_digest": "3a02e2d19b6a5b5e6bd49cff1eba06c82cd59914c0fdd8631eeedcf68e620c6a",
-      "before_count": 23,
-      "before_digest": "3a02e2d19b6a5b5e6bd49cff1eba06c82cd59914c0fdd8631eeedcf68e620c6a",
+      "after_count": 39,
+      "after_digest": "26bf2289b274339444708acd9ad096b89fa8559774682afd2c1ae4dd55061ee4",
+      "before_count": 39,
+      "before_digest": "26bf2289b274339444708acd9ad096b89fa8559774682afd2c1ae4dd55061ee4",
       "candidate_source_isolation": {
         "candidate_alias_count": 0,
-        "catalog_record_count": 23,
+        "catalog_record_count": 39,
         "descendant_symlink_count": 0,
-        "regular_descendant_count": 365,
-        "resolved_source_root_count": 40,
+        "regular_descendant_count": 448,
+        "resolved_source_root_count": 61,
         "verified": true
       },
       "candidate_source_isolation_equal": true,
@@ -1374,10 +1378,10 @@
     },
     "equal": true,
     "installed_plugin_inventory": {
-      "after_count": 12,
-      "after_digest": "54818079b3284ae46d1d04561a1d137b910e5a8bca0ec431bc36efa24bc832ae",
-      "before_count": 12,
-      "before_digest": "54818079b3284ae46d1d04561a1d137b910e5a8bca0ec431bc36efa24bc832ae",
+      "after_count": 13,
+      "after_digest": "b54eed1a245edf2dd150c0afa0c1c41f1e75405b0a55cd0c9d7f0c93f9880e25",
+      "before_count": 13,
+      "before_digest": "b54eed1a245edf2dd150c0afa0c1c41f1e75405b0a55cd0c9d7f0c93f9880e25",
       "coverage": "installed_plugins_only",
       "equal": true,
       "observer_kind": "sandboxed_read_only_active_inventory",
@@ -1389,6 +1393,6 @@
   "status": "pass",
   "validator": {
     "id": "phase1-contract-foundation-validator",
-    "revision": 3
+    "revision": 5
   }
 }

@@ -26,20 +26,20 @@
   "contract_bundle": {
     "schema": {
       "path": "foundation-contract.schema.json",
-      "sha256": "abc27f0bbc80c1937e13e5b0d04bc73c740a48adba388f339a388dd765d21a84"
+      "sha256": "d3af4ea3a8285cccdef68944c5dfdb79fbd0a498dfdb542210718853f038685e"
     },
     "documents": [
       {
         "path": "authorization-contract.md",
-        "sha256": "8a9a3d3635f379250b2b61d872869ab8a4d272cb6999121e510e9c6276fe3a88"
+        "sha256": "a960d7553c1c885097ae0811825196a7ebfb2fdb875af516f704369ee32618fa"
       },
       {
         "path": "gate-contract.md",
-        "sha256": "bbd776b3ce49e1c3187687fcb72726965594693b2c08f99cabb7611ffadf3745"
+        "sha256": "c0f26a013d65d08d9f2539d73c6e85907816e7c650d944b387abd534d8b76506"
       },
       {
         "path": "routing-contract.md",
-        "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d"
+      "sha256": "c3fab90bdf95e6836131180540d3234933799bd639b752a0ad3a839db512e995"
       }
     ]
   },

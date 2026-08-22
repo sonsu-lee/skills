@@ -21,8 +21,10 @@ Gate는 **지금 계속해도 되는지**, **무엇을 먼저 알아야 하는�
 | 결과 | 뜻 | 다음 행동 |
 | --- | --- | --- |
 | `pass` | 현재 blocker가 없다 | `continue` 또는 완료 |
-| `conditional` | 결과를 바꾸지 않는 안전한 가정을 공개하고 진행한다 | `continue` |
+| `conditional` | 안전한 가정을 공개해 진행하거나, 결과 가정 없이 로컬 조사를 이어간다 | `continue` |
 | `blocked` | 현재 효과를 내기 전에 해결할 항목이 있다 | 조사, 질문, 재승인 또는 대기 |
+
+`assumption_effect: non_material`인 `conditional`은 `assumptions`에 foundation frontier unit identity, 가정 ref, 프로젝트 근거와 틀렸음을 확인할 검증을 하나 이상 기록한다. `assumption_effect: none`인 로컬 조사·provisional 상태에서는 `assumptions`를 비워 둔다. 근거나 검증 방법이 없는 가정은 `conditional`로 진행하지 않는다.
 
 주요 blocker는 다음과 같다.
 

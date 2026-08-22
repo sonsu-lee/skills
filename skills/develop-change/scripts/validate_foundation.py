@@ -30,7 +30,7 @@ from runtime_projection import (
 
 SCHEMA_VERSION = "phase1-foundation-draft-v1"
 VALIDATOR_ID = "phase1-contract-foundation-validator"
-VALIDATOR_REVISION = 3
+VALIDATOR_REVISION = 5
 ISOLATED_MARKETPLACE = "phase1-leaf-only-marketplace"
 ISOLATED_PLUGIN = "phase1-leaf-only-fixture"
 CONTRACT_ARTIFACTS = (
@@ -57,7 +57,7 @@ DIRECT_CONDITIONS = {
 PER_TASK_CAPABILITIES = {
     "local_change", "working_artifact_write", "temporary_work_state",
     "workspace_cleanup", "durable_document_write", "durable_document_content",
-    "stage", "commit", "push", "pr_create", "merge", "rebase",
+    "branch_create", "branch_switch", "stage", "commit", "push", "pr_create", "merge", "rebase",
     "history_rewrite", "destructive_local", "external_write", "scope_expansion",
 }
 HISTORICAL_STATES = {"stale", "superseded"}
