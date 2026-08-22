@@ -128,7 +128,7 @@
         {"op": "replace", "path": "/route_plan", "value": ["verify"]}
       ],
       "expected_schema_valid": false,
-      "expected_rules": ["ORCH-002"]
+      "expected_rules": ["HANDOFF-001", "ORCH-002"]
     },
     {
       "id": "conditional-requires-supported-assumption",
@@ -302,6 +302,82 @@
         {"op": "replace", "path": "/handoff/verification/failed", "value": ["구현 전"]}
       ],
       "expected_rules": ["HANDOFF-004"]
+    },
+    {
+      "id": "completed-phase-is-not-ahead-of-current-route",
+      "mutations": [
+        {"op": "replace", "path": "/handoff/completed_phase", "value": "deliver"}
+      ],
+      "expected_rules": ["HANDOFF-001"]
+    },
+    {
+      "id": "blocked-handoff-requires-next-action",
+      "mutations": [
+        {"op": "replace", "path": "/gate/result", "value": "blocked"},
+        {"op": "replace", "path": "/gate/blockers", "value": ["missing_decision"]},
+        {"op": "replace", "path": "/handoff/blockers", "value": ["missing_decision"]},
+        {"op": "replace", "path": "/handoff/next_action", "value": null}
+      ],
+      "expected_schema_valid": false,
+      "expected_rules": ["HANDOFF-001"]
+    },
+    {
+      "id": "authorization-binding-has-one-current-leaf",
+      "mutations": [
+        {
+          "op": "append",
+          "path": "/authorization",
+          "value": {
+            "capability": "stage",
+            "authorization_ref": {"id": "authorization.stage", "revision": 1, "digest": "3333333333333333333333333333333333333333333333333333333333333333"},
+            "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+            "scope_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "status": "granted",
+            "runtime_eligible": true
+          }
+        },
+        {
+          "op": "append",
+          "path": "/authorization",
+          "value": {
+            "capability": "stage",
+            "authorization_ref": {"id": "authorization.stage", "revision": 2, "digest": "7777777777777777777777777777777777777777777777777777777777777777"},
+            "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+            "scope_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "status": "denied",
+            "runtime_eligible": false
+          }
+        },
+        {
+          "op": "append",
+          "path": "/handoff/authorization",
+          "value": {
+            "capability": "stage",
+            "authorization_ref": {"id": "authorization.stage", "revision": 1, "digest": "3333333333333333333333333333333333333333333333333333333333333333"},
+            "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+            "scope_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "status": "granted",
+            "runtime_eligible": true
+          }
+        },
+        {
+          "op": "append",
+          "path": "/handoff/authorization",
+          "value": {
+            "capability": "stage",
+            "authorization_ref": {"id": "authorization.stage", "revision": 2, "digest": "7777777777777777777777777777777777777777777777777777777777777777"},
+            "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+            "scope_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "status": "denied",
+            "runtime_eligible": false
+          }
+        }
+      ],
+      "expected_rules": ["FND-AUTH-001"]
     }
   ]
 }

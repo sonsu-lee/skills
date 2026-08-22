@@ -12,7 +12,7 @@ from typing import Any
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 2
+VALIDATOR_REVISION = 3
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
@@ -194,6 +194,20 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
     if not isinstance(route_plan, list) or primary_route not in route_plan:
         add("ORCH-002", "/route_plan", "primary_route must be present in route_plan")
 
+    handoff = record.get("handoff") if isinstance(record.get("handoff"), dict) else {}
+    completed_phase = handoff.get("completed_phase")
+    if (
+        not isinstance(route_plan, list)
+        or primary_route not in route_plan
+        or completed_phase not in route_plan
+        or route_plan.index(completed_phase) > route_plan.index(primary_route)
+    ):
+        add(
+            "HANDOFF-001",
+            "/handoff/completed_phase",
+            "completed_phase must be planned and not later than primary_route",
+        )
+
     gate = record.get("gate") if isinstance(record.get("gate"), dict) else {}
     gate_result = gate.get("result")
     assumptions = gate.get("assumptions")
@@ -223,6 +237,14 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
             "FND-GATE-002",
             "/gate/assumptions",
             "assumptions are only valid for a conditional gate",
+        )
+    if gate_result == "blocked" and not (
+        isinstance(handoff.get("next_action"), str) and handoff["next_action"]
+    ):
+        add(
+            "HANDOFF-001",
+            "/handoff/next_action",
+            "blocked handoff requires a non-empty next_action",
         )
 
     profile = record.get("profile") if isinstance(record.get("profile"), dict) else {}
@@ -304,7 +326,27 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
             "verification result sets must be mutually exclusive",
         )
 
-    handoff = record.get("handoff") if isinstance(record.get("handoff"), dict) else {}
+    authorization = record.get("authorization")
+    if isinstance(authorization, list):
+        binding_keys: list[tuple[Any, Any, Any, Any]] = []
+        for item in authorization:
+            if not isinstance(item, dict):
+                continue
+            binding_key = (
+                item.get("capability"),
+                item.get("target_fingerprint"),
+                item.get("scope_fingerprint"),
+                item.get("basis_fingerprint"),
+            )
+            if all(isinstance(value, str) for value in binding_key):
+                binding_keys.append(binding_key)
+        if len(binding_keys) != len(set(binding_keys)):
+            add(
+                "FND-AUTH-001",
+                "/authorization",
+                "authorization binding must have one current lineage leaf",
+            )
+
     for field in HANDOFF_SNAPSHOT_FIELDS:
         if handoff.get(field) != record.get(field):
             add(
@@ -357,11 +399,16 @@ def apply_mutation(record: dict[str, Any], mutation: dict[str, Any]) -> None:
 
 def run_cases(path: Path) -> dict[str, Any]:
     catalog = load_json(path)
+    if catalog.get("schema_version") != "develop-change-orchestration-record-evals-v1":
+        raise ValueError("unexpected orchestration record catalog version")
     base_record = catalog.get("base_record")
     if not isinstance(base_record, dict):
         raise ValueError("base_record must be an object")
+    cases = catalog.get("cases")
+    if not isinstance(cases, list) or not cases:
+        raise ValueError("cases must be a non-empty array")
     results: list[dict[str, Any]] = []
-    for case in catalog.get("cases", []):
+    for case in cases:
         record = copy.deepcopy(base_record)
         for mutation in case.get("mutations", []):
             apply_mutation(record, mutation)

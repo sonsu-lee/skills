@@ -2,7 +2,7 @@
   "develop_skill": {
     "case_count": 5,
     "catalog_validation": {
-      "passed_count": 11,
+      "passed_count": 12,
       "results": [
         {
           "passed": true,
@@ -19,6 +19,10 @@
         {
           "passed": true,
           "skill_id": "git-workflow"
+        },
+        {
+          "passed": true,
+          "skill_id": "present-result"
         },
         {
           "passed": true,
@@ -49,7 +53,7 @@
           "skill_id": "to-tickets"
         }
       ],
-      "skill_count": 11
+      "skill_count": 12
     },
     "passed_count": 5,
     "results": [
@@ -1096,15 +1100,15 @@
       "supported": true
     },
     "contract_bundle": {
-      "bundle_digest": "2b3ab8d87a96de5c294ac00920fd364f876dec55e8c9d755a80619373ffa28f0",
+      "bundle_digest": "8e7475855d9d03e3382d2a35415b846ae4576caf350d2d400f9015196eb58953",
       "documents": [
         {
           "path": "authorization-contract.md",
-          "sha256": "8a9a3d3635f379250b2b61d872869ab8a4d272cb6999121e510e9c6276fe3a88"
+          "sha256": "3c24d9efd871c375b171a4b3542dd7e63ec7740a204005f38354937b003f4284"
         },
         {
           "path": "gate-contract.md",
-          "sha256": "bbd776b3ce49e1c3187687fcb72726965594693b2c08f99cabb7611ffadf3745"
+          "sha256": "5a6f803bb330c85b7cad44724177fdaa91f83bc7aab21b6098b4a61cf780b22c"
         },
         {
           "path": "routing-contract.md",
@@ -1113,7 +1117,7 @@
       ],
       "schema": {
         "path": "foundation-contract.schema.json",
-        "sha256": "abc27f0bbc80c1937e13e5b0d04bc73c740a48adba388f339a388dd765d21a84"
+        "sha256": "d3af4ea3a8285cccdef68944c5dfdb79fbd0a498dfdb542210718853f038685e"
       }
     },
     "discovery_coverage": "installed_plugins_only",
@@ -1126,7 +1130,7 @@
     "results": [
       {
         "case_id": "leaf-only-valid-isolated-copy",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [],
@@ -1155,7 +1159,7 @@
       },
       {
         "case_id": "leaf-only-invalid-hardlink",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1171,7 +1175,7 @@
       },
       {
         "case_id": "leaf-only-invalid-contract-missing",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1187,7 +1191,7 @@
       },
       {
         "case_id": "leaf-only-invalid-contract-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1203,7 +1207,7 @@
       },
       {
         "case_id": "leaf-only-invalid-schema-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1219,7 +1223,7 @@
       },
       {
         "case_id": "leaf-only-invalid-fallback-root",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1251,7 +1255,7 @@
       },
       {
         "case_id": "leaf-only-invalid-active-projection-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1267,7 +1271,7 @@
       },
       {
         "case_id": "leaf-only-invalid-description-only-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1283,7 +1287,7 @@
       },
       {
         "case_id": "leaf-only-invalid-policy-only-drift",
-        "effective_catalog_digest": "d1a9a7397336f7f689f87316e6fe52ada3bdc8a5e97606872c83fd56770b53ec",
+        "effective_catalog_digest": "42138bd2c0b09f4777c3fd8c10e9b9f0d877447c795d08e144bd287fc1765c3d",
         "effective_policy_observation_status": "complete",
         "effective_skill_count": 6,
         "expected_rule_ids": [
@@ -1301,32 +1305,32 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d",
-    "before_digest": "f580e3c2bf834170c484931f90faf735f7b30973fcf36a7db2c6c08775b1754d",
+    "after_digest": "eea9f303d6a1b38504da26a964b58f4aef7ad2d4a7b11b4573f5e0c4e4af7d14",
+    "before_digest": "eea9f303d6a1b38504da26a964b58f4aef7ad2d4a7b11b4573f5e0c4e4af7d14",
     "binding": {
-      "component_path_binding_digest": "c0876169e7365f24f93f6e58cfd4a3835e06440dba18f24950892bcb4eaeda6e",
+      "component_path_binding_digest": "db0fd53f88e694db0b3e6e0f2c6d7fcf11199170d8e2e3ab4bfd51f60ca0b650",
       "hook_binding": "exact_codex_home_hooks_json",
       "inventory_coverage": "installed_plugins_only",
       "plugin_id": "skills@sonsu-skills",
-      "plugin_version": "0.4.1",
+      "plugin_version": "0.6.0",
       "selector_catalog_coverage": "not_observed",
       "verified": true
     },
     "codex_executable_identity": {
       "after_equal": true,
-      "executable_digest": "19c4f144c5226a9f17c58e6f0fa854843b0f77a6eb420f40e2745a12f10f5d37",
-      "path_digest": "738f2bdc833c49efb2202b91cc9b2a64e65402746b79b2846b70f8934dd61445",
-      "version": "codex-cli 0.147.0"
+      "executable_digest": "b0308517b20543012fa2171aa3d46ce455a7456c4eb2a552ab9468ba4eeb1e50",
+      "path_digest": "290116c5142b48f6cd2b749d8bdefe141a83c182acb65f2bb804825c3173c580",
+      "version": "codex-cli 0.148.0"
     },
     "components": [
       {
-        "digest": "eb5872bc5e83f369776d7998a2782f7fd528e5fac96bdb61f55e62aa9d5fa3f7",
-        "entry_count": 225,
+        "digest": "8d78a5aa210e4958b950d5a52eefba43be8290aca7218967d8a7411720a538ee",
+        "entry_count": 232,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "f41ffcf199a416524a9f8e097fb5fafd57537eaf4908c504e604445da50456f3",
+        "digest": "7b7857527033b42280ea86e135acae96ec6800ca6f0b4dfbd5970b48bb9fe50d",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"
@@ -1351,16 +1355,16 @@
       }
     ],
     "effective_skill_catalog": {
-      "after_count": 23,
-      "after_digest": "3a02e2d19b6a5b5e6bd49cff1eba06c82cd59914c0fdd8631eeedcf68e620c6a",
-      "before_count": 23,
-      "before_digest": "3a02e2d19b6a5b5e6bd49cff1eba06c82cd59914c0fdd8631eeedcf68e620c6a",
+      "after_count": 39,
+      "after_digest": "2c9bb9a79035cf6df0c3d7b8b17f0e84e016b7a1bc355c13266bac6496a479b3",
+      "before_count": 39,
+      "before_digest": "2c9bb9a79035cf6df0c3d7b8b17f0e84e016b7a1bc355c13266bac6496a479b3",
       "candidate_source_isolation": {
         "candidate_alias_count": 0,
-        "catalog_record_count": 23,
+        "catalog_record_count": 39,
         "descendant_symlink_count": 0,
-        "regular_descendant_count": 365,
-        "resolved_source_root_count": 40,
+        "regular_descendant_count": 447,
+        "resolved_source_root_count": 61,
         "verified": true
       },
       "candidate_source_isolation_equal": true,
@@ -1374,10 +1378,10 @@
     },
     "equal": true,
     "installed_plugin_inventory": {
-      "after_count": 12,
-      "after_digest": "54818079b3284ae46d1d04561a1d137b910e5a8bca0ec431bc36efa24bc832ae",
-      "before_count": 12,
-      "before_digest": "54818079b3284ae46d1d04561a1d137b910e5a8bca0ec431bc36efa24bc832ae",
+      "after_count": 13,
+      "after_digest": "75d7ade348f250f98586952599467179c57584dbdbdffc0b1687df535186e245",
+      "before_count": 13,
+      "before_digest": "75d7ade348f250f98586952599467179c57584dbdbdffc0b1687df535186e245",
       "coverage": "installed_plugins_only",
       "equal": true,
       "observer_kind": "sandboxed_read_only_active_inventory",
@@ -1389,6 +1393,6 @@
   "status": "pass",
   "validator": {
     "id": "phase1-contract-foundation-validator",
-    "revision": 3
+    "revision": 5
   }
 }

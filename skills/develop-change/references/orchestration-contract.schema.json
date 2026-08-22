@@ -135,6 +135,25 @@
           "gate": {"properties": {"result": {"const": "blocked"}}}
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "gate": {
+            "properties": {"result": {"const": "blocked"}},
+            "required": ["result"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "handoff": {
+            "properties": {
+              "next_action": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
     }
   ],
   "$defs": {

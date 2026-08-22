@@ -22,7 +22,7 @@ Skill resolver는 현재 작업에 필요한 전문 지침을 선택한다. 스�
 5. 아래 경합 규칙으로 `selected / composed / rejected / blocked / fallback` 중 하나를 결정한다 (`RESOLVE-005`).
 6. 선택된 스킬이 요구하는 reference와 선행조건을 적용하되, 사용자 권한을 넓히지 않는다 (`RESOLVE-006`).
 
-플러그인이 제공하는 스킬은 런타임에서 노출된 canonical ID를 그대로 기록한다. 예를 들어 `skills:git-workflow`나 `github:github`의 namespace를 제거해 서로 다른 플러그인의 동명 스킬을 합치지 않는다.
+플러그인이 제공하는 스킬은 런타임에서 노출된 canonical ID를 그대로 기록한다. 예를 들어 `skills:git-workflow`나 `github:github`의 namespace를 제거하지 않아 서로 다른 플러그인의 동명 스킬을 합치지 않는다.
 
 ## 후보 우선순위
 

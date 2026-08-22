@@ -237,6 +237,32 @@ def query_effective_skill_catalog(
         raise ProjectionError(
             "FND-PROJECTION-003: expected one closed available-skills section"
         )
+    skill_root_sections = re.findall(
+        r"^### Skill roots[ \t]*\n(.*?)(?=^### |\Z)",
+        matches[0],
+        flags=re.DOTALL | re.MULTILINE,
+    )
+    if len(skill_root_sections) > 1:
+        raise ProjectionError(
+            "FND-PROJECTION-003: expected at most one skill-roots section"
+        )
+    skill_roots: dict[str, Path] = {}
+    if skill_root_sections:
+        for line in skill_root_sections[0].splitlines():
+            if not line.strip():
+                continue
+            root_match = re.fullmatch(r"- `([a-z][a-z0-9]*)` = `([^`]+)`", line)
+            if root_match is None:
+                raise ProjectionError(
+                    "FND-PROJECTION-003: skill-root entry is malformed"
+                )
+            alias, raw_root = root_match.groups()
+            root_path = Path(raw_root)
+            if alias in skill_roots or not root_path.is_absolute() or not root_path.is_dir():
+                raise ProjectionError(
+                    "FND-PROJECTION-003: skill-root identity is malformed"
+                )
+            skill_roots[alias] = root_path
     bound_root = locator_root.resolve() if locator_root is not None else None
     records: list[dict[str, str]] = []
     seen: set[str] = set()
@@ -258,6 +284,18 @@ def query_effective_skill_catalog(
             )
         skill_id, description = body.split(": ", 1)
         locator = Path(raw_locator[:-1])
+        if not locator.is_absolute():
+            parts = locator.parts
+            alias_root = skill_roots.get(parts[0]) if parts else None
+            if (
+                alias_root is None
+                or len(parts) < 2
+                or any(part in {"", ".", ".."} for part in parts[1:])
+            ):
+                raise ProjectionError(
+                    "FND-PROJECTION-003: effective skill alias is malformed"
+                )
+            locator = alias_root.joinpath(*parts[1:])
         if (
             not skill_id
             or not description
