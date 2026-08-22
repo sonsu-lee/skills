@@ -494,12 +494,12 @@
   "source_digests": {
     "skills/develop-change/evals/orchestration-cases.json": "a798acb3de210799d6e4ce10e3358f99de1e911409411a2221d4463e2b3f6fa0",
     "skills/develop-change/evals/orchestration-record-cases.json": "b51a62cdba89b1d60aa39283dc0a5dce5280f8b49faf2632cc88c319f04b1f0b",
-    "skills/develop-change/references/handoff-contract.md": "06972bb444078548529443e9401ff706a0d43fa5d3ec4aa075bda025785108e5",
-    "skills/develop-change/references/orchestration-contract.md": "39ef863a5a83e5f11fbcad129fdb0c8b4c3aadcdda5aede653148ed5ff576888",
+    "skills/develop-change/references/handoff-contract.md": "c0d8a53b108637e144af8e2ef8f27e97fc64e7ccb2055af49b1f01e9013d16a0",
+    "skills/develop-change/references/orchestration-contract.md": "6d26b5abc041b782fcf09b15b0d238283e283751d8ddab4eeb3f6384be16957f",
     "skills/develop-change/references/orchestration-contract.schema.json": "7b5e7e0dfeebc0c49d666cddfc7c791d1832c5d0b5a4a0456beae575e5fc0401",
-    "skills/develop-change/references/skill-resolution-contract.md": "235107cd69b3b50fe37860c413a9c96fae702a8605f23f44fdad403a1c12297e",
+    "skills/develop-change/references/skill-resolution-contract.md": "6e5fbe5a80de0cda2184f8f555ae5e01aee03a7bb02ffa8378b479a299a4abf6",
     "skills/develop-change/scripts/validate_orchestration.py": "8cf5c2f75ab7a11c8f4bf992d73d09eeec27834369662e57943ef0030ff09ec2",
-    "skills/develop-change/scripts/validate_orchestration_record.py": "02298fe0b7343ff4e462a7f5a96c838d5a73f27cbcf47066b9448508967da6ab"
+    "skills/develop-change/scripts/validate_orchestration_record.py": "90840b96327c3bec4d85a5b2b5555d14f3a8804ab30303c581d12b98db70e4ec"
   },
   "status": "pass"
 }
