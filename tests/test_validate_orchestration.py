@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -159,6 +161,36 @@ class ActivationTest(unittest.TestCase):
 
 
 class IntegrationTest(unittest.TestCase):
+    def test_schema_error_short_circuits_record_semantics(self) -> None:
+        catalog = orchestration.load_json(
+            ROOT / "skills/develop-change/evals/orchestration-record-cases.json"
+        )
+        record = catalog["base_record"]
+        record["effect_binding"]["capability"] = {"invalid": "type"}
+        with tempfile.TemporaryDirectory() as temporary:
+            record_path = Path(temporary) / "malformed-record.json"
+            record_path.write_text(json.dumps(record), encoding="utf-8")
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(
+                        ROOT
+                        / "skills/develop-change/scripts/validate_orchestration_record.py"
+                    ),
+                    "--input",
+                    str(record_path),
+                ],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+        result = json.loads(completed.stdout)
+        self.assertEqual(completed.returncode, 1)
+        self.assertTrue(result["schema_findings"])
+        self.assertEqual(result["semantic_findings"], [])
+        self.assertEqual(completed.stderr, "")
+
     def test_duplicate_record_case_ids_are_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             catalog = Path(temporary) / "duplicate-record-cases.json"

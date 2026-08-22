@@ -502,6 +502,13 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
         )
         if next_action_kind != expected_kind:
             findings.add("HANDOFF-001")
+    elif (
+        not unfinished_plan
+        and isinstance(gate_record, dict)
+        and gate_record.get("work_remaining") is False
+        and (next_action is not None or next_action_kind is not None)
+    ):
+        findings.add("HANDOFF-001")
 
     if not isinstance(record.get("blockers"), list):
         findings.add("HANDOFF-001")

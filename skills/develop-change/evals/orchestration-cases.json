@@ -458,9 +458,9 @@
             "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
             "result": "pass",
             "blocker": "none",
-            "next_action": "continue",
+            "next_action": null,
             "progress": "continue",
-            "work_remaining": true,
+            "work_remaining": false,
             "missing_evidence_owner": "none",
             "assumption_effect": "none",
             "blocking_defer": false
@@ -518,8 +518,8 @@
           "not_run": []
         },
         "blockers": [],
-        "next_action": "결과를 사용자에게 전달",
-        "next_action_kind": "report"
+        "next_action": null,
+        "next_action_kind": null
       },
       "expected_rules": []
     },
@@ -558,9 +558,9 @@
             "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
             "result": "pass",
             "blocker": "none",
-            "next_action": "continue",
+            "next_action": null,
             "progress": "continue",
-            "work_remaining": true,
+            "work_remaining": false,
             "missing_evidence_owner": "none",
             "assumption_effect": "none",
             "blocking_defer": false
@@ -658,9 +658,9 @@
             "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
             "result": "pass",
             "blocker": "none",
-            "next_action": "continue",
+            "next_action": null,
             "progress": "continue",
-            "work_remaining": true,
+            "work_remaining": false,
             "missing_evidence_owner": "none",
             "assumption_effect": "none",
             "blocking_defer": false
