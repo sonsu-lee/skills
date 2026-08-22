@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -158,6 +159,24 @@ class ActivationTest(unittest.TestCase):
 
 
 class IntegrationTest(unittest.TestCase):
+    def test_empty_record_case_catalog_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            catalog = Path(temporary) / "empty-record-cases.json"
+            catalog.write_text(
+                json.dumps(
+                    {
+                        "schema_version": (
+                            "develop-change-orchestration-record-evals-v1"
+                        ),
+                        "base_record": {},
+                        "cases": [],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "non-empty array"):
+                orchestration.run_record_cases(catalog)
+
     def test_repository_contracts_pass_in_current_activation_state(self) -> None:
         report = orchestration.run_validation(ROOT, "auto")
         self.assertEqual(report["status"], "pass", report["findings"])
