@@ -24,7 +24,7 @@ Skill resolver는 현재 작업에 필요한 전문 지침을 선택한다. 스�
 
 플러그인이 제공하는 스킬은 런타임에서 노출된 canonical ID를 그대로 기록한다. 예를 들어 `skills:git-workflow`나 `github:github`의 namespace를 제거하지 않아 서로 다른 플러그인의 동명 스킬을 합치지 않는다.
 
-`selected`와 `composed` 결정의 `provenance`에는 재개 시 같은 후보인지 확인할 수 있는 `locator`, `version`, `content_digest`를 모두 기록한다. ID가 같아도 이 tuple이 바뀌면 호환성을 다시 확인하고 새 결정을 만든다 (`RESOLVE-004`). 사용할 수 없어 `rejected`한 후보는 확인하지 못한 provenance 값을 `null`로 둘 수 있다.
+`selected`와 `composed` 결정의 `provenance`에는 재개 시 같은 후보인지 확인할 수 있는 `locator`, `version`, `content_digest`를 모두 기록한다. locator는 현재 읽을 수 있는 `SKILL.md` 원문을 가리키며 digest는 그 파일의 SHA-256이다. plugin source의 canonical skill ID는 가장 가까운 `.codex-plugin/plugin.json`의 name과 SKILL frontmatter name에 결박한다. version은 plugin manifest version 또는 원문에 결박된 immutable `content-sha256:<digest>` revision을 쓰고, manifest가 없는 source는 후자만 허용한다. ID가 같아도 이 tuple이 바뀌면 호환성을 다시 확인하고 새 결정을 만든다 (`RESOLVE-004`). 사용할 수 없어 `rejected`한 후보는 확인하지 못한 provenance 값을 `null`로 둘 수 있다.
 
 ## 후보 우선순위
 
@@ -71,4 +71,4 @@ Skill resolver는 현재 작업에 필요한 전문 지침을 선택한다. 스�
 
 실제 후보가 등록되기 전에는 `skill_id`를 만들거나 `selected`로 기록하지 않는다 (`RESOLVE-007`).
 
-사용자가 명시한 후보를 `rejected`했고 대신 활성화한 `selected`·`composed` 후보가 없으면, 비어 있지 않은 `fallback`을 남기거나 resolution을 `blocked`로 둔다.
+사용자가 명시한 후보를 `rejected`했고 같은 responsibility에 대신 활성화한 `selected`·`composed` 후보가 없으면, 비어 있지 않은 `fallback`을 남기거나 resolution을 `blocked`로 둔다.

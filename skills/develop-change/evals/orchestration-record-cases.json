@@ -190,20 +190,20 @@
       "status": "pass",
       "decisions": [
         {
-          "skill_id": "repository-typescript",
+          "skill_id": "skills:git-workflow",
           "source": "repository",
           "decision": "selected",
           "reason": "프로젝트 규칙",
-          "responsibility": "typescript",
+          "responsibility": "workflow",
           "specificity": 4,
           "compatible": true,
           "required_tools": [],
           "applies_to_routes": ["change"],
           "effect_boundary": "src",
           "provenance": {
-            "locator": "plugin://sonsu-skills/skills/repository-typescript",
-            "version": "0.6.0",
-            "content_digest": "8888888888888888888888888888888888888888888888888888888888888888"
+            "locator": "skills/git-workflow/SKILL.md",
+            "version": "content-sha256:4ceaa4b3743ead8de9be946f532c40333d4cb2ac34d7f3c2ed4c0753b4dd8a5e",
+            "content_digest": "4ceaa4b3743ead8de9be946f532c40333d4cb2ac34d7f3c2ed4c0753b4dd8a5e"
           }
         }
       ],
@@ -416,20 +416,20 @@
         "status": "pass",
         "decisions": [
           {
-            "skill_id": "repository-typescript",
+            "skill_id": "skills:git-workflow",
             "source": "repository",
             "decision": "selected",
             "reason": "프로젝트 규칙",
-            "responsibility": "typescript",
+            "responsibility": "workflow",
             "specificity": 4,
             "compatible": true,
             "required_tools": [],
             "applies_to_routes": ["change"],
             "effect_boundary": "src",
             "provenance": {
-              "locator": "plugin://sonsu-skills/skills/repository-typescript",
-              "version": "0.6.0",
-              "content_digest": "8888888888888888888888888888888888888888888888888888888888888888"
+              "locator": "skills/git-workflow/SKILL.md",
+              "version": "content-sha256:4ceaa4b3743ead8de9be946f532c40333d4cb2ac34d7f3c2ed4c0753b4dd8a5e",
+              "content_digest": "4ceaa4b3743ead8de9be946f532c40333d4cb2ac34d7f3c2ed4c0753b4dd8a5e"
             }
           }
         ],
@@ -573,11 +573,11 @@
           "op": "append",
           "path": "/skill_resolution/decisions",
           "value": {
-            "skill_id": "repository-typescript",
+            "skill_id": "skills:git-workflow",
             "source": "installed",
             "decision": "rejected",
             "reason": "중복 후보",
-            "responsibility": "typescript",
+            "responsibility": "workflow",
             "specificity": 2,
             "compatible": true,
             "required_tools": [],
@@ -594,11 +594,11 @@
           "op": "append",
           "path": "/handoff/skill_resolution/decisions",
           "value": {
-            "skill_id": "repository-typescript",
+            "skill_id": "skills:git-workflow",
             "source": "installed",
             "decision": "rejected",
             "reason": "중복 후보",
-            "responsibility": "typescript",
+            "responsibility": "workflow",
             "specificity": 2,
             "compatible": true,
             "required_tools": [],
@@ -642,8 +642,8 @@
           "op": "append",
           "path": "/skill_resolution/decisions",
           "value": {
-            "skill_id": "installed-typescript",
-            "source": "installed",
+            "skill_id": "skills:research",
+            "source": "repository",
             "decision": "selected",
             "reason": "추가 지침",
             "responsibility": "typescript",
@@ -653,9 +653,9 @@
             "applies_to_routes": ["change"],
             "effect_boundary": "src",
             "provenance": {
-              "locator": "plugin://installed/skills/installed-typescript",
-              "version": "1.0.0",
-              "content_digest": "9999999999999999999999999999999999999999999999999999999999999999"
+              "locator": "skills/research/SKILL.md",
+              "version": "content-sha256:f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5",
+              "content_digest": "f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5"
             }
           }
         },
@@ -663,8 +663,8 @@
           "op": "append",
           "path": "/handoff/skill_resolution/decisions",
           "value": {
-            "skill_id": "installed-typescript",
-            "source": "installed",
+            "skill_id": "skills:research",
+            "source": "repository",
             "decision": "selected",
             "reason": "추가 지침",
             "responsibility": "typescript",
@@ -674,9 +674,9 @@
             "applies_to_routes": ["change"],
             "effect_boundary": "src",
             "provenance": {
-              "locator": "plugin://installed/skills/installed-typescript",
-              "version": "1.0.0",
-              "content_digest": "9999999999999999999999999999999999999999999999999999999999999999"
+              "locator": "skills/research/SKILL.md",
+              "version": "content-sha256:f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5",
+              "content_digest": "f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5"
             }
           }
         }
@@ -788,7 +788,7 @@
           "value": "testing-quality-practices"
         }
       ],
-      "expected_rules": ["RESOLVE-007"]
+      "expected_rules": ["RESOLVE-004", "RESOLVE-007"]
     },
     {
       "id": "rejected-user-skill-needs-a-recovery-path",
@@ -1435,10 +1435,44 @@
     {
       "id": "complementary-responsibilities-require-composition",
       "mutations": [
-        {"op": "append", "path": "/skill_resolution/decisions", "value": {"skill_id": "installed-testing", "source": "installed", "decision": "selected", "reason": "테스트 책임", "responsibility": "testing", "specificity": 2, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "tests", "provenance": {"locator": "plugin://installed/skills/installed-testing", "version": "1.0.0", "content_digest": "9999999999999999999999999999999999999999999999999999999999999999"}}},
-        {"op": "append", "path": "/handoff/skill_resolution/decisions", "value": {"skill_id": "installed-testing", "source": "installed", "decision": "selected", "reason": "테스트 책임", "responsibility": "testing", "specificity": 2, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "tests", "provenance": {"locator": "plugin://installed/skills/installed-testing", "version": "1.0.0", "content_digest": "9999999999999999999999999999999999999999999999999999999999999999"}}}
+        {"op": "append", "path": "/skill_resolution/decisions", "value": {"skill_id": "skills:research", "source": "repository", "decision": "selected", "reason": "테스트 책임", "responsibility": "testing", "specificity": 2, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "tests", "provenance": {"locator": "skills/research/SKILL.md", "version": "content-sha256:f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5", "content_digest": "f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5"}}},
+        {"op": "append", "path": "/handoff/skill_resolution/decisions", "value": {"skill_id": "skills:research", "source": "repository", "decision": "selected", "reason": "테스트 책임", "responsibility": "testing", "specificity": 2, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "tests", "provenance": {"locator": "skills/research/SKILL.md", "version": "content-sha256:f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5", "content_digest": "f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5"}}}
       ],
       "expected_rules": ["RESOLVE-005"]
+    },
+    {
+      "id": "active-skill-provenance-matches-source",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/provenance/locator", "value": "skills/missing-skill/SKILL.md"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/provenance/locator", "value": "skills/missing-skill/SKILL.md"}
+      ],
+      "expected_rules": ["RESOLVE-004"]
+    },
+    {
+      "id": "foundation-assumption-is-one-to-one",
+      "base_case": "supported-conditional-passes",
+      "mutations": [
+        {"op": "append", "path": "/gate/assumptions", "value": {"summary": "같은 가정의 다른 설명", "frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "42dc6a515154c6fe4a8117de9673a4c370bd0ead852b37b51edbafe44d106b18"}, "assumption_ref": "assumption:fixture.scope", "basis_refs": ["evidence:safe-default.fixture"], "validation": "다른 방법으로 재확인"}}
+      ],
+      "expected_rules": ["FND-GATE-002"]
+    },
+    {
+      "id": "change-route-allows-durable-document-write",
+      "mutations": [
+        {"op": "replace", "path": "/effect_binding/capability", "value": "durable_document_write"},
+        {"op": "replace", "path": "/handoff/effect_binding/capability", "value": "durable_document_write"},
+        {"op": "replace", "path": "/foundation_binding/authorization_records/0/capability", "value": "durable_document_write"},
+        {"op": "replace", "path": "/handoff/foundation_binding/authorization_records/0/capability", "value": "durable_document_write"},
+        {"op": "replace", "path": "/foundation_binding/authorization_evaluations/0/required_capability", "value": "durable_document_write"},
+        {"op": "replace", "path": "/handoff/foundation_binding/authorization_evaluations/0/required_capability", "value": "durable_document_write"},
+        {"op": "replace", "path": "/foundation_binding/routing_record/authorization_ref/digest", "value": "d2f0ac83d572dfe4e1c4d514dd68871f09c2bb9ccceb32b2f03bf1f9e5714c1e"},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/authorization_ref/digest", "value": "d2f0ac83d572dfe4e1c4d514dd68871f09c2bb9ccceb32b2f03bf1f9e5714c1e"},
+        {"op": "replace", "path": "/authorization/0/capability", "value": "durable_document_write"},
+        {"op": "replace", "path": "/handoff/authorization/0/capability", "value": "durable_document_write"},
+        {"op": "replace", "path": "/authorization/0/authorization_ref/digest", "value": "d2f0ac83d572dfe4e1c4d514dd68871f09c2bb9ccceb32b2f03bf1f9e5714c1e"},
+        {"op": "replace", "path": "/handoff/authorization/0/authorization_ref/digest", "value": "d2f0ac83d572dfe4e1c4d514dd68871f09c2bb9ccceb32b2f03bf1f9e5714c1e"}
+      ],
+      "expected_rules": []
     }
   ]
 }

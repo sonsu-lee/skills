@@ -21,8 +21,9 @@ from validate_foundation import validate_instance as validate_foundation_instanc
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 12
+VALIDATOR_REVISION = 13
 SKILL_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
 HANDOFF_SNAPSHOT_FIELDS = (
@@ -52,7 +53,11 @@ ROUTE_SEQUENCE = (
 )
 ROUTE_POSITION = {route: index for index, route in enumerate(ROUTE_SEQUENCE)}
 EFFECT_CAPABILITIES_BY_ROUTE = {
-    "change": {"local_change"},
+    "change": {
+        "local_change",
+        "durable_document_write",
+        "durable_document_content",
+    },
     "deliver": {
         "branch_create",
         "branch_switch",
@@ -130,6 +135,91 @@ def current_scope_fingerprint(scope: dict[str, Any]) -> str:
         "exclude": scope.get("exclude"),
     }
     return hashlib.sha256(b"develop-change-scope-v1\n" + canonical_bytes(payload)).hexdigest()
+
+
+def active_skill_source_matches(item: dict[str, Any]) -> bool:
+    provenance = item.get("provenance")
+    if not isinstance(provenance, dict):
+        return False
+    locator = provenance.get("locator")
+    version = provenance.get("version")
+    content_digest = provenance.get("content_digest")
+    if not (
+        isinstance(locator, str)
+        and locator
+        and isinstance(version, str)
+        and version
+        and isinstance(content_digest, str)
+        and re.fullmatch(r"[0-9a-f]{64}", content_digest)
+    ):
+        return False
+    declared = Path(locator)
+    if declared.is_absolute():
+        source_path = declared
+    else:
+        if any(part in {"", ".", ".."} for part in declared.parts):
+            return False
+        source_path = REPO_ROOT / declared
+    try:
+        resolved = source_path.resolve(strict=True)
+    except (OSError, RuntimeError):
+        return False
+    if not resolved.is_file() or resolved.name != "SKILL.md":
+        return False
+    if not declared.is_absolute():
+        try:
+            resolved.relative_to(REPO_ROOT.resolve())
+        except ValueError:
+            return False
+    try:
+        source_bytes = resolved.read_bytes()
+    except OSError:
+        return False
+    actual_digest = hashlib.sha256(source_bytes).hexdigest()
+    if content_digest != actual_digest:
+        return False
+    try:
+        source_text = source_bytes.decode("utf-8")
+    except UnicodeDecodeError:
+        return False
+    frontmatter = re.match(r"\A---\r?\n(.*?)\r?\n---(?:\r?\n|\Z)", source_text, re.S)
+    if frontmatter is None:
+        return False
+    name_match = re.search(
+        r"^name:\s*['\"]?([a-z0-9]+(?:-[a-z0-9]+)*)['\"]?\s*$",
+        frontmatter.group(1),
+        re.M,
+    )
+    if name_match is None:
+        return False
+    skill_name = name_match.group(1)
+    plugin_identity: tuple[str, str] | None = None
+    for parent in resolved.parents:
+        manifest_path = parent / ".codex-plugin" / "plugin.json"
+        if not manifest_path.is_file():
+            continue
+        try:
+            manifest = load_json(manifest_path)
+        except (OSError, UnicodeError, ValueError):
+            return False
+        plugin_name = manifest.get("name") if isinstance(manifest, dict) else None
+        plugin_version = manifest.get("version") if isinstance(manifest, dict) else None
+        if not (
+            isinstance(plugin_name, str)
+            and plugin_name
+            and isinstance(plugin_version, str)
+            and plugin_version
+        ):
+            return False
+        plugin_identity = (plugin_name, plugin_version)
+        break
+    expected_skill_id = (
+        f"{plugin_identity[0]}:{skill_name}" if plugin_identity else skill_name
+    )
+    expected_versions = {f"content-sha256:{actual_digest}"}
+    if plugin_identity:
+        expected_versions.add(plugin_identity[1])
+    return item.get("skill_id") == expected_skill_id and version in expected_versions
 
 
 def load_json(path: Path) -> Any:
@@ -483,6 +573,7 @@ def validate_record(
             for item in assumptions
         )
         and all(unit is not None for unit in matched_assumption_units)
+        and len(matched_assumption_units) == len(assumed_units)
         and {unit["unit_id"] for unit in matched_assumption_units if unit is not None}
         == {unit["unit_id"] for unit in assumed_units}
     )
@@ -619,20 +710,11 @@ def validate_record(
             if isinstance(item.get("skill_id"), str):
                 active_skill_ids.add(item["skill_id"])
             active_decisions.append(item)
-            provenance = item.get("provenance")
-            if not (
-                isinstance(provenance, dict)
-                and isinstance(provenance.get("locator"), str)
-                and provenance["locator"]
-                and isinstance(provenance.get("version"), str)
-                and provenance["version"]
-                and isinstance(provenance.get("content_digest"), str)
-                and re.fullmatch(r"[0-9a-f]{64}", provenance["content_digest"])
-            ):
+            if not active_skill_source_matches(item):
                 add(
                     "RESOLVE-004",
                     "/skill_resolution/decisions",
-                    f"active skill requires exact provenance: {item.get('skill_id')}",
+                    f"active skill provenance must match its current source: {item.get('skill_id')}",
                 )
             if primary_route not in string_set(item.get("applies_to_routes")):
                 add(
