@@ -11,6 +11,11 @@
       "exclude": []
     },
     "decisions": [],
+    "effect_binding": {
+      "logical_task_id": "task.fixture.change",
+      "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+      "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
+    },
     "primary_route": "change",
     "route_plan": ["understand", "design", "change", "verify"],
     "profile": {
@@ -32,6 +37,36 @@
         "id": "frontier.fixture",
         "revision": 1,
         "digest": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "authorization_record": {
+        "authorization_id": "authorization.local-change.fixture",
+        "revision": 1,
+        "predecessor_authorization_ref": null,
+        "logical_task_id": "task.fixture.change",
+        "capability": "local_change",
+        "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+        "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+        "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+        "request_revision": 1,
+        "authorization_revision": 1,
+        "receipt_revision": 1,
+        "receipt_fingerprint": "7777777777777777777777777777777777777777777777777777777777777777",
+        "status": "granted",
+        "runtime_eligible": true,
+        "future_only": false,
+        "fixture_only": true
+      },
+      "authorization_evaluation": {
+        "evaluation_id": "authorization-evaluation.fixture.local-change",
+        "required_capability": "local_change",
+        "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+        "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+        "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+        "selected_authorization_id": "authorization.local-change.fixture",
+        "side_effect_intent": "dependent",
+        "derived_result": "allowed",
+        "next_action": "continue",
+        "dependent_side_effect_count": 1
       }
     },
     "skill_resolution": {
@@ -59,10 +94,10 @@
         "authorization_ref": {
           "id": "authorization.local-change.fixture",
           "revision": 1,
-          "digest": "3333333333333333333333333333333333333333333333333333333333333333"
+          "digest": "c282a23b588cd2c89038e425b53b6df0fae325b549bbade9fe51cb5db2168525"
         },
         "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
-        "scope_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+        "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
         "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
         "status": "granted",
         "runtime_eligible": true
@@ -85,6 +120,11 @@
       "completed_phase": "design",
       "decisions": [],
       "artifacts": [],
+      "effect_binding": {
+        "logical_task_id": "task.fixture.change",
+        "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+        "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
+      },
       "profile": {
         "level": "bounded",
         "confidence": "confirmed"
@@ -99,6 +139,36 @@
           "id": "frontier.fixture",
           "revision": 1,
           "digest": "2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "authorization_record": {
+          "authorization_id": "authorization.local-change.fixture",
+          "revision": 1,
+          "predecessor_authorization_ref": null,
+          "logical_task_id": "task.fixture.change",
+          "capability": "local_change",
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+          "request_revision": 1,
+          "authorization_revision": 1,
+          "receipt_revision": 1,
+          "receipt_fingerprint": "7777777777777777777777777777777777777777777777777777777777777777",
+          "status": "granted",
+          "runtime_eligible": true,
+          "future_only": false,
+          "fixture_only": true
+        },
+        "authorization_evaluation": {
+          "evaluation_id": "authorization-evaluation.fixture.local-change",
+          "required_capability": "local_change",
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+          "selected_authorization_id": "authorization.local-change.fixture",
+          "side_effect_intent": "dependent",
+          "derived_result": "allowed",
+          "next_action": "continue",
+          "dependent_side_effect_count": 1
         }
       },
       "skill_resolution": {
@@ -126,10 +196,10 @@
           "authorization_ref": {
             "id": "authorization.local-change.fixture",
             "revision": 1,
-            "digest": "3333333333333333333333333333333333333333333333333333333333333333"
+            "digest": "c282a23b588cd2c89038e425b53b6df0fae325b549bbade9fe51cb5db2168525"
           },
           "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
-          "scope_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+          "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
           "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
           "status": "granted",
           "runtime_eligible": true
@@ -200,7 +270,7 @@
         {"op": "replace", "path": "/handoff/profile/confidence", "value": "provisional"}
       ],
       "expected_schema_valid": false,
-      "expected_rules": ["FND-PROFILE-001"]
+      "expected_rules": ["FND-PROFILE-004"]
     },
     {
       "id": "skill-id-is-unique",
@@ -313,7 +383,7 @@
         {"op": "remove", "path": "/foundation_binding"}
       ],
       "expected_schema_valid": false,
-      "expected_rules": ["HANDOFF-002"]
+      "expected_rules": ["FND-AUTH-005", "HANDOFF-002"]
     },
     {
       "id": "scope-include-exclude-are-disjoint",
@@ -321,7 +391,7 @@
         {"op": "replace", "path": "/scope/exclude", "value": ["src"]},
         {"op": "replace", "path": "/handoff/scope/exclude", "value": ["src"]}
       ],
-      "expected_rules": ["ORCH-001"]
+      "expected_rules": ["FND-AUTH-005", "ORCH-001"]
     },
     {
       "id": "verification-results-are-disjoint",
@@ -449,6 +519,65 @@
         {"op": "remove", "path": "/handoff/authorization/0"}
       ],
       "expected_rules": ["FND-AUTH-005"]
+    },
+    {
+      "id": "local-change-grant-matches-current-scope",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/authorization/0/scope_fingerprint",
+          "value": "8888888888888888888888888888888888888888888888888888888888888888"
+        },
+        {
+          "op": "replace",
+          "path": "/handoff/authorization/0/scope_fingerprint",
+          "value": "8888888888888888888888888888888888888888888888888888888888888888"
+        }
+      ],
+      "expected_rules": ["FND-AUTH-005"]
+    },
+    {
+      "id": "local-change-grant-refers-to-current-foundation-record",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/authorization/0/authorization_ref/id",
+          "value": "authorization.unknown"
+        },
+        {
+          "op": "replace",
+          "path": "/handoff/authorization/0/authorization_ref/id",
+          "value": "authorization.unknown"
+        }
+      ],
+      "expected_rules": ["FND-AUTH-005"]
+    },
+    {
+      "id": "provisional-change-requires-blocked-gate",
+      "mutations": [
+        {"op": "replace", "path": "/profile/confidence", "value": "provisional"},
+        {"op": "replace", "path": "/handoff/profile/confidence", "value": "provisional"},
+        {"op": "replace", "path": "/gate/result", "value": "conditional"},
+        {
+          "op": "replace",
+          "path": "/gate/assumptions",
+          "value": [
+            {
+              "summary": "영향 범위가 제한됨",
+              "basis_refs": ["evidence:scope.review"],
+              "validation": "변경 전에 재확인"
+            }
+          ]
+        }
+      ],
+      "expected_rules": ["FND-PROFILE-004"]
+    },
+    {
+      "id": "unfinished-handoff-requires-next-action",
+      "mutations": [
+        {"op": "replace", "path": "/handoff/next_action", "value": null}
+      ],
+      "expected_rules": ["HANDOFF-001"]
     },
     {
       "id": "blocked-handoff-requires-next-action",

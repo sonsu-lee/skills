@@ -1,12 +1,12 @@
 {
   "schema_version": "phase1-slice-result-v1",
-  "manifest_id": "21abf20c1b5653c487714b539036acd879f2a3e14d71b9ad4efb9c2df2258f8b",
+  "manifest_id": "498181e5febd97df692876c10fa3b97cb2dd3e53e63c07d1ed6e9a6235e08370",
   "slice_id": "phase1-contract-foundation",
   "predecessor_slice_result_manifest_id": null,
   "artifacts": [
     {
       "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-      "sha256": "4cd58bd97a5def48c03f5c738e8713ae877434cbe784ab40256cc762af5d6ef8",
+      "sha256": "7f55f020fc494ba2393b722e74070ed27eb96eca143010c38446c3a16e3eb1ca",
       "role": "validation_report"
     },
     {
@@ -21,12 +21,12 @@
     },
     {
       "path": "skills/develop-change/evals/leaf-only-install-cases.json",
-      "sha256": "a06fe8592ed1f1bb0865d40e009d7c864816df25b9d7feb4f0c09f78b4a69379",
+      "sha256": "cc507e50fd7f20b3f40b395afeb5d217dff429e3e84fbffdfb49ec18cd3ee23f",
       "role": "isolation_fixture_catalog"
     },
     {
       "path": "skills/develop-change/references/authorization-contract.md",
-      "sha256": "62060f8bb70cd6999825c3dce086037efd2cac2f8cc9443d397bfe92bdb63869",
+      "sha256": "32ea853d541b4eb7cb824f65d7946a8c388f6fd17b54511a50c5d1e00b14acc1",
       "role": "contract_reference"
     },
     {
@@ -41,7 +41,7 @@
     },
     {
       "path": "skills/develop-change/references/routing-contract.md",
-      "sha256": "06662f7d208f3e09680b1af988fe7b2fb50b6e69befbf94b10649c6712e7211d",
+      "sha256": "c3fab90bdf95e6836131180540d3234933799bd639b752a0ad3a839db512e995",
       "role": "contract_reference"
     },
     {
@@ -91,7 +91,7 @@
   ],
   "fixture_report": {
     "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-    "sha256": "4cd58bd97a5def48c03f5c738e8713ae877434cbe784ab40256cc762af5d6ef8"
+    "sha256": "7f55f020fc494ba2393b722e74070ed27eb96eca143010c38446c3a16e3eb1ca"
   },
   "validator": {
     "id": "phase1-contract-foundation-validator",
@@ -100,7 +100,7 @@
     "result": "pass"
   },
   "runtime_projection": {
-    "before_digest": "eea9f303d6a1b38504da26a964b58f4aef7ad2d4a7b11b4573f5e0c4e4af7d14",
-    "after_digest": "eea9f303d6a1b38504da26a964b58f4aef7ad2d4a7b11b4573f5e0c4e4af7d14"
+    "before_digest": "1ad119d370db671969f10ad95c17770cbe085c63f316328dc05fec24303a63f0",
+    "after_digest": "1ad119d370db671969f10ad95c17770cbe085c63f316328dc05fec24303a63f0"
   }
 }

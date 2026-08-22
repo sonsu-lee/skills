@@ -85,6 +85,7 @@ Authorization은 **어떤 행동을, 어느 대상과 범위에, 어떤 근거�
 - target, scope, basis, file set, branch, command, semantic outcome 또는 capability가 바뀌면 fresh grant를 받는다 (`FND-AUTH-003`).
 - exact current grant만 dependent side effect를 허용한다. missing·stale·denied·withdrawn·wrong binding이면 0건이다 (`FND-AUTH-005`).
 - 현재 `primary_route`가 `change`라면 runtime-eligible `local_change: granted`가 있어야 한다. 없으면 gate를 `blocked`로 두고 변경을 실행하지 않는다 (`FND-AUTH-005`).
+- orchestration record의 `local_change` summary는 current foundation authorization record의 canonical identity ref와 target·현재 scope·basis fingerprint에 정확히 일치해야 한다. 같은 record를 선택한 `allowed` evaluation까지 일치하지 않으면 다른 task의 grant로 보고 실행하지 않는다 (`FND-AUTH-005`).
 - 질문, 답변, 추천, gate, profile, skill 설치, telemetry·rollout·trust·runtime 상태는 per-task capability를 대신하지 않는다.
 
 ## 기계 계약

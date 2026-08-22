@@ -9,6 +9,7 @@
     "objective",
     "scope",
     "decisions",
+    "effect_binding",
     "primary_route",
     "route_plan",
     "profile",
@@ -29,6 +30,7 @@
       "type": "array",
       "items": {"$ref": "#/$defs/decision"}
     },
+    "effect_binding": {"$ref": "#/$defs/effectBinding"},
     "primary_route": {"$ref": "#/$defs/route"},
     "route_plan": {
       "type": "array",
@@ -295,13 +297,50 @@
     "foundationBinding": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["gate_ref", "frontier_ref"],
+      "required": [
+        "gate_ref",
+        "frontier_ref",
+        "authorization_record",
+        "authorization_evaluation"
+      ],
       "properties": {
         "gate_ref": {
           "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
         },
         "frontier_ref": {
           "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
+        },
+        "authorization_record": {
+          "oneOf": [
+            {
+              "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/authorizationRecord"
+            },
+            {"type": "null"}
+          ]
+        },
+        "authorization_evaluation": {
+          "oneOf": [
+            {
+              "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/authorizationEvaluation"
+            },
+            {"type": "null"}
+          ]
+        }
+      }
+    },
+    "effectBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["logical_task_id", "target_fingerprint", "basis_fingerprint"],
+      "properties": {
+        "logical_task_id": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/stableId"
+        },
+        "target_fingerprint": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/sha256"
+        },
+        "basis_fingerprint": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/sha256"
         }
       }
     },
@@ -503,6 +542,7 @@
         "completed_phase",
         "decisions",
         "artifacts",
+        "effect_binding",
         "profile",
         "foundation_binding",
         "skill_resolution",
@@ -529,6 +569,7 @@
           "uniqueItems": true,
           "items": {"type": "string", "minLength": 1}
         },
+        "effect_binding": {"$ref": "#/$defs/effectBinding"},
         "profile": {
           "type": "object",
           "additionalProperties": false,

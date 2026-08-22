@@ -1100,11 +1100,11 @@
       "supported": true
     },
     "contract_bundle": {
-      "bundle_digest": "010ba86520403ac527341d568217ade19dacf965c74d8b1f0680fbc4c666caca",
+      "bundle_digest": "67ac33323f795cea8af816bf7b137863decd784ddd64b3a9f60879b3db874ed8",
       "documents": [
         {
           "path": "authorization-contract.md",
-          "sha256": "62060f8bb70cd6999825c3dce086037efd2cac2f8cc9443d397bfe92bdb63869"
+          "sha256": "32ea853d541b4eb7cb824f65d7946a8c388f6fd17b54511a50c5d1e00b14acc1"
         },
         {
           "path": "gate-contract.md",
@@ -1112,7 +1112,7 @@
         },
         {
           "path": "routing-contract.md",
-          "sha256": "06662f7d208f3e09680b1af988fe7b2fb50b6e69befbf94b10649c6712e7211d"
+          "sha256": "c3fab90bdf95e6836131180540d3234933799bd639b752a0ad3a839db512e995"
         }
       ],
       "schema": {
@@ -1305,8 +1305,8 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "162e8dbbb9c168c8ef96988e65b3dfc38ad6fcc2f044e5778fbe7e84b479b660",
-    "before_digest": "162e8dbbb9c168c8ef96988e65b3dfc38ad6fcc2f044e5778fbe7e84b479b660",
+    "after_digest": "1ad119d370db671969f10ad95c17770cbe085c63f316328dc05fec24303a63f0",
+    "before_digest": "1ad119d370db671969f10ad95c17770cbe085c63f316328dc05fec24303a63f0",
     "binding": {
       "component_path_binding_digest": "db0fd53f88e694db0b3e6e0f2c6d7fcf11199170d8e2e3ab4bfd51f60ca0b650",
       "hook_binding": "exact_codex_home_hooks_json",
@@ -1324,7 +1324,7 @@
     },
     "components": [
       {
-        "digest": "5e75a0fd7048e3d283b48241a951ba008c9c7999c8db5a3ae9412f225f5928f1",
+        "digest": "76be11bab0c3ed91596482e7e35ef29e81f959b364463a15db20d27c287257a5",
         "entry_count": 232,
         "input_count": 1,
         "kind": "active_plugin_root"

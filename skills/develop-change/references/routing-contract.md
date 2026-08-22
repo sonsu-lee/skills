@@ -57,6 +57,7 @@ Routing은 방향만 정한다. 파일 변경, commit, push 같은 권한은 주
 - 하나라도 `true`이면 `architectural`이다.
 - `true`는 없지만 모르는 축이 있으면, 읽기 전용 조사 중에는 `bounded / provisional`로 진행할 수 있다.
 - 결정·설계 확정·로컬 변경·외부 효과 직전까지 모르는 축이 남으면 `architectural / provisional`로 올리고 gate를 다시 본다.
+- `primary_route: change`에서 profile이 `provisional`이면 gate를 `blocked`로 두고 미확정 축을 먼저 해소한다 (`FND-PROFILE-004`).
 - 모든 축이 `false`이고 아래 direct 조건이 전부 맞을 때만 `direct / confirmed`다.
 
 Direct 조건은 결과가 정확함, 구조적 미확정 없음, 단일 로컬 효과 경계, 기존 의미를 보존하는 기계적 변경, 쉬운 복구, 좁고 즉시 가능한 검증, rollout·migration·운영 없음이다 (`FND-PROFILE-001`, `FND-PROFILE-002`).

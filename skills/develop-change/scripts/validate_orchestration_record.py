@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -12,7 +13,7 @@ from typing import Any
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 4
+VALIDATOR_REVISION = 5
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
@@ -20,6 +21,7 @@ HANDOFF_SNAPSHOT_FIELDS = (
     "objective",
     "scope",
     "decisions",
+    "effect_binding",
     "profile",
     "foundation_binding",
     "skill_resolution",
@@ -39,6 +41,40 @@ ROUTE_SEQUENCE = (
     "evolve",
 )
 ROUTE_POSITION = {route: index for index, route in enumerate(ROUTE_SEQUENCE)}
+
+
+def canonical_bytes(value: Any) -> bytes:
+    return json.dumps(
+        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+
+
+def record_digest_payload(value: Any) -> Any:
+    if isinstance(value, list):
+        return [record_digest_payload(item) for item in value]
+    if isinstance(value, dict):
+        identity_ref = set(value) == {"id", "revision", "digest"}
+        return {
+            key: record_digest_payload(item)
+            for key, item in value.items()
+            if not (identity_ref and key == "digest")
+        }
+    return value
+
+
+def authorization_record_digest(record: dict[str, Any]) -> str:
+    return hashlib.sha256(
+        b"phase1-foundation-authorization-record-v1\n"
+        + canonical_bytes(record_digest_payload(record))
+    ).hexdigest()
+
+
+def current_scope_fingerprint(scope: dict[str, Any]) -> str:
+    payload = {
+        "include": scope.get("include"),
+        "exclude": scope.get("exclude"),
+    }
+    return hashlib.sha256(b"develop-change-scope-v1\n" + canonical_bytes(payload)).hexdigest()
 
 
 def load_json(path: Path) -> Any:
@@ -262,22 +298,33 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
             "/gate/assumptions",
             "assumptions are only valid for a conditional gate",
         )
-    if gate_result == "blocked" and not (
+    unfinished_plan = completed_phase_valid and (
+        completed_phase is None
+        or route_plan.index(completed_phase) < len(route_plan) - 1
+    )
+    if (gate_result == "blocked" or unfinished_plan) and not (
         isinstance(handoff.get("next_action"), str) and handoff["next_action"]
     ):
         add(
             "HANDOFF-001",
             "/handoff/next_action",
-            "blocked handoff requires a non-empty next_action",
+            "blocked or unfinished handoff requires a non-empty next_action",
         )
 
     profile = record.get("profile") if isinstance(record.get("profile"), dict) else {}
-    if profile.get("confidence") == "provisional" and gate_result == "pass":
-        add(
-            "FND-PROFILE-001",
-            "/gate/result",
-            "provisional profile cannot have a pass gate",
-        )
+    if profile.get("confidence") == "provisional":
+        if primary_route == "change" and gate_result != "blocked":
+            add(
+                "FND-PROFILE-004",
+                "/gate/result",
+                "provisional profile cannot cross the change side-effect checkpoint",
+            )
+        elif gate_result == "pass":
+            add(
+                "FND-PROFILE-001",
+                "/gate/result",
+                "provisional profile cannot have a pass gate",
+            )
 
     resolution = (
         record.get("skill_resolution")
@@ -405,12 +452,82 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
                 "/authorization",
                 "authorization binding must have one current lineage leaf",
             )
+        effect_binding = (
+            record.get("effect_binding")
+            if isinstance(record.get("effect_binding"), dict)
+            else {}
+        )
+        foundation_binding = (
+            record.get("foundation_binding")
+            if isinstance(record.get("foundation_binding"), dict)
+            else {}
+        )
+        authorization_record = foundation_binding.get("authorization_record")
+        authorization_evaluation = foundation_binding.get(
+            "authorization_evaluation"
+        )
+        expected_scope_fingerprint = current_scope_fingerprint(scope)
+
+        def matches_current_local_change(item: Any) -> bool:
+            if not (
+                isinstance(item, dict)
+                and isinstance(authorization_record, dict)
+                and isinstance(authorization_evaluation, dict)
+            ):
+                return False
+            authorization_ref = item.get("authorization_ref")
+            expected_digest = authorization_record_digest(authorization_record)
+            record_matches_effect = (
+                authorization_record.get("logical_task_id")
+                == effect_binding.get("logical_task_id")
+                and authorization_record.get("capability") == "local_change"
+                and authorization_record.get("target_fingerprint")
+                == effect_binding.get("target_fingerprint")
+                and authorization_record.get("scope_fingerprint")
+                == expected_scope_fingerprint
+                and authorization_record.get("basis_fingerprint")
+                == effect_binding.get("basis_fingerprint")
+                and authorization_record.get("status") == "granted"
+                and authorization_record.get("runtime_eligible") is True
+            )
+            summary_matches_record = (
+                isinstance(authorization_ref, dict)
+                and authorization_ref.get("id")
+                == authorization_record.get("authorization_id")
+                and authorization_ref.get("revision")
+                == authorization_record.get("revision")
+                and authorization_ref.get("digest") == expected_digest
+                and item.get("capability") == authorization_record.get("capability")
+                and item.get("target_fingerprint")
+                == authorization_record.get("target_fingerprint")
+                and item.get("scope_fingerprint")
+                == authorization_record.get("scope_fingerprint")
+                and item.get("basis_fingerprint")
+                == authorization_record.get("basis_fingerprint")
+                and item.get("status") == authorization_record.get("status")
+                and item.get("runtime_eligible")
+                == authorization_record.get("runtime_eligible")
+            )
+            evaluation_matches_record = (
+                authorization_evaluation.get("required_capability")
+                == authorization_record.get("capability")
+                and authorization_evaluation.get("target_fingerprint")
+                == authorization_record.get("target_fingerprint")
+                and authorization_evaluation.get("scope_fingerprint")
+                == authorization_record.get("scope_fingerprint")
+                and authorization_evaluation.get("basis_fingerprint")
+                == authorization_record.get("basis_fingerprint")
+                and authorization_evaluation.get("selected_authorization_id")
+                == authorization_record.get("authorization_id")
+                and authorization_evaluation.get("side_effect_intent") == "dependent"
+                and authorization_evaluation.get("derived_result") == "allowed"
+                and authorization_evaluation.get("next_action") == "continue"
+                and authorization_evaluation.get("dependent_side_effect_count") == 1
+            )
+            return record_matches_effect and summary_matches_record and evaluation_matches_record
+
         local_change_granted = any(
-            isinstance(item, dict)
-            and item.get("capability") == "local_change"
-            and item.get("status") == "granted"
-            and item.get("runtime_eligible") is True
-            for item in authorization
+            matches_current_local_change(item) for item in authorization
         )
         if (
             primary_route == "change"
@@ -483,6 +600,13 @@ def run_cases(path: Path) -> dict[str, Any]:
     cases = catalog.get("cases")
     if not isinstance(cases, list) or not cases:
         raise ValueError("cases must be a non-empty array")
+    case_ids = [case.get("id") for case in cases if isinstance(case, dict)]
+    if (
+        len(case_ids) != len(cases)
+        or any(not isinstance(case_id, str) or not case_id for case_id in case_ids)
+        or len(case_ids) != len(set(case_ids))
+    ):
+        raise ValueError("case ids must be non-empty and unique")
     results: list[dict[str, Any]] = []
     for case in cases:
         record = copy.deepcopy(base_record)
