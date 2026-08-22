@@ -255,18 +255,6 @@
         {
           "if": {
             "properties": {
-              "result": {"const": "conditional"}
-            }
-          },
-          "then": {
-            "properties": {
-              "assumptions": {"minItems": 1}
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
               "result": {"const": "blocked"}
             }
           },
@@ -298,6 +286,9 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "fixture_only",
+        "routing_ref",
+        "routing_record",
         "gate_ref",
         "frontier_ref",
         "gate_record",
@@ -306,6 +297,13 @@
         "authorization_evaluation"
       ],
       "properties": {
+        "fixture_only": {"type": "boolean"},
+        "routing_ref": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
+        },
+        "routing_record": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/routingEnvelope"
+        },
         "gate_ref": {
           "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
         },
@@ -591,7 +589,8 @@
         "authorization",
         "verification",
         "blockers",
-        "next_action"
+        "next_action",
+        "next_action_kind"
       ],
       "properties": {
         "objective": {"$ref": "#/$defs/objective"},
@@ -637,7 +636,10 @@
           "uniqueItems": true,
           "items": {"type": "string", "minLength": 1}
         },
-        "next_action": {"type": ["string", "null"]}
+        "next_action": {"type": ["string", "null"]},
+        "next_action_kind": {
+          "enum": ["continue", "clarify", "reauthorize", "report", null]
+        }
       }
     }
   }

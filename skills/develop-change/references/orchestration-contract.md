@@ -51,18 +51,19 @@
 - `route_plan`은 canonical route 순서를 유지한다.
 - scope의 include/exclude와 verification의 passed/failed/not_run은 서로 겹치지 않는다.
 - handoff의 completed phase는 첫 route 시작 전에는 `null`, 그 뒤에는 route plan에 있으면서 primary route보다 뒤에 있지 않는다.
-- blocked 상태이거나 완료되지 않은 route가 남은 handoff는 비어 있지 않은 next action을 남긴다.
+- blocked 상태이거나 완료되지 않은 route가 남은 handoff는 비어 있지 않은 next action과 foundation gate에 맞는 `next_action_kind`를 남긴다.
 - planned capability ID는 `selected`나 `composed` skill ID로 기록하지 않는다.
-- 거절된 user-named 스킬에 활성 대체 후보가 없으면 fallback을 남기거나 resolution을 blocked로 둔다.
+- 거절된 user-named 스킬과 같은 responsibility의 활성 대체 후보가 없으면 fallback을 남기거나 resolution을 blocked로 둔다.
 - 같은 capability·target·scope·basis authorization binding에는 stale·withdrawn history를 제외한 current leaf가 하나만 있다.
-- change·deliver·operate·evolve 효과를 실행하거나 effect capability가 명시됐으면 current effect·scope와 exact foundation record/evaluation에 결박된 runtime-eligible current grant가 있어야 하며, 없으면 gate는 blocked여야 한다. future-only와 fixture-only grant는 runtime 효과에 쓸 수 없다.
-- foundation gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치하고, gate 결과와 frontier task·basis도 현재 최상위 상태와 일치한다. gate record는 current·non-historical frontier unit의 runtime disposition을 foundation 우선순위로 다시 집계한 결과와도 정확히 일치해야 한다.
-- provisional profile은 change side-effect checkpoint를 통과할 수 없다.
+- change·deliver·operate·evolve 효과에는 route-compatible capability와 current effect·scope에 exact-bound된 runtime-eligible current grant가 있어야 하며, 없으면 gate는 blocked여야 한다. read-only route의 capability는 `null`이고 future-only·fixture-only grant는 runtime 효과에 쓸 수 없다.
+- foundation routing·gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치한다. 전체 snapshot은 foundation semantic validator를 그대로 통과해야 하며 routing 결정, gate의 `work_remaining`, frontier 상태·disposition과 authorization lineage가 현재 orchestration 상태에 결박된다.
+- `conditional` gate 중 `assumption_effect: non_material`인 경우에만 근거와 검증 방법을 가진 assumption이 필요하다. 조사 중인 discoverable fact처럼 `assumption_effect: none`이면 assumption을 만들지 않는다.
+- provisional profile은 어떤 side-effect checkpoint도 통과할 수 없다.
 - handoff의 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
 
 효과 실행이나 handoff 재개 전에는 schema 검증과 semantic validator를 모두 통과해야 한다. validator 회귀 사례는 다음 명령으로 확인한다.
 
-`gate_ref.digest`는 foundation의 `phase1-foundation-gate-record-v1` canonical digest를 그대로 쓴다. `frontier_ref.digest`는 `develop-change-foundation-frontier-record-v1\n` domain prefix와 nested identity-ref digest를 제외한 canonical frontier JSON의 SHA-256이다.
+`routing_ref`, `gate_ref`, `frontier_ref`, authorization ref의 digest는 각각 foundation의 `phase1-foundation-*-record-v1` canonical digest를 그대로 쓴다.
 
 ```bash
 python3 skills/develop-change/scripts/validate_orchestration_record.py \

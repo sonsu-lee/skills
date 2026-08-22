@@ -8,12 +8,20 @@ import copy
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Any
 
 
+SCRIPT_ROOT = Path(__file__).resolve().parent
+if str(SCRIPT_ROOT) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_ROOT))
+
+from validate_foundation import validate_instance as validate_foundation_instance
+
+
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 7
+VALIDATOR_REVISION = 8
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
@@ -55,7 +63,6 @@ EFFECT_CAPABILITIES_BY_ROUTE = {
     },
 }
 SIDE_EFFECT_ROUTES = {"change", "deliver", "operate", "evolve"}
-HISTORICAL_FRONTIER_STATES = {"stale", "superseded"}
 
 
 def canonical_bytes(value: Any) -> bytes:
@@ -78,9 +85,10 @@ def record_digest_payload(value: Any) -> Any:
 
 
 FOUNDATION_RECORD_DOMAINS = {
+    "routing": b"phase1-foundation-routing-record-v1\n",
     "gate": b"phase1-foundation-gate-record-v1\n",
     "authorization": b"phase1-foundation-authorization-record-v1\n",
-    "frontier": b"develop-change-foundation-frontier-record-v1\n",
+    "frontier": b"phase1-foundation-frontier-record-v1\n",
 }
 
 
@@ -116,105 +124,6 @@ def current_scope_fingerprint(scope: dict[str, Any]) -> str:
         "exclude": scope.get("exclude"),
     }
     return hashlib.sha256(b"develop-change-scope-v1\n" + canonical_bytes(payload)).hexdigest()
-
-
-def gate_matches_frontier_aggregate(
-    gate: Any,
-    frontier: Any,
-    *,
-    provisional_profile: bool,
-) -> bool:
-    if not isinstance(gate, dict) or not isinstance(frontier, dict):
-        return False
-    units = frontier.get("units")
-    if not isinstance(units, list):
-        return False
-    current_units = [
-        unit
-        for unit in units
-        if isinstance(unit, dict)
-        and unit.get("state") not in HISTORICAL_FRONTIER_STATES
-        and unit.get("checkpoint_relevance") == "current"
-        and isinstance(unit.get("runtime_disposition"), dict)
-    ]
-    dispositions = [unit["runtime_disposition"] for unit in current_units]
-    blocker_rank = {
-        "missing_evidence": 1,
-        "missing_decision": 2,
-        "missing_authorization": 3,
-        "scope_expansion": 4,
-        "external_dependency": 5,
-    }
-    blocked = [item for item in dispositions if item.get("gate_result") == "blocked"]
-    if blocked:
-        selected = max(
-            blocked, key=lambda item: blocker_rank.get(item.get("blocker"), 0)
-        )
-        same_blocker = [
-            item for item in blocked if item.get("blocker") == selected.get("blocker")
-        ]
-        next_actions = {item.get("next_action") for item in same_blocker}
-        if len(next_actions) != 1:
-            return False
-        expected_result = "blocked"
-        expected_blocker = selected.get("blocker")
-        expected_action = selected.get("next_action")
-        expected_blocking_defer = any(
-            item.get("resolution_action") == "defer"
-            and item.get("defer_effect") == "blocks_dependent_scope"
-            and item.get("blocker") == expected_blocker
-            for item in same_blocker
-        )
-        if gate.get("work_remaining"):
-            expected_progress = "partial_block"
-        elif expected_action in {"clarify", "reauthorize"}:
-            expected_progress = "await_input"
-        else:
-            expected_progress = "terminal_blocked"
-    elif provisional_profile or any(
-        item.get("gate_result") == "conditional" for item in dispositions
-    ):
-        expected_result, expected_blocker, expected_action = (
-            "conditional",
-            "none",
-            "continue",
-        )
-        expected_progress, expected_blocking_defer = "continue", False
-    else:
-        expected_result, expected_blocker = "pass", "none"
-        expected_action = "continue" if gate.get("work_remaining") else None
-        expected_progress, expected_blocking_defer = "continue", False
-    expected_owner = "none"
-    if expected_blocker == "missing_evidence" and expected_action in {
-        "continue",
-        "clarify",
-    }:
-        expected_owner = "local" if expected_action == "continue" else "user"
-    expected_assumption = (
-        "non_material"
-        if expected_result == "conditional"
-        and any(unit.get("state") == "assumed" for unit in current_units)
-        else "none"
-    )
-    actual = (
-        gate.get("result"),
-        gate.get("blocker"),
-        gate.get("next_action"),
-        gate.get("progress"),
-        gate.get("blocking_defer"),
-        gate.get("missing_evidence_owner"),
-        gate.get("assumption_effect"),
-    )
-    expected = (
-        expected_result,
-        expected_blocker,
-        expected_action,
-        expected_progress,
-        expected_blocking_defer,
-        expected_owner,
-        expected_assumption,
-    )
-    return actual == expected
 
 
 def load_json(path: Path) -> Any:
@@ -412,6 +321,17 @@ def validate_record(
 
     gate = record.get("gate") if isinstance(record.get("gate"), dict) else {}
     gate_result = gate.get("result")
+    foundation_binding = (
+        record.get("foundation_binding")
+        if isinstance(record.get("foundation_binding"), dict)
+        else {}
+    )
+    gate_record = foundation_binding.get("gate_record")
+    assumption_effect = (
+        gate_record.get("assumption_effect")
+        if isinstance(gate_record, dict)
+        else None
+    )
     assumptions = gate.get("assumptions")
     assumptions_valid = (
         isinstance(assumptions, list)
@@ -428,11 +348,15 @@ def validate_record(
             for item in assumptions
         )
     )
-    if gate_result == "conditional" and not assumptions_valid:
+    if (
+        gate_result == "conditional"
+        and assumption_effect == "non_material"
+        and not assumptions_valid
+    ):
         add(
             "FND-GATE-002",
             "/gate/assumptions",
-            "conditional gate requires supported, verifiable assumptions",
+            "assumption-driven conditional gate requires supported assumptions",
         )
     if gate_result != "conditional" and assumptions:
         add(
@@ -452,14 +376,44 @@ def validate_record(
             "/handoff/next_action",
             "blocked or unfinished handoff requires a non-empty next_action",
         )
+    next_action_kind = handoff.get("next_action_kind")
+    if gate_result == "blocked":
+        foundation_action = (
+            gate_record.get("next_action") if isinstance(gate_record, dict) else None
+        )
+        expected_kind = (
+            foundation_action
+            if foundation_action in {"clarify", "reauthorize"}
+            else "report"
+        )
+        if next_action_kind != expected_kind:
+            add(
+                "HANDOFF-001",
+                "/handoff/next_action_kind",
+                "blocked handoff action must match the foundation gate action",
+            )
+    elif unfinished_plan and next_action_kind != "continue":
+        add(
+            "HANDOFF-001",
+            "/handoff/next_action_kind",
+            "unfinished handoff requires a continue action kind",
+        )
 
     profile = record.get("profile") if isinstance(record.get("profile"), dict) else {}
+    effect_binding = (
+        record.get("effect_binding")
+        if isinstance(record.get("effect_binding"), dict)
+        else {}
+    )
+    has_side_effect_intent = primary_route in SIDE_EFFECT_ROUTES or isinstance(
+        effect_binding.get("capability"), str
+    )
     if profile.get("confidence") == "provisional":
-        if primary_route == "change" and gate_result != "blocked":
+        if has_side_effect_intent and gate_result != "blocked":
             add(
                 "FND-PROFILE-004",
                 "/gate/result",
-                "provisional profile cannot cross the change side-effect checkpoint",
+                "provisional profile cannot cross a side-effect checkpoint",
             )
         elif gate_result == "pass":
             add(
@@ -549,23 +503,27 @@ def validate_record(
                 "planned capability cannot be selected as a skill: "
                 + ",".join(selected_planned_ids),
             )
-        rejected_user_named = any(
-            isinstance(item, dict)
+        rejected_user_responsibilities = {
+            item.get("responsibility")
+            for item in decisions
+            if isinstance(item, dict)
             and item.get("source") == "user_named"
             and item.get("decision") == "rejected"
-            for item in decisions
+        }
+        active_responsibilities = set(active_by_responsibility)
+        unrecovered_responsibilities = (
+            rejected_user_responsibilities - active_responsibilities
         )
         fallback = resolution.get("fallback")
         if (
-            rejected_user_named
-            and not active_skill_ids
+            unrecovered_responsibilities
             and resolution.get("status") != "blocked"
             and not (isinstance(fallback, str) and fallback)
         ):
             add(
                 "RESOLVE-005",
                 "/skill_resolution/fallback",
-                "rejected user-named skill requires an active replacement, fallback, or blocked resolution",
+                "rejected user-named responsibility requires a matching replacement, fallback, or blocker",
             )
 
     scope = record.get("scope") if isinstance(record.get("scope"), dict) else {}
@@ -589,18 +547,19 @@ def validate_record(
             "verification result sets must be mutually exclusive",
         )
 
-    effect_binding = (
-        record.get("effect_binding")
-        if isinstance(record.get("effect_binding"), dict)
-        else {}
-    )
-    foundation_binding = (
-        record.get("foundation_binding")
-        if isinstance(record.get("foundation_binding"), dict)
-        else {}
-    )
-    gate_record = foundation_binding.get("gate_record")
+    routing_record = foundation_binding.get("routing_record")
     frontier_record = foundation_binding.get("frontier_record")
+    if not identity_ref_matches(
+        foundation_binding.get("routing_ref"),
+        routing_record,
+        kind="routing",
+        id_field="routing_id",
+    ):
+        add(
+            "FND-ROUTE-001",
+            "/foundation_binding/routing_ref",
+            "routing_ref must identify the current foundation routing record",
+        )
     if not identity_ref_matches(
         foundation_binding.get("gate_ref"),
         gate_record,
@@ -637,16 +596,71 @@ def validate_record(
             "/foundation_binding/frontier_record",
             "frontier record must match the current task and basis",
         )
-    if not gate_matches_frontier_aggregate(
-        gate_record,
-        frontier_record,
-        provisional_profile=profile.get("confidence") == "provisional",
+    if not (
+        isinstance(routing_record, dict)
+        and routing_record.get("logical_task_id")
+        == effect_binding.get("logical_task_id")
+        and routing_record.get("basis_fingerprint")
+        == effect_binding.get("basis_fingerprint")
+        and routing_record.get("primary_route") == primary_route
+        and routing_record.get("route_plan") == route_plan
+        and routing_record.get("profile") == profile.get("level")
+        and routing_record.get("profile_status") == profile.get("confidence")
     ):
         add(
-            "FND-GATE-002",
-            "/foundation_binding/gate_record",
-            "foundation gate must equal the current frontier aggregate",
+            "FND-ROUTE-001",
+            "/foundation_binding/routing_record",
+            "foundation routing record must match the current orchestration decision",
         )
+    if isinstance(gate_record, dict) and isinstance(unfinished_plan, bool):
+        if gate_record.get("work_remaining") is not unfinished_plan:
+            add(
+                "FND-GATE-002",
+                "/foundation_binding/gate_record/work_remaining",
+                "foundation work_remaining must equal route completion state",
+            )
+
+    fixture_only = foundation_binding.get("fixture_only")
+    authorization_record = foundation_binding.get("authorization_record")
+    authorization_evaluation = foundation_binding.get("authorization_evaluation")
+    if (
+        isinstance(fixture_only, bool)
+        and isinstance(routing_record, dict)
+        and isinstance(gate_record, dict)
+        and isinstance(frontier_record, dict)
+    ):
+        foundation_envelope = {
+            "schema_version": "phase1-foundation-draft-v1",
+            "record_kind": (
+                "foundation_contract_fixture"
+                if fixture_only
+                else "foundation_contract_record"
+            ),
+            "candidate_only": True,
+            "fixture_only": fixture_only,
+            "runtime_activation": False,
+            "routing": routing_record,
+            "gate": gate_record,
+            "frontier": frontier_record,
+            "authorizations": (
+                [authorization_record]
+                if isinstance(authorization_record, dict)
+                else []
+            ),
+            "authorization_evaluations": (
+                [authorization_evaluation]
+                if isinstance(authorization_evaluation, dict)
+                else []
+            ),
+        }
+        for foundation_finding in validate_foundation_instance(
+            foundation_envelope, load_json(FOUNDATION_SCHEMA_PATH)
+        ):
+            add(
+                foundation_finding.rule_id,
+                f"/foundation_binding{foundation_finding.location}",
+                foundation_finding.message,
+            )
 
     authorization = record.get("authorization")
     if isinstance(authorization, list):
@@ -670,10 +684,6 @@ def validate_record(
                 "/authorization",
                 "authorization binding must have one current lineage leaf",
             )
-        authorization_record = foundation_binding.get("authorization_record")
-        authorization_evaluation = foundation_binding.get(
-            "authorization_evaluation"
-        )
         expected_scope_fingerprint = current_scope_fingerprint(scope)
 
         def matches_current_effect(item: Any) -> bool:
@@ -745,7 +755,13 @@ def validate_record(
         )
         allowed_effect_capabilities = EFFECT_CAPABILITIES_BY_ROUTE.get(primary_route)
         effect_capability = effect_binding.get("capability")
-        if (
+        if primary_route not in SIDE_EFFECT_ROUTES and effect_capability is not None:
+            add(
+                "FND-AUTH-005",
+                "/effect_binding/capability",
+                "read-only route must not carry an effect capability",
+            )
+        elif (
             allowed_effect_capabilities is not None
             and effect_capability not in allowed_effect_capabilities
         ):
@@ -762,10 +778,7 @@ def validate_record(
                 "/effect_binding/capability",
                 "side-effect route requires an explicit capability",
             )
-        requires_effect_grant = (
-            primary_route in SIDE_EFFECT_ROUTES
-            or isinstance(effect_capability, str)
-        )
+        requires_effect_grant = primary_route in SIDE_EFFECT_ROUTES
         if (
             requires_effect_grant
             and gate_result != "blocked"
