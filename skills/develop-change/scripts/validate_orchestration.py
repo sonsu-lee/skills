@@ -352,6 +352,16 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
         or any(route not in ROUTES for route in route_plan)
     ):
         findings.add("HANDOFF-001")
+    completed_phase = record.get("completed_phase")
+    if isinstance(route_plan, list) and completed_phase in route_plan:
+        completed_index = route_plan.index(completed_phase)
+        expected_route = (
+            completed_phase
+            if completed_index == len(route_plan) - 1
+            else route_plan[completed_index + 1]
+        )
+        if primary_route != expected_route:
+            findings.add("HANDOFF-001")
     if not isinstance(record.get("decisions"), list):
         findings.add("HANDOFF-001")
     if not isinstance(record.get("artifacts"), list):
@@ -393,8 +403,8 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
         "frontier_ref",
         "gate_record",
         "frontier_record",
-        "authorization_record",
-        "authorization_evaluation",
+        "authorization_records",
+        "authorization_evaluations",
     }:
         findings.add("HANDOFF-001")
     else:
@@ -411,9 +421,9 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
         for field in ("routing_record", "gate_record", "frontier_record"):
             if not isinstance(foundation_binding[field], dict):
                 findings.add("HANDOFF-001")
-        for field in ("authorization_record", "authorization_evaluation"):
-            if foundation_binding[field] is not None and not isinstance(
-                foundation_binding[field], dict
+        for field in ("authorization_records", "authorization_evaluations"):
+            if not isinstance(foundation_binding[field], list) or not all(
+                isinstance(item, dict) for item in foundation_binding[field]
             ):
                 findings.add("HANDOFF-001")
 

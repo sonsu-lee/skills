@@ -502,8 +502,8 @@
             "clarification_view_history": [],
             "clarification_view": null
           },
-          "authorization_record": null,
-          "authorization_evaluation": null
+          "authorization_records": [],
+          "authorization_evaluations": []
         },
         "skill_resolution": {
           "status": "pass",
@@ -602,8 +602,8 @@
             "clarification_view_history": [],
             "clarification_view": null
           },
-          "authorization_record": null,
-          "authorization_evaluation": null
+          "authorization_records": [],
+          "authorization_evaluations": []
         },
         "skill_resolution": {
           "status": "pass",
@@ -702,8 +702,8 @@
             "clarification_view_history": [],
             "clarification_view": null
           },
-          "authorization_record": null,
-          "authorization_evaluation": null
+          "authorization_records": [],
+          "authorization_evaluations": []
         },
         "skill_resolution": {
           "status": "pass",
@@ -812,8 +812,8 @@
             "clarification_view_history": [],
             "clarification_view": null
           },
-          "authorization_record": null,
-          "authorization_evaluation": null
+          "authorization_records": [],
+          "authorization_evaluations": []
         },
         "skill_resolution": {
           "status": "pass",
