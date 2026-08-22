@@ -66,3 +66,5 @@ Skill resolver는 현재 작업에 필요한 전문 지침을 선택한다. 스�
 - `security-operations-practices`
 
 실제 후보가 등록되기 전에는 `skill_id`를 만들거나 `selected`로 기록하지 않는다 (`RESOLVE-007`).
+
+사용자가 명시한 후보를 `rejected`했고 대신 활성화한 `selected`·`composed` 후보가 없으면, 비어 있지 않은 `fallback`을 남기거나 resolution을 `blocked`로 둔다.

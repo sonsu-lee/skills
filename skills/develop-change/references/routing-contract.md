@@ -38,6 +38,8 @@ Routing은 방향만 정한다. 파일 변경, commit, push 같은 권한은 주
 
 보통은 `diagnose → change → verify`, `design → change → verify → deliver`처럼 흐른다. 이 순서는 자동 권한 사슬이 아니다. 예를 들어 진단을 마쳤다고 수정해도 되는 것은 아니고, 검증을 마쳤다고 push해도 되는 것도 아니다 (`FND-ROUTE-002`).
 
+`route_plan`은 위 표의 단계 순서를 유지하면서 필요 없는 route만 생략한다. 완료한 단계로 되돌아가는 순서나 `verify → change`처럼 역전된 계획은 새 계획과 handoff로 다시 기록한다.
+
 ## Profile: 얼마나 조심할 일인가
 
 작은 일을 크게 만들지 말고, 큰 일을 작은 일처럼 취급하지도 않는다.

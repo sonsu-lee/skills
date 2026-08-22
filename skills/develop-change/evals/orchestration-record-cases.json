@@ -53,7 +53,21 @@
       "planned_capabilities": [],
       "fallback": null
     },
-    "authorization": [],
+    "authorization": [
+      {
+        "capability": "local_change",
+        "authorization_ref": {
+          "id": "authorization.local-change.fixture",
+          "revision": 1,
+          "digest": "3333333333333333333333333333333333333333333333333333333333333333"
+        },
+        "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+        "scope_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+        "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+        "status": "granted",
+        "runtime_eligible": true
+      }
+    ],
     "verification": {
       "passed": [],
       "failed": [],
@@ -106,7 +120,21 @@
         "planned_capabilities": [],
         "fallback": null
       },
-      "authorization": [],
+      "authorization": [
+        {
+          "capability": "local_change",
+          "authorization_ref": {
+            "id": "authorization.local-change.fixture",
+            "revision": 1,
+            "digest": "3333333333333333333333333333333333333333333333333333333333333333"
+          },
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "scope_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+          "status": "granted",
+          "runtime_eligible": true
+        }
+      ],
       "verification": {
         "passed": [],
         "failed": [],
@@ -309,6 +337,118 @@
         {"op": "replace", "path": "/handoff/completed_phase", "value": "deliver"}
       ],
       "expected_rules": ["HANDOFF-001"]
+    },
+    {
+      "id": "route-plan-follows-canonical-order",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/route_plan",
+          "value": ["understand", "design", "verify", "change"]
+        }
+      ],
+      "expected_rules": ["ORCH-002"]
+    },
+    {
+      "id": "initial-handoff-allows-no-completed-phase",
+      "mutations": [
+        {"op": "replace", "path": "/primary_route", "value": "understand"},
+        {"op": "replace", "path": "/handoff/completed_phase", "value": null},
+        {
+          "op": "replace",
+          "path": "/skill_resolution/decisions/0/applies_to_routes",
+          "value": ["understand", "change"]
+        },
+        {
+          "op": "replace",
+          "path": "/handoff/skill_resolution/decisions/0/applies_to_routes",
+          "value": ["understand", "change"]
+        }
+      ],
+      "expected_rules": []
+    },
+    {
+      "id": "null-completed-phase-is-only-initial",
+      "mutations": [
+        {"op": "replace", "path": "/handoff/completed_phase", "value": null}
+      ],
+      "expected_rules": ["HANDOFF-001"]
+    },
+    {
+      "id": "planned-capability-is-not-an-active-skill",
+      "mutations": [
+        {
+          "op": "append",
+          "path": "/skill_resolution/planned_capabilities",
+          "value": {"capability_id": "testing-quality-practices", "status": "planned"}
+        },
+        {
+          "op": "append",
+          "path": "/handoff/skill_resolution/planned_capabilities",
+          "value": {"capability_id": "testing-quality-practices", "status": "planned"}
+        },
+        {
+          "op": "replace",
+          "path": "/skill_resolution/decisions/0/skill_id",
+          "value": "testing-quality-practices"
+        },
+        {
+          "op": "replace",
+          "path": "/handoff/skill_resolution/decisions/0/skill_id",
+          "value": "testing-quality-practices"
+        }
+      ],
+      "expected_rules": ["RESOLVE-007"]
+    },
+    {
+      "id": "rejected-user-skill-needs-a-recovery-path",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/skill_resolution/decisions",
+          "value": [
+            {
+              "skill_id": "missing-user-skill",
+              "source": "user_named",
+              "decision": "rejected",
+              "reason": "현재 환경에서 사용할 수 없음",
+              "responsibility": "workflow",
+              "specificity": 5,
+              "compatible": false,
+              "required_tools": [],
+              "applies_to_routes": ["change"],
+              "effect_boundary": "none"
+            }
+          ]
+        },
+        {
+          "op": "replace",
+          "path": "/handoff/skill_resolution/decisions",
+          "value": [
+            {
+              "skill_id": "missing-user-skill",
+              "source": "user_named",
+              "decision": "rejected",
+              "reason": "현재 환경에서 사용할 수 없음",
+              "responsibility": "workflow",
+              "specificity": 5,
+              "compatible": false,
+              "required_tools": [],
+              "applies_to_routes": ["change"],
+              "effect_boundary": "none"
+            }
+          ]
+        }
+      ],
+      "expected_rules": ["RESOLVE-005"]
+    },
+    {
+      "id": "change-route-requires-local-change-grant",
+      "mutations": [
+        {"op": "remove", "path": "/authorization/0"},
+        {"op": "remove", "path": "/handoff/authorization/0"}
+      ],
+      "expected_rules": ["FND-AUTH-005"]
     },
     {
       "id": "blocked-handoff-requires-next-action",

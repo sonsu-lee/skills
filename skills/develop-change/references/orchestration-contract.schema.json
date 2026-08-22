@@ -514,7 +514,12 @@
       "properties": {
         "objective": {"$ref": "#/$defs/objective"},
         "scope": {"$ref": "#/$defs/scope"},
-        "completed_phase": {"$ref": "#/$defs/route"},
+        "completed_phase": {
+          "oneOf": [
+            {"$ref": "#/$defs/route"},
+            {"type": "null"}
+          ]
+        },
         "decisions": {
           "type": "array",
           "items": {"$ref": "#/$defs/decision"}

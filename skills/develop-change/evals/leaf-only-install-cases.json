@@ -31,7 +31,7 @@
     "documents": [
       {
         "path": "authorization-contract.md",
-        "sha256": "3c24d9efd871c375b171a4b3542dd7e63ec7740a204005f38354937b003f4284"
+        "sha256": "62060f8bb70cd6999825c3dce086037efd2cac2f8cc9443d397bfe92bdb63869"
       },
       {
         "path": "gate-contract.md",
@@ -39,7 +39,7 @@
       },
       {
         "path": "routing-contract.md",
-        "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d"
+        "sha256": "06662f7d208f3e09680b1af988fe7b2fb50b6e69befbf94b10649c6712e7211d"
       }
     ]
   },

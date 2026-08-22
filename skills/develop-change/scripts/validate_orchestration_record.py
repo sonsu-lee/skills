@@ -12,7 +12,7 @@ from typing import Any
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 3
+VALIDATOR_REVISION = 4
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
@@ -26,6 +26,19 @@ HANDOFF_SNAPSHOT_FIELDS = (
     "authorization",
     "verification",
 )
+ROUTE_SEQUENCE = (
+    "understand",
+    "shape",
+    "decide",
+    "design",
+    "diagnose",
+    "change",
+    "verify",
+    "deliver",
+    "operate",
+    "evolve",
+)
+ROUTE_POSITION = {route: index for index, route in enumerate(ROUTE_SEQUENCE)}
 
 
 def load_json(path: Path) -> Any:
@@ -193,19 +206,30 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
     route_plan = record.get("route_plan")
     if not isinstance(route_plan, list) or primary_route not in route_plan:
         add("ORCH-002", "/route_plan", "primary_route must be present in route_plan")
+    elif any(route not in ROUTE_POSITION for route in route_plan) or any(
+        ROUTE_POSITION[earlier] >= ROUTE_POSITION[later]
+        for earlier, later in zip(route_plan, route_plan[1:])
+    ):
+        add("ORCH-002", "/route_plan", "route_plan must follow canonical route order")
 
     handoff = record.get("handoff") if isinstance(record.get("handoff"), dict) else {}
     completed_phase = handoff.get("completed_phase")
-    if (
-        not isinstance(route_plan, list)
-        or primary_route not in route_plan
-        or completed_phase not in route_plan
-        or route_plan.index(completed_phase) > route_plan.index(primary_route)
-    ):
+    completed_phase_valid = (
+        isinstance(route_plan, list)
+        and primary_route in route_plan
+        and (
+            (completed_phase is None and route_plan.index(primary_route) == 0)
+            or (
+                completed_phase in route_plan
+                and route_plan.index(completed_phase) <= route_plan.index(primary_route)
+            )
+        )
+    )
+    if not completed_phase_valid:
         add(
             "HANDOFF-001",
             "/handoff/completed_phase",
-            "completed_phase must be planned and not later than primary_route",
+            "completed_phase must be null before the first route or a planned route not later than primary_route",
         )
 
     gate = record.get("gate") if isinstance(record.get("gate"), dict) else {}
@@ -284,12 +308,15 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
                 f"skill_id must be unique: {','.join(str(item) for item in duplicate_ids)}",
             )
         active_by_responsibility: dict[Any, list[dict[str, Any]]] = {}
+        active_skill_ids: set[str] = set()
         for item in decisions:
             if not isinstance(item, dict) or item.get("decision") not in {
                 "selected",
                 "composed",
             }:
                 continue
+            if isinstance(item.get("skill_id"), str):
+                active_skill_ids.add(item["skill_id"])
             active_by_responsibility.setdefault(item.get("responsibility"), []).append(item)
             if primary_route not in string_set(item.get("applies_to_routes")):
                 add(
@@ -304,6 +331,38 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
                     "/skill_resolution/decisions",
                     f"multiple active skills for {responsibility!r} must be composed",
                 )
+        planned_capabilities = resolution.get("planned_capabilities")
+        planned_ids = {
+            item.get("capability_id")
+            for item in planned_capabilities
+            if isinstance(item, dict) and isinstance(item.get("capability_id"), str)
+        } if isinstance(planned_capabilities, list) else set()
+        selected_planned_ids = sorted(active_skill_ids & planned_ids)
+        if selected_planned_ids:
+            add(
+                "RESOLVE-007",
+                "/skill_resolution/decisions",
+                "planned capability cannot be selected as a skill: "
+                + ",".join(selected_planned_ids),
+            )
+        rejected_user_named = any(
+            isinstance(item, dict)
+            and item.get("source") == "user_named"
+            and item.get("decision") == "rejected"
+            for item in decisions
+        )
+        fallback = resolution.get("fallback")
+        if (
+            rejected_user_named
+            and not active_skill_ids
+            and resolution.get("status") != "blocked"
+            and not (isinstance(fallback, str) and fallback)
+        ):
+            add(
+                "RESOLVE-005",
+                "/skill_resolution/fallback",
+                "rejected user-named skill requires an active replacement, fallback, or blocked resolution",
+            )
 
     scope = record.get("scope") if isinstance(record.get("scope"), dict) else {}
     included = string_set(scope.get("include"))
@@ -345,6 +404,23 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
                 "FND-AUTH-001",
                 "/authorization",
                 "authorization binding must have one current lineage leaf",
+            )
+        local_change_granted = any(
+            isinstance(item, dict)
+            and item.get("capability") == "local_change"
+            and item.get("status") == "granted"
+            and item.get("runtime_eligible") is True
+            for item in authorization
+        )
+        if (
+            primary_route == "change"
+            and gate_result != "blocked"
+            and not local_change_granted
+        ):
+            add(
+                "FND-AUTH-005",
+                "/authorization",
+                "change route requires a current runtime-eligible local_change grant or a blocked gate",
             )
 
     for field in HANDOFF_SNAPSHOT_FIELDS:

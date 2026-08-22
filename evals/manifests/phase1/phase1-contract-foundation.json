@@ -1,12 +1,12 @@
 {
   "schema_version": "phase1-slice-result-v1",
-  "manifest_id": "f3340eb5aa6c1b6d1e1873684cd75d372ebb70d6dcae88e3710e8a0b27129523",
+  "manifest_id": "21abf20c1b5653c487714b539036acd879f2a3e14d71b9ad4efb9c2df2258f8b",
   "slice_id": "phase1-contract-foundation",
   "predecessor_slice_result_manifest_id": null,
   "artifacts": [
     {
       "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-      "sha256": "0f86b086a5b1c727ea74d1401d4b984e5b4d2ada37243580c6c62ec13e59f951",
+      "sha256": "4cd58bd97a5def48c03f5c738e8713ae877434cbe784ab40256cc762af5d6ef8",
       "role": "validation_report"
     },
     {
@@ -21,12 +21,12 @@
     },
     {
       "path": "skills/develop-change/evals/leaf-only-install-cases.json",
-      "sha256": "f5d3bef301d8567b15802d01e16c04b967ab9f1772cfe9f19f72a12e64371e62",
+      "sha256": "a06fe8592ed1f1bb0865d40e009d7c864816df25b9d7feb4f0c09f78b4a69379",
       "role": "isolation_fixture_catalog"
     },
     {
       "path": "skills/develop-change/references/authorization-contract.md",
-      "sha256": "3c24d9efd871c375b171a4b3542dd7e63ec7740a204005f38354937b003f4284",
+      "sha256": "62060f8bb70cd6999825c3dce086037efd2cac2f8cc9443d397bfe92bdb63869",
       "role": "contract_reference"
     },
     {
@@ -41,7 +41,7 @@
     },
     {
       "path": "skills/develop-change/references/routing-contract.md",
-      "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d",
+      "sha256": "06662f7d208f3e09680b1af988fe7b2fb50b6e69befbf94b10649c6712e7211d",
       "role": "contract_reference"
     },
     {
@@ -91,7 +91,7 @@
   ],
   "fixture_report": {
     "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-    "sha256": "0f86b086a5b1c727ea74d1401d4b984e5b4d2ada37243580c6c62ec13e59f951"
+    "sha256": "4cd58bd97a5def48c03f5c738e8713ae877434cbe784ab40256cc762af5d6ef8"
   },
   "validator": {
     "id": "phase1-contract-foundation-validator",

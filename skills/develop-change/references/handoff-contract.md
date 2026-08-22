@@ -10,7 +10,7 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 | --- | --- |
 | `objective` | 사용자가 기대하는 결과와 종료 지점 |
 | `scope` | 포함·제외 대상과 현재 변경 경계 |
-| `completed_phase` | 마지막으로 완료한 route |
+| `completed_phase` | 마지막으로 완료한 route. 첫 route도 끝나지 않았으면 `null` |
 | `decisions` | 확정된 중요한 선택, 근거와 재검토 조건 |
 | `artifacts` | 생성·변경한 파일, 문서, commit 또는 PR의 식별자 |
 | `profile` | 현재 direct/bounded/architectural level과 confirmed/provisional 상태 |
@@ -26,6 +26,7 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 ## 갱신 규칙
 
 - phase가 끝나거나 scope, decision, authorization, skill resolution이 바뀌면 successor를 만든다 (`HANDOFF-001`).
+- `completed_phase: null`은 계획의 첫 route를 시작했지만 아직 완료하지 않은 상태에서만 쓴다 (`HANDOFF-001`).
 - 오래된 grant, 해결된 blocker와 폐기된 artifact를 현재 값처럼 남기지 않는다 (`HANDOFF-002`).
 - 경로·명령·PR URL처럼 재개에 필요한 식별자는 정확히 남긴다 (`HANDOFF-003`).
 - 검증하지 않은 내용을 완료로 표현하지 않는다 (`HANDOFF-004`).

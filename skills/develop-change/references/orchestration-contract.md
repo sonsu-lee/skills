@@ -47,10 +47,14 @@
 - `skill_resolution.decisions`의 `skill_id`는 한 번만 나타난다.
 - 같은 responsibility의 활성 스킬은 모두 `composed`로 명시하지 않는 한 하나만 `selected`한다.
 - `selected`와 `composed` 스킬은 현재 `primary_route`를 적용 범위에 포함한다.
+- `route_plan`은 canonical route 순서를 유지한다.
 - scope의 include/exclude와 verification의 passed/failed/not_run은 서로 겹치지 않는다.
-- handoff의 completed phase는 route plan에 있고 primary route보다 뒤에 있지 않는다.
+- handoff의 completed phase는 첫 route 시작 전에는 `null`, 그 뒤에는 route plan에 있으면서 primary route보다 뒤에 있지 않는다.
 - blocked handoff는 비어 있지 않은 next action을 남긴다.
+- planned capability ID는 `selected`나 `composed` skill ID로 기록하지 않는다.
+- 거절된 user-named 스킬에 활성 대체 후보가 없으면 fallback을 남기거나 resolution을 blocked로 둔다.
 - 같은 capability·target·scope·basis authorization binding에는 current leaf가 하나만 있다.
+- change route를 실행하려면 runtime-eligible `local_change` grant가 있어야 하며, 없으면 gate는 blocked여야 한다.
 - handoff의 objective, scope, decisions, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
 
 효과 실행이나 handoff 재개 전에는 schema 검증과 semantic validator를 모두 통과해야 한다. validator 회귀 사례는 다음 명령으로 확인한다.

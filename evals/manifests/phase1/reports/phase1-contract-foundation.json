@@ -1100,11 +1100,11 @@
       "supported": true
     },
     "contract_bundle": {
-      "bundle_digest": "8e7475855d9d03e3382d2a35415b846ae4576caf350d2d400f9015196eb58953",
+      "bundle_digest": "010ba86520403ac527341d568217ade19dacf965c74d8b1f0680fbc4c666caca",
       "documents": [
         {
           "path": "authorization-contract.md",
-          "sha256": "3c24d9efd871c375b171a4b3542dd7e63ec7740a204005f38354937b003f4284"
+          "sha256": "62060f8bb70cd6999825c3dce086037efd2cac2f8cc9443d397bfe92bdb63869"
         },
         {
           "path": "gate-contract.md",
@@ -1112,7 +1112,7 @@
         },
         {
           "path": "routing-contract.md",
-          "sha256": "6a43093d6582e46fe522b547ee0abb90251fd214295b9fb5f1b945a39c68463d"
+          "sha256": "06662f7d208f3e09680b1af988fe7b2fb50b6e69befbf94b10649c6712e7211d"
         }
       ],
       "schema": {
@@ -1305,8 +1305,8 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "eea9f303d6a1b38504da26a964b58f4aef7ad2d4a7b11b4573f5e0c4e4af7d14",
-    "before_digest": "eea9f303d6a1b38504da26a964b58f4aef7ad2d4a7b11b4573f5e0c4e4af7d14",
+    "after_digest": "162e8dbbb9c168c8ef96988e65b3dfc38ad6fcc2f044e5778fbe7e84b479b660",
+    "before_digest": "162e8dbbb9c168c8ef96988e65b3dfc38ad6fcc2f044e5778fbe7e84b479b660",
     "binding": {
       "component_path_binding_digest": "db0fd53f88e694db0b3e6e0f2c6d7fcf11199170d8e2e3ab4bfd51f60ca0b650",
       "hook_binding": "exact_codex_home_hooks_json",
@@ -1324,13 +1324,13 @@
     },
     "components": [
       {
-        "digest": "8d78a5aa210e4958b950d5a52eefba43be8290aca7218967d8a7411720a538ee",
+        "digest": "5e75a0fd7048e3d283b48241a951ba008c9c7999c8db5a3ae9412f225f5928f1",
         "entry_count": 232,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "7b7857527033b42280ea86e135acae96ec6800ca6f0b4dfbd5970b48bb9fe50d",
+        "digest": "53aca450671bb99676c564373e9558a79bab96f4dff9b48606604a612850695f",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"
@@ -1356,14 +1356,14 @@
     ],
     "effective_skill_catalog": {
       "after_count": 39,
-      "after_digest": "2c9bb9a79035cf6df0c3d7b8b17f0e84e016b7a1bc355c13266bac6496a479b3",
+      "after_digest": "26bf2289b274339444708acd9ad096b89fa8559774682afd2c1ae4dd55061ee4",
       "before_count": 39,
-      "before_digest": "2c9bb9a79035cf6df0c3d7b8b17f0e84e016b7a1bc355c13266bac6496a479b3",
+      "before_digest": "26bf2289b274339444708acd9ad096b89fa8559774682afd2c1ae4dd55061ee4",
       "candidate_source_isolation": {
         "candidate_alias_count": 0,
         "catalog_record_count": 39,
         "descendant_symlink_count": 0,
-        "regular_descendant_count": 447,
+        "regular_descendant_count": 448,
         "resolved_source_root_count": 61,
         "verified": true
       },
@@ -1379,9 +1379,9 @@
     "equal": true,
     "installed_plugin_inventory": {
       "after_count": 13,
-      "after_digest": "75d7ade348f250f98586952599467179c57584dbdbdffc0b1687df535186e245",
+      "after_digest": "b54eed1a245edf2dd150c0afa0c1c41f1e75405b0a55cd0c9d7f0c93f9880e25",
       "before_count": 13,
-      "before_digest": "75d7ade348f250f98586952599467179c57584dbdbdffc0b1687df535186e245",
+      "before_digest": "b54eed1a245edf2dd150c0afa0c1c41f1e75405b0a55cd0c9d7f0c93f9880e25",
       "coverage": "installed_plugins_only",
       "equal": true,
       "observer_kind": "sandboxed_read_only_active_inventory",
