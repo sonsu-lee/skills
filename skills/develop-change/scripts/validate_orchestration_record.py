@@ -21,7 +21,7 @@ from validate_foundation import validate_instance as validate_foundation_instanc
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 8
+VALIDATOR_REVISION = 9
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
@@ -61,6 +61,8 @@ EFFECT_CAPABILITIES_BY_ROUTE = {
         "push",
         "pr_create",
     },
+    "operate": {"external_write"},
+    "evolve": {"local_change"},
 }
 SIDE_EFFECT_ROUTES = {"change", "deliver", "operate", "evolve"}
 
@@ -301,22 +303,22 @@ def validate_record(
 
     handoff = record.get("handoff") if isinstance(record.get("handoff"), dict) else {}
     completed_phase = handoff.get("completed_phase")
-    completed_phase_valid = (
-        isinstance(route_plan, list)
-        and primary_route in route_plan
-        and (
-            (completed_phase is None and route_plan.index(primary_route) == 0)
-            or (
-                completed_phase in route_plan
-                and route_plan.index(completed_phase) <= route_plan.index(primary_route)
+    completed_phase_valid = False
+    if isinstance(route_plan, list) and primary_route in route_plan:
+        if completed_phase is None:
+            completed_phase_valid = route_plan.index(primary_route) == 0
+        elif completed_phase in route_plan:
+            completed_index = route_plan.index(completed_phase)
+            completed_phase_valid = (
+                primary_route == completed_phase
+                if completed_index == len(route_plan) - 1
+                else primary_route == route_plan[completed_index + 1]
             )
-        )
-    )
     if not completed_phase_valid:
         add(
             "HANDOFF-001",
             "/handoff/completed_phase",
-            "completed_phase must be null before the first route or a planned route not later than primary_route",
+            "primary_route must be the first route, the route after completed_phase, or the completed terminal route",
         )
 
     gate = record.get("gate") if isinstance(record.get("gate"), dict) else {}
@@ -327,6 +329,16 @@ def validate_record(
         else {}
     )
     gate_record = foundation_binding.get("gate_record")
+    foundation_blocker = (
+        gate_record.get("blocker") if isinstance(gate_record, dict) else None
+    )
+    expected_blockers = [] if foundation_blocker == "none" else [foundation_blocker]
+    if gate.get("blockers") != expected_blockers:
+        add(
+            "FND-GATE-002",
+            "/gate/blockers",
+            "top-level blockers must be the exact foundation gate blocker projection",
+        )
     assumption_effect = (
         gate_record.get("assumption_effect")
         if isinstance(gate_record, dict)
@@ -363,6 +375,12 @@ def validate_record(
             "FND-GATE-002",
             "/gate/assumptions",
             "assumptions are only valid for a conditional gate",
+        )
+    if gate_result == "conditional" and assumption_effect != "non_material" and assumptions:
+        add(
+            "FND-GATE-002",
+            "/gate/assumptions",
+            "conditional gate without assumption effect must not carry assumptions",
         )
     unfinished_plan = completed_phase_valid and (
         completed_phase is None
@@ -621,8 +639,8 @@ def validate_record(
             )
 
     fixture_only = foundation_binding.get("fixture_only")
-    authorization_record = foundation_binding.get("authorization_record")
-    authorization_evaluation = foundation_binding.get("authorization_evaluation")
+    authorization_records = foundation_binding.get("authorization_records")
+    authorization_evaluations = foundation_binding.get("authorization_evaluations")
     if (
         isinstance(fixture_only, bool)
         and isinstance(routing_record, dict)
@@ -643,13 +661,13 @@ def validate_record(
             "gate": gate_record,
             "frontier": frontier_record,
             "authorizations": (
-                [authorization_record]
-                if isinstance(authorization_record, dict)
+                authorization_records
+                if isinstance(authorization_records, list)
                 else []
             ),
             "authorization_evaluations": (
-                [authorization_evaluation]
-                if isinstance(authorization_evaluation, dict)
+                authorization_evaluations
+                if isinstance(authorization_evaluations, list)
                 else []
             ),
         }
@@ -687,68 +705,78 @@ def validate_record(
         expected_scope_fingerprint = current_scope_fingerprint(scope)
 
         def matches_current_effect(item: Any) -> bool:
-            if not (
-                isinstance(item, dict)
-                and isinstance(authorization_record, dict)
-                and isinstance(authorization_evaluation, dict)
-            ):
+            if not isinstance(item, dict) or not isinstance(
+                authorization_records, list
+            ) or not isinstance(authorization_evaluations, list):
                 return False
             authorization_ref = item.get("authorization_ref")
-            expected_digest = authorization_record_digest(authorization_record)
-            record_matches_effect = (
-                authorization_record.get("logical_task_id")
-                == effect_binding.get("logical_task_id")
-                and authorization_record.get("capability")
-                == effect_binding.get("capability")
-                and authorization_record.get("target_fingerprint")
-                == effect_binding.get("target_fingerprint")
-                and authorization_record.get("scope_fingerprint")
-                == expected_scope_fingerprint
-                and authorization_record.get("basis_fingerprint")
-                == effect_binding.get("basis_fingerprint")
-                and authorization_record.get("status") == "granted"
-                and authorization_record.get("runtime_eligible") is True
-                and authorization_record.get("future_only") is False
-                and (
-                    allow_fixture_authorization
-                    or authorization_record.get("fixture_only") is False
+            for authorization_record in authorization_records:
+                if not isinstance(authorization_record, dict):
+                    continue
+                expected_digest = authorization_record_digest(authorization_record)
+                record_matches_effect = (
+                    authorization_record.get("logical_task_id")
+                    == effect_binding.get("logical_task_id")
+                    and authorization_record.get("capability")
+                    == effect_binding.get("capability")
+                    and authorization_record.get("target_fingerprint")
+                    == effect_binding.get("target_fingerprint")
+                    and authorization_record.get("scope_fingerprint")
+                    == expected_scope_fingerprint
+                    and authorization_record.get("basis_fingerprint")
+                    == effect_binding.get("basis_fingerprint")
+                    and authorization_record.get("status") == "granted"
+                    and authorization_record.get("runtime_eligible") is True
+                    and authorization_record.get("future_only") is False
+                    and (
+                        allow_fixture_authorization
+                        or authorization_record.get("fixture_only") is False
+                    )
                 )
-            )
-            summary_matches_record = (
-                isinstance(authorization_ref, dict)
-                and authorization_ref.get("id")
-                == authorization_record.get("authorization_id")
-                and authorization_ref.get("revision")
-                == authorization_record.get("revision")
-                and authorization_ref.get("digest") == expected_digest
-                and item.get("capability") == authorization_record.get("capability")
-                and item.get("target_fingerprint")
-                == authorization_record.get("target_fingerprint")
-                and item.get("scope_fingerprint")
-                == authorization_record.get("scope_fingerprint")
-                and item.get("basis_fingerprint")
-                == authorization_record.get("basis_fingerprint")
-                and item.get("status") == authorization_record.get("status")
-                and item.get("runtime_eligible")
-                == authorization_record.get("runtime_eligible")
-            )
-            evaluation_matches_record = (
-                authorization_evaluation.get("required_capability")
-                == authorization_record.get("capability")
-                and authorization_evaluation.get("target_fingerprint")
-                == authorization_record.get("target_fingerprint")
-                and authorization_evaluation.get("scope_fingerprint")
-                == authorization_record.get("scope_fingerprint")
-                and authorization_evaluation.get("basis_fingerprint")
-                == authorization_record.get("basis_fingerprint")
-                and authorization_evaluation.get("selected_authorization_id")
-                == authorization_record.get("authorization_id")
-                and authorization_evaluation.get("side_effect_intent") == "dependent"
-                and authorization_evaluation.get("derived_result") == "allowed"
-                and authorization_evaluation.get("next_action") == "continue"
-                and authorization_evaluation.get("dependent_side_effect_count") == 1
-            )
-            return record_matches_effect and summary_matches_record and evaluation_matches_record
+                summary_matches_record = (
+                    isinstance(authorization_ref, dict)
+                    and authorization_ref.get("id")
+                    == authorization_record.get("authorization_id")
+                    and authorization_ref.get("revision")
+                    == authorization_record.get("revision")
+                    and authorization_ref.get("digest") == expected_digest
+                    and item.get("capability")
+                    == authorization_record.get("capability")
+                    and item.get("target_fingerprint")
+                    == authorization_record.get("target_fingerprint")
+                    and item.get("scope_fingerprint")
+                    == authorization_record.get("scope_fingerprint")
+                    and item.get("basis_fingerprint")
+                    == authorization_record.get("basis_fingerprint")
+                    and item.get("status") == authorization_record.get("status")
+                    and item.get("runtime_eligible")
+                    == authorization_record.get("runtime_eligible")
+                )
+                evaluation_matches_record = any(
+                    isinstance(evaluation, dict)
+                    and evaluation.get("required_capability")
+                    == authorization_record.get("capability")
+                    and evaluation.get("target_fingerprint")
+                    == authorization_record.get("target_fingerprint")
+                    and evaluation.get("scope_fingerprint")
+                    == authorization_record.get("scope_fingerprint")
+                    and evaluation.get("basis_fingerprint")
+                    == authorization_record.get("basis_fingerprint")
+                    and evaluation.get("selected_authorization_id")
+                    == authorization_record.get("authorization_id")
+                    and evaluation.get("side_effect_intent") == "dependent"
+                    and evaluation.get("derived_result") == "allowed"
+                    and evaluation.get("next_action") == "continue"
+                    and evaluation.get("dependent_side_effect_count") == 1
+                    for evaluation in authorization_evaluations
+                )
+                if (
+                    record_matches_effect
+                    and summary_matches_record
+                    and evaluation_matches_record
+                ):
+                    return True
+            return False
 
         current_effect_granted = any(
             matches_current_effect(item) for item in authorization
@@ -857,9 +885,17 @@ def run_cases(path: Path) -> dict[str, Any]:
         or len(case_ids) != len(set(case_ids))
     ):
         raise ValueError("case ids must be non-empty and unique")
+    cases_by_id = {case["id"]: case for case in cases}
     results: list[dict[str, Any]] = []
     for case in cases:
         record = copy.deepcopy(base_record)
+        base_case_id = case.get("base_case")
+        if base_case_id is not None:
+            base_case = cases_by_id.get(base_case_id)
+            if not isinstance(base_case, dict) or base_case.get("base_case") is not None:
+                raise ValueError("base_case must identify one non-derived case")
+            for mutation in base_case.get("mutations", []):
+                apply_mutation(record, mutation)
         for mutation in case.get("mutations", []):
             apply_mutation(record, mutation)
         schema_actual = not validate_schema(record)
@@ -868,13 +904,11 @@ def run_cases(path: Path) -> dict[str, Any]:
         if not isinstance(allow_fixture_authorization, bool):
             raise ValueError("allow_fixture_authorization must be boolean")
         actual_rules = sorted(
-            {
-                item["rule_id"]
-                for item in validate_record(
-                    record,
-                    allow_fixture_authorization=allow_fixture_authorization,
-                )
-            }
+            item["rule_id"]
+            for item in validate_record(
+                record,
+                allow_fixture_authorization=allow_fixture_authorization,
+            )
         )
         expected_rules = sorted(case.get("expected_rules", []))
         passed = actual_rules == expected_rules and schema_actual is schema_expected

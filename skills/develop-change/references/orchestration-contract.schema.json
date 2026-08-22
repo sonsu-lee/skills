@@ -293,8 +293,8 @@
         "frontier_ref",
         "gate_record",
         "frontier_record",
-        "authorization_record",
-        "authorization_evaluation"
+        "authorization_records",
+        "authorization_evaluations"
       ],
       "properties": {
         "fixture_only": {"type": "boolean"},
@@ -316,21 +316,17 @@
         "frontier_record": {
           "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/frontierRecord"
         },
-        "authorization_record": {
-          "oneOf": [
-            {
-              "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/authorizationRecord"
-            },
-            {"type": "null"}
-          ]
+        "authorization_records": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/authorizationRecord"
+          }
         },
-        "authorization_evaluation": {
-          "oneOf": [
-            {
-              "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/authorizationEvaluation"
-            },
-            {"type": "null"}
-          ]
+        "authorization_evaluations": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/authorizationEvaluation"
+          }
         }
       }
     },

@@ -155,7 +155,7 @@
         "clarification_view_history": [],
         "clarification_view": null
       },
-      "authorization_record": {
+      "authorization_records": [{
         "authorization_id": "authorization.local-change.fixture",
         "revision": 1,
         "predecessor_authorization_ref": null,
@@ -172,8 +172,8 @@
         "runtime_eligible": true,
         "future_only": false,
         "fixture_only": true
-      },
-      "authorization_evaluation": {
+      }],
+      "authorization_evaluations": [{
         "evaluation_id": "authorization-evaluation.fixture.local-change",
         "required_capability": "local_change",
         "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
@@ -184,7 +184,7 @@
         "derived_result": "allowed",
         "next_action": "continue",
         "dependent_side_effect_count": 1
-      }
+      }]
     },
     "skill_resolution": {
       "status": "pass",
@@ -381,7 +381,7 @@
           "clarification_view_history": [],
           "clarification_view": null
         },
-        "authorization_record": {
+        "authorization_records": [{
           "authorization_id": "authorization.local-change.fixture",
           "revision": 1,
           "predecessor_authorization_ref": null,
@@ -398,8 +398,8 @@
           "runtime_eligible": true,
           "future_only": false,
           "fixture_only": true
-        },
-        "authorization_evaluation": {
+        }],
+        "authorization_evaluations": [{
           "evaluation_id": "authorization-evaluation.fixture.local-change",
           "required_capability": "local_change",
           "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
@@ -410,7 +410,7 @@
           "derived_result": "allowed",
           "next_action": "continue",
           "dependent_side_effect_count": 1
-        }
+        }]
       },
       "skill_resolution": {
         "status": "pass",
@@ -695,14 +695,7 @@
         {"op": "remove", "path": "/foundation_binding"}
       ],
       "expected_schema_valid": false,
-      "expected_rules": [
-        "FND-AUTH-005",
-        "FND-FRONTIER-001",
-        "FND-FRONTIER-004",
-        "FND-GATE-001",
-        "FND-ROUTE-001",
-        "HANDOFF-002"
-      ]
+      "expected_rules": ["FND-AUTH-005", "FND-FRONTIER-001", "FND-FRONTIER-004", "FND-GATE-001", "FND-GATE-002", "FND-ROUTE-001", "FND-ROUTE-001", "HANDOFF-002"]
     },
     {
       "id": "scope-include-exclude-are-disjoint",
@@ -741,7 +734,7 @@
           "value": ["understand", "design", "verify", "change"]
         }
       ],
-      "expected_rules": ["FND-ROUTE-001", "ORCH-002"]
+      "expected_rules": ["FND-GATE-002", "FND-ROUTE-001", "HANDOFF-001", "ORCH-002"]
     },
     {
       "id": "initial-handoff-allows-no-completed-phase",
@@ -983,7 +976,7 @@
         {"op": "replace", "path": "/handoff/next_action", "value": null}
       ],
       "expected_schema_valid": false,
-      "expected_rules": ["FND-FRONTIER-004", "HANDOFF-001"]
+      "expected_rules": ["FND-FRONTIER-004", "HANDOFF-001", "HANDOFF-001"]
     },
     {
       "id": "handoff-preserves-current-route-and-plan",
@@ -1020,7 +1013,7 @@
           "value": ["change", "deliver"]
         }
       ],
-      "expected_rules": ["FND-AUTH-005", "FND-ROUTE-001"]
+      "expected_rules": ["FND-AUTH-005", "FND-GATE-002", "FND-ROUTE-001", "HANDOFF-001"]
     },
     {
       "id": "foundation-gate-ref-identifies-current-record",
@@ -1041,8 +1034,8 @@
     {
       "id": "future-only-grant-cannot-authorize-current-effect",
       "mutations": [
-        {"op": "replace", "path": "/foundation_binding/authorization_record/future_only", "value": true},
-        {"op": "replace", "path": "/handoff/foundation_binding/authorization_record/future_only", "value": true},
+        {"op": "replace", "path": "/foundation_binding/authorization_records/0/future_only", "value": true},
+        {"op": "replace", "path": "/handoff/foundation_binding/authorization_records/0/future_only", "value": true},
         {
           "op": "replace",
           "path": "/authorization/0/authorization_ref/digest",
@@ -1150,7 +1143,7 @@
           "value": ["change", "operate"]
         }
       ],
-      "expected_rules": ["FND-AUTH-005", "FND-ROUTE-001"]
+      "expected_rules": ["FND-AUTH-005", "FND-GATE-002", "FND-ROUTE-001", "HANDOFF-001"]
     },
     {
       "id": "foundation-gate-matches-current-frontier-aggregate",
@@ -1250,15 +1243,15 @@
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/state", "value": "pending"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/state", "value": "pending"}
       ],
-      "expected_rules": ["FND-FRONTIER-001", "FND-FRONTIER-004"]
+      "expected_rules": ["FND-FRONTIER-001", "FND-FRONTIER-001", "FND-FRONTIER-004"]
     },
     {
       "id": "authorization-predecessor-is-current-lineage",
       "mutations": [
-        {"op": "replace", "path": "/foundation_binding/authorization_record/predecessor_authorization_ref", "value": {"id": "authorization.local-change.fixture", "revision": 1, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
-        {"op": "replace", "path": "/handoff/foundation_binding/authorization_record/predecessor_authorization_ref", "value": {"id": "authorization.local-change.fixture", "revision": 1, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}}
+        {"op": "replace", "path": "/foundation_binding/authorization_records/0/predecessor_authorization_ref", "value": {"id": "authorization.local-change.fixture", "revision": 1, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
+        {"op": "replace", "path": "/handoff/foundation_binding/authorization_records/0/predecessor_authorization_ref", "value": {"id": "authorization.local-change.fixture", "revision": 1, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}}
       ],
-      "expected_rules": ["FND-AUTH-001", "FND-AUTH-003", "FND-AUTH-004", "FND-AUTH-005", "FND-FRONTIER-006"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-003", "FND-AUTH-004", "FND-AUTH-005", "FND-AUTH-005", "FND-FRONTIER-006"]
     },
     {
       "id": "rejected-user-skill-needs-same-responsibility-replacement",
@@ -1284,7 +1277,7 @@
         {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change", "verify"]},
         {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change", "verify"]}
       ],
-      "expected_rules": ["FND-AUTH-005", "FND-ROUTE-001"]
+      "expected_rules": ["FND-AUTH-005", "FND-GATE-002", "FND-ROUTE-001", "HANDOFF-001"]
     },
     {
       "id": "foundation-work-remaining-matches-route-completion",
@@ -1292,7 +1285,7 @@
         {"op": "replace", "path": "/foundation_binding/gate_record/work_remaining", "value": false},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/work_remaining", "value": false}
       ],
-      "expected_rules": ["FND-GATE-001", "FND-GATE-002"]
+      "expected_rules": ["FND-GATE-001", "FND-GATE-001", "FND-GATE-002", "FND-GATE-002"]
     },
     {
       "id": "conditional-investigation-needs-no-assumption",
@@ -1314,6 +1307,45 @@
         {"op": "replace", "path": "/handoff/foundation_binding/routing_record/gate_ref/digest", "value": "a33ac8f3eb60823b1642d098806b85679bf73f17a49b88ea44e761ff45c729d9"}
       ],
       "expected_rules": []
+    },
+    {
+      "id": "completed-route-cannot-remain-current",
+      "mutations": [
+        {"op": "replace", "path": "/handoff/completed_phase", "value": "change"}
+      ],
+      "expected_rules": ["FND-GATE-002", "HANDOFF-001"]
+    },
+    {
+      "id": "operate-route-rejects-local-change-capability",
+      "mutations": [
+        {"op": "replace", "path": "/primary_route", "value": "operate"},
+        {"op": "replace", "path": "/handoff/primary_route", "value": "operate"},
+        {"op": "replace", "path": "/route_plan", "value": ["understand", "design", "change", "verify", "operate"]},
+        {"op": "replace", "path": "/handoff/route_plan", "value": ["understand", "design", "change", "verify", "operate"]},
+        {"op": "replace", "path": "/handoff/completed_phase", "value": "verify"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change", "operate"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change", "operate"]}
+      ],
+      "expected_rules": ["FND-AUTH-005", "FND-ROUTE-001"]
+    },
+    {
+      "id": "top-level-blocker-matches-foundation-blocker",
+      "base_case": "blocked-handoff-requires-next-action",
+      "mutations": [
+        {"op": "replace", "path": "/gate/blockers", "value": ["missing_authorization"]},
+        {"op": "replace", "path": "/handoff/blockers", "value": ["missing_authorization"]},
+        {"op": "replace", "path": "/handoff/next_action", "value": "결정 확인"},
+        {"op": "replace", "path": "/handoff/next_action_kind", "value": "clarify"}
+      ],
+      "expected_rules": ["FND-FRONTIER-004", "FND-GATE-002"]
+    },
+    {
+      "id": "conditional-without-assumption-effect-rejects-assumptions",
+      "base_case": "conditional-investigation-needs-no-assumption",
+      "mutations": [
+        {"op": "replace", "path": "/gate/assumptions", "value": [{"summary": "임의 가정", "basis_refs": ["evidence:fixture"], "validation": "후속 확인"}]}
+      ],
+      "expected_rules": ["FND-GATE-002"]
     }
   ]
 }

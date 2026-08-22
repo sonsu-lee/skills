@@ -17,7 +17,7 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 | `artifacts` | 생성·변경한 파일, 문서, commit 또는 PR의 식별자 |
 | `effect_binding` | 현재 task, 실행 capability, target과 basis fingerprint |
 | `profile` | 현재 direct/bounded/architectural level과 confirmed/provisional 상태 |
-| `foundation_binding` | current routing·gate·frontier의 canonical identity와 실제 record, authorization record·evaluation |
+| `foundation_binding` | current routing·gate·frontier의 canonical identity와 실제 record, current leaf까지의 authorization record·evaluation lineage |
 | `skill_resolution` | 선택·조합·제외·fallback한 전문 스킬과 이유 |
 | `authorization` | 현재 capability 상태와 더 이상 재사용할 수 없는 grant |
 | `verification` | 실행한 검사, 결과와 실행하지 못한 검사 |
@@ -38,6 +38,7 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 - orchestration record 안에 함께 저장할 때 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 최상위 현재 상태와 동일해야 한다 (`HANDOFF-002`).
 - 아직 끝나지 않은 route가 있으면 gate 결과와 관계없이 비어 있지 않은 `next_action`을 남긴다 (`HANDOFF-001`).
 - 미완료 handoff의 `next_action_kind`는 `continue`, blocked handoff는 foundation gate의 `clarify`·`reauthorize`를 그대로 쓴다. 그 밖의 terminal blocker는 `report`를 쓴다 (`HANDOFF-001`).
+- 마지막 route가 끝난 상태가 아니면 `primary_route`는 `completed_phase` 바로 다음 계획 단계여야 한다 (`HANDOFF-001`).
 - `foundation_binding`의 routing·gate·frontier·authorization snapshot은 foundation semantic validator를 통과해야 하며, routing과 gate의 `work_remaining`은 현재 route 진행 상태와 일치해야 한다.
 
 ## 최소 예시
@@ -78,19 +79,19 @@ foundation_binding:
           interaction_requirement: required
           interaction_owner: user
           progress: await_input
-  authorization_record:
-    authorization_id: authorization.payment-alert.push
-    status: not_granted
-    runtime_eligible: false
-    future_only: false
-    fixture_only: false
-    # target·scope·basis와 revision/receipt 필드
-  authorization_evaluation:
-    selected_authorization_id: authorization.payment-alert.push
-    side_effect_intent: dependent
-    derived_result: blocked
-    next_action: reauthorize
-    dependent_side_effect_count: 1
+  authorization_records:
+    - authorization_id: authorization.payment-alert.push
+      status: not_granted
+      runtime_eligible: false
+      future_only: false
+      fixture_only: false
+      # target·scope·basis와 revision/receipt 필드
+  authorization_evaluations:
+    - selected_authorization_id: authorization.payment-alert.push
+      side_effect_intent: dependent
+      derived_result: blocked
+      next_action: reauthorize
+      dependent_side_effect_count: 1
 blockers:
   - push authorization 없음
 next_action: push capability 재승인 요청

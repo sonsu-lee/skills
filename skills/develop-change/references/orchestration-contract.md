@@ -51,17 +51,22 @@
 - `route_plan`은 canonical route 순서를 유지한다.
 - scope의 include/exclude와 verification의 passed/failed/not_run은 서로 겹치지 않는다.
 - handoff의 completed phase는 첫 route 시작 전에는 `null`, 그 뒤에는 route plan에 있으면서 primary route보다 뒤에 있지 않는다.
+- 마지막 route가 끝난 상태가 아니면 handoff의 primary route는 completed phase 바로 다음 계획 단계다.
 - blocked 상태이거나 완료되지 않은 route가 남은 handoff는 비어 있지 않은 next action과 foundation gate에 맞는 `next_action_kind`를 남긴다.
 - planned capability ID는 `selected`나 `composed` skill ID로 기록하지 않는다.
 - 거절된 user-named 스킬과 같은 responsibility의 활성 대체 후보가 없으면 fallback을 남기거나 resolution을 blocked로 둔다.
 - 같은 capability·target·scope·basis authorization binding에는 stale·withdrawn history를 제외한 current leaf가 하나만 있다.
-- change·deliver·operate·evolve 효과에는 route-compatible capability와 current effect·scope에 exact-bound된 runtime-eligible current grant가 있어야 하며, 없으면 gate는 blocked여야 한다. read-only route의 capability는 `null`이고 future-only·fixture-only grant는 runtime 효과에 쓸 수 없다.
+- change는 `local_change`, deliver는 Git capability, operate는 `external_write`, evolve는 `local_change`만 effect capability로 받는다. current effect·scope에 exact-bound된 runtime-eligible current grant가 없으면 gate는 blocked여야 하며 read-only route의 capability는 `null`이다.
 - foundation routing·gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치한다. 전체 snapshot은 foundation semantic validator를 그대로 통과해야 하며 routing 결정, gate의 `work_remaining`, frontier 상태·disposition과 authorization lineage가 현재 orchestration 상태에 결박된다.
-- `conditional` gate 중 `assumption_effect: non_material`인 경우에만 근거와 검증 방법을 가진 assumption이 필요하다. 조사 중인 discoverable fact처럼 `assumption_effect: none`이면 assumption을 만들지 않는다.
+- authorization snapshot은 current leaf만 잘라 저장하지 않고 root부터 current leaf까지의 record/evaluation lineage를 보존한다.
+- 최상위 blocker는 foundation gate의 blocker를 정확히 투영한다.
+- `conditional` gate 중 `assumption_effect: non_material`인 경우에만 근거와 검증 방법을 가진 assumption이 필요하다. 조사 중인 discoverable fact처럼 `assumption_effect: none`이면 assumptions는 비어 있어야 한다.
 - provisional profile은 어떤 side-effect checkpoint도 통과할 수 없다.
 - handoff의 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
 
 효과 실행이나 handoff 재개 전에는 schema 검증과 semantic validator를 모두 통과해야 한다. validator 회귀 사례는 다음 명령으로 확인한다.
+
+회귀 결과의 `actual_rules`와 `expected_rules`는 집합이 아니라 중복을 보존한 목록이다. 같은 rule이 서로 다른 predicate에서 발생하면 발생 횟수까지 일치해야 한다.
 
 `routing_ref`, `gate_ref`, `frontier_ref`, authorization ref의 digest는 각각 foundation의 `phase1-foundation-*-record-v1` canonical digest를 그대로 쓴다.
 
