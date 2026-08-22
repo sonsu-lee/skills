@@ -1,6 +1,6 @@
 {
   "schema_version": "develop-change-orchestration-manifest-v1",
-  "activation_commit": "794c09ad1730fa10e2172518c77438ad2870deea",
+  "activation_commit": "0594668a90cf451acd43d4dfe1d1a04653f2f94e",
   "activation_contract": {
     "plugin_version": "0.7.0",
     "skill_name": "develop-change",
@@ -9,11 +9,11 @@
   },
   "report": {
     "path": "evals/manifests/phase2/reports/develop-change-orchestration.json",
-    "sha256": "52697274d07b326415d488666aab66d2b01fe7df8f4aa9128f48f17fce591d21",
+    "sha256": "8b312994f6ba8bc3ba76c2efc5696b68b6fce63efff67a6de53f651a1feee7e2",
     "schema_version": "develop-change-orchestration-report-v1",
     "status": "pass",
-    "case_count": 102,
-    "passed_case_count": 102
+    "case_count": 105,
+    "passed_case_count": 105
   },
   "reproduce": [
     "python3 skills/develop-change/scripts/validate_orchestration.py --activation active --check-output evals/manifests/phase2/reports/develop-change-orchestration.json",
