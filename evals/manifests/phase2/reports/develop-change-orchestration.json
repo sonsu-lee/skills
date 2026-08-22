@@ -1,6 +1,6 @@
 {
   "activation": "active",
-  "case_count": 88,
+  "case_count": 90,
   "case_results": [
     {
       "id": "user-named-compatible-skill-wins-over-generic",
@@ -433,6 +433,16 @@
       "status": "pass"
     },
     {
+      "id": "active-skill-is-model-visible",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "single-active-skill-is-selected",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
       "id": "foundation-assumption-is-one-to-one",
       "kind": "orchestration_record",
       "status": "pass"
@@ -444,17 +454,17 @@
     }
   ],
   "findings": [],
-  "passed_case_count": 88,
+  "passed_case_count": 90,
   "schema_version": "develop-change-orchestration-report-v1",
   "source_digests": {
     "skills/develop-change/evals/orchestration-cases.json": "a798acb3de210799d6e4ce10e3358f99de1e911409411a2221d4463e2b3f6fa0",
-    "skills/develop-change/evals/orchestration-record-cases.json": "694f77d4475606fc9c05fa0a388ebbe92277111bd2649f83501b7607ab182c85",
+    "skills/develop-change/evals/orchestration-record-cases.json": "a1319f66ff06c678cecf37d5a1f05d0c9784bae9b09080735cc2d9163c919eb0",
     "skills/develop-change/references/handoff-contract.md": "44a0e080654a276b978d4fefe6a136feb3ce21464f6597fe15949083d44f2843",
-    "skills/develop-change/references/orchestration-contract.md": "c0fe2be674b9e93af9bfa8d6f47a0a7649630e3d3271c71bcdb600e1294b954f",
-    "skills/develop-change/references/orchestration-contract.schema.json": "f973da419b2eb8da177095bc7c5cc3639fdbcc0fe1c93226951f14a010482156",
-    "skills/develop-change/references/skill-resolution-contract.md": "dd46a99372d996602eea93fb910834541e7b3b5fe91796639d75af501210610e",
+    "skills/develop-change/references/orchestration-contract.md": "7eb4cb4fcd65adb54a5722f5d702889a9afbea54cc633d5a1cab1a16e0b83c99",
+    "skills/develop-change/references/orchestration-contract.schema.json": "d7d75bc7d36a1d37e09ed950d2be2e7af392621c95b2d1953581c9a621c28375",
+    "skills/develop-change/references/skill-resolution-contract.md": "e0be6c8dbed9e3d01962e6542f5a98a3da0b1f2e97aebeca8c6378da0f227fa2",
     "skills/develop-change/scripts/validate_orchestration.py": "8cf5c2f75ab7a11c8f4bf992d73d09eeec27834369662e57943ef0030ff09ec2",
-    "skills/develop-change/scripts/validate_orchestration_record.py": "2c64f745c141c2da4d8b242eb7342f5ba60506fb38e9a91c034f8ff28390c290"
+    "skills/develop-change/scripts/validate_orchestration_record.py": "fbf4b9e8db75501491366f4e1f8b8d96aee9709c837e1e15e90be2ccec774c1a"
   },
   "status": "pass"
 }
