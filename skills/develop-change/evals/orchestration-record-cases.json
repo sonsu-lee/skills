@@ -538,7 +538,9 @@
           "value": [
             {
               "summary": "기존 테스트 명령 유지",
-              "basis_refs": ["README.md#test"],
+              "frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "42dc6a515154c6fe4a8117de9673a4c370bd0ead852b37b51edbafe44d106b18"},
+              "assumption_ref": "assumption:fixture.scope",
+              "basis_refs": ["evidence:safe-default.fixture"],
               "validation": "변경 후 같은 명령을 실행한다"
             }
           ]
@@ -695,7 +697,7 @@
         {"op": "remove", "path": "/foundation_binding"}
       ],
       "expected_schema_valid": false,
-      "expected_rules": ["FND-AUTH-005", "FND-FRONTIER-001", "FND-FRONTIER-004", "FND-GATE-001", "FND-GATE-002", "FND-ROUTE-001", "FND-ROUTE-001", "HANDOFF-002"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-005", "FND-FRONTIER-001", "FND-FRONTIER-004", "FND-GATE-001", "FND-GATE-002", "FND-ROUTE-001", "FND-ROUTE-001", "HANDOFF-002"]
     },
     {
       "id": "scope-include-exclude-are-disjoint",
@@ -862,7 +864,7 @@
           "value": "8888888888888888888888888888888888888888888888888888888888888888"
         }
       ],
-      "expected_rules": ["FND-AUTH-005"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-005"]
     },
     {
       "id": "local-change-grant-refers-to-current-foundation-record",
@@ -878,7 +880,7 @@
           "value": "authorization.unknown"
         }
       ],
-      "expected_rules": ["FND-AUTH-005"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-005"]
     },
     {
       "id": "provisional-change-requires-blocked-gate",
@@ -914,7 +916,9 @@
           "value": [
             {
               "summary": "영향 범위가 제한됨",
-              "basis_refs": ["evidence:scope.review"],
+              "frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "42dc6a515154c6fe4a8117de9673a4c370bd0ead852b37b51edbafe44d106b18"},
+              "assumption_ref": "assumption:fixture.scope",
+              "basis_refs": ["evidence:safe-default.fixture"],
               "validation": "변경 전에 재확인"
             }
           ]
@@ -1113,7 +1117,7 @@
           }
         }
       ],
-      "expected_rules": []
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-001"]
     },
     {
       "id": "operate-route-requires-current-grant",
@@ -1235,7 +1239,7 @@
           }
         }
       ],
-      "expected_rules": ["FND-AUTH-001"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-001", "FND-AUTH-001"]
     },
     {
       "id": "frontier-state-matches-runtime-disposition",
@@ -1251,7 +1255,7 @@
         {"op": "replace", "path": "/foundation_binding/authorization_records/0/predecessor_authorization_ref", "value": {"id": "authorization.local-change.fixture", "revision": 1, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
         {"op": "replace", "path": "/handoff/foundation_binding/authorization_records/0/predecessor_authorization_ref", "value": {"id": "authorization.local-change.fixture", "revision": 1, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}}
       ],
-      "expected_rules": ["FND-AUTH-001", "FND-AUTH-003", "FND-AUTH-004", "FND-AUTH-005", "FND-AUTH-005", "FND-FRONTIER-006"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-001", "FND-AUTH-003", "FND-AUTH-004", "FND-AUTH-005", "FND-AUTH-005", "FND-FRONTIER-006"]
     },
     {
       "id": "rejected-user-skill-needs-same-responsibility-replacement",
@@ -1343,7 +1347,32 @@
       "id": "conditional-without-assumption-effect-rejects-assumptions",
       "base_case": "conditional-investigation-needs-no-assumption",
       "mutations": [
-        {"op": "replace", "path": "/gate/assumptions", "value": [{"summary": "임의 가정", "basis_refs": ["evidence:fixture"], "validation": "후속 확인"}]}
+        {"op": "replace", "path": "/gate/assumptions", "value": [{"summary": "임의 가정", "frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "15d8f2d903150418c2173d8ee74668f63727000b06d1f1401ad2df1d2138992f"}, "assumption_ref": "assumption:fixture.unbound", "basis_refs": ["evidence:fixture"], "validation": "후속 확인"}]}
+      ],
+      "expected_rules": ["FND-GATE-002"]
+    },
+    {
+      "id": "terminal-handoff-has-no-next-action",
+      "mutations": [
+        {"op": "replace", "path": "/handoff/completed_phase", "value": "verify"},
+        {"op": "replace", "path": "/foundation_binding/gate_record/work_remaining", "value": false},
+        {"op": "replace", "path": "/foundation_binding/gate_record/next_action", "value": null},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/work_remaining", "value": false},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/next_action", "value": null},
+        {"op": "replace", "path": "/foundation_binding/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/foundation_binding/routing_record/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/next_action", "value": "change 다시 실행"},
+        {"op": "replace", "path": "/handoff/next_action_kind", "value": "continue"}
+      ],
+      "expected_rules": ["HANDOFF-001", "HANDOFF-001"]
+    },
+    {
+      "id": "top-level-assumption-identifies-foundation-unit",
+      "base_case": "supported-conditional-passes",
+      "mutations": [
+        {"op": "replace", "path": "/gate/assumptions/0/assumption_ref", "value": "assumption:fixture.other"}
       ],
       "expected_rules": ["FND-GATE-002"]
     }

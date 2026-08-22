@@ -270,9 +270,19 @@
     "assumption": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["summary", "basis_refs", "validation"],
+      "required": [
+        "summary",
+        "frontier_unit_ref",
+        "assumption_ref",
+        "basis_refs",
+        "validation"
+      ],
       "properties": {
         "summary": {"type": "string", "minLength": 1},
+        "frontier_unit_ref": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
+        },
+        "assumption_ref": {"type": "string", "minLength": 1},
         "basis_refs": {
           "type": "array",
           "minItems": 1,

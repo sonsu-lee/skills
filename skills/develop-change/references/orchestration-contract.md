@@ -60,7 +60,7 @@
 - foundation routing·gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치한다. 전체 snapshot은 foundation semantic validator를 그대로 통과해야 하며 routing 결정, gate의 `work_remaining`, frontier 상태·disposition과 authorization lineage가 현재 orchestration 상태에 결박된다.
 - authorization snapshot은 current leaf만 잘라 저장하지 않고 root부터 current leaf까지의 record/evaluation lineage를 보존한다.
 - 최상위 blocker는 foundation gate의 blocker를 정확히 투영한다.
-- `conditional` gate 중 `assumption_effect: non_material`인 경우에만 근거와 검증 방법을 가진 assumption이 필요하다. 조사 중인 discoverable fact처럼 `assumption_effect: none`이면 assumptions는 비어 있어야 한다.
+- `conditional` gate 중 `assumption_effect: non_material`인 경우에만 assumption이 필요하다. 각 assumption은 current assumed frontier unit의 canonical identity·assumption ref·safe-default evidence와 exact-bound되고 검증 방법을 가진다. 조사 중인 discoverable fact처럼 `assumption_effect: none`이면 assumptions는 비어 있어야 한다.
 - provisional profile은 어떤 side-effect checkpoint도 통과할 수 없다.
 - handoff의 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
 

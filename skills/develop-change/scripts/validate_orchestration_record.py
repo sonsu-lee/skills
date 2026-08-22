@@ -21,7 +21,7 @@ from validate_foundation import validate_instance as validate_foundation_instanc
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 9
+VALIDATOR_REVISION = 10
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
@@ -91,6 +91,7 @@ FOUNDATION_RECORD_DOMAINS = {
     "gate": b"phase1-foundation-gate-record-v1\n",
     "authorization": b"phase1-foundation-authorization-record-v1\n",
     "frontier": b"phase1-foundation-frontier-record-v1\n",
+    "frontier_unit": b"phase1-foundation-frontier-unit-record-v1\n",
 }
 
 
@@ -345,6 +346,61 @@ def validate_record(
         else None
     )
     assumptions = gate.get("assumptions")
+    frontier_record = foundation_binding.get("frontier_record")
+    frontier_units = (
+        frontier_record.get("units") if isinstance(frontier_record, dict) else []
+    )
+    assumed_units = [
+        unit
+        for unit in frontier_units
+        if isinstance(unit, dict)
+        and unit.get("state") == "assumed"
+        and unit.get("checkpoint_relevance") == "current"
+    ]
+
+    def matching_assumption_unit(item: Any) -> dict[str, Any] | None:
+        if not isinstance(item, dict):
+            return None
+        reference = item.get("frontier_unit_ref")
+        basis_refs = item.get("basis_refs")
+        if not isinstance(basis_refs, list) or not all(
+            isinstance(ref, str) for ref in basis_refs
+        ):
+            return None
+        matches = [
+            unit
+            for unit in assumed_units
+            if identity_ref_matches(
+                reference,
+                unit,
+                kind="frontier_unit",
+                id_field="unit_id",
+            )
+        ]
+        if len(matches) != 1:
+            return None
+        unit = matches[0]
+        value_binding = unit.get("value_binding")
+        evidence_refs = {
+            condition.get("evidence_ref")
+            for condition in unit.get("safe_default_conditions", [])
+            if isinstance(condition, dict)
+            and isinstance(condition.get("evidence_ref"), str)
+        }
+        if not (
+            isinstance(value_binding, dict)
+            and value_binding.get("kind") == "assumption"
+            and item.get("assumption_ref") == value_binding.get("ref")
+            and set(basis_refs) == evidence_refs
+        ):
+            return None
+        return unit
+
+    matched_assumption_units = (
+        [matching_assumption_unit(item) for item in assumptions]
+        if isinstance(assumptions, list)
+        else []
+    )
     assumptions_valid = (
         isinstance(assumptions, list)
         and bool(assumptions)
@@ -352,6 +408,9 @@ def validate_record(
             isinstance(item, dict)
             and isinstance(item.get("summary"), str)
             and bool(item["summary"])
+            and isinstance(item.get("frontier_unit_ref"), dict)
+            and isinstance(item.get("assumption_ref"), str)
+            and bool(item["assumption_ref"])
             and isinstance(item.get("basis_refs"), list)
             and bool(item["basis_refs"])
             and all(isinstance(ref, str) and ref for ref in item["basis_refs"])
@@ -359,6 +418,9 @@ def validate_record(
             and bool(item["validation"])
             for item in assumptions
         )
+        and all(unit is not None for unit in matched_assumption_units)
+        and {unit["unit_id"] for unit in matched_assumption_units if unit is not None}
+        == {unit["unit_id"] for unit in assumed_units}
     )
     if (
         gate_result == "conditional"
@@ -415,6 +477,20 @@ def validate_record(
             "HANDOFF-001",
             "/handoff/next_action_kind",
             "unfinished handoff requires a continue action kind",
+        )
+    elif (
+        not unfinished_plan
+        and isinstance(gate_record, dict)
+        and gate_record.get("work_remaining") is False
+        and (
+            handoff.get("next_action") is not None
+            or next_action_kind is not None
+        )
+    ):
+        add(
+            "HANDOFF-001",
+            "/handoff/next_action",
+            "terminal handoff must not carry a next action",
         )
 
     profile = record.get("profile") if isinstance(record.get("profile"), dict) else {}
@@ -682,6 +758,42 @@ def validate_record(
 
     authorization = record.get("authorization")
     if isinstance(authorization, list):
+        def summary_matches_record(item: Any, authorization_record: Any) -> bool:
+            return bool(
+                isinstance(item, dict)
+                and isinstance(authorization_record, dict)
+                and identity_ref_matches(
+                    item.get("authorization_ref"),
+                    authorization_record,
+                    kind="authorization",
+                    id_field="authorization_id",
+                )
+                and item.get("capability")
+                == authorization_record.get("capability")
+                and item.get("target_fingerprint")
+                == authorization_record.get("target_fingerprint")
+                and item.get("scope_fingerprint")
+                == authorization_record.get("scope_fingerprint")
+                and item.get("basis_fingerprint")
+                == authorization_record.get("basis_fingerprint")
+                and item.get("status") == authorization_record.get("status")
+                and item.get("runtime_eligible")
+                == authorization_record.get("runtime_eligible")
+            )
+
+        lineage_records = (
+            authorization_records if isinstance(authorization_records, list) else []
+        )
+        for index, item in enumerate(authorization):
+            if not any(
+                summary_matches_record(item, authorization_record)
+                for authorization_record in lineage_records
+            ):
+                add(
+                    "FND-AUTH-001",
+                    f"/authorization/{index}",
+                    "authorization summary must identify an exact lineage record",
+                )
         binding_keys: list[tuple[Any, Any, Any, Any]] = []
         for item in authorization:
             if not isinstance(item, dict):
@@ -946,7 +1058,7 @@ def main() -> int:
         if not isinstance(record, dict):
             raise SystemExit("input must be a JSON object")
         schema_findings = validate_schema(record)
-        semantic_findings = validate_record(record)
+        semantic_findings = [] if schema_findings else validate_record(record)
         result = {
             "validator": {"id": VALIDATOR_ID, "revision": VALIDATOR_REVISION},
             "status": "pass" if not schema_findings and not semantic_findings else "fail",
