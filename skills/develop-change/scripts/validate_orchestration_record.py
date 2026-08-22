@@ -8,6 +8,7 @@ import copy
 import hashlib
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 from typing import Any
@@ -26,7 +27,7 @@ from runtime_projection import (
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 15
+VALIDATOR_REVISION = 16
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
@@ -140,6 +141,13 @@ def current_scope_fingerprint(scope: dict[str, Any]) -> str:
         "exclude": scope.get("exclude"),
     }
     return hashlib.sha256(b"develop-change-scope-v1\n" + canonical_bytes(payload)).hexdigest()
+
+
+def objective_logical_task_id(objective: dict[str, Any]) -> str:
+    digest = hashlib.sha256(
+        b"develop-change-objective-v1\n" + canonical_bytes(objective)
+    ).hexdigest()
+    return f"task.objective.{digest}"
 
 
 def active_skill_source_matches(
@@ -688,6 +696,13 @@ def validate_record(
         if isinstance(record.get("effect_binding"), dict)
         else {}
     )
+    objective = record.get("objective") if isinstance(record.get("objective"), dict) else {}
+    if effect_binding.get("logical_task_id") != objective_logical_task_id(objective):
+        add(
+            "FND-AUTH-005",
+            "/effect_binding/logical_task_id",
+            "logical task identity must be derived from the current objective",
+        )
     has_side_effect_intent = primary_route in SIDE_EFFECT_ROUTES or isinstance(
         effect_binding.get("capability"), str
     )
@@ -766,6 +781,16 @@ def validate_record(
                     "RESOLVE-004",
                     "/skill_resolution/decisions",
                     f"active skill provenance must match its current source: {item.get('skill_id')}",
+                )
+            required_tools = item.get("required_tools")
+            if not isinstance(required_tools, list) or any(
+                not isinstance(tool, str) or shutil.which(tool) is None
+                for tool in required_tools
+            ):
+                add(
+                    "RESOLVE-004",
+                    "/skill_resolution/decisions",
+                    f"active skill requires unavailable tools: {item.get('skill_id')}",
                 )
             if primary_route not in string_set(item.get("applies_to_routes")):
                 add(
@@ -1074,11 +1099,31 @@ def validate_record(
                     f"/authorization/{index}",
                     "authorization summary must identify an exact lineage record",
                 )
+        predecessor_identity_keys = {
+            (
+                predecessor.get("id"),
+                predecessor.get("revision"),
+                predecessor.get("digest"),
+            )
+            for authorization_record in lineage_records
+            if isinstance(authorization_record, dict)
+            and isinstance(
+                predecessor := authorization_record.get(
+                    "predecessor_authorization_ref"
+                ),
+                dict,
+            )
+        }
         binding_keys: list[tuple[Any, Any, Any, Any]] = []
         for item in authorization:
             if not isinstance(item, dict):
                 continue
-            if item.get("status") in {"stale", "withdrawn"}:
+            authorization_ref = item.get("authorization_ref")
+            if isinstance(authorization_ref, dict) and (
+                authorization_ref.get("id"),
+                authorization_ref.get("revision"),
+                authorization_ref.get("digest"),
+            ) in predecessor_identity_keys:
                 continue
             binding_key = (
                 item.get("capability"),

@@ -24,7 +24,7 @@
     },
     "decisions": [],
     "effect_binding": {
-      "logical_task_id": "task.fixture.change",
+      "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
       "capability": "local_change",
       "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
       "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
@@ -45,12 +45,12 @@
       "routing_ref": {
         "id": "routing.fixture",
         "revision": 1,
-        "digest": "28e2bc4448502844f2092385730bbd802315ec34a12bbd0373dc70124b095903"
+        "digest": "d34125be28dfe2707be4388621ee7e3d4c5084b2cc32e2fbd63c2e05bd31e4bb"
       },
       "routing_record": {
         "routing_id": "routing.fixture",
         "revision": 1,
-        "logical_task_id": "task.fixture.change",
+        "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
         "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
         "primary_route": "change",
         "route_plan": ["understand", "design", "change", "verify"],
@@ -100,7 +100,7 @@
         "authorization_ref": {
           "id": "authorization.local-change.fixture",
           "revision": 1,
-          "digest": "c282a23b588cd2c89038e425b53b6df0fae325b549bbade9fe51cb5db2168525"
+          "digest": "e19831786528c6ee33443d559643023dfa8c4717b0427959c4765a2995ccd947"
         }
       },
       "gate_ref": {
@@ -111,7 +111,7 @@
       "frontier_ref": {
         "id": "frontier.fixture",
         "revision": 1,
-        "digest": "830583da16703f1550f505452eab32c44b4aed026ced541c20a5d3560f2c217b"
+        "digest": "e4d7c3754cc9683b363081be69383bd8bfdf81756357d67899fe604b1282d6b6"
       },
       "gate_record": {
         "gate_id": "gate.fixture",
@@ -119,7 +119,7 @@
         "routing_ref": {
           "id": "routing.fixture",
           "revision": 1,
-          "digest": "28e2bc4448502844f2092385730bbd802315ec34a12bbd0373dc70124b095903"
+          "digest": "d34125be28dfe2707be4388621ee7e3d4c5084b2cc32e2fbd63c2e05bd31e4bb"
         },
         "result": "pass",
         "blocker": "none",
@@ -133,7 +133,7 @@
       "frontier_record": {
         "frontier_id": "frontier.fixture",
         "revision": 1,
-        "logical_task_id": "task.fixture.change",
+        "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
         "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
         "visible_unit_ids": ["unit.fixture.scope"],
         "units": [
@@ -171,7 +171,7 @@
         "authorization_id": "authorization.local-change.fixture",
         "revision": 1,
         "predecessor_authorization_ref": null,
-        "logical_task_id": "task.fixture.change",
+        "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
         "capability": "local_change",
         "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
         "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
@@ -199,12 +199,12 @@
       }]
     },
     "skill_resolution": {
-      "logical_task_id": "task.fixture.change",
+      "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
       "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
       "routing_ref": {
         "id": "routing.fixture",
         "revision": 1,
-        "digest": "28e2bc4448502844f2092385730bbd802315ec34a12bbd0373dc70124b095903"
+        "digest": "d34125be28dfe2707be4388621ee7e3d4c5084b2cc32e2fbd63c2e05bd31e4bb"
       },
       "status": "pass",
       "decisions": [
@@ -235,7 +235,7 @@
         "authorization_ref": {
           "id": "authorization.local-change.fixture",
           "revision": 1,
-          "digest": "c282a23b588cd2c89038e425b53b6df0fae325b549bbade9fe51cb5db2168525"
+          "digest": "e19831786528c6ee33443d559643023dfa8c4717b0427959c4765a2995ccd947"
         },
         "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
         "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
@@ -264,7 +264,7 @@
       "decisions": [],
       "artifacts": [],
       "effect_binding": {
-        "logical_task_id": "task.fixture.change",
+        "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
         "capability": "local_change",
         "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
         "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
@@ -278,12 +278,12 @@
         "routing_ref": {
           "id": "routing.fixture",
           "revision": 1,
-          "digest": "28e2bc4448502844f2092385730bbd802315ec34a12bbd0373dc70124b095903"
+          "digest": "d34125be28dfe2707be4388621ee7e3d4c5084b2cc32e2fbd63c2e05bd31e4bb"
         },
         "routing_record": {
           "routing_id": "routing.fixture",
           "revision": 1,
-          "logical_task_id": "task.fixture.change",
+          "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
           "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
           "primary_route": "change",
           "route_plan": ["understand", "design", "change", "verify"],
@@ -333,7 +333,7 @@
           "authorization_ref": {
             "id": "authorization.local-change.fixture",
             "revision": 1,
-            "digest": "c282a23b588cd2c89038e425b53b6df0fae325b549bbade9fe51cb5db2168525"
+            "digest": "e19831786528c6ee33443d559643023dfa8c4717b0427959c4765a2995ccd947"
           }
         },
         "gate_ref": {
@@ -344,7 +344,7 @@
         "frontier_ref": {
           "id": "frontier.fixture",
           "revision": 1,
-            "digest": "830583da16703f1550f505452eab32c44b4aed026ced541c20a5d3560f2c217b"
+            "digest": "e4d7c3754cc9683b363081be69383bd8bfdf81756357d67899fe604b1282d6b6"
         },
         "gate_record": {
           "gate_id": "gate.fixture",
@@ -352,7 +352,7 @@
           "routing_ref": {
             "id": "routing.fixture",
             "revision": 1,
-            "digest": "28e2bc4448502844f2092385730bbd802315ec34a12bbd0373dc70124b095903"
+            "digest": "d34125be28dfe2707be4388621ee7e3d4c5084b2cc32e2fbd63c2e05bd31e4bb"
           },
           "result": "pass",
           "blocker": "none",
@@ -366,7 +366,7 @@
         "frontier_record": {
           "frontier_id": "frontier.fixture",
           "revision": 1,
-          "logical_task_id": "task.fixture.change",
+          "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
           "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
           "visible_unit_ids": ["unit.fixture.scope"],
           "units": [
@@ -404,7 +404,7 @@
           "authorization_id": "authorization.local-change.fixture",
           "revision": 1,
           "predecessor_authorization_ref": null,
-          "logical_task_id": "task.fixture.change",
+          "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
           "capability": "local_change",
           "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
           "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
@@ -432,12 +432,12 @@
         }]
       },
       "skill_resolution": {
-        "logical_task_id": "task.fixture.change",
+        "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b",
         "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
         "routing_ref": {
           "id": "routing.fixture",
           "revision": 1,
-          "digest": "28e2bc4448502844f2092385730bbd802315ec34a12bbd0373dc70124b095903"
+          "digest": "d34125be28dfe2707be4388621ee7e3d4c5084b2cc32e2fbd63c2e05bd31e4bb"
         },
         "status": "pass",
         "decisions": [
@@ -468,7 +468,7 @@
           "authorization_ref": {
             "id": "authorization.local-change.fixture",
             "revision": 1,
-            "digest": "c282a23b588cd2c89038e425b53b6df0fae325b549bbade9fe51cb5db2168525"
+            "digest": "e19831786528c6ee33443d559643023dfa8c4717b0427959c4765a2995ccd947"
           },
           "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
           "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
@@ -516,14 +516,14 @@
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/safe_default_conditions", "value": [{"id": "within_authorized_scope", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "observable_result_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "persistent_semantics_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "no_external_or_destructive_effect", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "simple_local_revert", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "supported_by_project_evidence", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "detectable_by_current_validation", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}]},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "assume"},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/gate_result", "value": "conditional"},
-        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "5dcca66b8556df396849ac7ed86bdc98486ab3f48383e78debd1e769d6d01606"},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "395ac1ec11768c47e0d81452e8c9a7858db658897356480980342d06656eebdb"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/gap_kind", "value": "incidental_preference"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/state", "value": "assumed"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/value_binding", "value": {"kind": "assumption", "ref": "assumption:fixture.scope"}},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/safe_default_conditions", "value": [{"id": "within_authorized_scope", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "observable_result_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "persistent_semantics_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "no_external_or_destructive_effect", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "simple_local_revert", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "supported_by_project_evidence", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "detectable_by_current_validation", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}]},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "assume"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/gate_result", "value": "conditional"},
-        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "5dcca66b8556df396849ac7ed86bdc98486ab3f48383e78debd1e769d6d01606"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "395ac1ec11768c47e0d81452e8c9a7858db658897356480980342d06656eebdb"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/result", "value": "conditional"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/assumption_effect", "value": "non_material"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_ref/digest", "value": "bdc3b649b71aca823ca1cb77b035cf7afa9c3eca553b7c34897e9395eab27b92"},
@@ -546,14 +546,14 @@
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/safe_default_conditions", "value": [{"id": "within_authorized_scope", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "observable_result_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "persistent_semantics_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "no_external_or_destructive_effect", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "simple_local_revert", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "supported_by_project_evidence", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "detectable_by_current_validation", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}]},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "assume"},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/gate_result", "value": "conditional"},
-        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "5dcca66b8556df396849ac7ed86bdc98486ab3f48383e78debd1e769d6d01606"},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "395ac1ec11768c47e0d81452e8c9a7858db658897356480980342d06656eebdb"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/gap_kind", "value": "incidental_preference"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/state", "value": "assumed"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/value_binding", "value": {"kind": "assumption", "ref": "assumption:fixture.scope"}},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/safe_default_conditions", "value": [{"id": "within_authorized_scope", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "observable_result_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "persistent_semantics_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "no_external_or_destructive_effect", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "simple_local_revert", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "supported_by_project_evidence", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "detectable_by_current_validation", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}]},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "assume"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/gate_result", "value": "conditional"},
-        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "5dcca66b8556df396849ac7ed86bdc98486ab3f48383e78debd1e769d6d01606"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "395ac1ec11768c47e0d81452e8c9a7858db658897356480980342d06656eebdb"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/result", "value": "conditional"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/assumption_effect", "value": "non_material"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_ref/digest", "value": "bdc3b649b71aca823ca1cb77b035cf7afa9c3eca553b7c34897e9395eab27b92"},
@@ -924,14 +924,14 @@
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/safe_default_conditions", "value": [{"id": "within_authorized_scope", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "observable_result_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "persistent_semantics_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "no_external_or_destructive_effect", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "simple_local_revert", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "supported_by_project_evidence", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "detectable_by_current_validation", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}]},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "assume"},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/gate_result", "value": "conditional"},
-        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "5dcca66b8556df396849ac7ed86bdc98486ab3f48383e78debd1e769d6d01606"},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "395ac1ec11768c47e0d81452e8c9a7858db658897356480980342d06656eebdb"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/gap_kind", "value": "incidental_preference"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/state", "value": "assumed"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/value_binding", "value": {"kind": "assumption", "ref": "assumption:fixture.scope"}},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/safe_default_conditions", "value": [{"id": "within_authorized_scope", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "observable_result_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "persistent_semantics_unchanged", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "no_external_or_destructive_effect", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "simple_local_revert", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "supported_by_project_evidence", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}, {"id": "detectable_by_current_validation", "state": "true", "evidence_ref": "evidence:safe-default.fixture"}]},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "assume"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/gate_result", "value": "conditional"},
-        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "5dcca66b8556df396849ac7ed86bdc98486ab3f48383e78debd1e769d6d01606"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "395ac1ec11768c47e0d81452e8c9a7858db658897356480980342d06656eebdb"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/result", "value": "conditional"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/assumption_effect", "value": "non_material"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_ref/digest", "value": "bdc3b649b71aca823ca1cb77b035cf7afa9c3eca553b7c34897e9395eab27b92"},
@@ -981,7 +981,7 @@
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/interaction_kind", "value": "clarification"},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/interaction_requirement", "value": "required"},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/progress", "value": "partial_block"},
-        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "9abaa89cfe9f7eb01b4d8047de53a3289d5ebf822bff3d1b0c9aea5995bf5474"},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "e15a5b47e4d437af40f90c03fddbf6679153f575d33738ea45a298247e37cd4a"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/result", "value": "blocked"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/blocker", "value": "missing_decision"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/next_action", "value": "clarify"},
@@ -1000,7 +1000,7 @@
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/interaction_kind", "value": "clarification"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/interaction_requirement", "value": "required"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/progress", "value": "partial_block"},
-        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "9abaa89cfe9f7eb01b4d8047de53a3289d5ebf822bff3d1b0c9aea5995bf5474"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "e15a5b47e4d437af40f90c03fddbf6679153f575d33738ea45a298247e37cd4a"},
         {"op": "replace", "path": "/gate/blockers", "value": ["missing_decision"]},
         {"op": "replace", "path": "/handoff/blockers", "value": ["missing_decision"]},
         {"op": "replace", "path": "/handoff/next_action", "value": null}
@@ -1069,12 +1069,12 @@
         {
           "op": "replace",
           "path": "/authorization/0/authorization_ref/digest",
-          "value": "e097c1224fb98237272fd1774468e15ae124913e4d2e658b710f7c4ea04f8129"
+          "value": "379af2795bc20b1f56363c8dc0cc7adb1ae079272250ce7176b2c8ce0fd4bf37"
         },
         {
           "op": "replace",
           "path": "/handoff/authorization/0/authorization_ref/digest",
-          "value": "e097c1224fb98237272fd1774468e15ae124913e4d2e658b710f7c4ea04f8129"
+          "value": "379af2795bc20b1f56363c8dc0cc7adb1ae079272250ce7176b2c8ce0fd4bf37"
         }
       ],
       "expected_rules": ["FND-AUTH-001", "FND-AUTH-002", "FND-AUTH-005"]
@@ -1088,7 +1088,7 @@
       "expected_rules": ["RESOLVE-004"]
     },
     {
-      "id": "historical-grant-does-not-count-as-current-leaf",
+      "id": "unbound-authorization-summaries-are-rejected",
       "mutations": [
         {
           "op": "append",
@@ -1143,7 +1143,7 @@
           }
         }
       ],
-      "expected_rules": ["FND-AUTH-001", "FND-AUTH-001"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-001", "FND-AUTH-001"]
     },
     {
       "id": "operate-route-requires-current-grant",
@@ -1188,7 +1188,7 @@
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/interaction_kind", "value": "clarification"},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/interaction_requirement", "value": "required"},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/progress", "value": "partial_block"},
-        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "9abaa89cfe9f7eb01b4d8047de53a3289d5ebf822bff3d1b0c9aea5995bf5474"},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "e15a5b47e4d437af40f90c03fddbf6679153f575d33738ea45a298247e37cd4a"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/gap_kind", "value": "material_decision"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/state", "value": "pending"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/value_binding", "value": null},
@@ -1199,7 +1199,7 @@
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/interaction_kind", "value": "clarification"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/interaction_requirement", "value": "required"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/progress", "value": "partial_block"},
-        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "9abaa89cfe9f7eb01b4d8047de53a3289d5ebf822bff3d1b0c9aea5995bf5474"}
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "e15a5b47e4d437af40f90c03fddbf6679153f575d33738ea45a298247e37cd4a"}
       ],
       "expected_rules": ["FND-FRONTIER-004", "FND-GATE-002"]
     },
@@ -1329,8 +1329,8 @@
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/value_binding", "value": null},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/gate_result", "value": "conditional"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/gate_result", "value": "conditional"},
-        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "ab230e330f562fee3c5c8ca9236c054d52812a5cbdd4a814deeeea416815401f"},
-        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "ab230e330f562fee3c5c8ca9236c054d52812a5cbdd4a814deeeea416815401f"},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "f9511f1b7c5e561f6e5313cecdc1594b6e701020330e2e9f97036f52fcf2bd22"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "f9511f1b7c5e561f6e5313cecdc1594b6e701020330e2e9f97036f52fcf2bd22"},
         {"op": "replace", "path": "/foundation_binding/gate_ref/digest", "value": "a33ac8f3eb60823b1642d098806b85679bf73f17a49b88ea44e761ff45c729d9"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_ref/digest", "value": "a33ac8f3eb60823b1642d098806b85679bf73f17a49b88ea44e761ff45c729d9"},
         {"op": "replace", "path": "/foundation_binding/routing_record/gate_ref/digest", "value": "a33ac8f3eb60823b1642d098806b85679bf73f17a49b88ea44e761ff45c729d9"},
@@ -1405,14 +1405,14 @@
     {
       "id": "effect-grant-matches-routing-authorization-ref",
       "mutations": [
-        {"op": "append", "path": "/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.push.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.fixture.change", "capability": "push", "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}},
-        {"op": "append", "path": "/handoff/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.push.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.fixture.change", "capability": "push", "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}},
-        {"op": "replace", "path": "/foundation_binding/routing_record/authorization_ref", "value": {"id": "authorization.push.fixture", "revision": 1, "digest": "1da23dba2f13955014afb4cd292ce547321a3c36e231735d0339219f9b4ebee9"}},
-        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/authorization_ref", "value": {"id": "authorization.push.fixture", "revision": 1, "digest": "1da23dba2f13955014afb4cd292ce547321a3c36e231735d0339219f9b4ebee9"}},
-        {"op": "replace", "path": "/foundation_binding/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"},
-        {"op": "replace", "path": "/handoff/foundation_binding/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"},
-        {"op": "replace", "path": "/foundation_binding/gate_record/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"},
-        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"}
+        {"op": "append", "path": "/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.push.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b", "capability": "push", "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}},
+        {"op": "append", "path": "/handoff/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.push.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b", "capability": "push", "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}},
+        {"op": "replace", "path": "/foundation_binding/routing_record/authorization_ref", "value": {"id": "authorization.push.fixture", "revision": 1, "digest": "d508d38c02311a1ad266306e80c79764d6f42a02bb56365d344ae88ad12ff84f"}},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/authorization_ref", "value": {"id": "authorization.push.fixture", "revision": 1, "digest": "d508d38c02311a1ad266306e80c79764d6f42a02bb56365d344ae88ad12ff84f"}},
+        {"op": "replace", "path": "/foundation_binding/routing_ref/digest", "value": "7ecf5ae26ce14df10c700b73f02f7eade2c2ca9d00c77d7809047c8e84c266c0"},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_ref/digest", "value": "7ecf5ae26ce14df10c700b73f02f7eade2c2ca9d00c77d7809047c8e84c266c0"},
+        {"op": "replace", "path": "/foundation_binding/gate_record/routing_ref/digest", "value": "7ecf5ae26ce14df10c700b73f02f7eade2c2ca9d00c77d7809047c8e84c266c0"},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/routing_ref/digest", "value": "7ecf5ae26ce14df10c700b73f02f7eade2c2ca9d00c77d7809047c8e84c266c0"}
       ],
       "expected_rules": ["FND-AUTH-005", "RESOLVE-004"]
     },
@@ -1438,12 +1438,12 @@
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/state", "value": "answered"},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/value_binding", "value": {"kind": "normalized_value", "ref": "decision:fixture.answer"}},
         {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "request_input"},
-        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "2ac339bd2d0f40bfc030b63214be92cefaedcff59c1a0c88c351a824bcc6a16a"},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "c73e1e6cbcaed5674bbdd631db2727fc4eb35b46195e76dd01f46229073c35cf"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/gap_kind", "value": "material_decision"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/state", "value": "answered"},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/value_binding", "value": {"kind": "normalized_value", "ref": "decision:fixture.answer"}},
         {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "request_input"},
-        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "2ac339bd2d0f40bfc030b63214be92cefaedcff59c1a0c88c351a824bcc6a16a"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "c73e1e6cbcaed5674bbdd631db2727fc4eb35b46195e76dd01f46229073c35cf"},
         {"op": "replace", "path": "/decisions", "value": [{"frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "54bde1992a5f227ce3b0976545ff6f17685b74fdbbb03388fc4758452883b3cf"}, "decision_ref": "decision:fixture.answer", "summary": "구현 범위를 현재 모듈로 제한", "reason": "요청 범위와 검증 경계를 일치시키기 위해", "reconsider_when": "공개 API 변경이 필요할 때"}]},
         {"op": "replace", "path": "/handoff/decisions", "value": [{"frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "54bde1992a5f227ce3b0976545ff6f17685b74fdbbb03388fc4758452883b3cf"}, "decision_ref": "decision:fixture.answer", "summary": "구현 범위를 현재 모듈로 제한", "reason": "요청 범위와 검증 경계를 일치시키기 위해", "reconsider_when": "공개 API 변경이 필요할 때"}]}
       ],
@@ -1509,12 +1509,12 @@
         {"op": "replace", "path": "/handoff/foundation_binding/authorization_records/0/capability", "value": "durable_document_write"},
         {"op": "replace", "path": "/foundation_binding/authorization_evaluations/0/required_capability", "value": "durable_document_write"},
         {"op": "replace", "path": "/handoff/foundation_binding/authorization_evaluations/0/required_capability", "value": "durable_document_write"},
-        {"op": "replace", "path": "/foundation_binding/routing_record/authorization_ref/digest", "value": "d2f0ac83d572dfe4e1c4d514dd68871f09c2bb9ccceb32b2f03bf1f9e5714c1e"},
-        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/authorization_ref/digest", "value": "d2f0ac83d572dfe4e1c4d514dd68871f09c2bb9ccceb32b2f03bf1f9e5714c1e"},
+        {"op": "replace", "path": "/foundation_binding/routing_record/authorization_ref/digest", "value": "65c378325ee6e223328991a06555bb5623f7d9bad52efa3fd21e4ab4f8b731ba"},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/authorization_ref/digest", "value": "65c378325ee6e223328991a06555bb5623f7d9bad52efa3fd21e4ab4f8b731ba"},
         {"op": "replace", "path": "/authorization/0/capability", "value": "durable_document_write"},
         {"op": "replace", "path": "/handoff/authorization/0/capability", "value": "durable_document_write"},
-        {"op": "replace", "path": "/authorization/0/authorization_ref/digest", "value": "d2f0ac83d572dfe4e1c4d514dd68871f09c2bb9ccceb32b2f03bf1f9e5714c1e"},
-        {"op": "replace", "path": "/handoff/authorization/0/authorization_ref/digest", "value": "d2f0ac83d572dfe4e1c4d514dd68871f09c2bb9ccceb32b2f03bf1f9e5714c1e"}
+        {"op": "replace", "path": "/authorization/0/authorization_ref/digest", "value": "65c378325ee6e223328991a06555bb5623f7d9bad52efa3fd21e4ab4f8b731ba"},
+        {"op": "replace", "path": "/handoff/authorization/0/authorization_ref/digest", "value": "65c378325ee6e223328991a06555bb5623f7d9bad52efa3fd21e4ab4f8b731ba"}
       ],
       "expected_rules": []
     },
@@ -1555,12 +1555,48 @@
         {"op": "append", "path": "/handoff/foundation_binding/frontier_record/visible_unit_ids", "value": "unit.fixture.product-decision"},
         {"op": "append", "path": "/foundation_binding/frontier_record/units", "value": {"unit_id": "unit.fixture.product-decision", "revision": 1, "predecessor_unit_ref": null, "successor_unit_ref": null, "gap_kind": "material_decision", "state": "pending", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null, "safe_default_conditions": [], "authorization_id": null, "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_decision", "next_action": "clarify", "interaction_kind": "clarification", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}}},
         {"op": "append", "path": "/handoff/foundation_binding/frontier_record/units", "value": {"unit_id": "unit.fixture.product-decision", "revision": 1, "predecessor_unit_ref": null, "successor_unit_ref": null, "gap_kind": "material_decision", "state": "pending", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null, "safe_default_conditions": [], "authorization_id": null, "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_decision", "next_action": "clarify", "interaction_kind": "clarification", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}}},
-        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "48a5e7b691f753a5c814da75324eac0c60d92e05fceeade7be1915e854dc15da"},
-        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "48a5e7b691f753a5c814da75324eac0c60d92e05fceeade7be1915e854dc15da"},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "19c156d70c55f7e0a83a64425004842f1c48cdabbd42b4affb07c26f0d342e85"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "19c156d70c55f7e0a83a64425004842f1c48cdabbd42b4affb07c26f0d342e85"},
         {"op": "replace", "path": "/handoff/next_action", "value": "결정 확인"},
         {"op": "replace", "path": "/handoff/next_action_kind", "value": "clarify"}
       ],
       "expected_rules": ["FND-FRONTIER-004"]
+    },
+    {
+      "id": "active-skill-required-tools-are-available",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/required_tools", "value": ["definitely-not-installed-tool"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/required_tools", "value": ["definitely-not-installed-tool"]}
+      ],
+      "expected_rules": ["RESOLVE-004"]
+    },
+    {
+      "id": "objective-changes-require-a-fresh-logical-task",
+      "mutations": [
+        {"op": "replace", "path": "/objective/summary", "value": "운영 데이터 전체 삭제"},
+        {"op": "replace", "path": "/handoff/objective/summary", "value": "운영 데이터 전체 삭제"}
+      ],
+      "expected_rules": ["FND-AUTH-005"]
+    },
+    {
+      "id": "authorization-current-leaf-follows-predecessor-structure",
+      "mutations": [
+        {"op": "replace", "path": "/foundation_binding/authorization_records", "value": [{"authorization_id":"authorization.local-change.old","revision":1,"predecessor_authorization_ref":null,"logical_task_id":"task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b","capability":"local_change","target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","request_revision":1,"authorization_revision":1,"receipt_revision":1,"receipt_fingerprint":"7777777777777777777777777777777777777777777777777777777777777777","status":"granted","runtime_eligible":true,"future_only":false,"fixture_only":true},{"authorization_id":"authorization.local-change.stale","revision":2,"predecessor_authorization_ref":{"id":"authorization.local-change.old","revision":1,"digest":"2c0c2b9485d1f7d456db62f94c44303fba0cd18c0ab0b31deda1af87269cf708"},"logical_task_id":"task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b","capability":"local_change","target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","request_revision":1,"authorization_revision":1,"receipt_revision":1,"receipt_fingerprint":"7777777777777777777777777777777777777777777777777777777777777777","status":"stale","runtime_eligible":false,"future_only":false,"fixture_only":true},{"authorization_id":"authorization.local-change.fresh","revision":3,"predecessor_authorization_ref":{"id":"authorization.local-change.stale","revision":2,"digest":"cf2d942ea496dcc7330d52bb3d7b144e5b56179f3f60ac540b5f5c76b8ae396c"},"logical_task_id":"task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b","capability":"local_change","target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","request_revision":2,"authorization_revision":2,"receipt_revision":2,"receipt_fingerprint":"8888888888888888888888888888888888888888888888888888888888888888","status":"granted","runtime_eligible":true,"future_only":false,"fixture_only":true}]},
+        {"op": "replace", "path": "/handoff/foundation_binding/authorization_records", "value": [{"authorization_id":"authorization.local-change.old","revision":1,"predecessor_authorization_ref":null,"logical_task_id":"task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b","capability":"local_change","target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","request_revision":1,"authorization_revision":1,"receipt_revision":1,"receipt_fingerprint":"7777777777777777777777777777777777777777777777777777777777777777","status":"granted","runtime_eligible":true,"future_only":false,"fixture_only":true},{"authorization_id":"authorization.local-change.stale","revision":2,"predecessor_authorization_ref":{"id":"authorization.local-change.old","revision":1,"digest":"2c0c2b9485d1f7d456db62f94c44303fba0cd18c0ab0b31deda1af87269cf708"},"logical_task_id":"task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b","capability":"local_change","target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","request_revision":1,"authorization_revision":1,"receipt_revision":1,"receipt_fingerprint":"7777777777777777777777777777777777777777777777777777777777777777","status":"stale","runtime_eligible":false,"future_only":false,"fixture_only":true},{"authorization_id":"authorization.local-change.fresh","revision":3,"predecessor_authorization_ref":{"id":"authorization.local-change.stale","revision":2,"digest":"cf2d942ea496dcc7330d52bb3d7b144e5b56179f3f60ac540b5f5c76b8ae396c"},"logical_task_id":"task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b","capability":"local_change","target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","request_revision":2,"authorization_revision":2,"receipt_revision":2,"receipt_fingerprint":"8888888888888888888888888888888888888888888888888888888888888888","status":"granted","runtime_eligible":true,"future_only":false,"fixture_only":true}]},
+        {"op": "replace", "path": "/foundation_binding/authorization_evaluations/0/selected_authorization_id", "value": "authorization.local-change.fresh"},
+        {"op": "replace", "path": "/handoff/foundation_binding/authorization_evaluations/0/selected_authorization_id", "value": "authorization.local-change.fresh"},
+        {"op": "replace", "path": "/foundation_binding/routing_record/authorization_ref", "value": {"id":"authorization.local-change.fresh","revision":3,"digest":"7384db9748cf3523abd21c0372976d2073827f048fde4cd5afeeb2276175ae6f"}},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/authorization_ref", "value": {"id":"authorization.local-change.fresh","revision":3,"digest":"7384db9748cf3523abd21c0372976d2073827f048fde4cd5afeeb2276175ae6f"}},
+        {"op": "replace", "path": "/foundation_binding/routing_ref/digest", "value": "cfbf6bfacc41110be2a54edbe686cf2660c78b0804efbe8f87747b157758e061"},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_ref/digest", "value": "cfbf6bfacc41110be2a54edbe686cf2660c78b0804efbe8f87747b157758e061"},
+        {"op": "replace", "path": "/foundation_binding/gate_record/routing_ref/digest", "value": "cfbf6bfacc41110be2a54edbe686cf2660c78b0804efbe8f87747b157758e061"},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/routing_ref/digest", "value": "cfbf6bfacc41110be2a54edbe686cf2660c78b0804efbe8f87747b157758e061"},
+        {"op": "replace", "path": "/skill_resolution/routing_ref/digest", "value": "cfbf6bfacc41110be2a54edbe686cf2660c78b0804efbe8f87747b157758e061"},
+        {"op": "replace", "path": "/handoff/skill_resolution/routing_ref/digest", "value": "cfbf6bfacc41110be2a54edbe686cf2660c78b0804efbe8f87747b157758e061"},
+        {"op": "replace", "path": "/authorization", "value": [{"capability":"local_change","authorization_ref":{"id":"authorization.local-change.old","revision":1,"digest":"2c0c2b9485d1f7d456db62f94c44303fba0cd18c0ab0b31deda1af87269cf708"},"target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","status":"granted","runtime_eligible":true},{"capability":"local_change","authorization_ref":{"id":"authorization.local-change.stale","revision":2,"digest":"cf2d942ea496dcc7330d52bb3d7b144e5b56179f3f60ac540b5f5c76b8ae396c"},"target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","status":"stale","runtime_eligible":false},{"capability":"local_change","authorization_ref":{"id":"authorization.local-change.fresh","revision":3,"digest":"7384db9748cf3523abd21c0372976d2073827f048fde4cd5afeeb2276175ae6f"},"target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","status":"granted","runtime_eligible":true}]},
+        {"op": "replace", "path": "/handoff/authorization", "value": [{"capability":"local_change","authorization_ref":{"id":"authorization.local-change.old","revision":1,"digest":"2c0c2b9485d1f7d456db62f94c44303fba0cd18c0ab0b31deda1af87269cf708"},"target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","status":"granted","runtime_eligible":true},{"capability":"local_change","authorization_ref":{"id":"authorization.local-change.stale","revision":2,"digest":"cf2d942ea496dcc7330d52bb3d7b144e5b56179f3f60ac540b5f5c76b8ae396c"},"target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","status":"stale","runtime_eligible":false},{"capability":"local_change","authorization_ref":{"id":"authorization.local-change.fresh","revision":3,"digest":"7384db9748cf3523abd21c0372976d2073827f048fde4cd5afeeb2276175ae6f"},"target_fingerprint":"4444444444444444444444444444444444444444444444444444444444444444","scope_fingerprint":"f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e","basis_fingerprint":"6666666666666666666666666666666666666666666666666666666666666666","status":"granted","runtime_eligible":true}]}
+      ],
+      "expected_rules": ["FND-FRONTIER-006"]
     }
   ]
 }
