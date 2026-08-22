@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
 import subprocess
@@ -17,6 +18,8 @@ SPEC = importlib.util.spec_from_file_location("validate_orchestration", MODULE_P
 assert SPEC is not None and SPEC.loader is not None
 orchestration = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(orchestration)
+
+import validate_orchestration_record as record_validator
 
 
 class ResolutionTest(unittest.TestCase):
@@ -149,6 +152,40 @@ class SkillResolutionTest(unittest.TestCase):
                     orchestration.validate_skill_resolution(case["record"]),
                     case["expected_valid"],
                 )
+
+    def test_relative_skill_locator_uses_validation_repository(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source_root = Path(temporary)
+            source = source_root / "skills/project-skill/SKILL.md"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "---\nname: project-skill\ndescription: Project skill.\n---\n",
+                encoding="utf-8",
+            )
+            digest = hashlib.sha256(source.read_bytes()).hexdigest()
+            item = {
+                "skill_id": "project-skill",
+                "provenance": {
+                    "locator": "skills/project-skill/SKILL.md",
+                    "version": f"content-sha256:{digest}",
+                    "content_digest": digest,
+                },
+            }
+            effective_catalog = [
+                {
+                    "skill_id": "project-skill",
+                    "declared_source_locator": "skills/project-skill/SKILL.md",
+                    "source_locator": "skills/project-skill/SKILL.md",
+                }
+            ]
+
+            self.assertTrue(
+                record_validator.active_skill_source_matches(
+                    item,
+                    effective_catalog,
+                    source_root=source_root,
+                )
+            )
 
 
 class ActivationTest(unittest.TestCase):
