@@ -1,6 +1,6 @@
 {
   "activation": "active",
-  "case_count": 64,
+  "case_count": 67,
   "case_results": [
     {
       "id": "user-named-compatible-skill-wins-over-generic",
@@ -318,23 +318,38 @@
       "status": "pass"
     },
     {
+      "id": "operate-route-requires-current-grant",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "foundation-gate-matches-current-frontier-aggregate",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "fixture-only-grant-cannot-authorize-runtime-effect",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
       "id": "authorization-binding-has-one-current-leaf",
       "kind": "orchestration_record",
       "status": "pass"
     }
   ],
   "findings": [],
-  "passed_case_count": 64,
+  "passed_case_count": 67,
   "schema_version": "develop-change-orchestration-report-v1",
   "source_digests": {
     "skills/develop-change/evals/orchestration-cases.json": "e0a4762d819dda9c495d1702552e756c27f8093588fe7da13abf2d8235443996",
-    "skills/develop-change/evals/orchestration-record-cases.json": "dc7d055589d257819e9e229a9a92353756e44834497221cec56e62803df61fec",
+    "skills/develop-change/evals/orchestration-record-cases.json": "c607f734e7ad0a0f8543a1095f8ec78a5cc5f628a740adfea136fe86aff8bb02",
     "skills/develop-change/references/handoff-contract.md": "2556984c045c1792cda9d97772ba7dc043f6e98a57eea88c4caef97ffebf687f",
-    "skills/develop-change/references/orchestration-contract.md": "83bcd8de4d92791aabbdf3e86574f650ef429512e237f5eb20ea109536c6352b",
+    "skills/develop-change/references/orchestration-contract.md": "25faca1ce1e63b8ea0ff54733870961a7e72dad9a052067310d71ce207d7315d",
     "skills/develop-change/references/orchestration-contract.schema.json": "6ef4e1f63ac5fb6442a30955afdc33c418a10c9599bf0fbe20c54f41b40b9e12",
     "skills/develop-change/references/skill-resolution-contract.md": "8495f218e54d1d57198204e1e49ec80683b5eceaf2dad3bac9b3d48bd8a0fc72",
     "skills/develop-change/scripts/validate_orchestration.py": "745317aa6d05178e77aff467375b3136c2c347b58a11210cbae5cdce9bfa8090",
-    "skills/develop-change/scripts/validate_orchestration_record.py": "965fed0cf6362c6b330862dd20047040ebefc5a63be5c4d24996d7a405520f17"
+    "skills/develop-change/scripts/validate_orchestration_record.py": "0cddcfe207b4fc5de740b61f5b2281715290bcaa0011bb101c9ff8b59e1f1da2"
   },
   "status": "pass"
 }
