@@ -47,18 +47,22 @@
 - `skill_resolution.decisions`의 `skill_id`는 한 번만 나타난다.
 - 같은 responsibility의 활성 스킬은 모두 `composed`로 명시하지 않는 한 하나만 `selected`한다.
 - `selected`와 `composed` 스킬은 현재 `primary_route`를 적용 범위에 포함한다.
+- `selected`와 `composed` 스킬은 exact locator·version·content digest provenance를 가진다.
 - `route_plan`은 canonical route 순서를 유지한다.
 - scope의 include/exclude와 verification의 passed/failed/not_run은 서로 겹치지 않는다.
 - handoff의 completed phase는 첫 route 시작 전에는 `null`, 그 뒤에는 route plan에 있으면서 primary route보다 뒤에 있지 않는다.
 - blocked 상태이거나 완료되지 않은 route가 남은 handoff는 비어 있지 않은 next action을 남긴다.
 - planned capability ID는 `selected`나 `composed` skill ID로 기록하지 않는다.
 - 거절된 user-named 스킬에 활성 대체 후보가 없으면 fallback을 남기거나 resolution을 blocked로 둔다.
-- 같은 capability·target·scope·basis authorization binding에는 current leaf가 하나만 있다.
-- change route를 실행하려면 current effect·scope와 exact foundation record/evaluation에 결박된 runtime-eligible `local_change` grant가 있어야 하며, 없으면 gate는 blocked여야 한다.
+- 같은 capability·target·scope·basis authorization binding에는 stale·withdrawn history를 제외한 current leaf가 하나만 있다.
+- change와 deliver 효과를 실행하려면 current effect capability·scope와 exact foundation record/evaluation에 결박된 runtime-eligible current grant가 있어야 하며, 없으면 gate는 blocked여야 한다. future-only grant는 현재 효과에 쓸 수 없다.
+- foundation gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치하고, gate 결과와 frontier task·basis도 현재 최상위 상태와 일치한다.
 - provisional profile은 change side-effect checkpoint를 통과할 수 없다.
-- handoff의 objective, scope, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
+- handoff의 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
 
 효과 실행이나 handoff 재개 전에는 schema 검증과 semantic validator를 모두 통과해야 한다. validator 회귀 사례는 다음 명령으로 확인한다.
+
+`gate_ref.digest`는 foundation의 `phase1-foundation-gate-record-v1` canonical digest를 그대로 쓴다. `frontier_ref.digest`는 `develop-change-foundation-frontier-record-v1\n` domain prefix와 nested identity-ref digest를 제외한 canonical frontier JSON의 SHA-256이다.
 
 ```bash
 python3 skills/develop-change/scripts/validate_orchestration_record.py \

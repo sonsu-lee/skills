@@ -116,7 +116,7 @@
         <mxCell id="artifact_git" value="&lt;b&gt;Git 전달 결과&lt;/b&gt;&lt;br&gt;branch · commit SHA · Draft PR URL" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#EAE6FF;strokeColor=#6554C0;fontColor=#403294;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
           <mxGeometry x="1060" y="1060" width="280" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="handoff" value="&lt;b&gt;Compact handoff v1&lt;/b&gt;&lt;br&gt;목표 · scope · 완료 phase · 결정 · artifact&lt;br&gt;effect binding · profile · foundation binding · skill resolution&lt;br&gt;권한 · 검증 · blocker · next action" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#DEEBFF;strokeColor=#0052CC;strokeWidth=2;fontColor=#0747A6;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
+        <mxCell id="handoff" value="&lt;b&gt;Compact handoff v1&lt;/b&gt;&lt;br&gt;목표 · scope · 완료 phase · current route · route plan&lt;br&gt;결정 · artifact · effect binding · profile&lt;br&gt;foundation binding · skill resolution · 권한 · 검증 · blocker · next action" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#DEEBFF;strokeColor=#0052CC;strokeWidth=2;fontColor=#0747A6;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
           <mxGeometry x="1390" y="1045" width="260" height="110" as="geometry"/>
         </mxCell>
 

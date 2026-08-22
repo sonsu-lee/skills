@@ -18,11 +18,13 @@ Skill resolver는 현재 작업에 필요한 전문 지침을 선택한다. 스�
 1. 시스템·개발자 지침과 프로젝트 규칙을 binding constraint로 고정한다 (`RESOLVE-001`).
 2. 사용자가 명시한 스킬을 찾고 현재 환경에서 실제로 읽고 사용할 수 있는지 확인한다 (`RESOLVE-002`).
 3. 현재 route에 직접 기여하는 후보만 남긴다 (`RESOLVE-003`).
-4. 후보마다 책임, 구체성, 버전·프레임워크 호환성, 필요한 도구, 출처와 effect boundary를 기록한다 (`RESOLVE-004`).
+4. 후보마다 책임, 구체성, 버전·프레임워크 호환성, 필요한 도구, 출처와 effect boundary를 기록한다. 선택 후보는 exact locator, version·revision, content digest까지 보존한다 (`RESOLVE-004`).
 5. 아래 경합 규칙으로 `selected / composed / rejected / blocked / fallback` 중 하나를 결정한다 (`RESOLVE-005`).
 6. 선택된 스킬이 요구하는 reference와 선행조건을 적용하되, 사용자 권한을 넓히지 않는다 (`RESOLVE-006`).
 
 플러그인이 제공하는 스킬은 런타임에서 노출된 canonical ID를 그대로 기록한다. 예를 들어 `skills:git-workflow`나 `github:github`의 namespace를 제거하지 않아 서로 다른 플러그인의 동명 스킬을 합치지 않는다.
+
+`selected`와 `composed` 결정의 `provenance`에는 재개 시 같은 후보인지 확인할 수 있는 `locator`, `version`, `content_digest`를 모두 기록한다. ID가 같아도 이 tuple이 바뀌면 호환성을 다시 확인하고 새 결정을 만든다 (`RESOLVE-004`). 사용할 수 없어 `rejected`한 후보는 확인하지 못한 provenance 값을 `null`로 둘 수 있다.
 
 ## 후보 우선순위
 

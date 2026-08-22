@@ -13,13 +13,15 @@ from typing import Any
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 5
+VALIDATOR_REVISION = 6
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
 HANDOFF_SNAPSHOT_FIELDS = (
     "objective",
     "scope",
+    "primary_route",
+    "route_plan",
     "decisions",
     "effect_binding",
     "profile",
@@ -41,6 +43,17 @@ ROUTE_SEQUENCE = (
     "evolve",
 )
 ROUTE_POSITION = {route: index for index, route in enumerate(ROUTE_SEQUENCE)}
+EFFECT_CAPABILITIES_BY_ROUTE = {
+    "change": {"local_change"},
+    "deliver": {
+        "branch_create",
+        "branch_switch",
+        "stage",
+        "commit",
+        "push",
+        "pr_create",
+    },
+}
 
 
 def canonical_bytes(value: Any) -> bytes:
@@ -62,11 +75,37 @@ def record_digest_payload(value: Any) -> Any:
     return value
 
 
-def authorization_record_digest(record: dict[str, Any]) -> str:
+FOUNDATION_RECORD_DOMAINS = {
+    "gate": b"phase1-foundation-gate-record-v1\n",
+    "authorization": b"phase1-foundation-authorization-record-v1\n",
+    "frontier": b"develop-change-foundation-frontier-record-v1\n",
+}
+
+
+def foundation_record_digest(kind: str, record: dict[str, Any]) -> str:
     return hashlib.sha256(
-        b"phase1-foundation-authorization-record-v1\n"
-        + canonical_bytes(record_digest_payload(record))
+        FOUNDATION_RECORD_DOMAINS[kind] + canonical_bytes(record_digest_payload(record))
     ).hexdigest()
+
+
+def authorization_record_digest(record: dict[str, Any]) -> str:
+    return foundation_record_digest("authorization", record)
+
+
+def identity_ref_matches(
+    reference: Any,
+    record: Any,
+    *,
+    kind: str,
+    id_field: str,
+) -> bool:
+    return (
+        isinstance(reference, dict)
+        and isinstance(record, dict)
+        and reference.get("id") == record.get(id_field)
+        and reference.get("revision") == record.get("revision")
+        and reference.get("digest") == foundation_record_digest(kind, record)
+    )
 
 
 def current_scope_fingerprint(scope: dict[str, Any]) -> str:
@@ -365,6 +404,21 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
             if isinstance(item.get("skill_id"), str):
                 active_skill_ids.add(item["skill_id"])
             active_by_responsibility.setdefault(item.get("responsibility"), []).append(item)
+            provenance = item.get("provenance")
+            if not (
+                isinstance(provenance, dict)
+                and isinstance(provenance.get("locator"), str)
+                and provenance["locator"]
+                and isinstance(provenance.get("version"), str)
+                and provenance["version"]
+                and isinstance(provenance.get("content_digest"), str)
+                and re.fullmatch(r"[0-9a-f]{64}", provenance["content_digest"])
+            ):
+                add(
+                    "RESOLVE-004",
+                    "/skill_resolution/decisions",
+                    f"active skill requires exact provenance: {item.get('skill_id')}",
+                )
             if primary_route not in string_set(item.get("applies_to_routes")):
                 add(
                     "RESOLVE-003",
@@ -432,11 +486,62 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
             "verification result sets must be mutually exclusive",
         )
 
+    effect_binding = (
+        record.get("effect_binding")
+        if isinstance(record.get("effect_binding"), dict)
+        else {}
+    )
+    foundation_binding = (
+        record.get("foundation_binding")
+        if isinstance(record.get("foundation_binding"), dict)
+        else {}
+    )
+    gate_record = foundation_binding.get("gate_record")
+    frontier_record = foundation_binding.get("frontier_record")
+    if not identity_ref_matches(
+        foundation_binding.get("gate_ref"),
+        gate_record,
+        kind="gate",
+        id_field="gate_id",
+    ) or not (
+        isinstance(gate_record, dict) and gate_record.get("result") == gate_result
+    ):
+        add(
+            "FND-GATE-001",
+            "/foundation_binding/gate_ref",
+            "gate_ref must identify the current foundation gate record",
+        )
+    if not identity_ref_matches(
+        foundation_binding.get("frontier_ref"),
+        frontier_record,
+        kind="frontier",
+        id_field="frontier_id",
+    ):
+        add(
+            "FND-FRONTIER-004",
+            "/foundation_binding/frontier_ref",
+            "frontier_ref must identify the current foundation frontier record",
+        )
+    if not (
+        isinstance(frontier_record, dict)
+        and frontier_record.get("logical_task_id")
+        == effect_binding.get("logical_task_id")
+        and frontier_record.get("basis_fingerprint")
+        == effect_binding.get("basis_fingerprint")
+    ):
+        add(
+            "FND-FRONTIER-001",
+            "/foundation_binding/frontier_record",
+            "frontier record must match the current task and basis",
+        )
+
     authorization = record.get("authorization")
     if isinstance(authorization, list):
         binding_keys: list[tuple[Any, Any, Any, Any]] = []
         for item in authorization:
             if not isinstance(item, dict):
+                continue
+            if item.get("status") in {"stale", "withdrawn"}:
                 continue
             binding_key = (
                 item.get("capability"),
@@ -452,23 +557,13 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
                 "/authorization",
                 "authorization binding must have one current lineage leaf",
             )
-        effect_binding = (
-            record.get("effect_binding")
-            if isinstance(record.get("effect_binding"), dict)
-            else {}
-        )
-        foundation_binding = (
-            record.get("foundation_binding")
-            if isinstance(record.get("foundation_binding"), dict)
-            else {}
-        )
         authorization_record = foundation_binding.get("authorization_record")
         authorization_evaluation = foundation_binding.get(
             "authorization_evaluation"
         )
         expected_scope_fingerprint = current_scope_fingerprint(scope)
 
-        def matches_current_local_change(item: Any) -> bool:
+        def matches_current_effect(item: Any) -> bool:
             if not (
                 isinstance(item, dict)
                 and isinstance(authorization_record, dict)
@@ -480,7 +575,8 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
             record_matches_effect = (
                 authorization_record.get("logical_task_id")
                 == effect_binding.get("logical_task_id")
-                and authorization_record.get("capability") == "local_change"
+                and authorization_record.get("capability")
+                == effect_binding.get("capability")
                 and authorization_record.get("target_fingerprint")
                 == effect_binding.get("target_fingerprint")
                 and authorization_record.get("scope_fingerprint")
@@ -489,6 +585,7 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
                 == effect_binding.get("basis_fingerprint")
                 and authorization_record.get("status") == "granted"
                 and authorization_record.get("runtime_eligible") is True
+                and authorization_record.get("future_only") is False
             )
             summary_matches_record = (
                 isinstance(authorization_ref, dict)
@@ -526,18 +623,28 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
             )
             return record_matches_effect and summary_matches_record and evaluation_matches_record
 
-        local_change_granted = any(
-            matches_current_local_change(item) for item in authorization
+        current_effect_granted = any(
+            matches_current_effect(item) for item in authorization
         )
+        allowed_effect_capabilities = EFFECT_CAPABILITIES_BY_ROUTE.get(primary_route)
         if (
-            primary_route == "change"
+            allowed_effect_capabilities is not None
+            and effect_binding.get("capability") not in allowed_effect_capabilities
+        ):
+            add(
+                "FND-AUTH-005",
+                "/effect_binding/capability",
+                "effect route requires an explicit route-compatible capability",
+            )
+        if (
+            allowed_effect_capabilities is not None
             and gate_result != "blocked"
-            and not local_change_granted
+            and not current_effect_granted
         ):
             add(
                 "FND-AUTH-005",
                 "/authorization",
-                "change route requires a current runtime-eligible local_change grant or a blocked gate",
+                "effect route requires a current exact grant or a blocked gate",
             )
 
     for field in HANDOFF_SNAPSHOT_FIELDS:

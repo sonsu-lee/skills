@@ -300,6 +300,8 @@
       "required": [
         "gate_ref",
         "frontier_ref",
+        "gate_record",
+        "frontier_record",
         "authorization_record",
         "authorization_evaluation"
       ],
@@ -309,6 +311,12 @@
         },
         "frontier_ref": {
           "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
+        },
+        "gate_record": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/gateRecord"
+        },
+        "frontier_record": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/frontierRecord"
         },
         "authorization_record": {
           "oneOf": [
@@ -331,10 +339,23 @@
     "effectBinding": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["logical_task_id", "target_fingerprint", "basis_fingerprint"],
+      "required": [
+        "logical_task_id",
+        "capability",
+        "target_fingerprint",
+        "basis_fingerprint"
+      ],
       "properties": {
         "logical_task_id": {
           "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/stableId"
+        },
+        "capability": {
+          "oneOf": [
+            {
+              "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/capability"
+            },
+            {"type": "null"}
+          ]
         },
         "target_fingerprint": {
           "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/sha256"
@@ -394,7 +415,8 @@
         "compatible",
         "required_tools",
         "applies_to_routes",
-        "effect_boundary"
+        "effect_boundary",
+        "provenance"
       ],
       "properties": {
         "skill_id": {
@@ -418,7 +440,8 @@
           "uniqueItems": true,
           "items": {"$ref": "#/$defs/route"}
         },
-        "effect_boundary": {"type": "string", "minLength": 1}
+        "effect_boundary": {"type": "string", "minLength": 1},
+        "provenance": {"$ref": "#/$defs/skillProvenance"}
       },
       "allOf": [
         {
@@ -433,6 +456,23 @@
           }
         }
       ]
+    },
+    "skillProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["locator", "version", "content_digest"],
+      "properties": {
+        "locator": {"type": ["string", "null"], "minLength": 1},
+        "version": {"type": ["string", "null"], "minLength": 1},
+        "content_digest": {
+          "oneOf": [
+            {
+              "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/sha256"
+            },
+            {"type": "null"}
+          ]
+        }
+      }
     },
     "plannedCapability": {
       "type": "object",
@@ -540,6 +580,8 @@
         "objective",
         "scope",
         "completed_phase",
+        "primary_route",
+        "route_plan",
         "decisions",
         "artifacts",
         "effect_binding",
@@ -559,6 +601,13 @@
             {"$ref": "#/$defs/route"},
             {"type": "null"}
           ]
+        },
+        "primary_route": {"$ref": "#/$defs/route"},
+        "route_plan": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/route"}
         },
         "decisions": {
           "type": "array",
