@@ -27,7 +27,7 @@ from runtime_projection import (
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 19
+VALIDATOR_REVISION = 20
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
@@ -803,7 +803,10 @@ def validate_record(
                 )
             required_tools = item.get("required_tools")
             if not isinstance(required_tools, list) or any(
-                not isinstance(tool, str) or shutil.which(tool) is None
+                not isinstance(tool, str)
+                or "/" in tool
+                or "\\" in tool
+                or shutil.which(tool) is None
                 for tool in required_tools
             ):
                 add(
@@ -830,6 +833,23 @@ def validate_record(
                 "RESOLVE-005",
                 "/skill_resolution/decisions",
                 "a single active skill must be selected, not composed",
+            )
+        if any(
+            isinstance(active.get("specificity"), int)
+            and any(
+                other is not active
+                and other.get("source") == active.get("source")
+                and other.get("responsibility") == active.get("responsibility")
+                and isinstance(other.get("specificity"), int)
+                and other["specificity"] > active["specificity"]
+                for other in active_decisions
+            )
+            for active in active_decisions
+        ):
+            add(
+                "RESOLVE-005",
+                "/skill_resolution/decisions",
+                "a lower-specificity candidate cannot remain active beside a more specific candidate for the same source and responsibility",
             )
         rejected_compatible = [
             item
@@ -1294,6 +1314,19 @@ def validate_record(
         requires_effect_grant = primary_route in SIDE_EFFECT_ROUTES or isinstance(
             effect_capability, str
         )
+        if not requires_effect_grant and any(
+            isinstance(evaluation, dict)
+            and (
+                evaluation.get("side_effect_intent") != "none"
+                or evaluation.get("dependent_side_effect_count") != 0
+            )
+            for evaluation in authorization_evaluations
+        ):
+            add(
+                "FND-AUTH-005",
+                "/foundation_binding/authorization_evaluations",
+                "read-only route evaluations must have no dependent side-effect intent",
+            )
         if (
             requires_effect_grant
             and gate_result != "blocked"

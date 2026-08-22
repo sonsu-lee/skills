@@ -211,13 +211,13 @@
         {
           "skill_id": "skills:git-workflow",
           "source": "repository",
-          "decision": "selected",
-          "reason": "프로젝트 규칙",
+          "decision": "rejected",
+          "reason": "deliver route가 없어 적용하지 않음",
           "responsibility": "workflow",
           "specificity": 4,
           "compatible": true,
           "required_tools": [],
-          "applies_to_routes": ["change"],
+          "applies_to_routes": ["deliver"],
           "effect_boundary": "src",
           "provenance": {
             "locator": "skills/git-workflow/SKILL.md",
@@ -227,7 +227,7 @@
         }
       ],
       "planned_capabilities": [],
-      "fallback": null
+      "fallback": "호스트 기본 구현 능력"
     },
     "authorization": [
       {
@@ -444,13 +444,13 @@
           {
             "skill_id": "skills:git-workflow",
             "source": "repository",
-            "decision": "selected",
-            "reason": "프로젝트 규칙",
+            "decision": "rejected",
+            "reason": "deliver route가 없어 적용하지 않음",
             "responsibility": "workflow",
             "specificity": 4,
             "compatible": true,
             "required_tools": [],
-            "applies_to_routes": ["change"],
+            "applies_to_routes": ["deliver"],
             "effect_boundary": "src",
             "provenance": {
               "locator": "skills/git-workflow/SKILL.md",
@@ -460,7 +460,7 @@
           }
         ],
         "planned_capabilities": [],
-        "fallback": null
+        "fallback": "호스트 기본 구현 능력"
       },
       "authorization": [
         {
@@ -664,6 +664,10 @@
     {
       "id": "same-responsibility-requires-composition",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
         {
           "op": "append",
           "path": "/skill_resolution/decisions",
@@ -712,6 +716,8 @@
     {
       "id": "active-skill-applies-to-current-route",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
         {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["verify"]},
         {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["verify"]}
       ],
@@ -793,6 +799,10 @@
     {
       "id": "planned-capability-is-not-an-active-skill",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
         {
           "op": "append",
           "path": "/skill_resolution/planned_capabilities",
@@ -819,6 +829,8 @@
     {
       "id": "rejected-user-skill-needs-a-recovery-path",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/fallback", "value": null},
+        {"op": "replace", "path": "/handoff/skill_resolution/fallback", "value": null},
         {
           "op": "replace",
           "path": "/skill_resolution/decisions",
@@ -1082,6 +1094,10 @@
     {
       "id": "active-skill-requires-exact-provenance",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
         {"op": "replace", "path": "/skill_resolution/decisions/0/provenance/version", "value": null},
         {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/provenance/version", "value": null}
       ],
@@ -1286,6 +1302,8 @@
     {
       "id": "rejected-user-skill-needs-same-responsibility-replacement",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/fallback", "value": null},
+        {"op": "replace", "path": "/handoff/skill_resolution/fallback", "value": null},
         {"op": "append", "path": "/skill_resolution/decisions", "value": {"skill_id": "missing-database-skill", "source": "user_named", "decision": "rejected", "reason": "현재 환경에서 사용할 수 없음", "responsibility": "database", "specificity": 5, "compatible": false, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "none", "provenance": {"locator": null, "version": null, "content_digest": null}}},
         {"op": "append", "path": "/handoff/skill_resolution/decisions", "value": {"skill_id": "missing-database-skill", "source": "user_named", "decision": "rejected", "reason": "현재 환경에서 사용할 수 없음", "responsibility": "database", "specificity": 5, "compatible": false, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "none", "provenance": {"locator": null, "version": null, "content_digest": null}}}
       ],
@@ -1306,6 +1324,15 @@
         {"op": "replace", "path": "/handoff/primary_route", "value": "verify"},
         {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change", "verify"]},
         {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change", "verify"]}
+      ],
+      "expected_rules": ["FND-AUTH-005", "FND-GATE-002", "FND-ROUTE-001", "HANDOFF-001"]
+    },
+    {
+      "id": "read-only-route-rejects-dependent-authorization",
+      "base_case": "read-only-route-rejects-effect-capability",
+      "mutations": [
+        {"op": "replace", "path": "/effect_binding/capability", "value": null},
+        {"op": "replace", "path": "/handoff/effect_binding/capability", "value": null}
       ],
       "expected_rules": ["FND-AUTH-005", "FND-GATE-002", "FND-ROUTE-001", "HANDOFF-001"]
     },
@@ -1478,6 +1505,10 @@
     {
       "id": "complementary-responsibilities-require-composition",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
         {"op": "append", "path": "/skill_resolution/decisions", "value": {"skill_id": "skills:research", "source": "repository", "decision": "selected", "reason": "테스트 책임", "responsibility": "testing", "specificity": 2, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "tests", "provenance": {"locator": "skills/research/SKILL.md", "version": "content-sha256:f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5", "content_digest": "f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5"}}},
         {"op": "append", "path": "/handoff/skill_resolution/decisions", "value": {"skill_id": "skills:research", "source": "repository", "decision": "selected", "reason": "테스트 책임", "responsibility": "testing", "specificity": 2, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "tests", "provenance": {"locator": "skills/research/SKILL.md", "version": "content-sha256:f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5", "content_digest": "f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5"}}}
       ],
@@ -1486,6 +1517,10 @@
     {
       "id": "active-skill-provenance-matches-source",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
         {"op": "replace", "path": "/skill_resolution/decisions/0/provenance/locator", "value": "skills/missing-skill/SKILL.md"},
         {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/provenance/locator", "value": "skills/missing-skill/SKILL.md"}
       ],
@@ -1494,6 +1529,10 @@
     {
       "id": "active-skill-is-model-visible",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
         {"op": "replace", "path": "/skill_resolution/decisions/0/skill_id", "value": "skills:present-result"},
         {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/skill_id", "value": "skills:present-result"},
         {"op": "replace", "path": "/skill_resolution/decisions/0/provenance", "value": {"locator": "skills/present-result/SKILL.md", "version": "content-sha256:68778982ef756e8afda9bd2197cf9aa241dffa2dd9e8dd449424147fe459ab8f", "content_digest": "68778982ef756e8afda9bd2197cf9aa241dffa2dd9e8dd449424147fe459ab8f"}},
@@ -1504,6 +1543,8 @@
     {
       "id": "single-active-skill-is-selected",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
         {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "composed"},
         {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "composed"}
       ],
@@ -1538,8 +1579,20 @@
     {
       "id": "more-specific-compatible-candidate-wins",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
         {"op": "append", "path": "/skill_resolution/decisions", "value": {"skill_id": "skills:present-result", "source": "repository", "decision": "rejected", "reason": "낮은 후보를 선택", "responsibility": "workflow", "specificity": 5, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "provenance": {"locator": null, "version": null, "content_digest": null}}},
         {"op": "append", "path": "/handoff/skill_resolution/decisions", "value": {"skill_id": "skills:present-result", "source": "repository", "decision": "rejected", "reason": "낮은 후보를 선택", "responsibility": "workflow", "specificity": 5, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "provenance": {"locator": null, "version": null, "content_digest": null}}}
+      ],
+      "expected_rules": ["RESOLVE-005"]
+    },
+    {
+      "id": "lower-specificity-candidate-cannot-remain-composed",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions", "value": [{"skill_id": "skills:git-workflow", "source": "repository", "decision": "composed", "reason": "높은 구체성 후보", "responsibility": "workflow", "specificity": 4, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "provenance": {"locator": "skills/git-workflow/SKILL.md", "version": "content-sha256:4ceaa4b3743ead8de9be946f532c40333d4cb2ac34d7f3c2ed4c0753b4dd8a5e", "content_digest": "4ceaa4b3743ead8de9be946f532c40333d4cb2ac34d7f3c2ed4c0753b4dd8a5e"}}, {"skill_id": "skills:research", "source": "repository", "decision": "composed", "reason": "낮은 구체성 후보", "responsibility": "workflow", "specificity": 3, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "provenance": {"locator": "skills/research/SKILL.md", "version": "content-sha256:f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5", "content_digest": "f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5"}}]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions", "value": [{"skill_id": "skills:git-workflow", "source": "repository", "decision": "composed", "reason": "높은 구체성 후보", "responsibility": "workflow", "specificity": 4, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "provenance": {"locator": "skills/git-workflow/SKILL.md", "version": "content-sha256:4ceaa4b3743ead8de9be946f532c40333d4cb2ac34d7f3c2ed4c0753b4dd8a5e", "content_digest": "4ceaa4b3743ead8de9be946f532c40333d4cb2ac34d7f3c2ed4c0753b4dd8a5e"}}, {"skill_id": "skills:research", "source": "repository", "decision": "composed", "reason": "낮은 구체성 후보", "responsibility": "workflow", "specificity": 3, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "provenance": {"locator": "skills/research/SKILL.md", "version": "content-sha256:f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5", "content_digest": "f466af71036ffab81c9319ef1198144b2801e93980dcfd80eeca8b0740fd7aa5"}}]}
       ],
       "expected_rules": ["RESOLVE-005"]
     },
@@ -1582,8 +1635,24 @@
     {
       "id": "active-skill-required-tools-are-available",
       "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
         {"op": "replace", "path": "/skill_resolution/decisions/0/required_tools", "value": ["definitely-not-installed-tool"]},
         {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/required_tools", "value": ["definitely-not-installed-tool"]}
+      ],
+      "expected_rules": ["RESOLVE-004"]
+    },
+    {
+      "id": "active-skill-required-tools-are-path-command-names",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "selected"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/applies_to_routes", "value": ["change"]},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/required_tools", "value": ["/bin/sh"]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/required_tools", "value": ["/bin/sh"]}
       ],
       "expected_rules": ["RESOLVE-004"]
     },

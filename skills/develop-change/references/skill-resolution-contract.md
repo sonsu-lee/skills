@@ -18,7 +18,7 @@ Skill resolver는 현재 작업에 필요한 전문 지침을 선택한다. 스�
 1. 시스템·개발자 지침과 프로젝트 규칙을 binding constraint로 고정한다 (`RESOLVE-001`).
 2. 사용자가 명시한 스킬을 찾고 현재 환경에서 실제로 읽고 사용할 수 있는지 확인한다 (`RESOLVE-002`).
 3. 현재 route에 직접 기여하는 후보만 남긴다 (`RESOLVE-003`).
-4. 후보마다 책임, 구체성, 버전·프레임워크 호환성, 필요한 도구, 출처와 effect boundary를 기록한다. 선택 후보는 exact locator, version·revision, content digest까지 보존한다 (`RESOLVE-004`).
+4. 후보마다 책임, 구체성, 버전·프레임워크 호환성, 필요한 도구, 출처와 effect boundary를 기록한다. `required_tools`는 경로가 아닌 PATH 명령 이름만 기록한다. 선택 후보는 exact locator, version·revision, content digest까지 보존한다 (`RESOLVE-004`).
 5. 아래 경합 규칙으로 `selected / composed / rejected / blocked / fallback` 중 하나를 결정한다 (`RESOLVE-005`).
 6. 선택된 스킬이 요구하는 reference와 선행조건을 적용하되, 사용자 권한을 넓히지 않는다 (`RESOLVE-006`).
 
