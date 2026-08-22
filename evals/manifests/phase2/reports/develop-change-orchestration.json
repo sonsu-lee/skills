@@ -1,6 +1,6 @@
 {
   "activation": "active",
-  "case_count": 45,
+  "case_count": 48,
   "case_results": [
     {
       "id": "user-named-compatible-skill-wins-over-generic",
@@ -226,20 +226,35 @@
       "id": "verification-results-are-disjoint",
       "kind": "orchestration_record",
       "status": "pass"
+    },
+    {
+      "id": "completed-phase-is-not-ahead-of-current-route",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "blocked-handoff-requires-next-action",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "authorization-binding-has-one-current-leaf",
+      "kind": "orchestration_record",
+      "status": "pass"
     }
   ],
   "findings": [],
-  "passed_case_count": 45,
+  "passed_case_count": 48,
   "schema_version": "develop-change-orchestration-report-v1",
   "source_digests": {
     "skills/develop-change/evals/orchestration-cases.json": "9f0d9fded4133d362ebb2f21bc79f9eea4e98700d129b1579cd28fd43ee9a13c",
-    "skills/develop-change/evals/orchestration-record-cases.json": "3b8d462fae82bb5b36f2378f89beb84d46e45a87140fae0d9895b0ebc023ef1f",
+    "skills/develop-change/evals/orchestration-record-cases.json": "ecc59d7fecf82ac2913cf74de996bdfa3c8a229e74717937c061149a9d3296d5",
     "skills/develop-change/references/handoff-contract.md": "0f1c62640498f53c078a02c415bd6827c6a90c591ab299c0d6bd7db51b05ecba",
-    "skills/develop-change/references/orchestration-contract.md": "ad92d5f1a05d2daa248a8cd0e3b93796840ce7cce2f1c48087e01703d5f66ed5",
-    "skills/develop-change/references/orchestration-contract.schema.json": "e3144986bf391c93eca2410bb8e1d6feee41014056443a9b8a182b075b9862e3",
-    "skills/develop-change/references/skill-resolution-contract.md": "86e74e8d56d9ff1a439d766738177795ce92e18e72803621f2ccf7882c060908",
+    "skills/develop-change/references/orchestration-contract.md": "4b4a3c5b1c2ba547a47f68fb0ae6d23dc2b69b74e1f12eb118bb0e011ad12315",
+    "skills/develop-change/references/orchestration-contract.schema.json": "90e5dcb8c24cfb1b19b5c832542bcfe64b854e624272dc7af0e3177a4adb14f8",
+    "skills/develop-change/references/skill-resolution-contract.md": "67c60de08c0ec35a6be04dcd757e46c08c760d3ca059cdadcab505e8706121ea",
     "skills/develop-change/scripts/validate_orchestration.py": "48ca0fdec5ce46cd25c3dd693e1046c506696e481d3c236bcce5826b122920e3",
-    "skills/develop-change/scripts/validate_orchestration_record.py": "bf797deef1bb9be8269894643feb7b09168d23574e4fb2bbeb7827184564e024"
+    "skills/develop-change/scripts/validate_orchestration_record.py": "8b507ccfb094cfc7caefbb8e797289418a36f59a61763cd8d9f90583cea68f6a"
   },
   "status": "pass"
 }
