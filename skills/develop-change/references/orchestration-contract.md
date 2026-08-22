@@ -55,8 +55,8 @@
 - planned capability ID는 `selected`나 `composed` skill ID로 기록하지 않는다.
 - 거절된 user-named 스킬에 활성 대체 후보가 없으면 fallback을 남기거나 resolution을 blocked로 둔다.
 - 같은 capability·target·scope·basis authorization binding에는 stale·withdrawn history를 제외한 current leaf가 하나만 있다.
-- change와 deliver 효과를 실행하려면 current effect capability·scope와 exact foundation record/evaluation에 결박된 runtime-eligible current grant가 있어야 하며, 없으면 gate는 blocked여야 한다. future-only grant는 현재 효과에 쓸 수 없다.
-- foundation gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치하고, gate 결과와 frontier task·basis도 현재 최상위 상태와 일치한다.
+- change·deliver·operate·evolve 효과를 실행하거나 effect capability가 명시됐으면 current effect·scope와 exact foundation record/evaluation에 결박된 runtime-eligible current grant가 있어야 하며, 없으면 gate는 blocked여야 한다. future-only와 fixture-only grant는 runtime 효과에 쓸 수 없다.
+- foundation gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치하고, gate 결과와 frontier task·basis도 현재 최상위 상태와 일치한다. gate record는 current·non-historical frontier unit의 runtime disposition을 foundation 우선순위로 다시 집계한 결과와도 정확히 일치해야 한다.
 - provisional profile은 change side-effect checkpoint를 통과할 수 없다.
 - handoff의 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
 

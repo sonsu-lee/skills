@@ -86,7 +86,9 @@ Authorization은 **어떤 행동을, 어느 대상과 범위에, 어떤 근거�
 - exact current grant만 dependent side effect를 허용한다. missing·stale·denied·withdrawn·wrong binding이면 0건이다 (`FND-AUTH-005`).
 - 현재 `primary_route`가 `change`라면 runtime-eligible `local_change: granted`가 있어야 한다. 없으면 gate를 `blocked`로 두고 변경을 실행하지 않는다 (`FND-AUTH-005`).
 - 현재 `primary_route`가 `deliver`라면 실행할 Git capability를 effect binding에 명시하고 해당 capability의 runtime-eligible current grant가 있어야 한다. 없으면 gate를 `blocked`로 두고 branch·stage·commit·push·PR 효과를 실행하지 않는다 (`FND-AUTH-005`).
+- `operate`·`evolve`를 포함해 effect binding에 capability가 있거나 side-effect route를 실행하면 exact current grant를 같은 방식으로 요구한다. route 이름이 allowlist에 없다는 이유로 권한 검사를 생략하지 않는다 (`FND-AUTH-005`).
 - orchestration record의 effect summary는 current foundation authorization record의 canonical identity ref와 capability·target·현재 scope·basis fingerprint에 정확히 일치해야 한다. 같은 record를 선택한 `allowed` evaluation까지 일치하지 않거나 record가 `future_only`면 다른 task·단계의 grant로 보고 실행하지 않는다 (`FND-AUTH-005`).
+- `fixture_only: true` record는 회귀 카탈로그 내부에서만 합성 grant로 쓸 수 있다. `--input` 효과 승인에서는 항상 grant 0건으로 계산한다 (`FND-AUTH-005`).
 - stale·withdrawn grant는 handoff history에 보존할 수 있지만 current leaf 유일성 계산과 효과 승인에서는 제외한다 (`FND-AUTH-001`, `FND-AUTH-005`).
 - 질문, 답변, 추천, gate, profile, skill 설치, telemetry·rollout·trust·runtime 상태는 per-task capability를 대신하지 않는다.
 

@@ -31,7 +31,7 @@
     "documents": [
       {
         "path": "authorization-contract.md",
-      "sha256": "bff9368fd58dcf8bbea1eb753062b3f7e3c60df01ea4dc51d8310016f69d7598"
+      "sha256": "d5d4b16d00e0bf05f66d6d01f97de994ed22a18cd3d3cf3919ed14a5c2dd9f9d"
       },
       {
         "path": "gate-contract.md",

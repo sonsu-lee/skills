@@ -13,7 +13,7 @@ from typing import Any
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 6
+VALIDATOR_REVISION = 7
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
@@ -54,6 +54,8 @@ EFFECT_CAPABILITIES_BY_ROUTE = {
         "pr_create",
     },
 }
+SIDE_EFFECT_ROUTES = {"change", "deliver", "operate", "evolve"}
+HISTORICAL_FRONTIER_STATES = {"stale", "superseded"}
 
 
 def canonical_bytes(value: Any) -> bytes:
@@ -114,6 +116,105 @@ def current_scope_fingerprint(scope: dict[str, Any]) -> str:
         "exclude": scope.get("exclude"),
     }
     return hashlib.sha256(b"develop-change-scope-v1\n" + canonical_bytes(payload)).hexdigest()
+
+
+def gate_matches_frontier_aggregate(
+    gate: Any,
+    frontier: Any,
+    *,
+    provisional_profile: bool,
+) -> bool:
+    if not isinstance(gate, dict) or not isinstance(frontier, dict):
+        return False
+    units = frontier.get("units")
+    if not isinstance(units, list):
+        return False
+    current_units = [
+        unit
+        for unit in units
+        if isinstance(unit, dict)
+        and unit.get("state") not in HISTORICAL_FRONTIER_STATES
+        and unit.get("checkpoint_relevance") == "current"
+        and isinstance(unit.get("runtime_disposition"), dict)
+    ]
+    dispositions = [unit["runtime_disposition"] for unit in current_units]
+    blocker_rank = {
+        "missing_evidence": 1,
+        "missing_decision": 2,
+        "missing_authorization": 3,
+        "scope_expansion": 4,
+        "external_dependency": 5,
+    }
+    blocked = [item for item in dispositions if item.get("gate_result") == "blocked"]
+    if blocked:
+        selected = max(
+            blocked, key=lambda item: blocker_rank.get(item.get("blocker"), 0)
+        )
+        same_blocker = [
+            item for item in blocked if item.get("blocker") == selected.get("blocker")
+        ]
+        next_actions = {item.get("next_action") for item in same_blocker}
+        if len(next_actions) != 1:
+            return False
+        expected_result = "blocked"
+        expected_blocker = selected.get("blocker")
+        expected_action = selected.get("next_action")
+        expected_blocking_defer = any(
+            item.get("resolution_action") == "defer"
+            and item.get("defer_effect") == "blocks_dependent_scope"
+            and item.get("blocker") == expected_blocker
+            for item in same_blocker
+        )
+        if gate.get("work_remaining"):
+            expected_progress = "partial_block"
+        elif expected_action in {"clarify", "reauthorize"}:
+            expected_progress = "await_input"
+        else:
+            expected_progress = "terminal_blocked"
+    elif provisional_profile or any(
+        item.get("gate_result") == "conditional" for item in dispositions
+    ):
+        expected_result, expected_blocker, expected_action = (
+            "conditional",
+            "none",
+            "continue",
+        )
+        expected_progress, expected_blocking_defer = "continue", False
+    else:
+        expected_result, expected_blocker = "pass", "none"
+        expected_action = "continue" if gate.get("work_remaining") else None
+        expected_progress, expected_blocking_defer = "continue", False
+    expected_owner = "none"
+    if expected_blocker == "missing_evidence" and expected_action in {
+        "continue",
+        "clarify",
+    }:
+        expected_owner = "local" if expected_action == "continue" else "user"
+    expected_assumption = (
+        "non_material"
+        if expected_result == "conditional"
+        and any(unit.get("state") == "assumed" for unit in current_units)
+        else "none"
+    )
+    actual = (
+        gate.get("result"),
+        gate.get("blocker"),
+        gate.get("next_action"),
+        gate.get("progress"),
+        gate.get("blocking_defer"),
+        gate.get("missing_evidence_owner"),
+        gate.get("assumption_effect"),
+    )
+    expected = (
+        expected_result,
+        expected_blocker,
+        expected_action,
+        expected_progress,
+        expected_blocking_defer,
+        expected_owner,
+        expected_assumption,
+    )
+    return actual == expected
 
 
 def load_json(path: Path) -> Any:
@@ -270,7 +371,9 @@ def validate_schema(record: dict[str, Any]) -> list[dict[str, str]]:
     return validate_schema_node(record, schema, schema, registry, "")
 
 
-def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
+def validate_record(
+    record: dict[str, Any], *, allow_fixture_authorization: bool = False
+) -> list[dict[str, str]]:
     """Return stable rule/path findings not expressible solely by field schemas."""
     findings: list[dict[str, str]] = []
 
@@ -534,6 +637,16 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
             "/foundation_binding/frontier_record",
             "frontier record must match the current task and basis",
         )
+    if not gate_matches_frontier_aggregate(
+        gate_record,
+        frontier_record,
+        provisional_profile=profile.get("confidence") == "provisional",
+    ):
+        add(
+            "FND-GATE-002",
+            "/foundation_binding/gate_record",
+            "foundation gate must equal the current frontier aggregate",
+        )
 
     authorization = record.get("authorization")
     if isinstance(authorization, list):
@@ -586,6 +699,10 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
                 and authorization_record.get("status") == "granted"
                 and authorization_record.get("runtime_eligible") is True
                 and authorization_record.get("future_only") is False
+                and (
+                    allow_fixture_authorization
+                    or authorization_record.get("fixture_only") is False
+                )
             )
             summary_matches_record = (
                 isinstance(authorization_ref, dict)
@@ -627,17 +744,30 @@ def validate_record(record: dict[str, Any]) -> list[dict[str, str]]:
             matches_current_effect(item) for item in authorization
         )
         allowed_effect_capabilities = EFFECT_CAPABILITIES_BY_ROUTE.get(primary_route)
+        effect_capability = effect_binding.get("capability")
         if (
             allowed_effect_capabilities is not None
-            and effect_binding.get("capability") not in allowed_effect_capabilities
+            and effect_capability not in allowed_effect_capabilities
         ):
             add(
                 "FND-AUTH-005",
                 "/effect_binding/capability",
                 "effect route requires an explicit route-compatible capability",
             )
+        elif primary_route in SIDE_EFFECT_ROUTES and not isinstance(
+            effect_capability, str
+        ):
+            add(
+                "FND-AUTH-005",
+                "/effect_binding/capability",
+                "side-effect route requires an explicit capability",
+            )
+        requires_effect_grant = (
+            primary_route in SIDE_EFFECT_ROUTES
+            or isinstance(effect_capability, str)
+        )
         if (
-            allowed_effect_capabilities is not None
+            requires_effect_grant
             and gate_result != "blocked"
             and not current_effect_granted
         ):
@@ -721,7 +851,18 @@ def run_cases(path: Path) -> dict[str, Any]:
             apply_mutation(record, mutation)
         schema_actual = not validate_schema(record)
         schema_expected = case.get("expected_schema_valid", True)
-        actual_rules = sorted({item["rule_id"] for item in validate_record(record)})
+        allow_fixture_authorization = case.get("allow_fixture_authorization", True)
+        if not isinstance(allow_fixture_authorization, bool):
+            raise ValueError("allow_fixture_authorization must be boolean")
+        actual_rules = sorted(
+            {
+                item["rule_id"]
+                for item in validate_record(
+                    record,
+                    allow_fixture_authorization=allow_fixture_authorization,
+                )
+            }
+        )
         expected_rules = sorted(case.get("expected_rules", []))
         passed = actual_rules == expected_rules and schema_actual is schema_expected
         results.append(
