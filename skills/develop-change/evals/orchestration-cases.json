@@ -1,0 +1,833 @@
+{
+  "schema_version": "develop-change-orchestration-evals-v1",
+  "planned_capabilities": [
+    "typescript-javascript-practices",
+    "frontend-framework-practices",
+    "database-orm-practices",
+    "testing-quality-practices",
+    "security-operations-practices"
+  ],
+  "resolution_cases": [
+    {
+      "id": "user-named-compatible-skill-wins-over-generic",
+      "candidates": [
+        {
+          "skill_id": "typescript-house-style",
+          "source": "user_named",
+          "responsibility": "typescript",
+          "specificity": 2,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "house-style"
+        },
+        {
+          "skill_id": "generic-typescript",
+          "source": "installed",
+          "responsibility": "typescript",
+          "specificity": 4,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "generic"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["typescript-house-style"],
+        "rejected": [
+          {"skill_id": "generic-typescript", "reason": "superseded"}
+        ],
+        "fallback": null,
+        "blocker": null
+      }
+    },
+    {
+      "id": "complementary-skills-compose",
+      "candidates": [
+        {
+          "skill_id": "architecture-decisions",
+          "source": "repository",
+          "responsibility": "architecture",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "decision-tradeoffs"
+        },
+        {
+          "skill_id": "research",
+          "source": "repository",
+          "responsibility": "evidence",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "source-verification"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["architecture-decisions", "research"],
+        "rejected": [],
+        "fallback": null,
+        "blocker": null
+      }
+    },
+    {
+      "id": "project-rule-conflict-rejects-user-skill",
+      "candidates": [
+        {
+          "skill_id": "custom-database-rules",
+          "source": "user_named",
+          "responsibility": "database",
+          "specificity": 4,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": true,
+          "guidance_key": "custom-db"
+        },
+        {
+          "skill_id": "repository-database-rules",
+          "source": "repository",
+          "responsibility": "database",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "repository-db"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["repository-database-rules"],
+        "rejected": [
+          {"skill_id": "custom-database-rules", "reason": "project_rule_conflict"}
+        ],
+        "fallback": null,
+        "blocker": null
+      }
+    },
+    {
+      "id": "incompatible-skill-falls-back",
+      "candidates": [
+        {
+          "skill_id": "legacy-orm-practices",
+          "source": "installed",
+          "responsibility": "database",
+          "specificity": 4,
+          "available": true,
+          "compatible": false,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "legacy-orm"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": [],
+        "rejected": [
+          {"skill_id": "legacy-orm-practices", "reason": "incompatible"}
+        ],
+        "fallback": "official_documentation_and_base_capability",
+        "blocker": null
+      }
+    },
+    {
+      "id": "planned-capability-is-not-a-selected-skill",
+      "planned_capability": "database-orm-practices",
+      "candidates": [],
+      "expected": {
+        "status": "pass",
+        "selected": [],
+        "rejected": [],
+        "fallback": "official_documentation_and_base_capability",
+        "blocker": null
+      }
+    },
+    {
+      "id": "equal-material-conflict-blocks",
+      "candidates": [
+        {
+          "skill_id": "database-transactions-a",
+          "source": "installed",
+          "responsibility": "database",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "transaction-per-request"
+        },
+        {
+          "skill_id": "database-transactions-b",
+          "source": "installed",
+          "responsibility": "database",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "transaction-per-operation"
+        }
+      ],
+      "expected": {
+        "status": "blocked",
+        "selected": [],
+        "rejected": [],
+        "fallback": null,
+        "blocker": "unresolved_material_conflict:database:database-transactions-a,database-transactions-b"
+      }
+    },
+    {
+      "id": "irrelevant-skill-is-not-loaded",
+      "candidates": [
+        {
+          "skill_id": "frontend-framework-rules",
+          "source": "repository",
+          "responsibility": "frontend",
+          "specificity": 3,
+          "available": true,
+          "compatible": true,
+          "relevant": false,
+          "project_rule_conflict": false,
+          "guidance_key": "frontend"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": [],
+        "rejected": [
+          {"skill_id": "frontend-framework-rules", "reason": "irrelevant"}
+        ],
+        "fallback": "official_documentation_and_base_capability",
+        "blocker": null
+      }
+    },
+    {
+      "id": "repository-skill-wins-over-installed-peer",
+      "candidates": [
+        {
+          "skill_id": "repository-testing-rules",
+          "source": "repository",
+          "responsibility": "testing",
+          "specificity": 2,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "repository-testing"
+        },
+        {
+          "skill_id": "generic-testing-rules",
+          "source": "installed",
+          "responsibility": "testing",
+          "specificity": 4,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "generic-testing"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["repository-testing-rules"],
+        "rejected": [
+          {"skill_id": "generic-testing-rules", "reason": "superseded"}
+        ],
+        "fallback": null,
+        "blocker": null
+      }
+    },
+    {
+      "id": "namespaced-installed-skill-is-supported",
+      "candidates": [
+        {
+          "skill_id": "skills:git-workflow",
+          "source": "installed",
+          "responsibility": "git-delivery",
+          "specificity": 4,
+          "available": true,
+          "compatible": true,
+          "relevant": true,
+          "project_rule_conflict": false,
+          "guidance_key": "git-workflow"
+        }
+      ],
+      "expected": {
+        "status": "pass",
+        "selected": ["skills:git-workflow"],
+        "rejected": [],
+        "fallback": null,
+        "blocker": null
+      }
+    }
+  ],
+  "authorization_cases": [
+    {
+      "id": "no-side-effect-needs-no-capability",
+      "requested_effects": [],
+      "authorization": {},
+      "scope_changed": false,
+      "expected": {"gate": "pass", "blocker": null}
+    },
+    {
+      "id": "local-change-with-exact-grant-passes",
+      "requested_effects": ["local_change"],
+      "authorization": {"local_change": "granted"},
+      "scope_changed": false,
+      "expected": {"gate": "pass", "blocker": null}
+    },
+    {
+      "id": "git-capabilities-are-independent",
+      "requested_effects": ["stage", "commit", "push", "pr_create"],
+      "authorization": {
+        "stage": "granted",
+        "commit": "granted",
+        "push": "not_granted",
+        "pr_create": "not_granted"
+      },
+      "scope_changed": false,
+      "expected": {
+        "gate": "blocked",
+        "blocker": "missing_authorization:pr_create,push"
+      }
+    },
+    {
+      "id": "scope-change-invalidates-existing-grant",
+      "requested_effects": ["local_change"],
+      "authorization": {"local_change": "granted"},
+      "scope_changed": true,
+      "expected": {"gate": "blocked", "blocker": "scope_expansion"}
+    },
+    {
+      "id": "explicit-invocation-is-not-authorization",
+      "requested_effects": ["local_change"],
+      "authorization": {},
+      "scope_changed": false,
+      "expected": {
+        "gate": "blocked",
+        "blocker": "missing_authorization:local_change"
+      }
+    },
+    {
+      "id": "branch-create-and-switch-are-independent",
+      "requested_effects": ["branch_create", "branch_switch"],
+      "authorization": {
+        "branch_create": "granted",
+        "branch_switch": "not_granted"
+      },
+      "scope_changed": false,
+      "expected": {
+        "gate": "blocked",
+        "blocker": "missing_authorization:branch_switch"
+      }
+    }
+  ],
+  "gate_cases": [
+    {
+      "id": "pass-has-no-blocker",
+      "gate": {"result": "pass", "blockers": []},
+      "expected_valid": true
+    },
+    {
+      "id": "pass-cannot-hide-blocker",
+      "gate": {"result": "pass", "blockers": ["missing_authorization"]},
+      "expected_valid": false
+    },
+    {
+      "id": "conditional-cannot-hide-blocker",
+      "gate": {"result": "conditional", "blockers": ["missing_decision"]},
+      "expected_valid": false
+    },
+    {
+      "id": "blocked-requires-current-blocker",
+      "gate": {"result": "blocked", "blockers": []},
+      "expected_valid": false
+    }
+  ],
+  "profile_cases": [
+    {
+      "id": "direct-confirmed-is-valid",
+      "profile": {"level": "direct", "confidence": "confirmed"},
+      "expected_valid": true
+    },
+    {
+      "id": "direct-provisional-is-invalid",
+      "profile": {"level": "direct", "confidence": "provisional"},
+      "expected_valid": false
+    },
+    {
+      "id": "bounded-provisional-is-valid",
+      "profile": {"level": "bounded", "confidence": "provisional"},
+      "expected_valid": true
+    }
+  ],
+  "skill_resolution_cases": [
+    {
+      "id": "compatible-selected-skill-is-valid",
+      "record": {
+        "status": "pass",
+        "decisions": [
+          {
+            "decision": "selected",
+            "compatible": true,
+            "provenance": {
+              "locator": "plugin://fixture/skills/example",
+              "version": "1.0.0",
+              "content_digest": "8888888888888888888888888888888888888888888888888888888888888888"
+            }
+          }
+        ],
+        "planned_capabilities": [],
+        "fallback": null
+      },
+      "expected_valid": true
+    },
+    {
+      "id": "blocked-decision-cannot-pass",
+      "record": {
+        "status": "pass",
+        "decisions": [{"decision": "blocked", "compatible": true}],
+        "planned_capabilities": [],
+        "fallback": null
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "blocked-decision-with-blocked-status-is-valid",
+      "record": {
+        "status": "blocked",
+        "decisions": [{"decision": "blocked", "compatible": true}],
+        "planned_capabilities": [],
+        "fallback": null
+      },
+      "expected_valid": true
+    },
+    {
+      "id": "incompatible-selected-skill-is-invalid",
+      "record": {
+        "status": "pass",
+        "decisions": [{"decision": "selected", "compatible": false}],
+        "planned_capabilities": [],
+        "fallback": null
+      },
+      "expected_valid": false
+    }
+  ],
+  "handoff_cases": [
+    {
+      "id": "complete-minimal-handoff",
+      "record": {
+        "objective": {
+          "summary": "기능 구현",
+          "finish_line": "검증 결과 전달"
+        },
+        "scope": {
+          "include": ["src", "관련 테스트"],
+          "exclude": []
+        },
+        "completed_phase": "verify",
+        "primary_route": "verify",
+        "route_plan": ["understand", "change", "verify"],
+        "decisions": [],
+        "artifacts": ["src/example.ts"],
+        "effect_binding": {
+          "logical_task_id": "task.fixture.change",
+          "capability": null,
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
+        },
+        "profile": {"level": "bounded", "confidence": "confirmed"},
+        "foundation_binding": {
+          "fixture_only": true,
+          "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "routing_record": {"routing_id": "routing.fixture", "revision": 1},
+          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
+          "gate_record": {
+            "gate_id": "gate.fixture",
+            "revision": 1,
+            "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "result": "pass",
+            "blocker": "none",
+            "next_action": null,
+            "progress": "continue",
+            "work_remaining": false,
+            "missing_evidence_owner": "none",
+            "assumption_effect": "none",
+            "blocking_defer": false
+          },
+          "frontier_record": {
+            "frontier_id": "frontier.fixture",
+            "revision": 1,
+            "logical_task_id": "task.fixture.change",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "visible_unit_ids": ["unit.fixture.scope"],
+            "units": [
+              {
+                "unit_id": "unit.fixture.scope",
+                "revision": 1,
+                "predecessor_unit_ref": null,
+                "successor_unit_ref": null,
+                "gap_kind": "discoverable_fact",
+                "state": "resolved_by_evidence",
+                "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+                "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+                "checkpoint_relevance": "current",
+                "dependency_ids": [],
+                "value_binding": {"kind": "evidence", "ref": "evidence:scope.review"},
+                "safe_default_conditions": [],
+                "authorization_id": null,
+                "runtime_disposition": {
+                  "resolution_action": "investigate",
+                  "defer_effect": "none",
+                  "gate_result": "pass",
+                  "blocker": "none",
+                  "next_action": "continue",
+                  "interaction_kind": "none",
+                  "interaction_requirement": "none",
+                  "interaction_owner": "develop-change",
+                  "progress": "continue"
+                }
+              }
+            ],
+            "clarification_view_history": [],
+            "clarification_view": null
+          },
+          "authorization_records": [],
+          "authorization_evaluations": []
+        },
+        "skill_resolution": {
+          "status": "pass",
+          "decisions": [],
+          "planned_capabilities": [],
+          "fallback": "프로젝트 규칙과 기본 구현 능력"
+        },
+        "authorization": [],
+        "verification": {
+          "passed": ["npm test -- example"],
+          "failed": [],
+          "not_run": []
+        },
+        "blockers": [],
+        "next_action": null,
+        "next_action_kind": null
+      },
+      "expected_rules": []
+    },
+    {
+      "id": "verification-cannot-be-both-passed-and-not-run",
+      "record": {
+        "objective": {
+          "summary": "기능 검증",
+          "finish_line": "검증 결과 전달"
+        },
+        "scope": {
+          "include": ["관련 테스트"],
+          "exclude": []
+        },
+        "completed_phase": "verify",
+        "primary_route": "verify",
+        "route_plan": ["understand", "change", "verify"],
+        "decisions": [],
+        "artifacts": [],
+        "effect_binding": {
+          "logical_task_id": "task.fixture.change",
+          "capability": null,
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
+        },
+        "profile": {"level": "bounded", "confidence": "confirmed"},
+        "foundation_binding": {
+          "fixture_only": true,
+          "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "routing_record": {"routing_id": "routing.fixture", "revision": 1},
+          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
+          "gate_record": {
+            "gate_id": "gate.fixture",
+            "revision": 1,
+            "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "result": "pass",
+            "blocker": "none",
+            "next_action": null,
+            "progress": "continue",
+            "work_remaining": false,
+            "missing_evidence_owner": "none",
+            "assumption_effect": "none",
+            "blocking_defer": false
+          },
+          "frontier_record": {
+            "frontier_id": "frontier.fixture",
+            "revision": 1,
+            "logical_task_id": "task.fixture.change",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "visible_unit_ids": ["unit.fixture.scope"],
+            "units": [
+              {
+                "unit_id": "unit.fixture.scope",
+                "revision": 1,
+                "predecessor_unit_ref": null,
+                "successor_unit_ref": null,
+                "gap_kind": "discoverable_fact",
+                "state": "resolved_by_evidence",
+                "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+                "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+                "checkpoint_relevance": "current",
+                "dependency_ids": [],
+                "value_binding": {"kind": "evidence", "ref": "evidence:scope.review"},
+                "safe_default_conditions": [],
+                "authorization_id": null,
+                "runtime_disposition": {
+                  "resolution_action": "investigate",
+                  "defer_effect": "none",
+                  "gate_result": "pass",
+                  "blocker": "none",
+                  "next_action": "continue",
+                  "interaction_kind": "none",
+                  "interaction_requirement": "none",
+                  "interaction_owner": "develop-change",
+                  "progress": "continue"
+                }
+              }
+            ],
+            "clarification_view_history": [],
+            "clarification_view": null
+          },
+          "authorization_records": [],
+          "authorization_evaluations": []
+        },
+        "skill_resolution": {
+          "status": "pass",
+          "decisions": [],
+          "planned_capabilities": [],
+          "fallback": "기본 구현 능력"
+        },
+        "authorization": [],
+        "verification": {
+          "passed": ["npm test"],
+          "failed": [],
+          "not_run": ["npm test"]
+        },
+        "blockers": [],
+        "next_action": null,
+        "next_action_kind": null
+      },
+      "expected_rules": ["HANDOFF-004"]
+    },
+    {
+      "id": "stale-capability-cannot-drive-next-effect",
+      "record": {
+        "objective": {
+          "summary": "변경 전달",
+          "finish_line": "Draft PR 생성"
+        },
+        "scope": {
+          "include": ["현재 branch"],
+          "exclude": []
+        },
+        "completed_phase": "verify",
+        "primary_route": "deliver",
+        "route_plan": ["understand", "change", "verify", "deliver"],
+        "decisions": [],
+        "artifacts": [],
+        "effect_binding": {
+          "logical_task_id": "task.fixture.change",
+          "capability": "stage",
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
+        },
+        "profile": {"level": "bounded", "confidence": "confirmed"},
+        "foundation_binding": {
+          "fixture_only": true,
+          "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "routing_record": {"routing_id": "routing.fixture", "revision": 1},
+          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
+          "gate_record": {
+            "gate_id": "gate.fixture",
+            "revision": 1,
+            "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "result": "pass",
+            "blocker": "none",
+            "next_action": null,
+            "progress": "continue",
+            "work_remaining": false,
+            "missing_evidence_owner": "none",
+            "assumption_effect": "none",
+            "blocking_defer": false
+          },
+          "frontier_record": {
+            "frontier_id": "frontier.fixture",
+            "revision": 1,
+            "logical_task_id": "task.fixture.change",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "visible_unit_ids": ["unit.fixture.scope"],
+            "units": [
+              {
+                "unit_id": "unit.fixture.scope",
+                "revision": 1,
+                "predecessor_unit_ref": null,
+                "successor_unit_ref": null,
+                "gap_kind": "discoverable_fact",
+                "state": "resolved_by_evidence",
+                "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+                "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+                "checkpoint_relevance": "current",
+                "dependency_ids": [],
+                "value_binding": {"kind": "evidence", "ref": "evidence:scope.review"},
+                "safe_default_conditions": [],
+                "authorization_id": null,
+                "runtime_disposition": {
+                  "resolution_action": "investigate",
+                  "defer_effect": "none",
+                  "gate_result": "pass",
+                  "blocker": "none",
+                  "next_action": "continue",
+                  "interaction_kind": "none",
+                  "interaction_requirement": "none",
+                  "interaction_owner": "develop-change",
+                  "progress": "continue"
+                }
+              }
+            ],
+            "clarification_view_history": [],
+            "clarification_view": null
+          },
+          "authorization_records": [],
+          "authorization_evaluations": []
+        },
+        "skill_resolution": {
+          "status": "pass",
+          "decisions": [],
+          "planned_capabilities": [],
+          "fallback": null
+        },
+        "authorization": [
+          {
+            "capability": "stage",
+            "authorization_ref": {
+              "id": "authorization.fixture.stage",
+              "revision": 1,
+              "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            "target_fingerprint": "2222222222222222222222222222222222222222222222222222222222222222",
+            "scope_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+            "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+            "status": "stale",
+            "runtime_eligible": false
+          }
+        ],
+        "verification": {"passed": [], "failed": [], "not_run": []},
+        "blockers": ["stage 재승인 필요"],
+        "next_action": "stage 실행",
+        "next_action_kind": "continue"
+      },
+      "expected_rules": ["HANDOFF-002"]
+    },
+    {
+      "id": "secret-looking-value-is-rejected",
+      "record": {
+        "objective": {
+          "summary": "secret=fixture-not-a-real-secret 값을 handoff에 복사",
+          "finish_line": "조사 결과 전달"
+        },
+        "scope": {
+          "include": ["API 테스트"],
+          "exclude": []
+        },
+        "completed_phase": "understand",
+        "primary_route": "understand",
+        "route_plan": ["understand"],
+        "decisions": [],
+        "artifacts": [],
+        "effect_binding": {
+          "logical_task_id": "task.fixture.change",
+          "capability": null,
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
+        },
+        "profile": {"level": "bounded", "confidence": "confirmed"},
+        "foundation_binding": {
+          "fixture_only": true,
+          "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "routing_record": {"routing_id": "routing.fixture", "revision": 1},
+          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
+          "gate_record": {
+            "gate_id": "gate.fixture",
+            "revision": 1,
+            "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "result": "pass",
+            "blocker": "none",
+            "next_action": "continue",
+            "progress": "continue",
+            "work_remaining": true,
+            "missing_evidence_owner": "none",
+            "assumption_effect": "none",
+            "blocking_defer": false
+          },
+          "frontier_record": {
+            "frontier_id": "frontier.fixture",
+            "revision": 1,
+            "logical_task_id": "task.fixture.change",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "visible_unit_ids": ["unit.fixture.scope"],
+            "units": [
+              {
+                "unit_id": "unit.fixture.scope",
+                "revision": 1,
+                "predecessor_unit_ref": null,
+                "successor_unit_ref": null,
+                "gap_kind": "discoverable_fact",
+                "state": "resolved_by_evidence",
+                "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+                "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+                "checkpoint_relevance": "current",
+                "dependency_ids": [],
+                "value_binding": {"kind": "evidence", "ref": "evidence:scope.review"},
+                "safe_default_conditions": [],
+                "authorization_id": null,
+                "runtime_disposition": {
+                  "resolution_action": "investigate",
+                  "defer_effect": "none",
+                  "gate_result": "pass",
+                  "blocker": "none",
+                  "next_action": "continue",
+                  "interaction_kind": "none",
+                  "interaction_requirement": "none",
+                  "interaction_owner": "develop-change",
+                  "progress": "continue"
+                }
+              }
+            ],
+            "clarification_view_history": [],
+            "clarification_view": null
+          },
+          "authorization_records": [],
+          "authorization_evaluations": []
+        },
+        "skill_resolution": {
+          "status": "pass",
+          "decisions": [],
+          "planned_capabilities": [],
+          "fallback": "기본 구현 능력"
+        },
+        "authorization": [],
+        "verification": {"passed": [], "failed": [], "not_run": []},
+        "blockers": [],
+        "next_action": null,
+        "next_action_kind": null
+      },
+      "expected_rules": ["HANDOFF-005"]
+    }
+  ]
+}
