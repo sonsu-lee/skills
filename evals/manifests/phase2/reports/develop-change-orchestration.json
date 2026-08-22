@@ -1,0 +1,550 @@
+{
+  "activation": "active",
+  "case_count": 106,
+  "case_results": [
+    {
+      "id": "user-named-compatible-skill-wins-over-generic",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "complementary-skills-compose",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "project-rule-conflict-rejects-user-skill",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "incompatible-skill-falls-back",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "planned-capability-is-not-a-selected-skill",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "equal-material-conflict-blocks",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "irrelevant-skill-is-not-loaded",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "repository-skill-wins-over-installed-peer",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "namespaced-installed-skill-is-supported",
+      "kind": "resolution",
+      "status": "pass"
+    },
+    {
+      "id": "no-side-effect-needs-no-capability",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "local-change-with-exact-grant-passes",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "git-capabilities-are-independent",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "scope-change-invalidates-existing-grant",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "explicit-invocation-is-not-authorization",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "branch-create-and-switch-are-independent",
+      "kind": "authorization",
+      "status": "pass"
+    },
+    {
+      "id": "pass-has-no-blocker",
+      "kind": "gate",
+      "status": "pass"
+    },
+    {
+      "id": "pass-cannot-hide-blocker",
+      "kind": "gate",
+      "status": "pass"
+    },
+    {
+      "id": "conditional-cannot-hide-blocker",
+      "kind": "gate",
+      "status": "pass"
+    },
+    {
+      "id": "blocked-requires-current-blocker",
+      "kind": "gate",
+      "status": "pass"
+    },
+    {
+      "id": "direct-confirmed-is-valid",
+      "kind": "profile",
+      "status": "pass"
+    },
+    {
+      "id": "direct-provisional-is-invalid",
+      "kind": "profile",
+      "status": "pass"
+    },
+    {
+      "id": "bounded-provisional-is-valid",
+      "kind": "profile",
+      "status": "pass"
+    },
+    {
+      "id": "compatible-selected-skill-is-valid",
+      "kind": "skill_resolution",
+      "status": "pass"
+    },
+    {
+      "id": "blocked-decision-cannot-pass",
+      "kind": "skill_resolution",
+      "status": "pass"
+    },
+    {
+      "id": "blocked-decision-with-blocked-status-is-valid",
+      "kind": "skill_resolution",
+      "status": "pass"
+    },
+    {
+      "id": "incompatible-selected-skill-is-invalid",
+      "kind": "skill_resolution",
+      "status": "pass"
+    },
+    {
+      "id": "complete-minimal-handoff",
+      "kind": "handoff",
+      "status": "pass"
+    },
+    {
+      "id": "verification-cannot-be-both-passed-and-not-run",
+      "kind": "handoff",
+      "status": "pass"
+    },
+    {
+      "id": "stale-capability-cannot-drive-next-effect",
+      "kind": "handoff",
+      "status": "pass"
+    },
+    {
+      "id": "secret-looking-value-is-rejected",
+      "kind": "handoff",
+      "status": "pass"
+    },
+    {
+      "id": "consistent-record-passes",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "primary-route-must-be-planned",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "conditional-requires-supported-assumption",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "supported-conditional-passes",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "blocked-resolution-blocks-gate",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "provisional-profile-cannot-pass",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "skill-id-is-unique",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "handoff-scope-matches-current-state",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "handoff-blockers-match-current-gate",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "handoff-profile-matches-current-state",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "same-responsibility-requires-composition",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "active-skill-applies-to-current-route",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "input-schema-rejects-missing-required-state",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "scope-include-exclude-are-disjoint",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "verification-results-are-disjoint",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "side-effect-route-has-one-dependent-evaluation",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "completed-phase-is-not-ahead-of-current-route",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "route-plan-follows-canonical-order",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "initial-handoff-allows-no-completed-phase",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "null-completed-phase-is-only-initial",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "planned-capability-is-not-an-active-skill",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "rejected-user-skill-needs-a-recovery-path",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "change-route-requires-local-change-grant",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "local-change-grant-matches-current-scope",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "local-change-grant-refers-to-current-foundation-record",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "provisional-change-requires-blocked-gate",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "unfinished-handoff-requires-next-action",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "blocked-handoff-requires-next-action",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "handoff-preserves-current-route-and-plan",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "deliver-route-requires-current-grant",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "foundation-gate-ref-identifies-current-record",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "future-only-grant-cannot-authorize-current-effect",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "active-skill-requires-exact-provenance",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "unbound-authorization-summaries-are-rejected",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "operate-route-requires-current-grant",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "foundation-gate-matches-current-frontier-aggregate",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "fixture-only-grant-cannot-authorize-runtime-effect",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "authorization-binding-has-one-current-leaf",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "frontier-state-matches-runtime-disposition",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "authorization-predecessor-is-current-lineage",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "rejected-user-skill-needs-same-responsibility-replacement",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "foundation-routing-ref-identifies-current-record",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "read-only-route-rejects-effect-capability",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "read-only-route-rejects-dependent-authorization",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "foundation-work-remaining-matches-route-completion",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "conditional-investigation-needs-no-assumption",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "completed-route-cannot-remain-current",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "operate-route-rejects-local-change-capability",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "top-level-blocker-matches-foundation-blocker",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "conditional-without-assumption-effect-rejects-assumptions",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "terminal-handoff-has-no-next-action",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "terminal-handoff-blocks-failed-verification",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "terminal-verify-requires-verification-result",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "terminal-design-effect-requires-result-artifact",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "top-level-assumption-identifies-foundation-unit",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "effect-grant-matches-routing-authorization-ref",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "authorization-lineage-record-requires-summary",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "blocked-local-investigation-preserves-continue",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "answered-material-decision-is-bound",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "answered-material-decision-requires-handoff-decision",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "complementary-responsibilities-require-composition",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "active-skill-provenance-matches-source",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "active-skill-is-model-visible",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "single-active-skill-is-selected",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "foundation-assumption-is-one-to-one",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "change-route-allows-durable-document-write",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "more-specific-compatible-candidate-wins",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "lower-specificity-candidate-cannot-remain-composed",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "skill-resolution-matches-current-basis",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "deliver-route-blocks-failed-verification",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "terminal-deliver-requires-result-artifact",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "blocked-skill-decisions-ignore-unrelated-material-decisions",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "active-skill-required-tools-are-available",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "active-skill-required-tools-are-path-command-names",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "objective-changes-require-a-fresh-logical-task",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "authorization-current-leaf-follows-predecessor-structure",
+      "kind": "orchestration_record",
+      "status": "pass"
+    }
+  ],
+  "findings": [],
+  "passed_case_count": 106,
+  "schema_version": "develop-change-orchestration-report-v1",
+  "source_digests": {
+    "skills/develop-change/evals/orchestration-cases.json": "a798acb3de210799d6e4ce10e3358f99de1e911409411a2221d4463e2b3f6fa0",
+    "skills/develop-change/evals/orchestration-record-cases.json": "39015b0cad733e757e1c0a3568dc3d6b16fb41b2ed88a5f135413ef24d4c80ec",
+    "skills/develop-change/references/handoff-contract.md": "753965574acd641cd4d19ca492d777a2856f60eac7013f39493405814d93bce3",
+    "skills/develop-change/references/orchestration-contract.md": "c64808bfbdb73add249faf01622e0f69017652be53d68e910f3ead7a137350dd",
+    "skills/develop-change/references/orchestration-contract.schema.json": "7b5e7e0dfeebc0c49d666cddfc7c791d1832c5d0b5a4a0456beae575e5fc0401",
+    "skills/develop-change/references/skill-resolution-contract.md": "bf0e8083edf17dabca172b7f07bc1b26df40ca426f2c4be65a87872865838d8d",
+    "skills/develop-change/scripts/validate_orchestration.py": "8cf5c2f75ab7a11c8f4bf992d73d09eeec27834369662e57943ef0030ff09ec2",
+    "skills/develop-change/scripts/validate_orchestration_record.py": "50d31b29651b8845a9eee78a0026e596c97dc89ba059bd4506e814290972b712"
+  },
+  "status": "pass"
+}

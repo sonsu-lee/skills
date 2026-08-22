@@ -1,0 +1,31 @@
+{
+  "schema_version": "develop-change-orchestration-manifest-v1",
+  "activation_commit": "07eb3fb7cc8a727a950bedb8896b4b8229a34885",
+  "activation_contract": {
+    "plugin_version": "0.7.0",
+    "skill_name": "develop-change",
+    "invocation": "explicit_only",
+    "allow_implicit_invocation": false
+  },
+  "report": {
+    "path": "evals/manifests/phase2/reports/develop-change-orchestration.json",
+    "sha256": "de21bb491c6e65242cdf41fb77de756a78c126c83843492ccdda4843d887277c",
+    "schema_version": "develop-change-orchestration-report-v1",
+    "status": "pass",
+    "case_count": 106,
+    "passed_case_count": 106
+  },
+  "reproduce": [
+    "python3 skills/develop-change/scripts/validate_orchestration.py --activation active --check-output evals/manifests/phase2/reports/develop-change-orchestration.json",
+    "python3 scripts/validate_skill_catalog.py",
+    "python3 skills/develop-skill/scripts/validate_skill.py skills/develop-change --profile codex --require-explicit-invocation-policy",
+    "python3 -m unittest discover -s tests -v",
+    "claude plugin validate . --strict",
+    "xmllint --noout docs/design/develop-change-workflow.drawio"
+  ],
+  "limitations": [
+    "synthetic cases do not measure real-user task success",
+    "the report does not authorize implicit invocation or runtime rollout",
+    "external skills still require source and compatibility checks at use time"
+  ]
+}
