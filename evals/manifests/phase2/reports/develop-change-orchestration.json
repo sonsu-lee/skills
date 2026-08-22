@@ -1,6 +1,6 @@
 {
   "activation": "active",
-  "case_count": 85,
+  "case_count": 88,
   "case_results": [
     {
       "id": "user-named-compatible-skill-wins-over-generic",
@@ -426,20 +426,35 @@
       "id": "complementary-responsibilities-require-composition",
       "kind": "orchestration_record",
       "status": "pass"
+    },
+    {
+      "id": "active-skill-provenance-matches-source",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "foundation-assumption-is-one-to-one",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "change-route-allows-durable-document-write",
+      "kind": "orchestration_record",
+      "status": "pass"
     }
   ],
   "findings": [],
-  "passed_case_count": 85,
+  "passed_case_count": 88,
   "schema_version": "develop-change-orchestration-report-v1",
   "source_digests": {
     "skills/develop-change/evals/orchestration-cases.json": "a798acb3de210799d6e4ce10e3358f99de1e911409411a2221d4463e2b3f6fa0",
-    "skills/develop-change/evals/orchestration-record-cases.json": "6a60b3fa001968a90a3b584600f878523be811ff0eb952e03fffde13e01bc025",
+    "skills/develop-change/evals/orchestration-record-cases.json": "694f77d4475606fc9c05fa0a388ebbe92277111bd2649f83501b7607ab182c85",
     "skills/develop-change/references/handoff-contract.md": "44a0e080654a276b978d4fefe6a136feb3ce21464f6597fe15949083d44f2843",
-    "skills/develop-change/references/orchestration-contract.md": "9b8184c308151deb74dab44e6ec12976efe55425d113816bcbe3fbfa70f7cb2f",
+    "skills/develop-change/references/orchestration-contract.md": "c0fe2be674b9e93af9bfa8d6f47a0a7649630e3d3271c71bcdb600e1294b954f",
     "skills/develop-change/references/orchestration-contract.schema.json": "f973da419b2eb8da177095bc7c5cc3639fdbcc0fe1c93226951f14a010482156",
-    "skills/develop-change/references/skill-resolution-contract.md": "ad45dc3e5eadb0c3b2a4d696a2b8476b3f0b591eb7fc77accea5a0b40dd73e44",
+    "skills/develop-change/references/skill-resolution-contract.md": "dd46a99372d996602eea93fb910834541e7b3b5fe91796639d75af501210610e",
     "skills/develop-change/scripts/validate_orchestration.py": "8cf5c2f75ab7a11c8f4bf992d73d09eeec27834369662e57943ef0030ff09ec2",
-    "skills/develop-change/scripts/validate_orchestration_record.py": "caf31b1e7332fad81a322a2f22f8a3d24c7dde31da9368f550a0ff49b2a7fe24"
+    "skills/develop-change/scripts/validate_orchestration_record.py": "2c64f745c141c2da4d8b242eb7342f5ba60506fb38e9a91c034f8ff28390c290"
   },
   "status": "pass"
 }
