@@ -27,7 +27,7 @@ from runtime_projection import (
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 17
+VALIDATOR_REVISION = 18
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
@@ -59,6 +59,7 @@ ROUTE_SEQUENCE = (
 )
 ROUTE_POSITION = {route: index for index, route in enumerate(ROUTE_SEQUENCE)}
 EFFECT_CAPABILITIES_BY_ROUTE = {
+    "design": {"working_artifact_write", "temporary_work_state"},
     "change": {
         "local_change",
         "durable_document_write",
@@ -148,6 +149,16 @@ def objective_logical_task_id(objective: dict[str, Any]) -> str:
         b"develop-change-objective-v1\n" + canonical_bytes(objective)
     ).hexdigest()
     return f"task.objective.{digest}"
+
+
+def has_active_skill_decision(record: dict[str, Any]) -> bool:
+    resolution = record.get("skill_resolution")
+    decisions = resolution.get("decisions") if isinstance(resolution, dict) else None
+    return isinstance(decisions, list) and any(
+        isinstance(item, dict)
+        and item.get("decision") in {"selected", "composed"}
+        for item in decisions
+    )
 
 
 def active_skill_source_matches(
@@ -1107,6 +1118,17 @@ def validate_record(
                     f"/authorization/{index}",
                     "authorization summary must identify an exact lineage record",
                 )
+        for index, authorization_record in enumerate(lineage_records):
+            matching_summary_count = sum(
+                summary_matches_record(item, authorization_record)
+                for item in authorization
+            )
+            if matching_summary_count != 1:
+                add(
+                    "FND-AUTH-001",
+                    f"/foundation_binding/authorization_records/{index}",
+                    "each lineage authorization record must have exactly one summary",
+                )
         predecessor_identity_keys = {
             (
                 predecessor.get("id"),
@@ -1237,14 +1259,15 @@ def validate_record(
         )
         allowed_effect_capabilities = EFFECT_CAPABILITIES_BY_ROUTE.get(primary_route)
         effect_capability = effect_binding.get("capability")
-        if primary_route not in SIDE_EFFECT_ROUTES and effect_capability is not None:
+        if allowed_effect_capabilities is None and effect_capability is not None:
             add(
                 "FND-AUTH-005",
                 "/effect_binding/capability",
                 "read-only route must not carry an effect capability",
             )
         elif (
-            allowed_effect_capabilities is not None
+            effect_capability is not None
+            and allowed_effect_capabilities is not None
             and effect_capability not in allowed_effect_capabilities
         ):
             add(
@@ -1260,7 +1283,9 @@ def validate_record(
                 "/effect_binding/capability",
                 "side-effect route requires an explicit capability",
             )
-        requires_effect_grant = primary_route in SIDE_EFFECT_ROUTES
+        requires_effect_grant = primary_route in SIDE_EFFECT_ROUTES or isinstance(
+            effect_capability, str
+        )
         if (
             requires_effect_grant
             and gate_result != "blocked"
@@ -1408,6 +1433,12 @@ def main() -> int:
         effective_catalog_snapshot = None
         if schema_findings:
             semantic_findings = []
+        elif not has_active_skill_decision(record):
+            semantic_findings = validate_record(
+                record,
+                effective_skill_catalog=[],
+                source_root=Path.cwd(),
+            )
         else:
             try:
                 effective_catalog = query_effective_skill_catalog(

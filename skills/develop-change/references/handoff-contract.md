@@ -25,7 +25,7 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 | `next_action` | 다음 한 단계와 재개 조건 |
 | `next_action_kind` | `continue`, `clarify`, `reauthorize`, `report` 중 foundation gate와 결박된 행동 종류. 다음 행동이 없으면 `null` |
 
-`authorization`은 capability 이름과 상태만 복사하지 않는다. 각 항목에 current authorization record의 식별자와 target·scope·basis fingerprint, `runtime_eligible`을 함께 남긴다. 기록에 없는 capability는 승인되지 않은 것으로 취급한다.
+`authorization`은 capability 이름과 상태만 복사하지 않는다. `foundation_binding`에 보존한 root부터 current leaf까지의 각 authorization record를 정확히 한 항목으로 투영하고, 식별자와 target·scope·basis fingerprint, `runtime_eligible`을 함께 남긴다. 기록에 없는 capability는 승인되지 않은 것으로 취급한다.
 
 ## 갱신 규칙
 

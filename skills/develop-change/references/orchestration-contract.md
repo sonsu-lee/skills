@@ -63,7 +63,8 @@
 - 거절된 user-named 스킬과 같은 responsibility의 활성 대체 후보가 없으면 fallback을 남기거나 resolution을 blocked로 둔다.
 - 같은 capability·target·scope·basis authorization binding에는 stale·withdrawn history를 제외한 current leaf가 하나만 있다.
 - authorization current leaf는 status 이름이 아니라 다른 record의 `predecessor_authorization_ref`가 가리키지 않는 lineage record로 판별한다. 과거 granted summary도 successor가 있으면 current 중복으로 세지 않는다.
-- change는 `local_change`, `durable_document_write`, `durable_document_content`, deliver는 `branch_create`, `branch_switch`, `stage`, `commit`, `push`, `pr_create`, `merge`, `rebase`, `history_rewrite`, operate는 `external_write`, evolve는 `local_change`만 effect capability로 받는다. current effect·scope에 exact-bound된 runtime-eligible current grant가 없으면 gate는 blocked여야 하며 read-only route의 capability는 `null`이다.
+- design은 승인된 temporary working root에 한해 `working_artifact_write`, `temporary_work_state`를 선택적으로 받고, change는 `local_change`, `durable_document_write`, `durable_document_content`, deliver는 `branch_create`, `branch_switch`, `stage`, `commit`, `push`, `pr_create`, `merge`, `rebase`, `history_rewrite`, operate는 `external_write`, evolve는 `local_change`만 effect capability로 받는다. capability가 있으면 current effect·scope에 exact-bound된 runtime-eligible current grant가 필요하고, 없으면 gate는 blocked여야 한다. 그 밖의 read-only route capability는 `null`이다.
+- foundation authorization lineage의 각 record는 최상위와 handoff `authorization`에 정확히 하나의 summary로 투영한다. summary가 가리키는 record가 없는 경우와 lineage record를 summary에서 누락하거나 중복한 경우를 모두 거절한다.
 - foundation routing·gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치한다. 전체 snapshot은 foundation semantic validator를 그대로 통과해야 하며 routing 결정, gate의 `work_remaining`, frontier 상태·disposition과 authorization lineage가 현재 orchestration 상태에 결박된다.
 - authorization snapshot은 current leaf만 잘라 저장하지 않고 root부터 current leaf까지의 record/evaluation lineage를 보존한다.
 - 최상위 blocker는 foundation gate의 blocker를 정확히 투영한다.

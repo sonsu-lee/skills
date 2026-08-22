@@ -874,7 +874,7 @@
         {"op": "remove", "path": "/authorization/0"},
         {"op": "remove", "path": "/handoff/authorization/0"}
       ],
-      "expected_rules": ["FND-AUTH-005"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-005"]
     },
     {
       "id": "local-change-grant-matches-current-scope",
@@ -890,7 +890,7 @@
           "value": "8888888888888888888888888888888888888888888888888888888888888888"
         }
       ],
-      "expected_rules": ["FND-AUTH-001", "FND-AUTH-005"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-001", "FND-AUTH-005"]
     },
     {
       "id": "local-change-grant-refers-to-current-foundation-record",
@@ -906,7 +906,7 @@
           "value": "authorization.unknown"
         }
       ],
-      "expected_rules": ["FND-AUTH-001", "FND-AUTH-005"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-001", "FND-AUTH-005"]
     },
     {
       "id": "provisional-change-requires-blocked-gate",
@@ -1281,7 +1281,7 @@
         {"op": "replace", "path": "/foundation_binding/authorization_records/0/predecessor_authorization_ref", "value": {"id": "authorization.local-change.fixture", "revision": 1, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}},
         {"op": "replace", "path": "/handoff/foundation_binding/authorization_records/0/predecessor_authorization_ref", "value": {"id": "authorization.local-change.fixture", "revision": 1, "digest": "9999999999999999999999999999999999999999999999999999999999999999"}}
       ],
-      "expected_rules": ["FND-AUTH-001", "FND-AUTH-001", "FND-AUTH-003", "FND-AUTH-004", "FND-AUTH-005", "FND-AUTH-005", "FND-FRONTIER-006"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-001", "FND-AUTH-001", "FND-AUTH-003", "FND-AUTH-004", "FND-AUTH-005", "FND-AUTH-005", "FND-FRONTIER-006"]
     },
     {
       "id": "rejected-user-skill-needs-same-responsibility-replacement",
@@ -1414,7 +1414,15 @@
         {"op": "replace", "path": "/foundation_binding/gate_record/routing_ref/digest", "value": "7ecf5ae26ce14df10c700b73f02f7eade2c2ca9d00c77d7809047c8e84c266c0"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/routing_ref/digest", "value": "7ecf5ae26ce14df10c700b73f02f7eade2c2ca9d00c77d7809047c8e84c266c0"}
       ],
-      "expected_rules": ["FND-AUTH-005", "RESOLVE-004"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-005", "RESOLVE-004"]
+    },
+    {
+      "id": "authorization-lineage-record-requires-summary",
+      "mutations": [
+        {"op": "append", "path": "/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.push.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b", "capability": "push", "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}},
+        {"op": "append", "path": "/handoff/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.push.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b", "capability": "push", "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}}
+      ],
+      "expected_rules": ["FND-AUTH-001"]
     },
     {
       "id": "blocked-local-investigation-preserves-continue",
