@@ -1,6 +1,6 @@
 {
   "activation": "active",
-  "case_count": 67,
+  "case_count": 74,
   "case_results": [
     {
       "id": "user-named-compatible-skill-wins-over-generic",
@@ -336,20 +336,55 @@
       "id": "authorization-binding-has-one-current-leaf",
       "kind": "orchestration_record",
       "status": "pass"
+    },
+    {
+      "id": "frontier-state-matches-runtime-disposition",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "authorization-predecessor-is-current-lineage",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "rejected-user-skill-needs-same-responsibility-replacement",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "foundation-routing-ref-identifies-current-record",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "read-only-route-rejects-effect-capability",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "foundation-work-remaining-matches-route-completion",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "conditional-investigation-needs-no-assumption",
+      "kind": "orchestration_record",
+      "status": "pass"
     }
   ],
   "findings": [],
-  "passed_case_count": 67,
+  "passed_case_count": 74,
   "schema_version": "develop-change-orchestration-report-v1",
   "source_digests": {
-    "skills/develop-change/evals/orchestration-cases.json": "e0a4762d819dda9c495d1702552e756c27f8093588fe7da13abf2d8235443996",
-    "skills/develop-change/evals/orchestration-record-cases.json": "c607f734e7ad0a0f8543a1095f8ec78a5cc5f628a740adfea136fe86aff8bb02",
-    "skills/develop-change/references/handoff-contract.md": "2556984c045c1792cda9d97772ba7dc043f6e98a57eea88c4caef97ffebf687f",
-    "skills/develop-change/references/orchestration-contract.md": "25faca1ce1e63b8ea0ff54733870961a7e72dad9a052067310d71ce207d7315d",
-    "skills/develop-change/references/orchestration-contract.schema.json": "6ef4e1f63ac5fb6442a30955afdc33c418a10c9599bf0fbe20c54f41b40b9e12",
+    "skills/develop-change/evals/orchestration-cases.json": "52caba333adee9383cb2852f8443100c6ee87a8ff6fc716f48d07ebcb4009b3a",
+    "skills/develop-change/evals/orchestration-record-cases.json": "822dddd52f243fdf0faaaa4a19073a0b6a3e857be5c4ca5fbc5c63de6adda29b",
+    "skills/develop-change/references/handoff-contract.md": "ce4e99eadbdc771a8d333a567d0781afa13e133b956f2c0e910dc46b314f297a",
+    "skills/develop-change/references/orchestration-contract.md": "66fd5c40b4b10dd159ec550ff221bcaf8aef7116f2f83237e629a2fa55ed48e3",
+    "skills/develop-change/references/orchestration-contract.schema.json": "ed24274975ac912b93b5031ba0b57f9fd1b8542987cb7ff1d8aaf587c6e2f945",
     "skills/develop-change/references/skill-resolution-contract.md": "8495f218e54d1d57198204e1e49ec80683b5eceaf2dad3bac9b3d48bd8a0fc72",
-    "skills/develop-change/scripts/validate_orchestration.py": "745317aa6d05178e77aff467375b3136c2c347b58a11210cbae5cdce9bfa8090",
-    "skills/develop-change/scripts/validate_orchestration_record.py": "0cddcfe207b4fc5de740b61f5b2281715290bcaa0011bb101c9ff8b59e1f1da2"
+    "skills/develop-change/scripts/validate_orchestration.py": "859642c3ab909efc4b050d55d1775a60d7d255578eee92a4de4f9264e1f34ba8",
+    "skills/develop-change/scripts/validate_orchestration_record.py": "77746fec7affa78657bcfa253c416cac82db048c3876857b782078353bca95bf"
   },
   "status": "pass"
 }
