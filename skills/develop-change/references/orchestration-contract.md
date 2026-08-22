@@ -49,9 +49,12 @@
 - `selected`와 `composed` 스킬은 현재 `primary_route`를 적용 범위에 포함한다.
 - `selected`와 `composed` 스킬은 현재 읽을 수 있는 `SKILL.md` 원문에 exact-bound된 locator·version·content digest provenance를 가진다. repository-relative locator는 현재 repo 안에서만 해석하며, plugin source는 manifest name과 skill frontmatter name으로 canonical ID를 만든다. version은 plugin manifest version 또는 원문에 결박된 immutable `content-sha256:<digest>` revision을 쓰고, manifest가 없는 독립 source는 후자만 허용한다. `--input` 검증은 `codex debug prompt-input`의 model-visible effective catalog를 다시 읽어 같은 canonical ID와 declared/resolved source locator가 정확히 한 번 있는지도 확인한다.
 - 단일 활성 스킬은 `selected`여야 한다. 활성 스킬이 둘 이상일 때만 실제 적용 순서대로 모두 `composed`한다.
-- blocked skill resolution은 `blocked` decision을 하나 이상 가지며, 각 decision의 `frontier_unit_ref`를 visible pending `material_decision` unit의 canonical identity에 1:1로 결박한다.
+- 같은 source·responsibility의 compatible 후보 중 더 높은 specificity 후보를 거절하고 더 낮은 후보를 활성화할 수 없다.
+- blocked skill resolution은 `blocked` decision을 하나 이상 가지며, 각 decision의 `frontier_unit_ref`를 서로 다른 visible pending `material_decision` unit의 canonical identity에 결박한다. 스킬 경합과 무관한 다른 material decision까지 skill decision으로 투영하지 않는다.
+- skill resolution의 logical task, basis fingerprint와 routing ref는 현재 effect binding·foundation routing identity와 일치한다. scope나 근거·routing이 바뀌면 resolution을 다시 만든다.
 - `route_plan`은 canonical route 순서를 유지한다.
 - scope의 include/exclude와 verification의 passed/failed/not_run은 서로 겹치지 않는다.
+- `verification.failed`가 남아 있으면 deliver route의 gate는 blocked여야 한다.
 - handoff의 completed phase는 첫 route 시작 전에는 `null`, 그 뒤에는 route plan에 있으면서 primary route보다 뒤에 있지 않는다.
 - 마지막 route가 끝난 상태가 아니면 handoff의 primary route는 completed phase 바로 다음 계획 단계다.
 - blocked 상태이거나 완료되지 않은 route가 남은 handoff는 비어 있지 않은 next action과 foundation gate에 맞는 `next_action_kind`를 남긴다.

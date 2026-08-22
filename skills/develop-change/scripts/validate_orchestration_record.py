@@ -26,7 +26,7 @@ from runtime_projection import (
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 14
+VALIDATOR_REVISION = 15
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
@@ -710,6 +710,23 @@ def validate_record(
         if isinstance(record.get("skill_resolution"), dict)
         else {}
     )
+    resolution_routing_record = foundation_binding.get("routing_record")
+    if not (
+        resolution.get("logical_task_id") == effect_binding.get("logical_task_id")
+        and isinstance(resolution_routing_record, dict)
+        and resolution.get("logical_task_id")
+        == resolution_routing_record.get("logical_task_id")
+        and resolution.get("basis_fingerprint")
+        == effect_binding.get("basis_fingerprint")
+        and resolution.get("basis_fingerprint")
+        == resolution_routing_record.get("basis_fingerprint")
+        and resolution.get("routing_ref") == foundation_binding.get("routing_ref")
+    ):
+        add(
+            "RESOLVE-004",
+            "/skill_resolution",
+            "skill resolution must bind the current logical task, basis, and routing identity",
+        )
     if resolution.get("status") == "blocked" and gate_result != "blocked":
         add(
             "ORCH-002",
@@ -770,6 +787,29 @@ def validate_record(
                 "/skill_resolution/decisions",
                 "a single active skill must be selected, not composed",
             )
+        rejected_compatible = [
+            item
+            for item in decisions
+            if isinstance(item, dict)
+            and item.get("decision") == "rejected"
+            and item.get("compatible") is True
+        ]
+        if any(
+            isinstance(rejected.get("specificity"), int)
+            and any(
+                active.get("responsibility") == rejected.get("responsibility")
+                and active.get("source") == rejected.get("source")
+                and isinstance(active.get("specificity"), int)
+                and active["specificity"] < rejected["specificity"]
+                for active in active_decisions
+            )
+            for rejected in rejected_compatible
+        ):
+            add(
+                "RESOLVE-005",
+                "/skill_resolution/decisions",
+                "a more specific compatible candidate cannot be rejected for the same source and responsibility",
+            )
         blocked_decisions = [
             item
             for item in decisions
@@ -803,14 +843,12 @@ def validate_record(
         ]
         if resolution.get("status") == "blocked" and not (
             blocked_decisions
-            and len(blocked_decisions) == len(blocked_units)
             and all(unit is not None for unit in matched_blocked_units)
-            and {
+            and len({
                 unit["unit_id"]
                 for unit in matched_blocked_units
                 if unit is not None
-            }
-            == {unit["unit_id"] for unit in blocked_units}
+            }) == len(blocked_decisions)
         ):
             add(
                 "RESOLVE-005",
@@ -875,6 +913,12 @@ def validate_record(
             "HANDOFF-004",
             "/verification",
             "verification result sets must be mutually exclusive",
+        )
+    if primary_route == "deliver" and failed and gate_result != "blocked":
+        add(
+            "HANDOFF-004",
+            "/gate/result",
+            "deliver route must remain blocked while verification failures are present",
         )
 
     routing_record = foundation_binding.get("routing_record")

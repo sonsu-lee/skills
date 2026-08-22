@@ -199,6 +199,13 @@
       }]
     },
     "skill_resolution": {
+      "logical_task_id": "task.fixture.change",
+      "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+      "routing_ref": {
+        "id": "routing.fixture",
+        "revision": 1,
+        "digest": "28e2bc4448502844f2092385730bbd802315ec34a12bbd0373dc70124b095903"
+      },
       "status": "pass",
       "decisions": [
         {
@@ -425,6 +432,13 @@
         }]
       },
       "skill_resolution": {
+        "logical_task_id": "task.fixture.change",
+        "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+        "routing_ref": {
+          "id": "routing.fixture",
+          "revision": 1,
+          "digest": "28e2bc4448502844f2092385730bbd802315ec34a12bbd0373dc70124b095903"
+        },
         "status": "pass",
         "decisions": [
           {
@@ -709,7 +723,7 @@
         {"op": "remove", "path": "/foundation_binding"}
       ],
       "expected_schema_valid": false,
-      "expected_rules": ["FND-AUTH-001", "FND-AUTH-005", "FND-FRONTIER-001", "FND-FRONTIER-004", "FND-GATE-001", "FND-GATE-002", "FND-ROUTE-001", "FND-ROUTE-001", "HANDOFF-002"]
+      "expected_rules": ["FND-AUTH-001", "FND-AUTH-005", "FND-FRONTIER-001", "FND-FRONTIER-004", "FND-GATE-001", "FND-GATE-002", "FND-ROUTE-001", "FND-ROUTE-001", "HANDOFF-002", "RESOLVE-004"]
     },
     {
       "id": "scope-include-exclude-are-disjoint",
@@ -1283,7 +1297,7 @@
         {"op": "replace", "path": "/foundation_binding/routing_ref/digest", "value": "0000000000000000000000000000000000000000000000000000000000000000"},
         {"op": "replace", "path": "/handoff/foundation_binding/routing_ref/digest", "value": "0000000000000000000000000000000000000000000000000000000000000000"}
       ],
-      "expected_rules": ["FND-ROUTE-001"]
+      "expected_rules": ["FND-ROUTE-001", "RESOLVE-004"]
     },
     {
       "id": "read-only-route-rejects-effect-capability",
@@ -1400,7 +1414,7 @@
         {"op": "replace", "path": "/foundation_binding/gate_record/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"},
         {"op": "replace", "path": "/handoff/foundation_binding/gate_record/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"}
       ],
-      "expected_rules": ["FND-AUTH-005"]
+      "expected_rules": ["FND-AUTH-005", "RESOLVE-004"]
     },
     {
       "id": "blocked-local-investigation-preserves-continue",
@@ -1503,6 +1517,50 @@
         {"op": "replace", "path": "/handoff/authorization/0/authorization_ref/digest", "value": "d2f0ac83d572dfe4e1c4d514dd68871f09c2bb9ccceb32b2f03bf1f9e5714c1e"}
       ],
       "expected_rules": []
+    },
+    {
+      "id": "more-specific-compatible-candidate-wins",
+      "mutations": [
+        {"op": "append", "path": "/skill_resolution/decisions", "value": {"skill_id": "skills:present-result", "source": "repository", "decision": "rejected", "reason": "낮은 후보를 선택", "responsibility": "workflow", "specificity": 5, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "provenance": {"locator": null, "version": null, "content_digest": null}}},
+        {"op": "append", "path": "/handoff/skill_resolution/decisions", "value": {"skill_id": "skills:present-result", "source": "repository", "decision": "rejected", "reason": "낮은 후보를 선택", "responsibility": "workflow", "specificity": 5, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "provenance": {"locator": null, "version": null, "content_digest": null}}}
+      ],
+      "expected_rules": ["RESOLVE-005"]
+    },
+    {
+      "id": "skill-resolution-matches-current-basis",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/basis_fingerprint", "value": "9999999999999999999999999999999999999999999999999999999999999999"},
+        {"op": "replace", "path": "/handoff/skill_resolution/basis_fingerprint", "value": "9999999999999999999999999999999999999999999999999999999999999999"}
+      ],
+      "expected_rules": ["RESOLVE-004"]
+    },
+    {
+      "id": "deliver-route-blocks-failed-verification",
+      "base_case": "deliver-route-requires-current-grant",
+      "mutations": [
+        {"op": "replace", "path": "/verification/failed", "value": ["테스트 실패"]},
+        {"op": "replace", "path": "/handoff/verification/failed", "value": ["테스트 실패"]}
+      ],
+      "expected_rules": ["FND-AUTH-005", "FND-GATE-002", "FND-ROUTE-001", "HANDOFF-001", "HANDOFF-004"]
+    },
+    {
+      "id": "blocked-skill-decisions-ignore-unrelated-material-decisions",
+      "base_case": "blocked-handoff-requires-next-action",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/status", "value": "blocked"},
+        {"op": "replace", "path": "/handoff/skill_resolution/status", "value": "blocked"},
+        {"op": "replace", "path": "/skill_resolution/decisions", "value": [{"skill_id": "skills:git-workflow", "source": "repository", "decision": "blocked", "reason": "스킬 경합 확인 필요", "responsibility": "workflow", "specificity": 4, "compatible": false, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "a7f423a5444a7ec5f0dce9a03ba04b4315723772bf73526a264c7ead85c1282f"}, "provenance": {"locator": null, "version": null, "content_digest": null}}]},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions", "value": [{"skill_id": "skills:git-workflow", "source": "repository", "decision": "blocked", "reason": "스킬 경합 확인 필요", "responsibility": "workflow", "specificity": 4, "compatible": false, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "src", "frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "a7f423a5444a7ec5f0dce9a03ba04b4315723772bf73526a264c7ead85c1282f"}, "provenance": {"locator": null, "version": null, "content_digest": null}}]},
+        {"op": "append", "path": "/foundation_binding/frontier_record/visible_unit_ids", "value": "unit.fixture.product-decision"},
+        {"op": "append", "path": "/handoff/foundation_binding/frontier_record/visible_unit_ids", "value": "unit.fixture.product-decision"},
+        {"op": "append", "path": "/foundation_binding/frontier_record/units", "value": {"unit_id": "unit.fixture.product-decision", "revision": 1, "predecessor_unit_ref": null, "successor_unit_ref": null, "gap_kind": "material_decision", "state": "pending", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null, "safe_default_conditions": [], "authorization_id": null, "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_decision", "next_action": "clarify", "interaction_kind": "clarification", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}}},
+        {"op": "append", "path": "/handoff/foundation_binding/frontier_record/units", "value": {"unit_id": "unit.fixture.product-decision", "revision": 1, "predecessor_unit_ref": null, "successor_unit_ref": null, "gap_kind": "material_decision", "state": "pending", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "checkpoint_relevance": "current", "dependency_ids": [], "value_binding": null, "safe_default_conditions": [], "authorization_id": null, "runtime_disposition": {"resolution_action": "request_input", "defer_effect": "none", "gate_result": "blocked", "blocker": "missing_decision", "next_action": "clarify", "interaction_kind": "clarification", "interaction_requirement": "required", "interaction_owner": "develop-change", "progress": "partial_block"}}},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "48a5e7b691f753a5c814da75324eac0c60d92e05fceeade7be1915e854dc15da"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "48a5e7b691f753a5c814da75324eac0c60d92e05fceeade7be1915e854dc15da"},
+        {"op": "replace", "path": "/handoff/next_action", "value": "결정 확인"},
+        {"op": "replace", "path": "/handoff/next_action_kind", "value": "clarify"}
+      ],
+      "expected_rules": ["FND-FRONTIER-004"]
     }
   ]
 }

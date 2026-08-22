@@ -34,6 +34,7 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 - 오래된 grant, 해결된 blocker와 폐기된 artifact를 현재 값처럼 남기지 않는다 (`HANDOFF-002`).
 - 경로·명령·PR URL처럼 재개에 필요한 식별자는 정확히 남긴다 (`HANDOFF-003`).
 - 검증하지 않은 내용을 완료로 표현하지 않는다 (`HANDOFF-004`).
+- 실패한 검증이 하나라도 남아 있으면 deliver route로 진행하지 않고 gate를 blocked로 유지한다 (`HANDOFF-004`).
 - 비밀정보, 토큰, 전체 로그와 불필요한 대화 원문은 포함하지 않는다 (`HANDOFF-005`).
 - orchestration record 안에 함께 저장할 때 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 최상위 현재 상태와 동일해야 한다 (`HANDOFF-002`).
 - 아직 끝나지 않은 route가 있으면 gate 결과와 관계없이 비어 있지 않은 `next_action`을 남긴다 (`HANDOFF-001`).

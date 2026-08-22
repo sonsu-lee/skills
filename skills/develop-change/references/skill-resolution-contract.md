@@ -51,7 +51,9 @@ Skill resolver는 현재 작업에 필요한 전문 지침을 선택한다. 스�
 
 활성 스킬이 하나면 `selected`로 기록한다. 둘 이상을 함께 적용하면 responsibility가 같든 서로 보완적이든 `decisions` 배열의 실제 적용 순서대로 나열하고 모두 `composed`로 기록한다. 각 항목의 responsibility와 reason은 그 순서에서 맡는 역할을 설명한다.
 
-스킬 경합을 해소하지 못해 resolution을 `blocked`로 두면 `blocked` decision마다 `frontier_unit_ref`를 남긴다. 이 ref는 해당 경합을 질문으로 보존한 visible pending `material_decision` unit의 canonical identity와 1:1로 일치해야 한다.
+같은 source와 responsibility에 compatible 후보가 여러 개면 더 높은 specificity 후보를 거절한 채 더 낮은 후보를 활성화하지 않는다. skill resolution에는 현재 logical task ID, basis fingerprint와 foundation routing ref를 함께 저장하며, 셋 중 하나가 바뀌면 호환성·경합 판정을 다시 실행한다.
+
+스킬 경합을 해소하지 못해 resolution을 `blocked`로 두면 `blocked` decision마다 `frontier_unit_ref`를 남긴다. 각 ref는 해당 경합을 질문으로 보존한 서로 다른 visible pending `material_decision` unit의 canonical identity와 일치한다. 같은 frontier에 있는 제품 결정처럼 스킬과 무관한 material decision은 이 매핑 대상이 아니다.
 
 ## 설치와 외부 탐색
 

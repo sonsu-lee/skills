@@ -382,8 +382,25 @@
     "skillResolution": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "decisions", "planned_capabilities", "fallback"],
+      "required": [
+        "logical_task_id",
+        "basis_fingerprint",
+        "routing_ref",
+        "status",
+        "decisions",
+        "planned_capabilities",
+        "fallback"
+      ],
       "properties": {
+        "logical_task_id": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/stableId"
+        },
+        "basis_fingerprint": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/sha256"
+        },
+        "routing_ref": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
+        },
         "status": {"enum": ["pass", "blocked"]},
         "decisions": {
           "type": "array",
