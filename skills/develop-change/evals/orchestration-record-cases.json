@@ -748,6 +748,18 @@
       "expected_rules": ["HANDOFF-004"]
     },
     {
+      "id": "side-effect-route-has-one-dependent-evaluation",
+      "mutations": [
+        {"op": "append", "path": "/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.external-write.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b", "capability": "external_write", "target_fingerprint": "8888888888888888888888888888888888888888888888888888888888888888", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}},
+        {"op": "append", "path": "/handoff/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.external-write.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.objective.34671375da26775689635b3cac48213fabb7ea472d507b1ca217bc63f37e651b", "capability": "external_write", "target_fingerprint": "8888888888888888888888888888888888888888888888888888888888888888", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}},
+        {"op": "append", "path": "/foundation_binding/authorization_evaluations", "value": {"evaluation_id": "authorization-evaluation.fixture.external-write", "required_capability": "external_write", "target_fingerprint": "8888888888888888888888888888888888888888888888888888888888888888", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "selected_authorization_id": "authorization.external-write.fixture", "side_effect_intent": "dependent", "derived_result": "allowed", "next_action": "continue", "dependent_side_effect_count": 1}},
+        {"op": "append", "path": "/handoff/foundation_binding/authorization_evaluations", "value": {"evaluation_id": "authorization-evaluation.fixture.external-write", "required_capability": "external_write", "target_fingerprint": "8888888888888888888888888888888888888888888888888888888888888888", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "selected_authorization_id": "authorization.external-write.fixture", "side_effect_intent": "dependent", "derived_result": "allowed", "next_action": "continue", "dependent_side_effect_count": 1}},
+        {"op": "append", "path": "/authorization", "value": {"capability": "external_write", "authorization_ref": {"id": "authorization.external-write.fixture", "revision": 1, "digest": "650b28423f97585aee679463de682d49f6cb4e5b887cef051ce3ee560c1d65f7"}, "target_fingerprint": "8888888888888888888888888888888888888888888888888888888888888888", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "status": "granted", "runtime_eligible": true}},
+        {"op": "append", "path": "/handoff/authorization", "value": {"capability": "external_write", "authorization_ref": {"id": "authorization.external-write.fixture", "revision": 1, "digest": "650b28423f97585aee679463de682d49f6cb4e5b887cef051ce3ee560c1d65f7"}, "target_fingerprint": "8888888888888888888888888888888888888888888888888888888888888888", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "status": "granted", "runtime_eligible": true}}
+      ],
+      "expected_rules": ["FND-AUTH-005"]
+    },
+    {
       "id": "completed-phase-is-not-ahead-of-current-route",
       "mutations": [
         {"op": "replace", "path": "/handoff/completed_phase", "value": "deliver"}
@@ -1431,6 +1443,17 @@
       "expected_rules": ["HANDOFF-001", "HANDOFF-001", "HANDOFF-004"]
     },
     {
+      "id": "terminal-verify-requires-verification-result",
+      "base_case": "terminal-handoff-has-no-next-action",
+      "mutations": [
+        {"op": "replace", "path": "/verification/not_run", "value": []},
+        {"op": "replace", "path": "/handoff/verification/not_run", "value": []},
+        {"op": "replace", "path": "/handoff/next_action", "value": null},
+        {"op": "replace", "path": "/handoff/next_action_kind", "value": null}
+      ],
+      "expected_rules": ["HANDOFF-001", "HANDOFF-004"]
+    },
+    {
       "id": "top-level-assumption-identifies-foundation-unit",
       "base_case": "supported-conditional-passes",
       "mutations": [
@@ -1612,6 +1635,24 @@
         {"op": "replace", "path": "/handoff/verification/failed", "value": ["테스트 실패"]}
       ],
       "expected_rules": ["FND-AUTH-005", "FND-GATE-002", "FND-ROUTE-001", "HANDOFF-001", "HANDOFF-004"]
+    },
+    {
+      "id": "terminal-deliver-requires-result-artifact",
+      "base_case": "deliver-route-requires-current-grant",
+      "mutations": [
+        {"op": "replace", "path": "/handoff/completed_phase", "value": "deliver"},
+        {"op": "replace", "path": "/foundation_binding/gate_record/work_remaining", "value": false},
+        {"op": "replace", "path": "/foundation_binding/gate_record/next_action", "value": null},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/work_remaining", "value": false},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/next_action", "value": null},
+        {"op": "replace", "path": "/foundation_binding/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/foundation_binding/routing_record/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/next_action", "value": null},
+        {"op": "replace", "path": "/handoff/next_action_kind", "value": null}
+      ],
+      "expected_rules": ["FND-AUTH-005", "FND-ROUTE-001", "HANDOFF-003"]
     },
     {
       "id": "blocked-skill-decisions-ignore-unrelated-material-decisions",

@@ -27,7 +27,7 @@ from runtime_projection import (
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 20
+VALIDATOR_REVISION = 21
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
@@ -982,6 +982,19 @@ def validate_record(
         isinstance(gate_record, dict)
         and gate_record.get("work_remaining") is False
     )
+    terminal_route_completed = bool(
+        terminal_completion_claimed
+        and route_plan
+        and completed_phase == route_plan[-1]
+    )
+    if terminal_route_completed and completed_phase == "verify" and not (
+        passed or failed or not_run
+    ):
+        add(
+            "HANDOFF-004",
+            "/verification",
+            "terminal verify handoff must record at least one verification result",
+        )
     if (
         failed
         and gate_result != "blocked"
@@ -991,6 +1004,17 @@ def validate_record(
             "HANDOFF-004",
             "/gate/result",
             "deliver or terminal handoff must remain blocked while verification failures are present",
+        )
+    artifacts = handoff.get("artifacts")
+    if (
+        terminal_route_completed
+        and completed_phase in SIDE_EFFECT_ROUTES
+        and not artifacts
+    ):
+        add(
+            "HANDOFF-003",
+            "/handoff/artifacts",
+            "terminal side-effect handoff must identify at least one result artifact",
         )
 
     routing_record = foundation_binding.get("routing_record")
@@ -1314,6 +1338,33 @@ def validate_record(
         requires_effect_grant = primary_route in SIDE_EFFECT_ROUTES or isinstance(
             effect_capability, str
         )
+        if requires_effect_grant and isinstance(authorization_evaluations, list):
+            dependent_evaluations = [
+                evaluation
+                for evaluation in authorization_evaluations
+                if isinstance(evaluation, dict)
+                and evaluation.get("side_effect_intent") == "dependent"
+            ]
+            current_effect_evaluations = [
+                evaluation
+                for evaluation in dependent_evaluations
+                if evaluation.get("required_capability") == effect_capability
+                and evaluation.get("target_fingerprint")
+                == effect_binding.get("target_fingerprint")
+                and evaluation.get("scope_fingerprint")
+                == expected_scope_fingerprint
+                and evaluation.get("basis_fingerprint")
+                == effect_binding.get("basis_fingerprint")
+            ]
+            dependent_shape_invalid = len(dependent_evaluations) != 1 or (
+                gate_result == "blocked" and len(current_effect_evaluations) != 1
+            )
+            if dependent_shape_invalid:
+                add(
+                    "FND-AUTH-005",
+                    "/foundation_binding/authorization_evaluations",
+                    "side-effect route must have exactly one dependent evaluation bound to the current effect",
+                )
         if not requires_effect_grant and any(
             isinstance(evaluation, dict)
             and (

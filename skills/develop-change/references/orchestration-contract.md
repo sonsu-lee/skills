@@ -37,7 +37,7 @@
 3. [authorization-contract.md](./authorization-contract.md)를 읽어 현재 단계에 필요한 capability만 확인한다.
 4. [skill-resolution-contract.md](./skill-resolution-contract.md)에 따라 전문 스킬을 선택·조합하거나 fallback을 정한다.
 5. 승인된 범위에서 변경하고 저장소가 제공하는 가장 좁은 검증부터 실행한다.
-6. 전달이 요청되었으면 branch 생성·전환을 포함한 Git capability를 각각 확인한 뒤 `git-workflow`를 적용한다.
+6. 전달이 요청되었으면 Git capability를 각각 확인한다. `branch_create`, `branch_switch`, `stage`, `commit`, `push`, `pr_create`에는 `git-workflow`를 적용한다. 지원 범위 밖인 `merge`, `rebase`, `history_rewrite`는 별도의 compatible workflow를 선택하고, 없으면 fallback 또는 blocked로 기록한다.
 7. [handoff-contract.md](./handoff-contract.md)의 compact handoff를 갱신한다.
 
 ## 기계 검증
@@ -57,6 +57,7 @@
 - `route_plan`은 canonical route 순서를 유지한다.
 - scope의 include/exclude와 verification의 passed/failed/not_run은 서로 겹치지 않는다.
 - `verification.failed`가 남아 있으면 deliver route와 terminal handoff의 gate는 blocked여야 한다.
+- terminal `verify` handoff는 passed/failed/not_run 중 최소 한 건의 검증 결과를 남긴다.
 - handoff의 completed phase는 첫 route 시작 전에는 `null`, 그 뒤에는 route plan에 있으면서 primary route보다 뒤에 있지 않는다.
 - 마지막 route가 끝난 상태가 아니면 handoff의 primary route는 completed phase 바로 다음 계획 단계다.
 - blocked 상태이거나 완료되지 않은 route가 남은 handoff는 비어 있지 않은 next action과 foundation gate에 맞는 `next_action_kind`를 남긴다.
@@ -66,6 +67,7 @@
 - authorization current leaf는 status 이름이 아니라 다른 record의 `predecessor_authorization_ref`가 가리키지 않는 lineage record로 판별한다. 과거 granted summary도 successor가 있으면 current 중복으로 세지 않는다.
 - design은 승인된 temporary working root에 한해 `working_artifact_write`, `temporary_work_state`를 선택적으로 받고, change는 `local_change`, `durable_document_write`, `durable_document_content`, deliver는 `branch_create`, `branch_switch`, `stage`, `commit`, `push`, `pr_create`, `merge`, `rebase`, `history_rewrite`, operate는 `external_write`, evolve는 `local_change`만 effect capability로 받는다. capability가 있으면 current effect·scope에 exact-bound된 runtime-eligible current grant가 필요하고, 없으면 gate는 blocked여야 한다. 그 밖의 read-only route capability는 `null`이다.
 - foundation authorization lineage의 각 record는 최상위와 handoff `authorization`에 정확히 하나의 summary로 투영한다. summary가 가리키는 record가 없는 경우와 lineage record를 summary에서 누락하거나 중복한 경우를 모두 거절한다.
+- side-effect route는 현재 effect의 capability·target·scope·basis와 정확히 일치하는 dependent authorization evaluation을 한 건만 가진다. 다른 evaluation은 `side_effect_intent: none`, `dependent_side_effect_count: 0`이어야 한다.
 - read-only route 또는 effect capability가 `null`인 route의 authorization evaluation은 `side_effect_intent: none`, `dependent_side_effect_count: 0`이어야 한다.
 - foundation routing·gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치한다. 전체 snapshot은 foundation semantic validator를 그대로 통과해야 하며 routing 결정, gate의 `work_remaining`, frontier 상태·disposition과 authorization lineage가 현재 orchestration 상태에 결박된다.
 - authorization snapshot은 current leaf만 잘라 저장하지 않고 root부터 current leaf까지의 record/evaluation lineage를 보존한다.
@@ -74,6 +76,7 @@
 - `conditional` gate 중 `assumption_effect: non_material`인 경우에만 assumption이 필요하다. 각 assumption은 current assumed frontier unit의 canonical identity·assumption ref·safe-default evidence와 exact-bound되고 검증 방법을 가진다. 조사 중인 discoverable fact처럼 `assumption_effect: none`이면 assumptions는 비어 있어야 한다.
 - provisional profile은 어떤 side-effect checkpoint도 통과할 수 없다.
 - handoff의 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.
+- terminal side-effect route handoff는 실행 결과를 다시 확인할 수 있는 artifact 식별자를 최소 한 건 남긴다.
 
 효과 실행이나 handoff 재개 전에는 schema 검증과 semantic validator를 모두 통과해야 한다. validator 회귀 사례는 다음 명령으로 확인한다.
 
