@@ -1,0 +1,6 @@
+interface:
+  display_name: "Develop Change"
+  short_description: "소프트웨어 변경을 이해부터 구현·검증·전달까지 오케스트레이션"
+  default_prompt: "$develop-change를 사용해 이 변경을 이해하고 필요한 전문 스킬을 조합해 구현·검증한 뒤 요청된 방식으로 전달해줘."
+policy:
+  allow_implicit_invocation: false

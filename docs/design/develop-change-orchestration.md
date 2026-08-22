@@ -1,6 +1,6 @@
 # develop-change 오케스트레이션 설계
 
-상태: 구현 전 계약. `develop-change/SKILL.md`가 추가되기 전까지 런타임에서는 발견되지 않는다.
+상태: `0.6.0` 활성 계약. 첫 버전은 `$develop-change` 명시 호출만 허용한다.
 
 ## 목표
 

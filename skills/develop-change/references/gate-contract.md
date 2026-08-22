@@ -1,6 +1,6 @@
 # 공통 gate와 decision frontier 계약
 
-적용 상태: 저장소 계약 초안. 현재 runtime에서는 사용하지 않는다.
+적용 상태: `develop-change`의 활성 공통 계약.
 
 Gate는 **지금 계속해도 되는지**, **무엇을 먼저 알아야 하는지**, **누구에게 물어야 하는지**를 정한다.
 
@@ -95,6 +95,6 @@ Grilling 방식처럼 **현재 답할 수 있는 질문만 한 round에 모은�
 
 ## 기계 계약
 
-정확한 gap/action/state 조합, dependency DAG, top-level aggregate 우선순위, clarification view lifecycle, authorization binding과 canonical digest는 [foundation-contract.schema.json](./foundation-contract.schema.json)의 `gate`와 `frontier` 정의 및 validator가 소유한다.
+정확한 gap/action/state 조합과 Phase 1 검증 기준은 [foundation-contract.schema.json](./foundation-contract.schema.json)의 `gate`와 `frontier` 정의에 보존한다. 활성 오케스트레이터는 이 의미를 적용하고 compact 상태는 [orchestration-contract.schema.json](./orchestration-contract.schema.json)에 기록한다.
 
 이 frontier는 질문과 진행 상태를 관리할 뿐 권한을 만들지 않는다. 질문했다는 사실이나 답변 수신 자체는 authorization이 아니다.

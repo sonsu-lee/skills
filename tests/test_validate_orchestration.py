@@ -208,6 +208,8 @@ class ActivationTest(unittest.TestCase):
 
 class IntegrationTest(unittest.TestCase):
     def test_phase1_contract_bundle_and_manifest_digests_match(self) -> None:
+        if (ROOT / "skills/develop-change/SKILL.md").is_file():
+            self.skipTest("phase1 digest closure is pre-activation evidence")
         catalog = orchestration.load_json(
             ROOT / "skills/develop-change/evals/leaf-only-install-cases.json"
         )

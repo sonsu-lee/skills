@@ -129,9 +129,11 @@
 | 호출 방식 | 스킬 |
 |---|---|
 | 모델 자동 호출 허용 | `product-discovery`, `to-prd`, `domain-modeling`, `architecture-decisions`, `to-adr`, `to-tickets`, `research`, `present-result`, `git-workflow` |
-| 사용자 명시 호출 | `recommend-skill`, `develop-skill`, `review-dev-resume` |
+| 사용자 명시 호출 | `develop-change`, `recommend-skill`, `develop-skill`, `review-dev-resume` |
 
 사용자 명시 호출 스킬은 `agents/openai.yaml`의 `policy.allow_implicit_invocation`을 `false`로 둔다. 자동 호출 허용 여부는 이름에서 추측하지 않고 이 메타데이터와 카탈로그 검증기로 확인한다.
+
+`develop-change`는 일반 구현 요청, 호스트의 기본 개발 흐름과 자동 호출되는 `git-workflow`의 경합을 실제 증적으로 검증하기 전까지 명시 호출로 유지한다. 명시 호출은 companion skill 선택 동의이며 side effect 권한이 아니다.
 
 `review-dev-resume`는 명시 호출 스킬 중에서도 direct-only로 다룬다. 대표 진입점인 `recommend-skill`의 추천 후보에 포함하지 않고, 사용자가 해당 스킬을 직접 호출한 경우에만 사용한다.
 
@@ -220,4 +222,4 @@ skill-name/
 - README, manifest와 런타임 메타데이터가 같은 스킬 목록을 설명하는가?
 - 기존 사용자를 위한 호환 또는 폐기 경로가 정의되어 있는가?
 
-저장소의 공개 카탈로그, 호출 정책, README 행과 상대 링크의 기본 정합성은 `python3 scripts/validate_skill_catalog.py`로 검사한다. `skills/develop-change/`는 배포하지 않는 내부 개발 기반이므로 installable skill 목록에서 제외한다.
+저장소의 공개 카탈로그, 호출 정책, README 행과 상대 링크의 기본 정합성은 `python3 scripts/validate_skill_catalog.py`로 검사한다. `develop-change`의 스킬 경합, 권한 분리와 활성 상태는 `python3 skills/develop-change/scripts/validate_orchestration.py --activation active`로 추가 검증한다.

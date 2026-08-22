@@ -1,6 +1,6 @@
 # develop-change 오케스트레이션 계약
 
-적용 상태: 활성화 전 설계 계약. `develop-change/SKILL.md`가 생기기 전까지 런타임에서 사용하지 않는다.
+적용 상태: `develop-change` 활성 계약.
 
 ## 책임
 

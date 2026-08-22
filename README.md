@@ -1,6 +1,6 @@
 # Sonsu Skills
 
-Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서치, Git 작업, 스킬 제작과 개인 개발자 이력서 검토를 지원하며 Claude Code용 manifest도 함께 제공합니다.
+Codex용 개인 Agent Skill 플러그인입니다. 소프트웨어 변경 오케스트레이션, 제품 문서 작성, 리서치, Git 작업, 스킬 제작과 개인 개발자 이력서 검토를 지원하며 Claude Code용 manifest도 함께 제공합니다.
 
 ## 제공 스킬
 
@@ -14,6 +14,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | `to-adr` | 준비된 아키텍처·기술 결정을 ADR로 변환합니다. |
 | `to-tickets` | 승인된 계획을 의존성이 드러나는 실행 티켓으로 변환합니다. |
 | `research` | 여러 원문을 교차 검증해 근거 중심으로 조사합니다. |
+| `develop-change` | 하나의 소프트웨어 변경을 이해·설계·구현·검증·전달까지 오케스트레이션하고 필요한 전문 스킬을 조합합니다. |
 | `present-result` | 전문 결과의 의미를 유지하면서 결론·영향·다음 행동을 쉬운 말로 전달합니다. |
 | `git-workflow` | Conventional Branch 명명부터 Conventional Commit, PR 생성과 읽기 전용 검토까지 하나의 흐름으로 관리합니다. |
 | `develop-skill` | Agent Skill을 생성·수정·검토하고 구조와 행동을 검증합니다. |
@@ -23,7 +24,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 어떤 스킬부터 사용할지 모르면 `$recommend-skill`을 명시적으로 호출합니다. `recommend-skill`은 전문 작업이나 상태 변경을 대신 수행하지 않고, 현재 단계에 맞는 다음 스킬 하나와 정확한 호출 예시를 안내합니다.
 
-`recommend-skill`, `develop-skill`과 `review-dev-resume`를 제외한 전문 스킬은 목표가 자연어 요청에 명확하면 이름을 직접 쓰지 않아도 자동으로 선택될 수 있습니다. 자동 선택은 파일, Git 또는 외부 시스템 변경 권한이 아니며, 각 스킬은 사용자가 요청한 동작과 내부 승인 gate 안에서만 상태를 바꿉니다.
+`develop-change`, `recommend-skill`, `develop-skill`과 `review-dev-resume`를 제외한 전문 스킬은 목표가 자연어 요청에 명확하면 이름을 직접 쓰지 않아도 자동으로 선택될 수 있습니다. 자동 선택은 파일, Git 또는 외부 시스템 변경 권한이 아니며, 각 스킬은 사용자가 요청한 동작과 내부 승인 gate 안에서만 상태를 바꿉니다.
 
 `0.3.0`부터 대표 진입점의 호출 이름이 `$sonsu`에서 `$recommend-skill`로 변경되었습니다. 기존 프롬프트나 자동화에서도 호출 이름을 함께 변경해야 합니다.
 
@@ -35,6 +36,8 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 
 `0.6.0`부터 전문 스킬의 최종 사용자 응답에는 `present-result`가 마지막 표현 단계로 적용됩니다. 원본 PRD·ADR·코드·티켓과 상태·ID·근거는 바꾸지 않고, 결론과 실제 영향, 다음 행동을 쉬운 말로 먼저 전달합니다. 작업 스킬과 `present-result`를 함께 설치하면 공통 표현 규칙 전체를 사용합니다. 작업 스킬만 독립 설치해도 각 스킬의 최소 대체 규칙이 적용되어 고정 출력 형식과 필수 필드는 유지하고, 자유 서술 영역만 쉬운 말로 전달합니다.
 
+`0.7.0`부터 `$develop-change`가 구현·검증·전달을 잇는 명시 호출 오케스트레이터로 추가되었습니다. 일반 구현 요청 및 `git-workflow`와의 경합을 평가하기 전까지 implicit invocation은 비활성화합니다.
+
 | 현재 상태 | 다음 스킬 |
 |---|---|
 | 제품 문제나 범위 결정이 열려 있음 | `product-discovery` |
@@ -43,8 +46,11 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 | 기술 선택의 대안과 판단 기준이 열려 있음 | `architecture-decisions` |
 | 내려진 기술 결정을 ADR로 남김 | `to-adr` |
 | 승인된 계획을 실행 작업으로 나눔 | `to-tickets` |
+| 하나의 소프트웨어 변경을 이해부터 구현·검증·전달까지 진행 | `develop-change` |
 | 이미 나온 전문 결과를 쉽게 풀어 전달함 | `present-result` |
 | 브랜치, commit, push, PR 또는 Git 산출물 검토 | `git-workflow` |
+
+`develop-change`는 `$develop-change` 또는 `$skills:develop-change`로 명시 호출합니다. 호출은 필요한 스킬 조합을 선택할 뿐 파일·Git·외부 상태 변경 권한을 만들지 않습니다.
 
 `review-dev-resume`는 `recommend-skill`의 추천 대상이 아니며, `$review-dev-resume` 또는 `$skills:review-dev-resume`로 직접 호출할 때만 사용합니다.
 
@@ -55,6 +61,7 @@ Codex용 개인 Agent Skill 플러그인입니다. 제품 문서 작성, 리서�
 - `to-*`는 합의되거나 준비된 컨텍스트를 이름에 적힌 산출물로 변환할 때만 사용합니다.
 - `review-*`와 `research`는 상태를 바꾸지 않는 읽기 전용 작업을 나타냅니다.
 - `git-workflow`는 하나의 Git 변경 수명 주기를 단일 진입점으로 제공하되, 준비·검토 mode와 branch·commit·PR 쓰기 mode의 권한을 내부에서 분리합니다.
+- `develop-change`는 route·gate·권한·handoff를 관리하는 얇은 제어 계층이며, 언어·DB·프레임워크 규칙은 프로젝트 지침과 적용 가능한 전문 스킬에서 가져옵니다.
 - 탐색·의사결정·문서화가 각각 독립적으로 호출될 수 있다면 별도 스킬로 분리합니다.
 - `SKILL.md`에는 모든 실행의 핵심 절차와 reference 로드 조건을 두고, 긴 공통 계약과 분기별 상세 지침은 `references/`에서 필요한 범위로 읽습니다.
 
@@ -125,6 +132,7 @@ $skills:architecture-decisions로 이 기술 선택의 대안과 판단 기준�
 $skills:to-adr로 내려진 기술 결정을 ADR로 기록해줘.
 $skills:to-tickets로 승인된 계획을 실행 가능한 티켓으로 나눠줘.
 $skills:research로 이 주제를 근거 중심으로 조사해줘.
+$skills:develop-change로 이 변경을 이해하고 필요한 전문 스킬을 조합해 구현·검증한 뒤 Draft PR까지 진행해줘.
 $skills:present-result로 위 결과를 의미를 유지하면서 이해하기 쉽게 정리해줘.
 $skills:git-workflow로 이 변경의 브랜치를 만들고 Conventional Commit으로 커밋한 뒤 draft PR을 생성해줘.
 $skills:git-workflow로 이 PR의 merge 준비 상태를 읽기 전용으로 검토해줘.
@@ -139,11 +147,13 @@ $domain-modeling으로 도메인 용어와 상태 전이를 정리해줘.
 $architecture-decisions로 기술 선택지를 검토해줘.
 $to-adr로 내려진 결정을 ADR로 기록해줘.
 $research로 이 주제를 근거 중심으로 조사해줘.
+$develop-change로 이 기능을 구현하고 테스트한 뒤 결과를 전달해줘.
 $present-result로 위 결과를 이해하기 쉽게 정리해줘.
 $git-workflow로 이 변경을 브랜치부터 draft PR까지 진행해줘.
 $review-dev-resume로 내 개발자 이력서를 검토해줘.
 
 # Claude Code
+/skills:develop-change 이 변경을 이해부터 구현·검증·Draft PR까지 진행해줘.
 /skills:git-workflow 현재 변경에 맞는 브랜치를 만들고 의미 단위로 커밋해줘.
 /skills:git-workflow 최근 커밋 세 개를 읽기 전용으로 검토해줘.
 /skills:git-workflow 이 PR의 merge 준비 상태를 읽기 전용으로 검토해줘.
@@ -177,6 +187,8 @@ Claude Code에서는 저장소 루트에서 플러그인을 직접 불러오고 
 
 ```bash
 python3 scripts/validate_skill_catalog.py
+python3 skills/develop-change/scripts/validate_orchestration.py --activation active
+python3 -m unittest discover -s tests -v
 claude --plugin-dir .
 claude plugin validate . --strict
 ```
@@ -201,7 +213,7 @@ API 키 값은 출력하거나 저장소에 커밋하지 마세요.
 
 ```text
 skills/          # 스킬 본문, 참고 자료, 템플릿과 평가 fixture
-  develop-change # 배포하지 않는 내부 개발·검증 기반
+  develop-change # 명시 호출 변경 오케스트레이터와 계약·평가
 evals/           # 스킬 간 회귀 평가
 docs/            # 설계 및 연구 문서
 scripts/         # 저장소 단위 결정론적 검증기
