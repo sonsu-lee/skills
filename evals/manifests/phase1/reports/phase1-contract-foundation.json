@@ -1100,11 +1100,11 @@
       "supported": true
     },
     "contract_bundle": {
-      "bundle_digest": "e8a12a15db5c8c771454135c47ea3ec4191c73b50ce2416aae339db230a1af00",
+      "bundle_digest": "15fa1ccfa16d3374ea9e92da2314676180885c14b143a343d09aed68d284d353",
       "documents": [
         {
           "path": "authorization-contract.md",
-          "sha256": "d5d4b16d00e0bf05f66d6d01f97de994ed22a18cd3d3cf3919ed14a5c2dd9f9d"
+          "sha256": "a960d7553c1c885097ae0811825196a7ebfb2fdb875af516f704369ee32618fa"
         },
         {
           "path": "gate-contract.md",

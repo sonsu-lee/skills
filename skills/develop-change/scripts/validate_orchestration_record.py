@@ -27,7 +27,7 @@ from runtime_projection import (
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 18
+VALIDATOR_REVISION = 19
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
@@ -958,11 +958,19 @@ def validate_record(
             "/verification",
             "verification result sets must be mutually exclusive",
         )
-    if primary_route == "deliver" and failed and gate_result != "blocked":
+    terminal_completion_claimed = (
+        isinstance(gate_record, dict)
+        and gate_record.get("work_remaining") is False
+    )
+    if (
+        failed
+        and gate_result != "blocked"
+        and (primary_route == "deliver" or terminal_completion_claimed)
+    ):
         add(
             "HANDOFF-004",
             "/gate/result",
-            "deliver route must remain blocked while verification failures are present",
+            "deliver or terminal handoff must remain blocked while verification failures are present",
         )
 
     routing_record = foundation_binding.get("routing_record")

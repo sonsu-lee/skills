@@ -55,7 +55,7 @@
 - skill resolution의 logical task, basis fingerprint와 routing ref는 현재 effect binding·foundation routing identity와 일치한다. scope나 근거·routing이 바뀌면 resolution을 다시 만든다.
 - `route_plan`은 canonical route 순서를 유지한다.
 - scope의 include/exclude와 verification의 passed/failed/not_run은 서로 겹치지 않는다.
-- `verification.failed`가 남아 있으면 deliver route의 gate는 blocked여야 한다.
+- `verification.failed`가 남아 있으면 deliver route와 terminal handoff의 gate는 blocked여야 한다.
 - handoff의 completed phase는 첫 route 시작 전에는 `null`, 그 뒤에는 route plan에 있으면서 primary route보다 뒤에 있지 않는다.
 - 마지막 route가 끝난 상태가 아니면 handoff의 primary route는 completed phase 바로 다음 계획 단계다.
 - blocked 상태이거나 완료되지 않은 route가 남은 handoff는 비어 있지 않은 next action과 foundation gate에 맞는 `next_action_kind`를 남긴다.

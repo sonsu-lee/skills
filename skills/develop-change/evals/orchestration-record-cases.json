@@ -1395,6 +1395,15 @@
       "expected_rules": ["HANDOFF-001", "HANDOFF-001"]
     },
     {
+      "id": "terminal-handoff-blocks-failed-verification",
+      "base_case": "terminal-handoff-has-no-next-action",
+      "mutations": [
+        {"op": "replace", "path": "/verification/failed", "value": ["테스트 실패"]},
+        {"op": "replace", "path": "/handoff/verification/failed", "value": ["테스트 실패"]}
+      ],
+      "expected_rules": ["HANDOFF-001", "HANDOFF-001", "HANDOFF-004"]
+    },
+    {
       "id": "top-level-assumption-identifies-foundation-unit",
       "base_case": "supported-conditional-passes",
       "mutations": [
