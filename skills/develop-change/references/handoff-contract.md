@@ -91,9 +91,9 @@ foundation_binding:
   authorization_evaluations:
     - selected_authorization_id: authorization.payment-alert.push
       side_effect_intent: dependent
-      derived_result: blocked
+      derived_result: blocked_missing_authorization
       next_action: reauthorize
-      dependent_side_effect_count: 1
+      dependent_side_effect_count: 0
 blockers:
   - missing_authorization
 next_action: push capability 재승인 요청

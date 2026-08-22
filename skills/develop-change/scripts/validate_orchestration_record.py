@@ -27,7 +27,7 @@ from runtime_projection import (
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 16
+VALIDATOR_REVISION = 17
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
@@ -151,7 +151,10 @@ def objective_logical_task_id(objective: dict[str, Any]) -> str:
 
 
 def active_skill_source_matches(
-    item: dict[str, Any], effective_skill_catalog: list[dict[str, str]] | None
+    item: dict[str, Any],
+    effective_skill_catalog: list[dict[str, str]] | None,
+    *,
+    source_root: Path = REPO_ROOT,
 ) -> bool:
     provenance = item.get("provenance")
     if not isinstance(provenance, dict):
@@ -174,7 +177,7 @@ def active_skill_source_matches(
     else:
         if any(part in {"", ".", ".."} for part in declared.parts):
             return False
-        source_path = REPO_ROOT / declared
+        source_path = source_root / declared
     try:
         resolved = source_path.resolve(strict=True)
     except (OSError, RuntimeError):
@@ -183,7 +186,7 @@ def active_skill_source_matches(
         return False
     if not declared.is_absolute():
         try:
-            resolved.relative_to(REPO_ROOT.resolve())
+            resolved.relative_to(source_root.resolve())
         except ValueError:
             return False
     try:
@@ -251,7 +254,7 @@ def active_skill_source_matches(
                 continue
             catalog_path = Path(raw_locator)
             if not catalog_path.is_absolute():
-                catalog_path = REPO_ROOT / catalog_path
+                catalog_path = source_root / catalog_path
             try:
                 if catalog_path.resolve(strict=True) == resolved:
                     catalog_matches.append(entry)
@@ -420,6 +423,7 @@ def validate_record(
     *,
     allow_fixture_authorization: bool = False,
     effective_skill_catalog: list[dict[str, str]] | None = None,
+    source_root: Path = REPO_ROOT,
 ) -> list[dict[str, str]]:
     """Return stable rule/path findings not expressible solely by field schemas."""
     findings: list[dict[str, str]] = []
@@ -776,7 +780,11 @@ def validate_record(
             if isinstance(item.get("skill_id"), str):
                 active_skill_ids.add(item["skill_id"])
             active_decisions.append(item)
-            if not active_skill_source_matches(item, effective_skill_catalog):
+            if not active_skill_source_matches(
+                item,
+                effective_skill_catalog,
+                source_root=source_root,
+            ):
                 add(
                     "RESOLVE-004",
                     "/skill_resolution/decisions",
@@ -1412,6 +1420,7 @@ def main() -> int:
                 semantic_findings = validate_record(
                     record,
                     effective_skill_catalog=effective_catalog,
+                    source_root=Path.cwd(),
                 )
             except ProjectionError as exc:
                 semantic_findings = [

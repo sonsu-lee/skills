@@ -24,7 +24,7 @@ Skill resolver는 현재 작업에 필요한 전문 지침을 선택한다. 스�
 
 플러그인이 제공하는 스킬은 런타임에서 노출된 canonical ID를 그대로 기록한다. 예를 들어 `skills:git-workflow`나 `github:github`의 namespace를 제거하지 않아 서로 다른 플러그인의 동명 스킬을 합치지 않는다.
 
-`selected`와 `composed` 결정의 `provenance`에는 재개 시 같은 후보인지 확인할 수 있는 `locator`, `version`, `content_digest`를 모두 기록한다. locator는 현재 읽을 수 있는 `SKILL.md` 원문을 가리키며 digest는 그 파일의 SHA-256이다. plugin source의 canonical skill ID는 가장 가까운 `.codex-plugin/plugin.json`의 name과 SKILL frontmatter name에 결박한다. version은 plugin manifest version 또는 원문에 결박된 immutable `content-sha256:<digest>` revision을 쓰고, manifest가 없는 source는 후자만 허용한다. ID와 locator는 검증 시 다시 읽은 model-visible effective catalog에도 정확히 한 번 있어야 한다. ID가 같아도 이 tuple이 바뀌면 호환성을 다시 확인하고 새 결정을 만든다 (`RESOLVE-004`). 사용할 수 없어 `rejected`한 후보는 확인하지 못한 provenance 값을 `null`로 둘 수 있다.
+`selected`와 `composed` 결정의 `provenance`에는 재개 시 같은 후보인지 확인할 수 있는 `locator`, `version`, `content_digest`를 모두 기록한다. locator는 현재 읽을 수 있는 `SKILL.md` 원문을 가리키며 digest는 그 파일의 SHA-256이다. 상대 locator는 `--input` 검증을 실행한 working directory를 검증 대상 repo root로 삼아 해석한다. plugin source의 canonical skill ID는 가장 가까운 `.codex-plugin/plugin.json`의 name과 SKILL frontmatter name에 결박한다. version은 plugin manifest version 또는 원문에 결박된 immutable `content-sha256:<digest>` revision을 쓰고, manifest가 없는 source는 후자만 허용한다. ID와 locator는 검증 시 같은 working directory에서 다시 읽은 model-visible effective catalog에도 정확히 한 번 있어야 한다. ID가 같아도 이 tuple이 바뀌면 호환성을 다시 확인하고 새 결정을 만든다 (`RESOLVE-004`). 사용할 수 없어 `rejected`한 후보는 확인하지 못한 provenance 값을 `null`로 둘 수 있다.
 
 활성 결정의 `required_tools`는 명령 이름으로 기록하고 현재 `PATH`에서 실행 가능성을 확인한다. 필요한 명령이 없으면 compatible `selected`·`composed`로 두지 않고 `rejected`, `blocked` 또는 fallback으로 전환한다.
 
