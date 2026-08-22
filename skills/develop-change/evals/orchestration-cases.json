@@ -447,6 +447,9 @@
         },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
+          "fixture_only": true,
+          "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "routing_record": {"routing_id": "routing.fixture", "revision": 1},
           "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
           "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
           "gate_record": {
@@ -515,7 +518,8 @@
           "not_run": []
         },
         "blockers": [],
-        "next_action": "결과를 사용자에게 전달"
+        "next_action": "결과를 사용자에게 전달",
+        "next_action_kind": "report"
       },
       "expected_rules": []
     },
@@ -543,6 +547,9 @@
         },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
+          "fixture_only": true,
+          "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "routing_record": {"routing_id": "routing.fixture", "revision": 1},
           "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
           "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
           "gate_record": {
@@ -611,7 +618,8 @@
           "not_run": ["npm test"]
         },
         "blockers": [],
-        "next_action": null
+        "next_action": null,
+        "next_action_kind": null
       },
       "expected_rules": ["HANDOFF-004"]
     },
@@ -639,6 +647,9 @@
         },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
+          "fixture_only": true,
+          "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "routing_record": {"routing_id": "routing.fixture", "revision": 1},
           "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
           "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
           "gate_record": {
@@ -717,7 +728,8 @@
         ],
         "verification": {"passed": [], "failed": [], "not_run": []},
         "blockers": ["stage 재승인 필요"],
-        "next_action": "stage 실행"
+        "next_action": "stage 실행",
+        "next_action_kind": "continue"
       },
       "expected_rules": ["HANDOFF-002"]
     },
@@ -745,6 +757,9 @@
         },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
+          "fixture_only": true,
+          "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "routing_record": {"routing_id": "routing.fixture", "revision": 1},
           "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
           "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
           "gate_record": {
@@ -809,7 +824,8 @@
         "authorization": [],
         "verification": {"passed": [], "failed": [], "not_run": []},
         "blockers": [],
-        "next_action": null
+        "next_action": null,
+        "next_action_kind": null
       },
       "expected_rules": ["HANDOFF-005"]
     }

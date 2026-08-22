@@ -107,6 +107,7 @@ REQUIRED_HANDOFF_FIELDS = {
     "verification",
     "blockers",
     "next_action",
+    "next_action_kind",
 }
 REQUIRED_AUTHORIZATION_FIELDS = {
     "capability",
@@ -385,6 +386,9 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
         findings.add("HANDOFF-001")
     foundation_binding = record.get("foundation_binding")
     if not isinstance(foundation_binding, dict) or set(foundation_binding) != {
+        "fixture_only",
+        "routing_ref",
+        "routing_record",
         "gate_ref",
         "frontier_ref",
         "gate_record",
@@ -394,7 +398,9 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
     }:
         findings.add("HANDOFF-001")
     else:
-        for field in ("gate_ref", "frontier_ref"):
+        if not isinstance(foundation_binding["fixture_only"], bool):
+            findings.add("HANDOFF-001")
+        for field in ("routing_ref", "gate_ref", "frontier_ref"):
             identity_ref = foundation_binding[field]
             if not isinstance(identity_ref, dict) or set(identity_ref) != {
                 "id",
@@ -402,7 +408,7 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
                 "digest",
             }:
                 findings.add("HANDOFF-001")
-        for field in ("gate_record", "frontier_record"):
+        for field in ("routing_record", "gate_record", "frontier_record"):
             if not isinstance(foundation_binding[field], dict):
                 findings.add("HANDOFF-001")
         for field in ("authorization_record", "authorization_evaluation"):
@@ -463,6 +469,29 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
                 findings.add("HANDOFF-002")
     elif next_action is not None:
         findings.add("HANDOFF-001")
+    next_action_kind = record.get("next_action_kind")
+    if next_action_kind not in {"continue", "clarify", "reauthorize", "report", None}:
+        findings.add("HANDOFF-001")
+    completed_phase = record.get("completed_phase")
+    unfinished_plan = (
+        isinstance(route_plan, list)
+        and completed_phase in route_plan
+        and route_plan.index(completed_phase) < len(route_plan) - 1
+    )
+    if unfinished_plan and next_action_kind != "continue":
+        findings.add("HANDOFF-001")
+    gate_record = (
+        foundation_binding.get("gate_record")
+        if isinstance(foundation_binding, dict)
+        else None
+    )
+    if isinstance(gate_record, dict) and gate_record.get("result") == "blocked":
+        gate_action = gate_record.get("next_action")
+        expected_kind = (
+            gate_action if gate_action in {"clarify", "reauthorize"} else "report"
+        )
+        if next_action_kind != expected_kind:
+            findings.add("HANDOFF-001")
 
     if not isinstance(record.get("blockers"), list):
         findings.add("HANDOFF-001")
