@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import hashlib
 import importlib.util
 import json
@@ -69,6 +70,13 @@ class ResolutionTest(unittest.TestCase):
 
 
 class AuthorizationTest(unittest.TestCase):
+    def test_design_allows_optional_temporary_work_capabilities(self) -> None:
+        self.assertEqual(
+            record_validator.EFFECT_CAPABILITIES_BY_ROUTE["design"],
+            {"working_artifact_write", "temporary_work_state"},
+        )
+        self.assertNotIn("design", record_validator.SIDE_EFFECT_ROUTES)
+
     def test_invocation_does_not_grant_local_change(self) -> None:
         result = orchestration.evaluate_authorization(
             {
@@ -198,6 +206,44 @@ class ActivationTest(unittest.TestCase):
 
 
 class IntegrationTest(unittest.TestCase):
+    def test_fallback_input_skips_unneeded_effective_catalog_query(self) -> None:
+        catalog = orchestration.load_json(
+            ROOT / "skills/develop-change/evals/orchestration-record-cases.json"
+        )
+        record = copy.deepcopy(catalog["base_record"])
+        record["skill_resolution"]["decisions"] = []
+        record["skill_resolution"]["fallback"] = "호스트 기본 구현 능력"
+        record["handoff"]["skill_resolution"] = copy.deepcopy(
+            record["skill_resolution"]
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            record_path = Path(temporary) / "fallback-record.json"
+            record_path.write_text(json.dumps(record), encoding="utf-8")
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(
+                        ROOT
+                        / "skills/develop-change/scripts/validate_orchestration_record.py"
+                    ),
+                    "--input",
+                    str(record_path),
+                    "--codex-executable",
+                    "definitely-not-installed-codex",
+                ],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+
+        result = json.loads(completed.stdout)
+        self.assertIsNone(result["effective_catalog_snapshot"])
+        self.assertNotIn(
+            "/skill_resolution/effective_catalog",
+            {item["path"] for item in result["semantic_findings"]},
+        )
+
     def test_schema_error_short_circuits_record_semantics(self) -> None:
         catalog = orchestration.load_json(
             ROOT / "skills/develop-change/evals/orchestration-record-cases.json"
