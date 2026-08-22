@@ -18,10 +18,15 @@ if str(SCRIPT_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPT_ROOT))
 
 from validate_foundation import validate_instance as validate_foundation_instance
+from runtime_projection import (
+    ProjectionError,
+    query_effective_skill_catalog,
+    snapshot_effective_skill_catalog,
+)
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 13
+VALIDATOR_REVISION = 14
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
@@ -137,7 +142,9 @@ def current_scope_fingerprint(scope: dict[str, Any]) -> str:
     return hashlib.sha256(b"develop-change-scope-v1\n" + canonical_bytes(payload)).hexdigest()
 
 
-def active_skill_source_matches(item: dict[str, Any]) -> bool:
+def active_skill_source_matches(
+    item: dict[str, Any], effective_skill_catalog: list[dict[str, str]] | None
+) -> bool:
     provenance = item.get("provenance")
     if not isinstance(provenance, dict):
         return False
@@ -219,7 +226,31 @@ def active_skill_source_matches(item: dict[str, Any]) -> bool:
     expected_versions = {f"content-sha256:{actual_digest}"}
     if plugin_identity:
         expected_versions.add(plugin_identity[1])
-    return item.get("skill_id") == expected_skill_id and version in expected_versions
+    if item.get("skill_id") != expected_skill_id or version not in expected_versions:
+        return False
+    if not isinstance(effective_skill_catalog, list):
+        return False
+    catalog_matches = []
+    for entry in effective_skill_catalog:
+        if not isinstance(entry, dict) or entry.get("skill_id") != expected_skill_id:
+            continue
+        raw_locators = {
+            entry.get("declared_source_locator"),
+            entry.get("source_locator"),
+        }
+        for raw_locator in raw_locators:
+            if not isinstance(raw_locator, str) or not raw_locator:
+                continue
+            catalog_path = Path(raw_locator)
+            if not catalog_path.is_absolute():
+                catalog_path = REPO_ROOT / catalog_path
+            try:
+                if catalog_path.resolve(strict=True) == resolved:
+                    catalog_matches.append(entry)
+                    break
+            except (OSError, RuntimeError):
+                continue
+    return len(catalog_matches) == 1
 
 
 def load_json(path: Path) -> Any:
@@ -377,7 +408,10 @@ def validate_schema(record: dict[str, Any]) -> list[dict[str, str]]:
 
 
 def validate_record(
-    record: dict[str, Any], *, allow_fixture_authorization: bool = False
+    record: dict[str, Any],
+    *,
+    allow_fixture_authorization: bool = False,
+    effective_skill_catalog: list[dict[str, str]] | None = None,
 ) -> list[dict[str, str]]:
     """Return stable rule/path findings not expressible solely by field schemas."""
     findings: list[dict[str, str]] = []
@@ -710,7 +744,7 @@ def validate_record(
             if isinstance(item.get("skill_id"), str):
                 active_skill_ids.add(item["skill_id"])
             active_decisions.append(item)
-            if not active_skill_source_matches(item):
+            if not active_skill_source_matches(item, effective_skill_catalog):
                 add(
                     "RESOLVE-004",
                     "/skill_resolution/decisions",
@@ -729,6 +763,59 @@ def validate_record(
                 "RESOLVE-005",
                 "/skill_resolution/decisions",
                 "multiple active skills must record their application order as composed",
+            )
+        if len(active_decisions) == 1 and active_decisions[0].get("decision") != "selected":
+            add(
+                "RESOLVE-005",
+                "/skill_resolution/decisions",
+                "a single active skill must be selected, not composed",
+            )
+        blocked_decisions = [
+            item
+            for item in decisions
+            if isinstance(item, dict) and item.get("decision") == "blocked"
+        ]
+        blocked_units = [
+            unit
+            for unit in frontier_units
+            if isinstance(unit, dict)
+            and unit.get("unit_id") in visible_unit_ids
+            and unit.get("gap_kind") == "material_decision"
+            and unit.get("state") == "pending"
+            and isinstance(unit.get("runtime_disposition"), dict)
+            and unit["runtime_disposition"].get("blocker") == "missing_decision"
+        ]
+        matched_blocked_units = [
+            next(
+                (
+                    unit
+                    for unit in blocked_units
+                    if identity_ref_matches(
+                        item.get("frontier_unit_ref"),
+                        unit,
+                        kind="frontier_unit",
+                        id_field="unit_id",
+                    )
+                ),
+                None,
+            )
+            for item in blocked_decisions
+        ]
+        if resolution.get("status") == "blocked" and not (
+            blocked_decisions
+            and len(blocked_decisions) == len(blocked_units)
+            and all(unit is not None for unit in matched_blocked_units)
+            and {
+                unit["unit_id"]
+                for unit in matched_blocked_units
+                if unit is not None
+            }
+            == {unit["unit_id"] for unit in blocked_units}
+        ):
+            add(
+                "RESOLVE-005",
+                "/skill_resolution/decisions",
+                "blocked resolution must bind blocked decisions one-to-one to current material-decision units",
             )
         planned_capabilities = resolution.get("planned_capabilities")
         planned_ids = {
@@ -1155,6 +1242,9 @@ def run_cases(path: Path) -> dict[str, Any]:
         or len(case_ids) != len(set(case_ids))
     ):
         raise ValueError("case ids must be non-empty and unique")
+    effective_skill_catalog = catalog.get("effective_skill_catalog")
+    if not isinstance(effective_skill_catalog, list):
+        raise ValueError("effective_skill_catalog must be an array")
     cases_by_id = {case["id"]: case for case in cases}
     results: list[dict[str, Any]] = []
     for case in cases:
@@ -1178,6 +1268,7 @@ def run_cases(path: Path) -> dict[str, Any]:
             for item in validate_record(
                 record,
                 allow_fixture_authorization=allow_fixture_authorization,
+                effective_skill_catalog=effective_skill_catalog,
             )
         )
         expected_rules = sorted(case.get("expected_rules", []))
@@ -1207,6 +1298,7 @@ def main() -> int:
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--input", type=Path, help="orchestration record JSON")
     source.add_argument("--cases", type=Path, help="semantic regression catalog JSON")
+    parser.add_argument("--codex-executable", default="codex")
     args = parser.parse_args()
 
     if args.cases is not None:
@@ -1216,12 +1308,36 @@ def main() -> int:
         if not isinstance(record, dict):
             raise SystemExit("input must be a JSON object")
         schema_findings = validate_schema(record)
-        semantic_findings = [] if schema_findings else validate_record(record)
+        effective_catalog_snapshot = None
+        if schema_findings:
+            semantic_findings = []
+        else:
+            try:
+                effective_catalog = query_effective_skill_catalog(
+                    args.codex_executable,
+                    cwd=Path.cwd(),
+                )
+                effective_catalog_snapshot = snapshot_effective_skill_catalog(
+                    effective_catalog
+                )
+                semantic_findings = validate_record(
+                    record,
+                    effective_skill_catalog=effective_catalog,
+                )
+            except ProjectionError as exc:
+                semantic_findings = [
+                    {
+                        "rule_id": "RESOLVE-004",
+                        "path": "/skill_resolution/effective_catalog",
+                        "message": str(exc),
+                    }
+                ]
         result = {
             "validator": {"id": VALIDATOR_ID, "revision": VALIDATOR_REVISION},
             "status": "pass" if not schema_findings and not semantic_findings else "fail",
             "schema_findings": schema_findings,
             "semantic_findings": semantic_findings,
+            "effective_catalog_snapshot": effective_catalog_snapshot,
         }
     print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
     return 0 if result["status"] == "pass" else 1

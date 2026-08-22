@@ -47,7 +47,9 @@
 - `skill_resolution.decisions`의 `skill_id`는 한 번만 나타난다.
 - 활성 스킬이 둘 이상이면 responsibility가 같거나 서로 보완적인지와 무관하게 적용 순서대로 나열하고 모두 `composed`로 명시한다. `selected`는 단일 활성 스킬에만 쓴다.
 - `selected`와 `composed` 스킬은 현재 `primary_route`를 적용 범위에 포함한다.
-- `selected`와 `composed` 스킬은 현재 읽을 수 있는 `SKILL.md` 원문에 exact-bound된 locator·version·content digest provenance를 가진다. repository-relative locator는 현재 repo 안에서만 해석하며, plugin source는 manifest name과 skill frontmatter name으로 canonical ID를 만든다. version은 plugin manifest version 또는 원문에 결박된 immutable `content-sha256:<digest>` revision을 쓰고, manifest가 없는 독립 source는 후자만 허용한다.
+- `selected`와 `composed` 스킬은 현재 읽을 수 있는 `SKILL.md` 원문에 exact-bound된 locator·version·content digest provenance를 가진다. repository-relative locator는 현재 repo 안에서만 해석하며, plugin source는 manifest name과 skill frontmatter name으로 canonical ID를 만든다. version은 plugin manifest version 또는 원문에 결박된 immutable `content-sha256:<digest>` revision을 쓰고, manifest가 없는 독립 source는 후자만 허용한다. `--input` 검증은 `codex debug prompt-input`의 model-visible effective catalog를 다시 읽어 같은 canonical ID와 declared/resolved source locator가 정확히 한 번 있는지도 확인한다.
+- 단일 활성 스킬은 `selected`여야 한다. 활성 스킬이 둘 이상일 때만 실제 적용 순서대로 모두 `composed`한다.
+- blocked skill resolution은 `blocked` decision을 하나 이상 가지며, 각 decision의 `frontier_unit_ref`를 visible pending `material_decision` unit의 canonical identity에 1:1로 결박한다.
 - `route_plan`은 canonical route 순서를 유지한다.
 - scope의 include/exclude와 verification의 passed/failed/not_run은 서로 겹치지 않는다.
 - handoff의 completed phase는 첫 route 시작 전에는 `null`, 그 뒤에는 route plan에 있으면서 primary route보다 뒤에 있지 않는다.

@@ -455,6 +455,9 @@
           "items": {"$ref": "#/$defs/route"}
         },
         "effect_boundary": {"type": "string", "minLength": 1},
+        "frontier_unit_ref": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
+        },
         "provenance": {"$ref": "#/$defs/skillProvenance"}
       },
       "allOf": [
@@ -468,6 +471,13 @@
           "then": {
             "properties": {"compatible": {"const": true}}
           }
+        },
+        {
+          "if": {
+            "properties": {"decision": {"const": "blocked"}},
+            "required": ["decision"]
+          },
+          "then": {"required": ["frontier_unit_ref"]}
         }
       ]
     },

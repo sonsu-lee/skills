@@ -1,5 +1,17 @@
 {
   "schema_version": "develop-change-orchestration-record-evals-v1",
+  "effective_skill_catalog": [
+    {
+      "skill_id": "skills:git-workflow",
+      "declared_source_locator": "skills/git-workflow/SKILL.md",
+      "source_locator": "skills/git-workflow/SKILL.md"
+    },
+    {
+      "skill_id": "skills:research",
+      "declared_source_locator": "skills/research/SKILL.md",
+      "source_locator": "skills/research/SKILL.md"
+    }
+  ],
   "base_record": {
     "contract_version": "develop-change-orchestration-v1",
     "objective": {
@@ -555,7 +567,7 @@
         {"op": "replace", "path": "/handoff/skill_resolution/status", "value": "blocked"}
       ],
       "expected_schema_valid": false,
-      "expected_rules": ["ORCH-002"]
+      "expected_rules": ["ORCH-002", "RESOLVE-005"]
     },
     {
       "id": "provisional-profile-cannot-pass",
@@ -1447,6 +1459,24 @@
         {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/provenance/locator", "value": "skills/missing-skill/SKILL.md"}
       ],
       "expected_rules": ["RESOLVE-004"]
+    },
+    {
+      "id": "active-skill-is-model-visible",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/skill_id", "value": "skills:present-result"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/skill_id", "value": "skills:present-result"},
+        {"op": "replace", "path": "/skill_resolution/decisions/0/provenance", "value": {"locator": "skills/present-result/SKILL.md", "version": "content-sha256:68778982ef756e8afda9bd2197cf9aa241dffa2dd9e8dd449424147fe459ab8f", "content_digest": "68778982ef756e8afda9bd2197cf9aa241dffa2dd9e8dd449424147fe459ab8f"}},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/provenance", "value": {"locator": "skills/present-result/SKILL.md", "version": "content-sha256:68778982ef756e8afda9bd2197cf9aa241dffa2dd9e8dd449424147fe459ab8f", "content_digest": "68778982ef756e8afda9bd2197cf9aa241dffa2dd9e8dd449424147fe459ab8f"}}
+      ],
+      "expected_rules": ["RESOLVE-004"]
+    },
+    {
+      "id": "single-active-skill-is-selected",
+      "mutations": [
+        {"op": "replace", "path": "/skill_resolution/decisions/0/decision", "value": "composed"},
+        {"op": "replace", "path": "/handoff/skill_resolution/decisions/0/decision", "value": "composed"}
+      ],
+      "expected_rules": ["RESOLVE-005"]
     },
     {
       "id": "foundation-assumption-is-one-to-one",
