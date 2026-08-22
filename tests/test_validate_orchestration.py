@@ -21,6 +21,7 @@ orchestration = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(orchestration)
 
 import validate_orchestration_record as record_validator
+import validate_foundation as foundation_validator
 
 
 class ResolutionTest(unittest.TestCase):
@@ -206,6 +207,40 @@ class ActivationTest(unittest.TestCase):
 
 
 class IntegrationTest(unittest.TestCase):
+    def test_phase1_contract_bundle_and_manifest_digests_match(self) -> None:
+        catalog = orchestration.load_json(
+            ROOT / "skills/develop-change/evals/leaf-only-install-cases.json"
+        )
+        expected_bundle = foundation_validator.validate_leaf_catalog(ROOT, catalog)
+        report = orchestration.load_json(
+            ROOT
+            / "evals/manifests/phase1/reports/phase1-contract-foundation.json"
+        )
+        self.assertEqual(
+            report["leaf_only_install"]["contract_bundle"],
+            expected_bundle,
+        )
+
+        manifest = orchestration.load_json(
+            ROOT / "evals/manifests/phase1/phase1-contract-foundation.json"
+        )
+        for artifact in manifest["artifacts"]:
+            actual_digest = hashlib.sha256(
+                (ROOT / artifact["path"]).read_bytes()
+            ).hexdigest()
+            self.assertEqual(actual_digest, artifact["sha256"])
+        manifest_payload = dict(manifest)
+        expected_manifest_id = manifest_payload.pop("manifest_id")
+        actual_manifest_id = hashlib.sha256(
+            json.dumps(
+                manifest_payload,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        self.assertEqual(actual_manifest_id, expected_manifest_id)
+
     def test_fallback_input_skips_unneeded_effective_catalog_query(self) -> None:
         catalog = orchestration.load_json(
             ROOT / "skills/develop-change/evals/orchestration-record-cases.json"
