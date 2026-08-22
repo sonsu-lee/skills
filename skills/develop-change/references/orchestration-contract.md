@@ -45,7 +45,7 @@
 `orchestration-contract.schema.json`은 구조, route·profile·gate 조건과 blocker 결박을 검증한다. JSON Schema가 표현하지 못하는 다음 교차 필드 규칙은 `validate_orchestration_record.py`가 소유한다.
 
 - `skill_resolution.decisions`의 `skill_id`는 한 번만 나타난다.
-- 같은 responsibility의 활성 스킬은 모두 `composed`로 명시하지 않는 한 하나만 `selected`한다.
+- 활성 스킬이 둘 이상이면 responsibility가 같거나 서로 보완적인지와 무관하게 적용 순서대로 나열하고 모두 `composed`로 명시한다. `selected`는 단일 활성 스킬에만 쓴다.
 - `selected`와 `composed` 스킬은 현재 `primary_route`를 적용 범위에 포함한다.
 - `selected`와 `composed` 스킬은 exact locator·version·content digest provenance를 가진다.
 - `route_plan`은 canonical route 순서를 유지한다.
@@ -56,10 +56,11 @@
 - planned capability ID는 `selected`나 `composed` skill ID로 기록하지 않는다.
 - 거절된 user-named 스킬과 같은 responsibility의 활성 대체 후보가 없으면 fallback을 남기거나 resolution을 blocked로 둔다.
 - 같은 capability·target·scope·basis authorization binding에는 stale·withdrawn history를 제외한 current leaf가 하나만 있다.
-- change는 `local_change`, deliver는 Git capability, operate는 `external_write`, evolve는 `local_change`만 effect capability로 받는다. current effect·scope에 exact-bound된 runtime-eligible current grant가 없으면 gate는 blocked여야 하며 read-only route의 capability는 `null`이다.
+- change는 `local_change`, deliver는 `branch_create`, `branch_switch`, `stage`, `commit`, `push`, `pr_create`, `merge`, `rebase`, `history_rewrite`, operate는 `external_write`, evolve는 `local_change`만 effect capability로 받는다. current effect·scope에 exact-bound된 runtime-eligible current grant가 없으면 gate는 blocked여야 하며 read-only route의 capability는 `null`이다.
 - foundation routing·gate·frontier ref는 함께 저장한 실제 record의 canonical identity와 일치한다. 전체 snapshot은 foundation semantic validator를 그대로 통과해야 하며 routing 결정, gate의 `work_remaining`, frontier 상태·disposition과 authorization lineage가 현재 orchestration 상태에 결박된다.
 - authorization snapshot은 current leaf만 잘라 저장하지 않고 root부터 current leaf까지의 record/evaluation lineage를 보존한다.
 - 최상위 blocker는 foundation gate의 blocker를 정확히 투영한다.
+- visible frontier에서 `answered`인 각 `material_decision` unit은 최상위 `decisions`의 정확히 한 항목과 결박한다. 항목의 `frontier_unit_ref`는 unit canonical identity, `decision_ref`는 unit의 `normalized_value` ref와 같아야 하며 summary·reason·reconsider condition을 함께 보존한다.
 - `conditional` gate 중 `assumption_effect: non_material`인 경우에만 assumption이 필요하다. 각 assumption은 current assumed frontier unit의 canonical identity·assumption ref·safe-default evidence와 exact-bound되고 검증 방법을 가진다. 조사 중인 discoverable fact처럼 `assumption_effect: none`이면 assumptions는 비어 있어야 한다.
 - provisional profile은 어떤 side-effect checkpoint도 통과할 수 없다.
 - handoff의 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 같은 레코드의 현재 최상위 상태와 일치한다.

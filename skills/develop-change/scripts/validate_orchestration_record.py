@@ -21,7 +21,7 @@ from validate_foundation import validate_instance as validate_foundation_instanc
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 11
+VALIDATOR_REVISION = 12
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
@@ -60,6 +60,9 @@ EFFECT_CAPABILITIES_BY_ROUTE = {
         "commit",
         "push",
         "pr_create",
+        "merge",
+        "rebase",
+        "history_rewrite",
     },
     "operate": {"external_write"},
     "evolve": {"local_change"},
@@ -357,6 +360,67 @@ def validate_record(
         and unit.get("state") == "assumed"
         and unit.get("checkpoint_relevance") == "current"
     ]
+    visible_unit_ids = string_set(
+        frontier_record.get("visible_unit_ids")
+        if isinstance(frontier_record, dict)
+        else []
+    )
+    answered_decision_units = [
+        unit
+        for unit in frontier_units
+        if isinstance(unit, dict)
+        and unit.get("unit_id") in visible_unit_ids
+        and unit.get("gap_kind") == "material_decision"
+        and unit.get("state") == "answered"
+    ]
+
+    def matching_decision_unit(item: Any) -> dict[str, Any] | None:
+        if not isinstance(item, dict):
+            return None
+        matches = [
+            unit
+            for unit in answered_decision_units
+            if identity_ref_matches(
+                item.get("frontier_unit_ref"),
+                unit,
+                kind="frontier_unit",
+                id_field="unit_id",
+            )
+        ]
+        if len(matches) != 1:
+            return None
+        unit = matches[0]
+        value_binding = unit.get("value_binding")
+        if not (
+            isinstance(value_binding, dict)
+            and value_binding.get("kind") == "normalized_value"
+            and item.get("decision_ref") == value_binding.get("ref")
+        ):
+            return None
+        return unit
+
+    decisions = record.get("decisions")
+    matched_decision_units = (
+        [matching_decision_unit(item) for item in decisions]
+        if isinstance(decisions, list)
+        else []
+    )
+    if not (
+        isinstance(decisions, list)
+        and all(unit is not None for unit in matched_decision_units)
+        and len(matched_decision_units) == len(answered_decision_units)
+        and {
+            unit["unit_id"]
+            for unit in matched_decision_units
+            if unit is not None
+        }
+        == {unit["unit_id"] for unit in answered_decision_units}
+    ):
+        add(
+            "ORCH-DECISION-001",
+            "/decisions",
+            "decisions must bind one-to-one to visible answered material-decision units",
+        )
 
     def matching_assumption_unit(item: Any) -> dict[str, Any] | None:
         if not isinstance(item, dict):
@@ -544,7 +608,7 @@ def validate_record(
                 "/skill_resolution/decisions",
                 f"skill_id must be unique: {','.join(str(item) for item in duplicate_ids)}",
             )
-        active_by_responsibility: dict[Any, list[dict[str, Any]]] = {}
+        active_decisions: list[dict[str, Any]] = []
         active_skill_ids: set[str] = set()
         for item in decisions:
             if not isinstance(item, dict) or item.get("decision") not in {
@@ -554,7 +618,7 @@ def validate_record(
                 continue
             if isinstance(item.get("skill_id"), str):
                 active_skill_ids.add(item["skill_id"])
-            active_by_responsibility.setdefault(item.get("responsibility"), []).append(item)
+            active_decisions.append(item)
             provenance = item.get("provenance")
             if not (
                 isinstance(provenance, dict)
@@ -576,13 +640,14 @@ def validate_record(
                     "/skill_resolution/decisions",
                     f"active skill must apply to primary_route: {item.get('skill_id')}",
                 )
-        for responsibility, active in active_by_responsibility.items():
-            if len(active) > 1 and any(item.get("decision") != "composed" for item in active):
-                add(
-                    "RESOLVE-005",
-                    "/skill_resolution/decisions",
-                    f"multiple active skills for {responsibility!r} must be composed",
-                )
+        if len(active_decisions) > 1 and any(
+            item.get("decision") != "composed" for item in active_decisions
+        ):
+            add(
+                "RESOLVE-005",
+                "/skill_resolution/decisions",
+                "multiple active skills must record their application order as composed",
+            )
         planned_capabilities = resolution.get("planned_capabilities")
         planned_ids = {
             item.get("capability_id")
@@ -604,7 +669,9 @@ def validate_record(
             and item.get("source") == "user_named"
             and item.get("decision") == "rejected"
         }
-        active_responsibilities = set(active_by_responsibility)
+        active_responsibilities = {
+            item.get("responsibility") for item in active_decisions
+        }
         unrecovered_responsibilities = (
             rejected_user_responsibilities - active_responsibilities
         )

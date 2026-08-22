@@ -49,6 +49,8 @@ Skill resolver는 현재 작업에 필요한 전문 지침을 선택한다. 스�
 | 설치·도구·버전이 맞지 않음 | 호환되지 않는 후보를 제외하고 공식 원문 또는 기본 능력으로 fallback |
 | 결과를 바꾸는 충돌을 해소할 근거가 없음 | `blocked`로 두고 material decision을 요청 |
 
+활성 스킬이 하나면 `selected`로 기록한다. 둘 이상을 함께 적용하면 responsibility가 같든 서로 보완적이든 `decisions` 배열의 실제 적용 순서대로 나열하고 모두 `composed`로 기록한다. 각 항목의 responsibility와 reason은 그 순서에서 맡는 역할을 설명한다.
+
 ## 설치와 외부 탐색
 
 - 사용자가 설치 또는 탐색을 요청하지 않았다면 새 스킬이나 플러그인을 임의 설치하지 않는다.

@@ -203,8 +203,18 @@
     "decision": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["summary", "reason", "reconsider_when"],
+      "required": [
+        "frontier_unit_ref",
+        "decision_ref",
+        "summary",
+        "reason",
+        "reconsider_when"
+      ],
       "properties": {
+        "frontier_unit_ref": {
+          "$ref": "urn:sonsu:codex-workflow:schema:phase1-foundation-draft-v1#/$defs/identityRef"
+        },
+        "decision_ref": {"type": "string", "minLength": 1},
         "summary": {"type": "string", "minLength": 1},
         "reason": {"type": "string", "minLength": 1},
         "reconsider_when": {"type": ["string", "null"]}

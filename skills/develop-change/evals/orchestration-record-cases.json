@@ -1404,6 +1404,41 @@
         {"op": "replace", "path": "/handoff/next_action_kind", "value": "continue"}
       ],
       "expected_rules": ["FND-FRONTIER-004", "FND-GATE-001", "FND-GATE-002", "FND-GATE-002"]
+    },
+    {
+      "id": "answered-material-decision-is-bound",
+      "mutations": [
+        {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/gap_kind", "value": "material_decision"},
+        {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/state", "value": "answered"},
+        {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/value_binding", "value": {"kind": "normalized_value", "ref": "decision:fixture.answer"}},
+        {"op": "replace", "path": "/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {"op": "replace", "path": "/foundation_binding/frontier_ref/digest", "value": "2ac339bd2d0f40bfc030b63214be92cefaedcff59c1a0c88c351a824bcc6a16a"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/gap_kind", "value": "material_decision"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/state", "value": "answered"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/value_binding", "value": {"kind": "normalized_value", "ref": "decision:fixture.answer"}},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_record/units/0/runtime_disposition/resolution_action", "value": "request_input"},
+        {"op": "replace", "path": "/handoff/foundation_binding/frontier_ref/digest", "value": "2ac339bd2d0f40bfc030b63214be92cefaedcff59c1a0c88c351a824bcc6a16a"},
+        {"op": "replace", "path": "/decisions", "value": [{"frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "54bde1992a5f227ce3b0976545ff6f17685b74fdbbb03388fc4758452883b3cf"}, "decision_ref": "decision:fixture.answer", "summary": "구현 범위를 현재 모듈로 제한", "reason": "요청 범위와 검증 경계를 일치시키기 위해", "reconsider_when": "공개 API 변경이 필요할 때"}]},
+        {"op": "replace", "path": "/handoff/decisions", "value": [{"frontier_unit_ref": {"id": "unit.fixture.scope", "revision": 1, "digest": "54bde1992a5f227ce3b0976545ff6f17685b74fdbbb03388fc4758452883b3cf"}, "decision_ref": "decision:fixture.answer", "summary": "구현 범위를 현재 모듈로 제한", "reason": "요청 범위와 검증 경계를 일치시키기 위해", "reconsider_when": "공개 API 변경이 필요할 때"}]}
+      ],
+      "expected_rules": []
+    },
+    {
+      "id": "answered-material-decision-requires-handoff-decision",
+      "base_case": "answered-material-decision-is-bound",
+      "mutations": [
+        {"op": "replace", "path": "/decisions", "value": []},
+        {"op": "replace", "path": "/handoff/decisions", "value": []}
+      ],
+      "expected_rules": ["ORCH-DECISION-001"]
+    },
+    {
+      "id": "complementary-responsibilities-require-composition",
+      "mutations": [
+        {"op": "append", "path": "/skill_resolution/decisions", "value": {"skill_id": "installed-testing", "source": "installed", "decision": "selected", "reason": "테스트 책임", "responsibility": "testing", "specificity": 2, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "tests", "provenance": {"locator": "plugin://installed/skills/installed-testing", "version": "1.0.0", "content_digest": "9999999999999999999999999999999999999999999999999999999999999999"}}},
+        {"op": "append", "path": "/handoff/skill_resolution/decisions", "value": {"skill_id": "installed-testing", "source": "installed", "decision": "selected", "reason": "테스트 책임", "responsibility": "testing", "specificity": 2, "compatible": true, "required_tools": [], "applies_to_routes": ["change"], "effect_boundary": "tests", "provenance": {"locator": "plugin://installed/skills/installed-testing", "version": "1.0.0", "content_digest": "9999999999999999999999999999999999999999999999999999999999999999"}}}
+      ],
+      "expected_rules": ["RESOLVE-005"]
     }
   ]
 }
