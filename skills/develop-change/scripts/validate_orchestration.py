@@ -498,7 +498,9 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
     if isinstance(gate_record, dict) and gate_record.get("result") == "blocked":
         gate_action = gate_record.get("next_action")
         expected_kind = (
-            gate_action if gate_action in {"clarify", "reauthorize"} else "report"
+            gate_action
+            if gate_action in {"continue", "clarify", "reauthorize"}
+            else "report"
         )
         if next_action_kind != expected_kind:
             findings.add("HANDOFF-001")
