@@ -27,7 +27,7 @@ from runtime_projection import (
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 21
+VALIDATOR_REVISION = 22
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_ROOT.parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
@@ -987,8 +987,20 @@ def validate_record(
         and route_plan
         and completed_phase == route_plan[-1]
     )
-    if terminal_route_completed and completed_phase == "verify" and not (
-        passed or failed or not_run
+    verification_items = [
+        item
+        for result_key in ("passed", "failed", "not_run")
+        for item in (
+            verification.get(result_key)
+            if isinstance(verification.get(result_key), list)
+            else []
+        )
+        if isinstance(item, str) and item.strip()
+    ]
+    if (
+        terminal_route_completed
+        and completed_phase == "verify"
+        and not verification_items
     ):
         add(
             "HANDOFF-004",
@@ -1006,15 +1018,28 @@ def validate_record(
             "deliver or terminal handoff must remain blocked while verification failures are present",
         )
     artifacts = handoff.get("artifacts")
+    has_result_artifact = isinstance(artifacts, list) and any(
+        isinstance(item, str) and item.strip() for item in artifacts
+    )
+    current_effect = (
+        record.get("effect_binding")
+        if isinstance(record.get("effect_binding"), dict)
+        else {}
+    )
+    terminal_effect_claimed = completed_phase in SIDE_EFFECT_ROUTES or (
+        completed_phase == primary_route == "design"
+        and current_effect.get("capability")
+        in EFFECT_CAPABILITIES_BY_ROUTE["design"]
+    )
     if (
         terminal_route_completed
-        and completed_phase in SIDE_EFFECT_ROUTES
-        and not artifacts
+        and terminal_effect_claimed
+        and not has_result_artifact
     ):
         add(
             "HANDOFF-003",
             "/handoff/artifacts",
-            "terminal side-effect handoff must identify at least one result artifact",
+            "terminal effect handoff must identify at least one non-empty result artifact",
         )
 
     routing_record = foundation_binding.get("routing_record")

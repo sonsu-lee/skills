@@ -1446,12 +1446,36 @@
       "id": "terminal-verify-requires-verification-result",
       "base_case": "terminal-handoff-has-no-next-action",
       "mutations": [
-        {"op": "replace", "path": "/verification/not_run", "value": []},
-        {"op": "replace", "path": "/handoff/verification/not_run", "value": []},
+        {"op": "replace", "path": "/verification/not_run", "value": [" "]},
+        {"op": "replace", "path": "/handoff/verification/not_run", "value": [" "]},
         {"op": "replace", "path": "/handoff/next_action", "value": null},
         {"op": "replace", "path": "/handoff/next_action_kind", "value": null}
       ],
       "expected_rules": ["HANDOFF-001", "HANDOFF-004"]
+    },
+    {
+      "id": "terminal-design-effect-requires-result-artifact",
+      "mutations": [
+        {"op": "replace", "path": "/primary_route", "value": "design"},
+        {"op": "replace", "path": "/handoff/primary_route", "value": "design"},
+        {"op": "replace", "path": "/route_plan", "value": ["understand", "design"]},
+        {"op": "replace", "path": "/handoff/route_plan", "value": ["understand", "design"]},
+        {"op": "replace", "path": "/handoff/completed_phase", "value": "design"},
+        {"op": "replace", "path": "/effect_binding/capability", "value": "working_artifact_write"},
+        {"op": "replace", "path": "/handoff/effect_binding/capability", "value": "working_artifact_write"},
+        {"op": "replace", "path": "/foundation_binding/gate_record/work_remaining", "value": false},
+        {"op": "replace", "path": "/foundation_binding/gate_record/next_action", "value": null},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/work_remaining", "value": false},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/next_action", "value": null},
+        {"op": "replace", "path": "/foundation_binding/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/foundation_binding/routing_record/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/artifacts", "value": [" "]},
+        {"op": "replace", "path": "/handoff/next_action", "value": null},
+        {"op": "replace", "path": "/handoff/next_action_kind", "value": null}
+      ],
+      "expected_rules": ["FND-AUTH-005", "FND-ROUTE-001", "HANDOFF-003"]
     },
     {
       "id": "top-level-assumption-identifies-foundation-unit",
@@ -1649,6 +1673,7 @@
         {"op": "replace", "path": "/handoff/foundation_binding/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
         {"op": "replace", "path": "/foundation_binding/routing_record/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
         {"op": "replace", "path": "/handoff/foundation_binding/routing_record/gate_ref/digest", "value": "109bc8b6c8e720764efe36e42754fc7f9ea4ae741ff674c654db9bd1dbf85491"},
+        {"op": "replace", "path": "/handoff/artifacts", "value": [" "]},
         {"op": "replace", "path": "/handoff/next_action", "value": null},
         {"op": "replace", "path": "/handoff/next_action_kind", "value": null}
       ],

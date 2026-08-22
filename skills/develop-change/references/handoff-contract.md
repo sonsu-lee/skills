@@ -34,14 +34,14 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 - 오래된 grant, 해결된 blocker와 폐기된 artifact를 현재 값처럼 남기지 않는다 (`HANDOFF-002`).
 - 경로·명령·PR URL처럼 재개에 필요한 식별자는 정확히 남긴다 (`HANDOFF-003`).
 - 검증하지 않은 내용을 완료로 표현하지 않는다 (`HANDOFF-004`).
-- `verify`를 마지막 route로 완료했다면 `passed`, `failed`, `not_run` 중 최소 한 건의 검증 결과를 남긴다 (`HANDOFF-004`).
+- `verify`를 마지막 route로 완료했다면 `passed`, `failed`, `not_run` 중 비어 있지 않은 검증 결과를 최소 한 건 남긴다 (`HANDOFF-004`).
 - 실패한 검증이 하나라도 남아 있으면 deliver route로 진행하지 않고 gate를 blocked로 유지한다 (`HANDOFF-004`).
 - 비밀정보, 토큰, 전체 로그와 불필요한 대화 원문은 포함하지 않는다 (`HANDOFF-005`).
 - orchestration record 안에 함께 저장할 때 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 최상위 현재 상태와 동일해야 한다 (`HANDOFF-002`).
 - 아직 끝나지 않은 route가 있으면 gate 결과와 관계없이 비어 있지 않은 `next_action`을 남긴다 (`HANDOFF-001`).
 - 미완료 handoff의 `next_action_kind`는 `continue`다. blocked handoff도 foundation gate가 로컬 조사를 계속하도록 `continue`를 내리면 그대로 보존하고, `clarify`·`reauthorize`도 그대로 쓴다. 그 밖의 terminal blocker는 `report`를 쓴다 (`HANDOFF-001`).
 - 마지막 route가 완료되고 foundation gate의 `work_remaining`이 `false`이면 `next_action`과 `next_action_kind`를 모두 `null`로 둔다 (`HANDOFF-001`).
-- 마지막으로 완료한 route가 side effect를 실행했다면 파일, commit, branch, PR URL 또는 외부 결과처럼 실행 결과를 다시 식별할 수 있는 artifact를 최소 한 건 남긴다 (`HANDOFF-003`).
+- 마지막으로 완료한 route가 effect capability를 가졌다면 파일, commit, branch, PR URL 또는 외부 결과처럼 실행 결과를 다시 식별할 수 있는 비어 있지 않은 artifact를 최소 한 건 남긴다 (`HANDOFF-003`).
 - 마지막 route가 끝난 상태가 아니면 `primary_route`는 `completed_phase` 바로 다음 계획 단계여야 한다 (`HANDOFF-001`).
 - `foundation_binding`의 routing·gate·frontier·authorization snapshot은 foundation semantic validator를 통과해야 하며, routing과 gate의 `work_remaining`은 현재 route 진행 상태와 일치해야 한다.
 
