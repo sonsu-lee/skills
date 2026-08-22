@@ -1,12 +1,12 @@
 {
   "schema_version": "phase1-slice-result-v1",
-  "manifest_id": "aa08db8b09a443afaf72df4d5ef43ca5297e233795101210b3b6ae623ae37c43",
+  "manifest_id": "55fd6ac95b0e01a39b0dcc6c1b12a153172f841100f15b1aeeadbf946b5ae929",
   "slice_id": "phase1-contract-foundation",
   "predecessor_slice_result_manifest_id": null,
   "artifacts": [
     {
       "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-      "sha256": "e4e0538917028feea1afca6ade4c7b3db994ec42d3cc37b300c529be7ca70e46",
+      "sha256": "506d276685324f997c36c7d857fb34f64f0eeaab199594ee964a71c73d544aef",
       "role": "validation_report"
     },
     {
@@ -21,7 +21,7 @@
     },
     {
       "path": "skills/develop-change/evals/leaf-only-install-cases.json",
-      "sha256": "65b8f85fe8d4233cf99e66512df6b8958710ee3615904ac9c01cea3d072aac2d",
+      "sha256": "244d006cd1c7e2a5ae7ee948188acf2611ed450108a0c576a3bac3e1a7442a7c",
       "role": "isolation_fixture_catalog"
     },
     {
@@ -36,7 +36,7 @@
     },
     {
       "path": "skills/develop-change/references/gate-contract.md",
-      "sha256": "5a6f803bb330c85b7cad44724177fdaa91f83bc7aab21b6098b4a61cf780b22c",
+      "sha256": "c0f26a013d65d08d9f2539d73c6e85907816e7c650d944b387abd534d8b76506",
       "role": "contract_reference"
     },
     {
@@ -91,7 +91,7 @@
   ],
   "fixture_report": {
     "path": "evals/manifests/phase1/reports/phase1-contract-foundation.json",
-    "sha256": "e4e0538917028feea1afca6ade4c7b3db994ec42d3cc37b300c529be7ca70e46"
+    "sha256": "506d276685324f997c36c7d857fb34f64f0eeaab199594ee964a71c73d544aef"
   },
   "validator": {
     "id": "phase1-contract-foundation-validator",
@@ -100,7 +100,7 @@
     "result": "pass"
   },
   "runtime_projection": {
-    "before_digest": "1ad119d370db671969f10ad95c17770cbe085c63f316328dc05fec24303a63f0",
-    "after_digest": "1ad119d370db671969f10ad95c17770cbe085c63f316328dc05fec24303a63f0"
+    "before_digest": "4536e290c78791fa60d1d808c361a7c8f5a779f6d856d5e8dd93dedeca130438",
+    "after_digest": "4536e290c78791fa60d1d808c361a7c8f5a779f6d856d5e8dd93dedeca130438"
   }
 }

@@ -37,14 +37,14 @@ Handoff는 전체 대화를 복사하지 않고 다음 실행이 안전하게 �
 - 비밀정보, 토큰, 전체 로그와 불필요한 대화 원문은 포함하지 않는다 (`HANDOFF-005`).
 - orchestration record 안에 함께 저장할 때 objective, scope, primary route, route plan, decisions, effect binding, profile, foundation binding, skill resolution, authorization, verification과 blocker는 최상위 현재 상태와 동일해야 한다 (`HANDOFF-002`).
 - 아직 끝나지 않은 route가 있으면 gate 결과와 관계없이 비어 있지 않은 `next_action`을 남긴다 (`HANDOFF-001`).
-- 미완료 handoff의 `next_action_kind`는 `continue`, blocked handoff는 foundation gate의 `clarify`·`reauthorize`를 그대로 쓴다. 그 밖의 terminal blocker는 `report`를 쓴다 (`HANDOFF-001`).
+- 미완료 handoff의 `next_action_kind`는 `continue`다. blocked handoff도 foundation gate가 로컬 조사를 계속하도록 `continue`를 내리면 그대로 보존하고, `clarify`·`reauthorize`도 그대로 쓴다. 그 밖의 terminal blocker는 `report`를 쓴다 (`HANDOFF-001`).
 - 마지막 route가 완료되고 foundation gate의 `work_remaining`이 `false`이면 `next_action`과 `next_action_kind`를 모두 `null`로 둔다 (`HANDOFF-001`).
 - 마지막 route가 끝난 상태가 아니면 `primary_route`는 `completed_phase` 바로 다음 계획 단계여야 한다 (`HANDOFF-001`).
 - `foundation_binding`의 routing·gate·frontier·authorization snapshot은 foundation semantic validator를 통과해야 하며, routing과 gate의 `work_remaining`은 현재 route 진행 상태와 일치해야 한다.
 
 ## 최소 예시
 
-전체 필드와 canonical digest까지 검증 가능한 예시는 [`evals/orchestration-record-cases.json`](../evals/orchestration-record-cases.json)의 `base_record.handoff`를 정본으로 사용한다. 해당 fixture는 routing·gate·frontier·authorization 전체 snapshot과 `next_action_kind`를 포함하며 orchestration validator를 통과한다.
+전체 필드와 canonical digest를 가진 회귀 예시는 [`evals/orchestration-record-cases.json`](../evals/orchestration-record-cases.json)의 `base_record.handoff`다. 이 값은 `fixture_only: true`인 synthetic grant를 사용하므로 case runner의 fixture opt-in에서만 통과하며, 일반 `--input` runtime authorization 예시로 사용할 수 없다.
 
 아래는 blocked authorization handoff의 핵심 projection이다. 독립된 전체 record가 아니라, authorization frontier unit과 다음 행동을 기록하는 형태만 보여 준다.
 
@@ -94,7 +94,7 @@ foundation_binding:
       next_action: reauthorize
       dependent_side_effect_count: 1
 blockers:
-  - push authorization 없음
+  - missing_authorization
 next_action: push capability 재승인 요청
 next_action_kind: reauthorize
 ```

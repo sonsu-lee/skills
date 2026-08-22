@@ -70,6 +70,8 @@
 
 `routing_ref`, `gate_ref`, `frontier_ref`, authorization ref의 digest는 각각 foundation의 `phase1-foundation-*-record-v1` canonical digest를 그대로 쓴다.
 
+authorization의 `scope_fingerprint`는 UTF-8 바이트 `develop-change-scope-v1\n` 뒤에 `{"exclude":[...],"include":[...]}` payload의 canonical JSON을 이어 붙여 SHA-256으로 계산한다. canonical JSON은 key를 정렬하고 공백 없이 인코딩하며, `include`와 `exclude` 배열의 항목 순서는 현재 scope에 기록된 순서를 그대로 보존한다.
+
 ```bash
 python3 skills/develop-change/scripts/validate_orchestration_record.py \
   --cases skills/develop-change/evals/orchestration-record-cases.json

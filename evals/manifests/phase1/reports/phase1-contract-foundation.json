@@ -1100,7 +1100,7 @@
       "supported": true
     },
     "contract_bundle": {
-      "bundle_digest": "4e13bed460214b7de98f852b9bd0303744b44eab13b5bcc769a80c047246afc2",
+      "bundle_digest": "e8a12a15db5c8c771454135c47ea3ec4191c73b50ce2416aae339db230a1af00",
       "documents": [
         {
           "path": "authorization-contract.md",
@@ -1108,7 +1108,7 @@
         },
         {
           "path": "gate-contract.md",
-          "sha256": "5a6f803bb330c85b7cad44724177fdaa91f83bc7aab21b6098b4a61cf780b22c"
+          "sha256": "c0f26a013d65d08d9f2539d73c6e85907816e7c650d944b387abd534d8b76506"
         },
         {
           "path": "routing-contract.md",
@@ -1305,8 +1305,8 @@
     "structural_passed_count": 11
   },
   "runtime_projection": {
-    "after_digest": "1ad119d370db671969f10ad95c17770cbe085c63f316328dc05fec24303a63f0",
-    "before_digest": "1ad119d370db671969f10ad95c17770cbe085c63f316328dc05fec24303a63f0",
+    "after_digest": "4536e290c78791fa60d1d808c361a7c8f5a779f6d856d5e8dd93dedeca130438",
+    "before_digest": "4536e290c78791fa60d1d808c361a7c8f5a779f6d856d5e8dd93dedeca130438",
     "binding": {
       "component_path_binding_digest": "db0fd53f88e694db0b3e6e0f2c6d7fcf11199170d8e2e3ab4bfd51f60ca0b650",
       "hook_binding": "exact_codex_home_hooks_json",
@@ -1324,13 +1324,13 @@
     },
     "components": [
       {
-        "digest": "76be11bab0c3ed91596482e7e35ef29e81f959b364463a15db20d27c287257a5",
+        "digest": "eec45483fcce11f3f737823b781137e2552208b022e4015a9ed838bd4a5a21dc",
         "entry_count": 232,
         "input_count": 1,
         "kind": "active_plugin_root"
       },
       {
-        "digest": "53aca450671bb99676c564373e9558a79bab96f4dff9b48606604a612850695f",
+        "digest": "a58de0e0aaab86970aa37e3be136727b9e8fe613cc327d490ceaa1eda6470ae7",
         "entry_count": 1,
         "input_count": 1,
         "kind": "active_config"

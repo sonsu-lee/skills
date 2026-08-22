@@ -1375,6 +1375,35 @@
         {"op": "replace", "path": "/gate/assumptions/0/assumption_ref", "value": "assumption:fixture.other"}
       ],
       "expected_rules": ["FND-GATE-002"]
+    },
+    {
+      "id": "effect-grant-matches-routing-authorization-ref",
+      "mutations": [
+        {"op": "append", "path": "/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.push.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.fixture.change", "capability": "push", "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}},
+        {"op": "append", "path": "/handoff/foundation_binding/authorization_records", "value": {"authorization_id": "authorization.push.fixture", "revision": 1, "predecessor_authorization_ref": null, "logical_task_id": "task.fixture.change", "capability": "push", "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444", "scope_fingerprint": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e", "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666", "request_revision": 1, "authorization_revision": 1, "receipt_revision": 1, "receipt_fingerprint": "9999999999999999999999999999999999999999999999999999999999999999", "status": "granted", "runtime_eligible": true, "future_only": false, "fixture_only": true}},
+        {"op": "replace", "path": "/foundation_binding/routing_record/authorization_ref", "value": {"id": "authorization.push.fixture", "revision": 1, "digest": "1da23dba2f13955014afb4cd292ce547321a3c36e231735d0339219f9b4ebee9"}},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/authorization_ref", "value": {"id": "authorization.push.fixture", "revision": 1, "digest": "1da23dba2f13955014afb4cd292ce547321a3c36e231735d0339219f9b4ebee9"}},
+        {"op": "replace", "path": "/foundation_binding/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"},
+        {"op": "replace", "path": "/foundation_binding/gate_record/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/routing_ref/digest", "value": "8b6a460a379a637fbdb4405a09c716f8249180a4e45dc15128a4173474e446a5"}
+      ],
+      "expected_rules": ["FND-AUTH-005"]
+    },
+    {
+      "id": "blocked-local-investigation-preserves-continue",
+      "base_case": "blocked-handoff-requires-next-action",
+      "mutations": [
+        {"op": "replace", "path": "/foundation_binding/gate_record/next_action", "value": "continue"},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_record/next_action", "value": "continue"},
+        {"op": "replace", "path": "/foundation_binding/gate_ref/digest", "value": "6c9bbdf1dbb07470a9e99ab1733ca4e5f1dd8dbe8c7af1fb8eba2d4f75aa57f3"},
+        {"op": "replace", "path": "/handoff/foundation_binding/gate_ref/digest", "value": "6c9bbdf1dbb07470a9e99ab1733ca4e5f1dd8dbe8c7af1fb8eba2d4f75aa57f3"},
+        {"op": "replace", "path": "/foundation_binding/routing_record/gate_ref/digest", "value": "6c9bbdf1dbb07470a9e99ab1733ca4e5f1dd8dbe8c7af1fb8eba2d4f75aa57f3"},
+        {"op": "replace", "path": "/handoff/foundation_binding/routing_record/gate_ref/digest", "value": "6c9bbdf1dbb07470a9e99ab1733ca4e5f1dd8dbe8c7af1fb8eba2d4f75aa57f3"},
+        {"op": "replace", "path": "/handoff/next_action", "value": "로컬 근거 조사"},
+        {"op": "replace", "path": "/handoff/next_action_kind", "value": "continue"}
+      ],
+      "expected_rules": ["FND-FRONTIER-004", "FND-GATE-001", "FND-GATE-002", "FND-GATE-002"]
     }
   ]
 }

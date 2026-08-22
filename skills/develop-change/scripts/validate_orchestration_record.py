@@ -21,7 +21,7 @@ from validate_foundation import validate_instance as validate_foundation_instanc
 
 
 VALIDATOR_ID = "develop-change-orchestration-record-validator"
-VALIDATOR_REVISION = 10
+VALIDATOR_REVISION = 11
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_ROOT / "references" / "orchestration-contract.schema.json"
 FOUNDATION_SCHEMA_PATH = SKILL_ROOT / "references" / "foundation-contract.schema.json"
@@ -463,7 +463,7 @@ def validate_record(
         )
         expected_kind = (
             foundation_action
-            if foundation_action in {"clarify", "reauthorize"}
+            if foundation_action in {"continue", "clarify", "reauthorize"}
             else "report"
         )
         if next_action_kind != expected_kind:
@@ -864,6 +864,14 @@ def validate_record(
                     and item.get("runtime_eligible")
                     == authorization_record.get("runtime_eligible")
                 )
+                routing_matches_record = identity_ref_matches(
+                    routing_record.get("authorization_ref")
+                    if isinstance(routing_record, dict)
+                    else None,
+                    authorization_record,
+                    kind="authorization",
+                    id_field="authorization_id",
+                )
                 evaluation_matches_record = any(
                     isinstance(evaluation, dict)
                     and evaluation.get("required_capability")
@@ -885,6 +893,7 @@ def validate_record(
                 if (
                     record_matches_effect
                     and summary_matches_record
+                    and routing_matches_record
                     and evaluation_matches_record
                 ):
                     return True
