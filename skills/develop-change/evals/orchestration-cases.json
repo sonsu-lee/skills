@@ -427,10 +427,17 @@
         "completed_phase": "verify",
         "decisions": [],
         "artifacts": ["src/example.ts"],
+        "effect_binding": {
+          "logical_task_id": "task.fixture.handoff",
+          "target_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+          "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444"
+        },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
           "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
-          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"}
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"},
+          "authorization_record": null,
+          "authorization_evaluation": null
         },
         "skill_resolution": {
           "status": "pass",
@@ -463,10 +470,17 @@
         "completed_phase": "verify",
         "decisions": [],
         "artifacts": [],
+        "effect_binding": {
+          "logical_task_id": "task.fixture.verification",
+          "target_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+          "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444"
+        },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
           "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
-          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"}
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"},
+          "authorization_record": null,
+          "authorization_evaluation": null
         },
         "skill_resolution": {
           "status": "pass",
@@ -499,10 +513,17 @@
         "completed_phase": "verify",
         "decisions": [],
         "artifacts": [],
+        "effect_binding": {
+          "logical_task_id": "task.fixture.stale-capability",
+          "target_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+          "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444"
+        },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
           "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
-          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"}
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"},
+          "authorization_record": null,
+          "authorization_evaluation": null
         },
         "skill_resolution": {
           "status": "pass",
@@ -545,10 +566,17 @@
         "completed_phase": "understand",
         "decisions": [],
         "artifacts": [],
+        "effect_binding": {
+          "logical_task_id": "task.fixture.secret",
+          "target_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
+          "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444"
+        },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
           "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
-          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"}
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"},
+          "authorization_record": null,
+          "authorization_evaluation": null
         },
         "skill_resolution": {
           "status": "pass",

@@ -97,6 +97,7 @@ REQUIRED_HANDOFF_FIELDS = {
     "completed_phase",
     "decisions",
     "artifacts",
+    "effect_binding",
     "profile",
     "foundation_binding",
     "skill_resolution",
@@ -331,6 +332,20 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
         findings.add("HANDOFF-001")
     if not isinstance(record.get("artifacts"), list):
         findings.add("HANDOFF-001")
+    effect_binding = record.get("effect_binding")
+    if (
+        not isinstance(effect_binding, dict)
+        or set(effect_binding)
+        != {"logical_task_id", "target_fingerprint", "basis_fingerprint"}
+        or not isinstance(effect_binding.get("logical_task_id"), str)
+        or not effect_binding.get("logical_task_id")
+        or any(
+            not isinstance(effect_binding.get(field), str)
+            or re.fullmatch(r"[0-9a-f]{64}", effect_binding[field]) is None
+            for field in ("target_fingerprint", "basis_fingerprint")
+        )
+    ):
+        findings.add("HANDOFF-001")
     profile = record.get("profile")
     if (
         not isinstance(profile, dict)
@@ -343,15 +358,23 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
     if not isinstance(foundation_binding, dict) or set(foundation_binding) != {
         "gate_ref",
         "frontier_ref",
+        "authorization_record",
+        "authorization_evaluation",
     }:
         findings.add("HANDOFF-001")
     else:
-        for identity_ref in foundation_binding.values():
+        for field in ("gate_ref", "frontier_ref"):
+            identity_ref = foundation_binding[field]
             if not isinstance(identity_ref, dict) or set(identity_ref) != {
                 "id",
                 "revision",
                 "digest",
             }:
+                findings.add("HANDOFF-001")
+        for field in ("authorization_record", "authorization_evaluation"):
+            if foundation_binding[field] is not None and not isinstance(
+                foundation_binding[field], dict
+            ):
                 findings.add("HANDOFF-001")
 
     skill_resolution = record.get("skill_resolution")
@@ -456,10 +479,12 @@ def validate_contract_sources(root: Path, findings: list[str]) -> None:
         "objective",
         "scope",
         "decisions",
+        "effect_binding",
         "primary_route",
         "route_plan",
         "profile",
         "gate",
+        "foundation_binding",
         "skill_resolution",
         "authorization",
         "verification",

@@ -159,6 +159,27 @@ class ActivationTest(unittest.TestCase):
 
 
 class IntegrationTest(unittest.TestCase):
+    def test_duplicate_record_case_ids_are_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            catalog = Path(temporary) / "duplicate-record-cases.json"
+            catalog.write_text(
+                json.dumps(
+                    {
+                        "schema_version": (
+                            "develop-change-orchestration-record-evals-v1"
+                        ),
+                        "base_record": {},
+                        "cases": [
+                            {"id": "duplicate", "mutations": []},
+                            {"id": "duplicate", "mutations": []},
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "non-empty and unique"):
+                orchestration.run_record_cases(catalog)
+
     def test_empty_record_case_catalog_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             catalog = Path(temporary) / "empty-record-cases.json"
