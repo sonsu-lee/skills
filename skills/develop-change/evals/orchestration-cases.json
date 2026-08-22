@@ -375,7 +375,17 @@
       "id": "compatible-selected-skill-is-valid",
       "record": {
         "status": "pass",
-        "decisions": [{"decision": "selected", "compatible": true}],
+        "decisions": [
+          {
+            "decision": "selected",
+            "compatible": true,
+            "provenance": {
+              "locator": "plugin://fixture/skills/example",
+              "version": "1.0.0",
+              "content_digest": "8888888888888888888888888888888888888888888888888888888888888888"
+            }
+          }
+        ],
         "planned_capabilities": [],
         "fallback": null
       },
@@ -425,17 +435,70 @@
           "exclude": []
         },
         "completed_phase": "verify",
+        "primary_route": "verify",
+        "route_plan": ["understand", "change", "verify"],
         "decisions": [],
         "artifacts": ["src/example.ts"],
         "effect_binding": {
-          "logical_task_id": "task.fixture.handoff",
-          "target_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
-          "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444"
+          "logical_task_id": "task.fixture.change",
+          "capability": null,
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
         },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
-          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
-          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"},
+          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
+          "gate_record": {
+            "gate_id": "gate.fixture",
+            "revision": 1,
+            "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "result": "pass",
+            "blocker": "none",
+            "next_action": "continue",
+            "progress": "continue",
+            "work_remaining": true,
+            "missing_evidence_owner": "none",
+            "assumption_effect": "none",
+            "blocking_defer": false
+          },
+          "frontier_record": {
+            "frontier_id": "frontier.fixture",
+            "revision": 1,
+            "logical_task_id": "task.fixture.change",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "visible_unit_ids": ["unit.fixture.scope"],
+            "units": [
+              {
+                "unit_id": "unit.fixture.scope",
+                "revision": 1,
+                "predecessor_unit_ref": null,
+                "successor_unit_ref": null,
+                "gap_kind": "discoverable_fact",
+                "state": "resolved_by_evidence",
+                "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+                "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+                "checkpoint_relevance": "current",
+                "dependency_ids": [],
+                "value_binding": {"kind": "evidence", "ref": "evidence:scope.review"},
+                "safe_default_conditions": [],
+                "authorization_id": null,
+                "runtime_disposition": {
+                  "resolution_action": "investigate",
+                  "defer_effect": "none",
+                  "gate_result": "pass",
+                  "blocker": "none",
+                  "next_action": "continue",
+                  "interaction_kind": "none",
+                  "interaction_requirement": "none",
+                  "interaction_owner": "develop-change",
+                  "progress": "continue"
+                }
+              }
+            ],
+            "clarification_view_history": [],
+            "clarification_view": null
+          },
           "authorization_record": null,
           "authorization_evaluation": null
         },
@@ -468,17 +531,70 @@
           "exclude": []
         },
         "completed_phase": "verify",
+        "primary_route": "verify",
+        "route_plan": ["understand", "change", "verify"],
         "decisions": [],
         "artifacts": [],
         "effect_binding": {
-          "logical_task_id": "task.fixture.verification",
-          "target_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
-          "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444"
+          "logical_task_id": "task.fixture.change",
+          "capability": null,
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
         },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
-          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
-          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"},
+          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
+          "gate_record": {
+            "gate_id": "gate.fixture",
+            "revision": 1,
+            "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "result": "pass",
+            "blocker": "none",
+            "next_action": "continue",
+            "progress": "continue",
+            "work_remaining": true,
+            "missing_evidence_owner": "none",
+            "assumption_effect": "none",
+            "blocking_defer": false
+          },
+          "frontier_record": {
+            "frontier_id": "frontier.fixture",
+            "revision": 1,
+            "logical_task_id": "task.fixture.change",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "visible_unit_ids": ["unit.fixture.scope"],
+            "units": [
+              {
+                "unit_id": "unit.fixture.scope",
+                "revision": 1,
+                "predecessor_unit_ref": null,
+                "successor_unit_ref": null,
+                "gap_kind": "discoverable_fact",
+                "state": "resolved_by_evidence",
+                "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+                "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+                "checkpoint_relevance": "current",
+                "dependency_ids": [],
+                "value_binding": {"kind": "evidence", "ref": "evidence:scope.review"},
+                "safe_default_conditions": [],
+                "authorization_id": null,
+                "runtime_disposition": {
+                  "resolution_action": "investigate",
+                  "defer_effect": "none",
+                  "gate_result": "pass",
+                  "blocker": "none",
+                  "next_action": "continue",
+                  "interaction_kind": "none",
+                  "interaction_requirement": "none",
+                  "interaction_owner": "develop-change",
+                  "progress": "continue"
+                }
+              }
+            ],
+            "clarification_view_history": [],
+            "clarification_view": null
+          },
           "authorization_record": null,
           "authorization_evaluation": null
         },
@@ -511,17 +627,70 @@
           "exclude": []
         },
         "completed_phase": "verify",
+        "primary_route": "deliver",
+        "route_plan": ["understand", "change", "verify", "deliver"],
         "decisions": [],
         "artifacts": [],
         "effect_binding": {
-          "logical_task_id": "task.fixture.stale-capability",
-          "target_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
-          "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444"
+          "logical_task_id": "task.fixture.change",
+          "capability": "stage",
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
         },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
-          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
-          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"},
+          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
+          "gate_record": {
+            "gate_id": "gate.fixture",
+            "revision": 1,
+            "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "result": "pass",
+            "blocker": "none",
+            "next_action": "continue",
+            "progress": "continue",
+            "work_remaining": true,
+            "missing_evidence_owner": "none",
+            "assumption_effect": "none",
+            "blocking_defer": false
+          },
+          "frontier_record": {
+            "frontier_id": "frontier.fixture",
+            "revision": 1,
+            "logical_task_id": "task.fixture.change",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "visible_unit_ids": ["unit.fixture.scope"],
+            "units": [
+              {
+                "unit_id": "unit.fixture.scope",
+                "revision": 1,
+                "predecessor_unit_ref": null,
+                "successor_unit_ref": null,
+                "gap_kind": "discoverable_fact",
+                "state": "resolved_by_evidence",
+                "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+                "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+                "checkpoint_relevance": "current",
+                "dependency_ids": [],
+                "value_binding": {"kind": "evidence", "ref": "evidence:scope.review"},
+                "safe_default_conditions": [],
+                "authorization_id": null,
+                "runtime_disposition": {
+                  "resolution_action": "investigate",
+                  "defer_effect": "none",
+                  "gate_result": "pass",
+                  "blocker": "none",
+                  "next_action": "continue",
+                  "interaction_kind": "none",
+                  "interaction_requirement": "none",
+                  "interaction_owner": "develop-change",
+                  "progress": "continue"
+                }
+              }
+            ],
+            "clarification_view_history": [],
+            "clarification_view": null
+          },
           "authorization_record": null,
           "authorization_evaluation": null
         },
@@ -564,17 +733,70 @@
           "exclude": []
         },
         "completed_phase": "understand",
+        "primary_route": "understand",
+        "route_plan": ["understand"],
         "decisions": [],
         "artifacts": [],
         "effect_binding": {
-          "logical_task_id": "task.fixture.secret",
-          "target_fingerprint": "3333333333333333333333333333333333333333333333333333333333333333",
-          "basis_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444"
+          "logical_task_id": "task.fixture.change",
+          "capability": null,
+          "target_fingerprint": "4444444444444444444444444444444444444444444444444444444444444444",
+          "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666"
         },
         "profile": {"level": "bounded", "confidence": "confirmed"},
         "foundation_binding": {
-          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "1111111111111111111111111111111111111111111111111111111111111111"},
-          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "2222222222222222222222222222222222222222222222222222222222222222"},
+          "gate_ref": {"id": "gate.fixture", "revision": 1, "digest": "eaf943cc068e4e1540b332f2bc7827f59e8fe820c139eb914fc24f704f54d908"},
+          "frontier_ref": {"id": "frontier.fixture", "revision": 1, "digest": "047a4d165e242708613314b790dcd66f062c1c40c8b4952e1f20e045e16c4e75"},
+          "gate_record": {
+            "gate_id": "gate.fixture",
+            "revision": 1,
+            "routing_ref": {"id": "routing.fixture", "revision": 1, "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+            "result": "pass",
+            "blocker": "none",
+            "next_action": "continue",
+            "progress": "continue",
+            "work_remaining": true,
+            "missing_evidence_owner": "none",
+            "assumption_effect": "none",
+            "blocking_defer": false
+          },
+          "frontier_record": {
+            "frontier_id": "frontier.fixture",
+            "revision": 1,
+            "logical_task_id": "task.fixture.change",
+            "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+            "visible_unit_ids": ["unit.fixture.scope"],
+            "units": [
+              {
+                "unit_id": "unit.fixture.scope",
+                "revision": 1,
+                "predecessor_unit_ref": null,
+                "successor_unit_ref": null,
+                "gap_kind": "discoverable_fact",
+                "state": "resolved_by_evidence",
+                "basis_fingerprint": "6666666666666666666666666666666666666666666666666666666666666666",
+                "affected_scope": "f57da2f3653d96b5bf3d85085985a2d83e1e366534298825c02083ebb8577e2e",
+                "checkpoint_relevance": "current",
+                "dependency_ids": [],
+                "value_binding": {"kind": "evidence", "ref": "evidence:scope.review"},
+                "safe_default_conditions": [],
+                "authorization_id": null,
+                "runtime_disposition": {
+                  "resolution_action": "investigate",
+                  "defer_effect": "none",
+                  "gate_result": "pass",
+                  "blocker": "none",
+                  "next_action": "continue",
+                  "interaction_kind": "none",
+                  "interaction_requirement": "none",
+                  "interaction_owner": "develop-change",
+                  "progress": "continue"
+                }
+              }
+            ],
+            "clarification_view_history": [],
+            "clarification_view": null
+          },
           "authorization_record": null,
           "authorization_evaluation": null
         },

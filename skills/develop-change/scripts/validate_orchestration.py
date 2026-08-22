@@ -95,6 +95,8 @@ REQUIRED_HANDOFF_FIELDS = {
     "objective",
     "scope",
     "completed_phase",
+    "primary_route",
+    "route_plan",
     "decisions",
     "artifacts",
     "effect_binding",
@@ -294,6 +296,17 @@ def validate_skill_resolution(record: dict[str, Any]) -> bool:
             return False
         if disposition in {"selected", "composed"} and decision.get("compatible") is not True:
             return False
+        provenance = decision.get("provenance")
+        if disposition in {"selected", "composed"} and not (
+            isinstance(provenance, dict)
+            and isinstance(provenance.get("locator"), str)
+            and provenance["locator"]
+            and isinstance(provenance.get("version"), str)
+            and provenance["version"]
+            and isinstance(provenance.get("content_digest"), str)
+            and re.fullmatch(r"[0-9a-f]{64}", provenance["content_digest"])
+        ):
+            return False
     if any(decision.get("decision") == "blocked" for decision in decisions):
         return status == "blocked"
     return True
@@ -328,6 +341,16 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
         findings.add("HANDOFF-001")
     if record.get("completed_phase") not in ROUTES:
         findings.add("HANDOFF-001")
+    primary_route = record.get("primary_route")
+    route_plan = record.get("route_plan")
+    if (
+        primary_route not in ROUTES
+        or not isinstance(route_plan, list)
+        or not route_plan
+        or primary_route not in route_plan
+        or any(route not in ROUTES for route in route_plan)
+    ):
+        findings.add("HANDOFF-001")
     if not isinstance(record.get("decisions"), list):
         findings.add("HANDOFF-001")
     if not isinstance(record.get("artifacts"), list):
@@ -336,9 +359,15 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
     if (
         not isinstance(effect_binding, dict)
         or set(effect_binding)
-        != {"logical_task_id", "target_fingerprint", "basis_fingerprint"}
+        != {
+            "logical_task_id",
+            "capability",
+            "target_fingerprint",
+            "basis_fingerprint",
+        }
         or not isinstance(effect_binding.get("logical_task_id"), str)
         or not effect_binding.get("logical_task_id")
+        or effect_binding.get("capability") not in CAPABILITIES | {None}
         or any(
             not isinstance(effect_binding.get(field), str)
             or re.fullmatch(r"[0-9a-f]{64}", effect_binding[field]) is None
@@ -358,6 +387,8 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
     if not isinstance(foundation_binding, dict) or set(foundation_binding) != {
         "gate_ref",
         "frontier_ref",
+        "gate_record",
+        "frontier_record",
         "authorization_record",
         "authorization_evaluation",
     }:
@@ -370,6 +401,9 @@ def validate_handoff(record: dict[str, Any]) -> list[str]:
                 "revision",
                 "digest",
             }:
+                findings.add("HANDOFF-001")
+        for field in ("gate_record", "frontier_record"):
+            if not isinstance(foundation_binding[field], dict):
                 findings.add("HANDOFF-001")
         for field in ("authorization_record", "authorization_evaluation"):
             if foundation_binding[field] is not None and not isinstance(
