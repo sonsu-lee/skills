@@ -1,6 +1,6 @@
 {
   "activation": "active",
-  "case_count": 54,
+  "case_count": 58,
   "case_results": [
     {
       "id": "user-named-compatible-skill-wins-over-generic",
@@ -263,6 +263,26 @@
       "status": "pass"
     },
     {
+      "id": "local-change-grant-matches-current-scope",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "local-change-grant-refers-to-current-foundation-record",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "provisional-change-requires-blocked-gate",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
+      "id": "unfinished-handoff-requires-next-action",
+      "kind": "orchestration_record",
+      "status": "pass"
+    },
+    {
       "id": "blocked-handoff-requires-next-action",
       "kind": "orchestration_record",
       "status": "pass"
@@ -274,17 +294,17 @@
     }
   ],
   "findings": [],
-  "passed_case_count": 54,
+  "passed_case_count": 58,
   "schema_version": "develop-change-orchestration-report-v1",
   "source_digests": {
-    "skills/develop-change/evals/orchestration-cases.json": "9f0d9fded4133d362ebb2f21bc79f9eea4e98700d129b1579cd28fd43ee9a13c",
-    "skills/develop-change/evals/orchestration-record-cases.json": "42b07f9fa4f6931a070f6d251f8e08afff0ac2dabf7d281c7224304286a9ec8a",
-    "skills/develop-change/references/handoff-contract.md": "23e175e71700beffdfa2738498e426a1f2a9ae6e18595f0905916a84d3e0406f",
-    "skills/develop-change/references/orchestration-contract.md": "064edf8e36e2450406847d861f95fffde5577680e1546db98572cd4c701fd715",
-    "skills/develop-change/references/orchestration-contract.schema.json": "c21d71b0d047fbd34012f8057ddf9aec64965f8f4179e25d1435256fc7c8458c",
+    "skills/develop-change/evals/orchestration-cases.json": "f51941596a22ec52bfbbed53daed9a8c3fb1abcf18c4662be6534d22382d4388",
+    "skills/develop-change/evals/orchestration-record-cases.json": "6f08a93356f0eeb6265fc3fafb6244398d004b9bd2de93552856c19122ba8e7a",
+    "skills/develop-change/references/handoff-contract.md": "37e9c7a819e97613d9bd04f640fd9a130a06f86e8a85bd77cba18b42bfb59f8c",
+    "skills/develop-change/references/orchestration-contract.md": "f2786e4fc4aa7d3200a8d04174d8aa3e80d3da6a2336857521b347f053041e87",
+    "skills/develop-change/references/orchestration-contract.schema.json": "7b50b5534177f12670e3b94b957f203e81acb900523d80580bffe9a4c8df893b",
     "skills/develop-change/references/skill-resolution-contract.md": "875c47e6f1087fc87081d0e1c86a2759ca8f07dcc422bf9ee3bdef0a7ef18aab",
-    "skills/develop-change/scripts/validate_orchestration.py": "48ca0fdec5ce46cd25c3dd693e1046c506696e481d3c236bcce5826b122920e3",
-    "skills/develop-change/scripts/validate_orchestration_record.py": "d6bca858ae0a1d44d560c0ea992050eec88452b0824cab24f13a64f65d850875"
+    "skills/develop-change/scripts/validate_orchestration.py": "35df5a6b6c04935598cb177980b9b600ae90c6bf1cf2f882f1c14e6f4e0e1e0a",
+    "skills/develop-change/scripts/validate_orchestration_record.py": "429c32ad9353fe4ee2d530a35fa169695124aadf9791f11bff302c3cf75750ab"
   },
   "status": "pass"
 }
